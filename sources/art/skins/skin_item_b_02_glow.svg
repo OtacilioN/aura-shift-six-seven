@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_b_02_glow</title>
+  <desc>complete paired lag sneakers with short delayed contour echoes; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_b_02_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M342 838 C319 848 310 869 316 890 C321 909 342 923 374 929" fill="none" stroke="#FF4FA3" stroke-width="16" opacity="0.28" stroke-linecap="round"/><path d="M682 838 C705 848 714 869 708 890 C703 909 682 923 650 929" fill="none" stroke="#FF4FA3" stroke-width="16" opacity="0.28" stroke-linecap="round"/><path d="M330 856 Q310 879 326 902 M694 856 Q714 879 698 902" fill="none" stroke="#FF7A66" stroke-width="10" opacity="0.24" stroke-linecap="round"/><path d="M332 930 Q358 943 388 946 M692 930 Q666 943 636 946" fill="none" stroke="#FF4FA3" stroke-width="12" opacity="0.22" stroke-linecap="round"/></g></g>
+</svg>

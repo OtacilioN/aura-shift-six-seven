@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_04_base</title>
+  <desc>open gate coat with lapels split zipper and geometric pockets; base layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_04_base;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="base"><path d="M368 492 Q398 458 448 450 L512 522 L486 798 L416 818 Q378 728 362 592 Z" fill="#141936" stroke="#090B1A" stroke-width="18" stroke-linejoin="round"/><path d="M656 492 Q626 458 576 450 L512 522 L538 798 L608 818 Q646 728 662 592 Z" fill="#141936" stroke="#090B1A" stroke-width="18" stroke-linejoin="round"/><path d="M448 450 L512 522 L466 612 L404 486 Z" fill="#202750" stroke="#090B1A" stroke-width="14" stroke-linejoin="round"/><path d="M576 450 L512 522 L558 612 L620 486 Z" fill="#202750" stroke="#090B1A" stroke-width="14" stroke-linejoin="round"/><path d="M506 540 L484 788 M518 540 L540 788" fill="none" stroke="#090B1A" stroke-width="20" stroke-linecap="round"/><path d="M390 646 L472 626 L468 700 L404 716 Z" fill="#202750" stroke="#090B1A" stroke-width="14" stroke-linejoin="round"/><path d="M552 626 L634 646 L620 716 L556 700 Z" fill="#202750" stroke="#090B1A" stroke-width="14" stroke-linejoin="round"/></g></g>
+</svg>

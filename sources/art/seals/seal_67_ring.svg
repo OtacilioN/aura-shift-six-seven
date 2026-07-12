@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>seal_67_ring</title>
+  <desc>Modular rounded-hex Signal 67 component seal_67_ring. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=seal_67_ring;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="seal_67_ring"><path d="M256 34 L444 142 L444 358 L256 466 L68 358 L68 142 Z" fill="none" stroke="#FFD166" stroke-width="24" stroke-linejoin="round"/><path d="M256 74 L408 162 L408 338 L256 426 L104 338 L104 162 Z" fill="none" stroke="#8B7CFF" stroke-width="14" stroke-dasharray="30 18"/></g></g>
+</svg>

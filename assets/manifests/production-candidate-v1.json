@@ -1,0 +1,69 @@
+{
+  "components": {
+    "art": {
+      "entries": 222,
+      "manifest": "assets/manifests/art-manifest-v1.json",
+      "manifestSha256": "98cc36b0b8a8fa31d5eca3d2815d6d5855eefed0323a472599d7ad0dc985311a",
+      "reviewOnlyEntries": 3,
+      "revision": 3,
+      "runtimeBytes": 1403534,
+      "runtimeEntries": 219
+    },
+    "audio": {
+      "conditionalMasters": 4,
+      "coreAudio": {
+        "musicFrameCountExact": "9/9",
+        "musicSeamGate": "9/9",
+        "musicZeroOffsetAligned": "0/9",
+        "sfxSampleExact": "35/35"
+      },
+      "manifest": "assets/audio/audio-candidate-manifest-v1.json",
+      "manifestSha256": "18c2efd2243054d8f3ddfd149a6df724a777e09e61e0a6dcdc8bbc3539a2e6dd",
+      "masterBytes": 216686416,
+      "masters": 44,
+      "requiredMasters": 40,
+      "reviewEvidenceRevision": 2,
+      "reviewEvidenceSha256": "0d7123c8c8ecab87133800bb38051a48a1848a92f33264e8ad5d922e1dd0a335",
+      "revision": 3,
+      "runtimeBytes": 10764639,
+      "runtimeFormats": {
+        "ogg": 9,
+        "wav": 35
+      }
+    },
+    "brand": {
+      "bytes": 2375767,
+      "featureGraphic": "assets/brand/aura_shift_feature_graphic_v1.webp",
+      "featureGraphicSha256": "e7820259ad5f2b087f6b6dee0f54cfd94b46ce63affde60075475260a4568559",
+      "files": 39,
+      "keyArt": "sources/art/concepts/aura_shift_key_art_imagegen_v1.png",
+      "keyArtSha256": "f352b503699adc4126abeae4efe2aa6209977cd11c2593829879c1f640f94eea",
+      "manifest": "assets/manifests/brand-manifest-v1.json",
+      "manifestSha256": "18ee7826361b0e0a035d2db0f97af7de53a1126eb8215a906e7f07485166c133",
+      "revision": 2
+    },
+    "fonts": {
+      "bytes": 20088980,
+      "files": 6,
+      "manifest": "assets/manifests/font-manifest-v1.json",
+      "manifestSha256": "10be5a10808b4e58d1e1c9d6e15181978ab8aaefd7107f78bdb433e25af7cc3b",
+      "revision": 1
+    }
+  },
+  "integration": {
+    "audioEventPlayback": "not-integrated",
+    "audioRuntime": "bundled-candidate",
+    "visualSceneRuntime": "integrated-candidate",
+    "visualUiCollectionTree": "generated-bundled-not-integrated"
+  },
+  "manualGates": [
+    "visual-cultural-originality-acceptance",
+    "human-listening-fatigue-and-similarity-review",
+    "android-loop-latency-focus-and-resume-test",
+    "adaptive-icon-splash-and-safe-area-device-test",
+    "arabic-japanese-reflow-and-200-percent-text-scale-test"
+  ],
+  "revision": 1,
+  "schema": "production-candidate-v1",
+  "status": "candidate-reviewed"
+}

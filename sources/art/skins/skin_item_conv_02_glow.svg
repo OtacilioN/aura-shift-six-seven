@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_conv_02_glow</title>
+  <desc>three exhausted irregular color streams settling into one stable common core; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_conv_02_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M92 292 C142 248 176 340 226 304 M260 286 C306 272 300 358 354 346 M386 356 C426 370 436 414 452 452" fill="none" stroke="#43E6FF" stroke-width="54" stroke-linecap="round" opacity="0.16"/><path d="M932 306 C882 352 848 260 796 304 M762 286 C716 276 724 360 670 348 M638 360 C600 380 584 416 572 452" fill="none" stroke="#FF4FA3" stroke-width="54" stroke-linecap="round" opacity="0.16"/><path d="M270 862 C326 838 292 754 350 732 M382 718 C426 708 388 646 436 618 M454 594 C480 584 500 572 512 560" fill="none" stroke="#FFD166" stroke-width="54" stroke-linecap="round" opacity="0.16"/><circle cx="512" cy="488" r="104" fill="none" stroke="#52E0A4" stroke-width="24" opacity="0.20"/><circle cx="512" cy="488" r="126" fill="none" stroke="#F7F5FF" stroke-width="8" opacity="0.14"/></g></g>
+</svg>

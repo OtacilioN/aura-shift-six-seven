@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_c_04_accent</title>
+  <desc>unemployed physical Wi-Fi router ground prop with enclosure twin antennas status LEDs and vector signal mark; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_c_04_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><g id="router_status_and_signal"><path d="M690 748 L664 548 M890 748 L916 548" fill="none" stroke="#FFD166" stroke-width="10" stroke-linecap="round"/><circle cx="664" cy="548" r="10" fill="#52E0A4"/><circle cx="916" cy="548" r="10" fill="#52E0A4"/><circle cx="680" cy="840" r="7" fill="#52E0A4"/><circle cx="716" cy="840" r="7" fill="#FFD166"/><path d="M752 778 Q790 745 828 778" fill="none" stroke="#52E0A4" stroke-width="9" stroke-linecap="round"/></g></g></g>
+</svg>

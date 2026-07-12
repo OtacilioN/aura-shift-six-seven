@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>vfx_spark</title>
+  <desc>Structured Aura particle vfx_spark. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=vfx_spark;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="vfx_spark"><path d="M64 8 L102 64 L64 120 L26 64 Z" fill="#FFD166" stroke="#090B1A" stroke-width="10" stroke-linejoin="round"/><path d="M64 34 L82 64 L64 94 L46 64 Z" fill="#F7F5FF"/></g></g>
+</svg>

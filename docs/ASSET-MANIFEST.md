@@ -1,6 +1,10 @@
 # Aura Shift: Six Seven — Manifesto de Assets Visuais
 
-> Contrato `asset-manifest-v1`. Este documento define o inventário e a entrega; não afirma que os arquivos finais já foram produzidos.
+> Contrato `asset-manifest-v1`. Este documento define o inventário e a entrega.
+> O candidato técnico imutável está em `assets/manifests/art-manifest-v1.json`.
+> A decisão humana de 10 de julho de 2026 gerou
+> `assets/manifests/art-approved-manifest-v1.json`, consumido pelo runtime; a
+> validação em aparelho permanece separada.
 
 ## Estado e escopo
 
@@ -62,11 +66,17 @@ provenance/art/
 | slot `CHEST` | `(0.50, 0.50)` | `(512, 520)` | não herda rotação das mãos |
 | slot `SHOULDER` | `(0.50, 0.50)` | ombro declarado L/R | subslot declarado no metadado |
 | slot `FACE_SIDE` | `(0.50, 0.50)` | face lateral `(512, 340)` | offset L/R declarado |
+| slot `FACE_WEAR` | `(0.50, 0.50)` | olhos `FACE_EYES` | acompanha bob, lean e rotação; fica sob as mãos |
+| slot `BODY_WEAR` | `(0.50, 0.72)` | corpo `(512, 620)` | roupa frontal; fica sobre o corpo e sob as mãos |
 | slot `HEAD_BACK` | `(0.50, 0.82)` | `(512, 228)` | sempre atrás do rosto/mãos |
+| slot `HEAD_WEAR` | `(0.50, 0.82)` | topo frontal `(512, 228)` | acompanha a cabeça e fica sob as mãos |
 | slot `HIP` | `(0.50, 0.50)` | `(512, 675)` | offset L/R declarado |
 | slot `ANKLES` | `(0.50, 0.76)` | `(512, 825)` | componentes L/R próprios |
+| slot `HAND_PROP` | `(0.50, 0.50)` | território da mão declarada | composto sobre as mãos |
+| slot `HANDS_WEAR` | `(0.50, 0.56)` | centros/pulsos atuais do par | arte neutra na Coleção; runtime articulado sobre as mãos |
 | slot `BODY_BACK` | `(0.50, 0.72)` | `(512, 620)` | atrás do corpo |
 | slot `GROUND_BACK` | `(0.50, 0.50)` | `(512, 865)` | atrás dos pés |
+| slot `GROUND_PROP` | `(0.77, 0.88)` | chão direito `(790, 800)` | world-space e atrás do Mascote |
 | slot `SCENE_FRAME` | `(0.50, 0.50)` | `(512, 540)` | atrás do palco e fora da UI |
 | slot `AURA_BACK` | `(0.50, 0.58)` | `(512, 560)` | Convergências; atrás do rig |
 
@@ -81,13 +91,13 @@ Do fundo para a frente:
 3. `BG-MID`;
 4. `SLOT-SCENE-FRAME`;
 5. `VFX-AURA-BACK` e `SLOT-AURA-BACK`;
-6. `SLOT-GROUND-BACK`;
+6. `SLOT-GROUND-BACK` e `SLOT-GROUND-PROP-BACK`;
 7. `SLOT-BODY-BACK`, `SLOT-HEAD-BACK` e `SLOT-SHOULDER-BACK`;
 8. `CHR-ARM-BACK`;
-9. `CHR-BODY`;
-10. `SLOT-CHEST`, `SLOT-SHOULDER-FRONT`, `SLOT-HIP` e `SLOT-ANKLES`;
-11. `CHR-FACE` e `SLOT-FACE-SIDE`;
-12. `CHR-HANDS`;
+9. `CHR-BODY` e `CHR-FACE`;
+10. `SLOT-BODY-WEAR`, `SLOT-CHEST`, `SLOT-SHOULDER-FRONT`, `SLOT-HIP`, `SLOT-ANKLES`, `SLOT-FACE-SIDE`, `SLOT-FACE-WEAR` e `SLOT-HEAD-WEAR`;
+11. `CHR-HANDS`;
+12. `SLOT-HAND-PROP-FRONT` e `SLOT-HANDS-WEAR-FRONT`;
 13. `VFX-AURA-FRONT`;
 14. feedback de contato;
 15. overlays de evento sem texto;
@@ -143,24 +153,24 @@ Cada linha representa uma aparência composta por até `base`, `accent` e `glow`
 
 | ID de conteúdo | ID de asset | Slot | Território/complexidade | Reduced |
 | --- | --- | --- | --- | --- |
-| `ITEM-A-01` | `skin_item_a_01` | `CHEST` | broche assimétrico pequeno no peito | borda/reflexo estáticos |
-| `ITEM-A-02` | `skin_item_a_02` | `SHOULDER` | faixa diagonal média sobre o ombro | filete e nós estáticos |
-| `ITEM-A-03` | `skin_item_a_03` | `FACE_SIDE` | visor abstrato lateral e facetas | reflexo fixo sem flash |
-| `ITEM-A-04` | `skin_item_a_04` | `BODY_BACK` | cauda curta de casaco e abas | sem flutuação/parallax |
-| `ITEM-A-05` | `skin_item_a_05` | `HEAD_BACK` | halo aberto atrás da cabeça | órbitas convertidas em marcas |
-| `ITEM-B-01` | `skin_item_b_01` | `HIP` | módulo arredondado pequeno no quadril | aro estático |
-| `ITEM-B-02` | `skin_item_b_02` | `ANKLES` | tornozeleiras geométricas e rastro curto | sem faíscas contínuas |
-| `ITEM-B-03` | `skin_item_b_03` | `GROUND_BACK` | anéis achatados atrás dos pés | ecos estáticos |
-| `ITEM-B-04` | `skin_item_b_04` | `BODY_BACK` | fita escura luminosa atrás das mãos | sem órbita/overshoot |
-| `ITEM-B-05` | `skin_item_b_05` | `SCENE_FRAME` | horizonte abstrato de barras | barras e onda estáticas |
-| `ITEM-C-01` | `skin_item_c_01` | `CHEST` | pin quadrado com canais deslocados | recortes estáticos |
-| `ITEM-C-02` | `skin_item_c_02` | `FACE_SIDE` | lente flutuante lateral | sem rotação/retícula pulsante |
-| `ITEM-C-03` | `skin_item_c_03` | `BODY_BACK` | painel largo de estática tonal | bandas sem cintilação |
-| `ITEM-C-04` | `skin_item_c_04` | `HEAD_BACK` | três antenas curvas atrás da cabeça | pulso substituído por marcas |
-| `ITEM-C-05` | `skin_item_c_05` | `SCENE_FRAME` | moldura aberta no fundo da cena | profundidade achatada |
-| `ITEM-CONV-01` | `skin_item_conv_01` | `AURA_BACK` | nó triangular atrás do Mascote | sem giro/glow |
-| `ITEM-CONV-02` | `skin_item_conv_02` | `AURA_BACK` | prisma aberto de três faixas | espectro estático |
-| `ITEM-CONV-03` | `skin_item_conv_03` | `AURA_BACK` | linha contínua entre halo, piso e moldura | camadas achatadas |
+| `ITEM-A-01` | `skin_item_a_01` | `CHEST` | botão físico de quatro furos costurado no peito | halo e costuras estáticos |
+| `ITEM-A-02` | `skin_item_a_02` | `HIP` | recibo térmico luminoso no bolso direito | picote e carimbo abstratos estáticos |
+| `ITEM-A-03` | `skin_item_a_03` | `FACE_WEAR` | óculos de QA frontais com duas lentes, ponte e hastes | reflexos fixos sem varredura |
+| `ITEM-A-04` | `skin_item_a_04` | `BODY_WEAR` | jaqueta aberta com lapelas, bolsos e zíper bipartido | sem pulso no zíper |
+| `ITEM-A-05` | `skin_item_a_05` | `HEAD_WEAR` | coroa de hotfix vestível com três pontas e placas remendadas | placas e rebites estáticos |
+| `ITEM-B-01` | `skin_item_b_01` | `GROUND_PROP` | despertador clássico/digital 6:70 no chão à direita | sinos e visor estáticos |
+| `ITEM-B-02` | `skin_item_b_02` | `ANKLES` | par completo de tênis com rastro atrasado | sem alternância dos ecos |
+| `ITEM-B-03` | `skin_item_b_03` | `HAND_PROP` | anel físico lateral com gema e ponto orbital | ponto junto da gema |
+| `ITEM-B-04` | `skin_item_b_04` | `HANDS_WEAR` | botões táteis e braceletes articulados nas duas mãos | ligação sem pulso viajante |
+| `ITEM-B-05` | `skin_item_b_05` | `SCENE_FRAME` | extrato astral em gráfico abstrato de barras | barras e curva estáticas |
+| `ITEM-C-01` | `skin_item_c_01` | `CHEST` | crachá de glitch homologado no peito | recortes estáticos |
+| `ITEM-C-02` | `skin_item_c_02` | `HIP` | decimal e dígitos segmentados fugindo para o bolso | pose de meia-fuga estática |
+| `ITEM-C-03` | `skin_item_c_03` | `BODY_BACK` | capa vestida com gola, duas caudas e costuras digitais | caudas e blocos estáticos |
+| `ITEM-C-04` | `skin_item_c_04` | `GROUND_PROP` | roteador físico com duas antenas no chão à direita | LEDs e ondas estáticos |
+| `ITEM-C-05` | `skin_item_c_05` | `SCENE_FRAME` | moldura quebrada, `404` vetorial e horizonte ausente | profundidade achatada |
+| `ITEM-CONV-01` | `skin_item_conv_01` | `AURA_BACK` | três participantes e fitas entrelaçadas num nó | sem pulsos em trânsito |
+| `ITEM-CONV-02` | `skin_item_conv_02` | `AURA_BACK` | três fluxos exaustos estabilizando em um núcleo | fluxos e núcleo estáticos |
+| `ITEM-CONV-03` | `skin_item_conv_03` | `AURA_BACK` | parafuso lateral com rosca e três linhas presas à cabeça | camadas achatadas |
 
 As três camadas visuais cobrem a variação de Marcos de Nível: `base` no desbloqueio, `accent` a partir do nível 10 e `glow` a partir do nível 25. O manifesto registra um `milestoneProfile` por ID com os tratamentos canônicos de `CONTENT-CATALOG.md` nos níveis `10`, `25`, `50`, `100` e múltiplos posteriores; `50/100+` reutilizam geometria, material e overlays paramétricos, sem sprites exclusivos por nível. Essa apresentação não altera o Efeito de Item e pode ser escondida.
 

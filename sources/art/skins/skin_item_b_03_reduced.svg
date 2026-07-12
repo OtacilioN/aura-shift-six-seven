@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_b_03_reduced</title>
+  <desc>floating physical remainder ring with one small surviving gem point; reduced layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_b_03_reduced;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="reduced_base"><path d="M790 136 C844 136 882 190 882 260 C882 332 844 384 790 384 C736 384 698 332 698 260 C698 190 736 136 790 136 Z M790 194 C762 194 744 222 744 260 C744 300 762 326 790 326 C818 326 836 300 836 260 C836 222 818 194 790 194 Z" fill="#141936" fill-rule="evenodd" stroke="#090B1A" stroke-width="20" stroke-linejoin="round" transform="rotate(12 790 260)"/><path d="M754 158 L764 126 Q790 102 816 126 L826 158 L806 180 H774 Z" fill="#202750" stroke="#090B1A" stroke-width="14" stroke-linejoin="round" transform="rotate(12 790 260)"/><circle cx="790" cy="124" r="23" fill="#FF7A66" stroke="#090B1A" stroke-width="11" transform="rotate(12 790 260)"/></g><g id="reduced_accent"><path d="M728 326 C710 282 712 218 734 178 M846 192 C868 236 868 294 850 334" fill="none" stroke="#FF4FA3" stroke-width="15" stroke-linecap="round" transform="rotate(12 790 260)"/><path d="M780 116 Q790 108 800 116" fill="none" stroke="#F7F5FF" stroke-width="7" stroke-linecap="round" transform="rotate(12 790 260)"/><circle cx="796" cy="120" r="5" fill="#F7F5FF" transform="rotate(12 790 260)"/></g></g>
+</svg>

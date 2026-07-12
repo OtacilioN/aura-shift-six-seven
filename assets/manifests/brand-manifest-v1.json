@@ -1,0 +1,208 @@
+{
+  "schema": "brand-manifest-v1",
+  "status": "candidate-reviewed",
+  "revision": 2,
+  "source": "tools/assets/generate_brand_assets.py",
+  "sourceType": "deterministic-python-geometry",
+  "editableVectorReference": "sources/art/brand/app_icon_master.svg",
+  "licenseRecord": "provenance/art/brand-v2.md",
+  "featureGraphic": "assets/brand/aura_shift_feature_graphic_v1.webp",
+  "featureGraphicConcept": "sources/art/concepts/aura_shift_key_art_imagegen_v1.png",
+  "files": [
+    {
+      "path": "sources/art/brand/app_icon_master.svg",
+      "bytes": 1315,
+      "sha256": "df8eab3ee78b0a8592dc5679158d6e14d2e8c767bf7e864eb047d64c1dffd36b"
+    },
+    {
+      "path": "assets/brand/app_icon_store_512.png",
+      "bytes": 56615,
+      "sha256": "618c0379af6b5db7fd4987b3458bba3508256af1aeca9662b613fffcd4a80722"
+    },
+    {
+      "path": "assets/brand/app_icon_master_1024.png",
+      "bytes": 17405,
+      "sha256": "ad7cd7d62e75e88e46bf483a58b33b78f6abb0d2079191da55c7d7e0b30fda0c"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "bytes": 3692,
+      "sha256": "b05303656c95363a155b6b97c01c70f3b3128d71a76e1d066ceae1ac5f534ea8"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "bytes": 6392,
+      "sha256": "a6d1a291138f5c241c3661642f4d3c072d1a23d657705bec31d61490bcbb7d77"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "bytes": 9188,
+      "sha256": "450781b9207111e40538808d95fd5d7250d5da4b0bce08d4e9446a75ed4d9998"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "bytes": 15257,
+      "sha256": "27a6f866347ae6baabf5205529e71058e991a77f338df3a1ce63f57f97d1dfe2"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "bytes": 21708,
+      "sha256": "a9e6b9351cc13496ef5c5d85817d6cab195cec9b9a947928d0abeb9071781e42"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/ic_launcher_foreground.png",
+      "bytes": 32681,
+      "sha256": "2424203927ce30620c375add2181e4804f18e9589986470df596d415d95b42ba"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/ic_launcher_monochrome.png",
+      "bytes": 29926,
+      "sha256": "2ff4d019ba1a86da60903d04a1ca11e09225f9446a5b33b8118fc46d96f51415"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/launch_brand.png",
+      "bytes": 27313,
+      "sha256": "e53c1745319b75b784ce0a2c6e8ede3c20968584760b0ff6f1b196576cce8bc3"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png",
+      "bytes": 1027,
+      "sha256": "d0ace8df2e12a2493b5b6cfac67a6e6db28873ac592dad95730a11a45b9bc7eb"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png",
+      "bytes": 2877,
+      "sha256": "86c38749219e5b865bcddbab449ae6dc38482c984670f1ecda8935bb68177810"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png",
+      "bytes": 5018,
+      "sha256": "2ccf1eeec46243ae71c00bc63bba3fcd5e768ac428936003d5ba7e6d90ff1eb5"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png",
+      "bytes": 1802,
+      "sha256": "7c9214a9ad9032e83d5f1201682ef2dca7f2b4907a5d0f614305e85325a268cb"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png",
+      "bytes": 4770,
+      "sha256": "712272af341bcf5589974609fd66fcb258556bc52f80d3cf863518dbca1eb605"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png",
+      "bytes": 8045,
+      "sha256": "506750c66f23cf1f9eb1390721c4c52181c77a6b5acac4be73f632c96f57bac9"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png",
+      "bytes": 2877,
+      "sha256": "86c38749219e5b865bcddbab449ae6dc38482c984670f1ecda8935bb68177810"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png",
+      "bytes": 7260,
+      "sha256": "511b5c6798b3ca6d483d7fdc558e8f78b92092bb5980acec91dd5be6445f9d5b"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png",
+      "bytes": 12159,
+      "sha256": "96614f7135afcb73e1a3c38ed04a8444e4988dd7c34d2802f78bfeebd8d5aa0c"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png",
+      "bytes": 12159,
+      "sha256": "96614f7135afcb73e1a3c38ed04a8444e4988dd7c34d2802f78bfeebd8d5aa0c"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png",
+      "bytes": 20188,
+      "sha256": "f448ce59814644ad34987e1aec6e94a1f69eb3eab392c04c9c52d4540742ed59"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png",
+      "bytes": 6751,
+      "sha256": "2a30f8de573e01c6d27196e801f6f70814e890feac51d5150009688fe2570dfd"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png",
+      "bytes": 16393,
+      "sha256": "180544f73151279d4c242c53208810b513bc93d59cf53c47a8c5ca07f149f663"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png",
+      "bytes": 18328,
+      "sha256": "e0bf7cf248845d3146771f9046d082233782b05c65fc9e6243d31c4e12bb00b2"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "bytes": 17405,
+      "sha256": "ad7cd7d62e75e88e46bf483a58b33b78f6abb0d2079191da55c7d7e0b30fda0c"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png",
+      "bytes": 15722,
+      "sha256": "b93cc7e69dfdd173e7c8236e374f1d2621a7116a6ecc581108c491138c2762f1"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png",
+      "bytes": 35337,
+      "sha256": "0a1c4d83035a3981cb1d0872941b70c57f6b658d1e94337518d35fe08f2d8acc"
+    },
+    {
+      "path": "ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png",
+      "bytes": 52923,
+      "sha256": "bb803e255c31ff62398416899064183da38ecadbf8b03fafcd3c166ba9f90e36"
+    },
+    {
+      "path": "android/app/src/main/AndroidManifest.xml",
+      "bytes": 2391,
+      "sha256": "e71247a60bdb8941116f6db742f0a76dcbaa78fd2fb87c4d069babda93ac912d"
+    },
+    {
+      "path": "android/app/src/main/res/values/brand_colors.xml",
+      "bytes": 173,
+      "sha256": "73bf40d7f1cd5cfc8b9f1a7bb92c4df7445d2a8c7881613534f8e012c8e78688"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "bytes": 270,
+      "sha256": "32715ff646f6b9fef7c321138e4a14556c4a1f98a87b06070b56f41643dad718"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml",
+      "bytes": 341,
+      "sha256": "bbaf996b7b1356da55819d20c1920c34e20b1288fe7cec441aefeda5ea53d24a"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/launch_background.xml",
+      "bytes": 310,
+      "sha256": "c5087a6d3b4ceec463ee9c5dd47fe909e48be9322841cd38829894d5d9cfadcf"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-v21/launch_background.xml",
+      "bytes": 310,
+      "sha256": "c5087a6d3b4ceec463ee9c5dd47fe909e48be9322841cd38829894d5d9cfadcf"
+    },
+    {
+      "path": "ios/Runner/Base.lproj/LaunchScreen.storyboard",
+      "bytes": 2411,
+      "sha256": "6fb4b961e2f6c27ef148894bbe070adf8aa62125def85c358ff8564f6a40e7b3"
+    },
+    {
+      "path": "tools/assets/generate_brand_assets.py",
+      "bytes": 12373,
+      "sha256": "3c6513eb5475defe8d122f4e455405376a2d28d75ebff6d679c529bddc03d9ed"
+    },
+    {
+      "path": "assets/brand/aura_shift_feature_graphic_v1.webp",
+      "bytes": 46508,
+      "sha256": "e7820259ad5f2b087f6b6dee0f54cfd94b46ce63affde60075475260a4568559"
+    },
+    {
+      "path": "sources/art/concepts/aura_shift_key_art_imagegen_v1.png",
+      "bytes": 1848147,
+      "sha256": "f352b503699adc4126abeae4efe2aa6209977cd11c2593829879c1f640f94eea"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>chr_body_base</title>
+  <desc>Canonical pseudo-rig component body. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=chr_body_base;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="body"><path d="M512 110 C700 110 790 260 770 480 C758 626 700 770 620 840 C580 876 444 876 404 840 C324 770 266 626 254 480 C234 260 324 110 512 110 Z" fill="#141936" stroke="#090B1A" stroke-width="30" stroke-linejoin="round"/><path d="M512 150 C654 150 724 275 708 470 C696 610 650 722 584 785 C552 815 472 815 440 785 C374 722 328 610 316 470 C300 275 370 150 512 150 Z" fill="#202750"/><path d="M344 540 C382 688 428 758 504 790 C430 804 374 770 336 700 C306 644 292 580 288 506 Z" fill="#322860" opacity="0.92"/><g id="face_plate"><ellipse cx="512" cy="342" rx="154" ry="138" fill="#F7F5FF" stroke="#090B1A" stroke-width="24"/><path d="M410 274 Q512 224 614 274" fill="none" stroke="#8B7CFF" stroke-width="14" stroke-linecap="round" opacity="0.42"/></g><path d="M454 812 C426 846 414 892 432 920 C454 951 505 940 518 898 C528 863 498 824 454 812 Z" fill="#202750" stroke="#090B1A" stroke-width="26"/><path d="M570 812 C598 846 610 892 592 920 C570 951 519 940 506 898 C496 863 526 824 570 812 Z" fill="#202750" stroke="#090B1A" stroke-width="26"/><path d="M396 255 C456 210 576 201 636 240" fill="none" stroke="#8B7CFF" stroke-width="18" stroke-linecap="round" opacity="0.76"/></g></g>
+</svg>

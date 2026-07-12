@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="2160" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_02_reduced</title>
+  <desc>FORM-02 canonical reduced layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_02_reduced;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_02_reduced"><path d="M970 500 C1290 500 1430 790 1380 1120 C1338 1400 1200 1580 990 1640 C780 1580 642 1400 600 1120 C550 790 690 500 970 500 Z" fill="#8B7CFF" opacity="0.28" stroke="#43E6FF" stroke-width="36"/><path d="M450 1400 C760 1220 1030 1420 1690 1080" fill="none" stroke="#FF4FA3" stroke-width="48" opacity="0.62"/></g></g>
+</svg>

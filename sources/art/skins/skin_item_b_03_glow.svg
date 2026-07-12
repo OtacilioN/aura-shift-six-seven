@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_b_03_glow</title>
+  <desc>floating physical remainder ring with one small surviving gem point; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_b_03_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M690 330 C660 260 672 184 724 138 M856 148 C904 204 910 286 874 348" fill="none" stroke="#FF4FA3" stroke-width="24" stroke-linecap="round" opacity="0.24" transform="rotate(12 790 260)"/><circle cx="790" cy="124" r="42" fill="none" stroke="#FF7A66" stroke-width="16" opacity="0.30" transform="rotate(12 790 260)"/></g></g>
+</svg>

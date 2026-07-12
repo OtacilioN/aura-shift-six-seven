@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_01_accent</title>
+  <desc>suspicious button physical four-hole stitched shirt button; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_01_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><g id="fitted_shirt_button_accent" transform="translate(400 548) scale(0.62) translate(-430 -580)"><path d="M393 545 A52 52 0 0 1 464 544" fill="none" stroke="#F7F5FF" stroke-width="9" stroke-linecap="round" opacity="0.76"/><circle cx="406" cy="556" r="12" fill="#090B1A" stroke="#F7F5FF" stroke-width="5"/><circle cx="454" cy="556" r="12" fill="#090B1A" stroke="#F7F5FF" stroke-width="5"/><circle cx="406" cy="604" r="12" fill="#090B1A" stroke="#F7F5FF" stroke-width="5"/><circle cx="454" cy="604" r="12" fill="#090B1A" stroke="#F7F5FF" stroke-width="5"/><path d="M406 556 L454 604 M454 556 L406 604" fill="none" stroke="#090B1A" stroke-width="15" stroke-linecap="round"/><path d="M406 556 L454 604 M454 556 L406 604" fill="none" stroke="#3478F6" stroke-width="8" stroke-linecap="round"/></g></g></g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_conv_01_accent</title>
+  <desc>three participant ribbons braided into one meeting knot; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_conv_01_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><path d="M620 430 C554 474 492 444 458 492" fill="none" stroke="#090B1A" stroke-width="54" stroke-linecap="round"/><path d="M620 430 C554 474 492 444 458 492" fill="none" stroke="#43E6FF" stroke-width="26" stroke-linecap="round"/><path d="M566 492 C600 540 566 590 510 598" fill="none" stroke="#090B1A" stroke-width="54" stroke-linecap="round"/><path d="M566 492 C600 540 566 590 510 598" fill="none" stroke="#8B7CFF" stroke-width="26" stroke-linecap="round"/><path d="M626 594 C620 518 546 486 486 520" fill="none" stroke="#090B1A" stroke-width="54" stroke-linecap="round"/><path d="M626 594 C620 518 546 486 486 520" fill="none" stroke="#FFD166" stroke-width="26" stroke-linecap="round"/><circle cx="160" cy="270" r="50" fill="none" stroke="#F7F5FF" stroke-width="4" opacity="0.72"/><circle cx="864" cy="270" r="50" fill="none" stroke="#F7F5FF" stroke-width="4" opacity="0.72"/><circle cx="512" cy="872" r="50" fill="none" stroke="#F7F5FF" stroke-width="4" opacity="0.72"/></g></g>
+</svg>

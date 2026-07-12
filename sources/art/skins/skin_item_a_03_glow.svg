@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_03_glow</title>
+  <desc>QA goggles paired transparent lenses with bridge and temple arms; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_03_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><g id="qa_glasses_eye_alignment_glow" transform="translate(0 34)"><rect x="402" y="292" width="112" height="96" rx="40" fill="none" stroke="#43E6FF" stroke-width="14" opacity="0.28"/><rect x="510" y="292" width="112" height="96" rx="40" fill="none" stroke="#43E6FF" stroke-width="14" opacity="0.28"/><path d="M430 354 H486 M538 354 H594" fill="none" stroke="#3478F6" stroke-width="9" stroke-linecap="round" opacity="0.34"/></g></g></g>
+</svg>

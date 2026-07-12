@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_s_07</title>
+  <desc>Shape-redundant achievement badge again_with_feeling. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_s_07;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_s_07"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M128 350 Q256 286 384 350" fill="none" stroke="#FF4FA3" stroke-width="28"/><path d="M154 286 Q256 226 358 286" fill="none" stroke="#FFD166" stroke-width="28"/><path d="M256 350 V130 M204 182 L256 130 L308 182" fill="none" stroke="#43E6FF" stroke-width="26"/></g></g>
+</svg>

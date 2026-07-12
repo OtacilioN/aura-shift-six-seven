@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="3840" viewBox="0 0 2160 3840" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>bg_base_mid</title>
+  <desc>Portrait bg_base_mid separated background plane. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=bg_base_mid;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="bg_base_mid"><path d="M120 2140 Q430 1860 760 2120" fill="none" stroke="#43E6FF" stroke-width="54" opacity="0.20"/><path d="M1400 2040 Q1760 1740 2080 2100" fill="none" stroke="#8B7CFF" stroke-width="54" opacity="0.20"/></g></g>
+</svg>

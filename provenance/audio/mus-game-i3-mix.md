@@ -1,0 +1,29 @@
+# MUS-GAME-I3-MIX — proveniência candidata
+
+- **ID:** `MUS-GAME-I3-MIX`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `16831220345765274559`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/mus_game_i3_mix.wav` — `62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1`
+- **Runtime:** `assets/audio/music/mus_game_i3_mix.ogg` — `627739d6dc9fcfb9bd55827b822fa5a7e1efacea6ed9bd5ca0a8b50d6db09b46`
+- **Conversão SFX:** `n/a`; TPDF determinístico a partir do master PCM24; seed `n/a`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `2` canal(is), `4404706` amostras.
+- **Métricas master:** `-16.0` LUFS-I, `-1.5404` dBFS peak, `-1.5349` dBTP.
+- **Métricas runtime:** `-15.9961` LUFS-I, `-1.425` dBFS peak, `-1.4194` dBTP.
+- **Boundary musical:** taper squared-sine de `1024` frames por lado; gate CoreAudio `pass`.
+- **CoreAudio:** `seam-pass-with-decoder-variance`; frame count `4404706/4404706`; frame 0 alinha ao frame libsndfile `128`; sample-exact `false`; seam `[-108.1035, -58.4781]` dBFS; gate `pass`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

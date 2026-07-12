@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="2160" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_05_halo</title>
+  <desc>FORM-05 canonical halo layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_05_halo;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_05_halo"><path d="M570 850 A570 570 0 0 1 1590 850" fill="none" stroke="#090B1A" stroke-width="110" stroke-linecap="round"/><path d="M570 850 A570 570 0 0 1 1590 850" fill="none" stroke="#FFD166" stroke-width="42" stroke-linecap="round"/><path d="M660 720 A480 480 0 0 1 1500 720" fill="none" stroke="#43E6FF" stroke-width="28" stroke-linecap="round"/></g></g>
+</svg>

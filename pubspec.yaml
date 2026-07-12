@@ -1,0 +1,67 @@
+name: aura_shift_six_seven
+description: "Aura Shift: Six Seven — offline-first incremental mobile game."
+publish_to: none
+version: 0.1.1+2
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flame: ^1.19.0
+  shared_preferences: ^2.3.2
+  intl: ^0.19.0
+  crypto: ^3.0.5
+  file_selector: ^1.1.0
+  google_mobile_ads: ^9.0.0
+  path_provider: ^2.1.4
+  share_plus: ^10.0.2
+  flame_audio: ^2.12.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/l10n/
+    - assets/art/backgrounds/
+    - assets/art/badges/
+    - assets/art/branches/
+    - assets/art/character/
+    - assets/art/events/
+    - assets/art/forms/
+    - assets/art/icons/
+    - assets/art/seals/
+    - assets/art/skins/
+    - assets/art/vfx/
+    - assets/audio/audio-candidate-manifest-v1.json
+    - assets/audio/audio-manifest-v1.json
+    - assets/audio/music/
+    - assets/audio/sfx/cycle/
+    - assets/audio/sfx/events/
+    - assets/audio/sfx/ui/
+    - assets/fonts/licenses/
+    - assets/manifests/
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-Variable.ttf
+    - family: NotoSansJP
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Variable.ttf
+    - family: NotoSansArabic
+      fonts:
+        - asset: assets/fonts/NotoSansArabic-Variable.ttf
+    - family: NotoKufiArabic
+      fonts:
+        - asset: assets/fonts/NotoKufiArabic-Variable.ttf
+    - family: MPlusRounded
+      fonts:
+        - asset: assets/fonts/MPlusRounded1c-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/MPlusRounded1c-ExtraBold.ttf
+          weight: 800

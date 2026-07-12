@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_b_01_accent</title>
+  <desc>6:70 twin-bell digital alarm clock ground prop; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_b_01_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><rect x="654" y="710" width="272" height="170" rx="52" fill="none" stroke="#FF4FA3" stroke-width="9" opacity="0.78"/><path d="M666 666 Q683 640 710 638 M870 638 Q897 640 914 666" fill="none" stroke="#F7F5FF" stroke-width="9" stroke-linecap="round" opacity="0.72"/><path d="M690 884 H724 M856 884 H890" fill="none" stroke="#FF7A66" stroke-width="10" stroke-linecap="round"/></g></g>
+</svg>

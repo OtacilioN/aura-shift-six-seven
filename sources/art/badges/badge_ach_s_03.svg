@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_s_03</title>
+  <desc>Shape-redundant achievement badge exact_balance. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_s_03;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_s_03"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M126 324 H386" stroke="#FFD166" stroke-width="28" stroke-linecap="round"/><circle cx="256" cy="324" r="44" fill="#F7F5FF" stroke="#090B1A" stroke-width="18"/><g id="digits_67"><path d="M219.92 168 C192.2 176.4 188 212.52 193.04 236.04 C199.76 266.28 240.08 264.6 245.12 236.88 C249.32 212.52 219.92 202.44 195.56 217.56" fill="none" stroke="#43E6FF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M259.4 172.2 H314 L275.36 262.08" fill="none" stroke="#43E6FF" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/></g></g></g>
+</svg>

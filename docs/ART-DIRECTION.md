@@ -91,7 +91,7 @@ Cada mão possui desenho próprio, não uma reflexão automática, para preserva
 
 ## Identidade visual dos Ramos
 
-Os nomes culturais de P04 estão congelados; os IDs continuam sendo a chave de integração.
+Os nomes culturais revisados em 11 de julho de 2026 adotam humor sistêmico; os IDs e slots continuam sendo as chaves estáveis de integração.
 
 | Ramo | Território | Geometria | Paleta | Movimento sugerido | Aplicação de skins |
 | --- | --- | --- | --- | --- | --- |
@@ -134,7 +134,7 @@ Em miniatura, Poise recorta, Motion reverbera e Signal enquadra. Itens da mesma 
 
 - **Silhueta:** o Mascote parece maior somente pela luz externa; escala do rig não muda.
 - **Aura:** uma onda larga liga o Mascote ao horizonte.
-- **Fundo:** barras abstratas em três planos, compatíveis com City Tremor sem duplicá-lo.
+- **Fundo:** barras abstratas em três planos, compatíveis com Creative Astral Statement sem duplicá-lo.
 - **Pose/rosto:** eixo central firme; foco.
 - **Transição:** um pulso único percorre os planos e assenta em `1.100 ms`.
 - **Reduzida:** barras estáticas entram em crossfade de até `200 ms`; sem zoom ou parallax.
@@ -164,18 +164,24 @@ O Selo não usa cor de raridade nem brilho de moeda. A miniatura funciona em `48
 
 ## Aparências de Item e slots
 
-As 18 Aparências usam os dez slots canônicos do catálogo. Um item declara um único slot primário; conflitos dentro do mesmo slot são resolvidos pela escolha do jogador, nunca pelo Efeito de Item. `AURA_BACK` é reservado às Convergências e pode coexistir com um item em cada outro slot.
+As 18 Aparências usam 12 dos 16 slots compatíveis do catálogo. Um item declara um único slot primário; conflitos dentro do mesmo slot são resolvidos pela escolha do jogador, nunca pelo Efeito de Item. `AURA_BACK` é reservado às Convergências e pode coexistir com um item em cada outro slot. Slots vestíveis acompanham bob, lean e rotação; props de chão e molduras permanecem world-space.
 
 | Slot | Camada | Envelope máximo no rig | Regra |
 | --- | --- | --- | --- |
 | `CHEST` | frente do torso | 42% × 24% | não encostar nos pivôs dos braços |
 | `SHOULDER` | frente/atrás do ombro declarado | 38% × 28% | não cobrir a mão alta |
 | `FACE_SIDE` | lateral do rosto | 60% × 20% | olhos mantêm 70% de área visível |
+| `FACE_WEAR` | sobre o rosto, sob as mãos | 60% × 22% | duas lentes/peças preservam olhos e expressão |
+| `BODY_WEAR` | sobre o corpo, sob as mãos | 70% × 62% | roupa acompanha o torso sem cobrir gestos |
 | `HEAD_BACK` | atrás do topo | 82% × 30% | não cobrir olhos nem sugerir gesto |
+| `HEAD_WEAR` | sobre o topo, sob as mãos | 82% × 30% | objeto parece apoiado na cabeça |
 | `HIP` | frente/lateral inferior | 42% × 24% | não alterar leitura dos pés |
 | `ANKLES` | sobre pés/tornozelos | 82% × 20% | par L/R próprio; sem exigir novo ciclo |
+| `HAND_PROP` | sobre a mão declarada | 42% × 38% | acompanha o referencial do personagem |
+| `HANDS_WEAR` | sobre as duas mãos | 88% × 48% | deriva centros e pulsos do rig atual |
 | `BODY_BACK` | atrás do corpo e mãos | 110% × 70% | não ultrapassar zona segura superior |
 | `GROUND_BACK` | atrás dos pés | 120% × 30% | decorativo, sem colisão ou alvo |
+| `GROUND_PROP` | chão, atrás do Mascote | 42% × 42% | world-space; apoio visível e sem cobrir o personagem |
 | `SCENE_FRAME` | atrás do palco central | 132% × 86% | nunca enquadrar ou cobrir UI |
 | `AURA_BACK` | entre fundo e rig | 126% × 82% | exclusivo das Convergências |
 

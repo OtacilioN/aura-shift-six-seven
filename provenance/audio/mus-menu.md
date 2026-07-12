@@ -1,0 +1,29 @@
+# MUS-MENU — proveniência candidata
+
+- **ID:** `MUS-MENU`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `7906078888374151674`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/mus_menu.wav` — `3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492`
+- **Runtime:** `assets/audio/music/mus_menu.ogg` — `0718ad91172902f3d79a8796b41c9b61028351c9418520273b7dbcd8e8dad439`
+- **Conversão SFX:** `n/a`; TPDF determinístico a partir do master PCM24; seed `n/a`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `2` canal(is), `2202353` amostras.
+- **Métricas master:** `-16.0` LUFS-I, `-1.795` dBFS peak, `-1.7894` dBTP.
+- **Métricas runtime:** `-15.9816` LUFS-I, `-1.4865` dBFS peak, `-1.4809` dBTP.
+- **Boundary musical:** taper squared-sine de `1024` frames por lado; gate CoreAudio `pass`.
+- **CoreAudio:** `seam-pass-with-decoder-variance`; frame count `2202353/2202353`; frame 0 alinha ao frame libsndfile `128`; sample-exact `false`; seam `[-37.9088, -37.5707]` dBFS; gate `pass`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

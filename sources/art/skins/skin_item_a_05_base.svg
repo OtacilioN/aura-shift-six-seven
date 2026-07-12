@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_05_base</title>
+  <desc>segmented technological hotfix crown worn above the cap; base layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_05_base;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="base"><path d="M350 218 L332 118 L424 168 L512 54 L600 168 L692 118 L674 218 Q512 250 350 218 Z" fill="#141936" stroke="#090B1A" stroke-width="24" stroke-linejoin="round"/><path d="M348 182 Q512 214 676 182 L674 218 Q512 250 350 218 Z" fill="#202750" stroke="#090B1A" stroke-width="16" stroke-linejoin="round"/><path d="M424 168 L442 194 M600 168 L582 194" fill="none" stroke="#090B1A" stroke-width="14" stroke-linecap="round"/></g></g>
+</svg>

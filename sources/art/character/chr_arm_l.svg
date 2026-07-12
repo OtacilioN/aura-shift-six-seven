@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>chr_arm_l</title>
+  <desc>Canonical pseudo-rig component arm_l. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=chr_arm_l;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="arm_left"><path d="M402 110 C300 145 224 242 180 394" fill="none" stroke="#090B1A" stroke-width="100" stroke-linecap="round"/><path d="M402 110 C300 145 224 242 180 394" fill="none" stroke="#202750" stroke-width="68" stroke-linecap="round"/><path d="M378 136 C302 175 252 242 218 332" fill="none" stroke="#8B7CFF" stroke-width="13" stroke-linecap="round" opacity="0.68"/></g></g>
+</svg>

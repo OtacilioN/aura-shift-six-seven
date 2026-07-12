@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_02_accent</title>
+  <desc>luminous thermal receipt tucked into right shorts pocket; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_02_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><rect x="612" y="594" width="106" height="24" rx="12" fill="#43E6FF" stroke="#090B1A" stroke-width="8" transform="rotate(-8 665 652)"/><path d="M614 642 H710 M614 670 H694 M614 698 H668" fill="none" stroke="#3478F6" stroke-width="13" stroke-linecap="round" transform="rotate(-8 665 652)"/><circle cx="704" cy="690" r="25" fill="#3478F6" stroke="#090B1A" stroke-width="10" transform="rotate(-8 665 652)"/><path d="M691 690 L701 700 L718 680" fill="none" stroke="#F7F5FF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-8 665 652)"/><path d="M616 725 Q668 745 720 722" fill="none" stroke="#43E6FF" stroke-width="9" stroke-linecap="round" transform="rotate(-5 670 738)"/></g></g>
+</svg>

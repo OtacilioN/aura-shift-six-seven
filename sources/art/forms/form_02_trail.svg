@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="2160" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_02_trail</title>
+  <desc>FORM-02 canonical trail layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_02_trail;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_02_trail"><path d="M430 1320 C650 1200 840 1350 1030 1260 C1240 1160 1380 970 1700 1050" fill="none" stroke="#43E6FF" stroke-width="66" opacity="0.56" stroke-linecap="round"/><path d="M460 1400 C700 1300 890 1410 1110 1300 C1320 1190 1470 1080 1730 1160" fill="none" stroke="#FF4FA3" stroke-width="40" opacity="0.52" stroke-linecap="round"/></g></g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_c_03_base</title>
+  <desc>worn cache cape with shoulder collar split fabric tails digital stitching and cache blocks; base layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_c_03_base;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="base"><path d="M472 458 Q396 430 338 474 Q310 496 294 542 L272 752 Q324 798 414 812 L474 694 Q498 610 500 502 Z" fill="#141936" stroke="#090B1A" stroke-width="18" stroke-linejoin="round"/><path d="M552 458 Q628 430 686 474 Q714 496 730 542 L752 752 Q700 798 610 812 L550 694 Q526 610 524 502 Z" fill="#141936" stroke="#090B1A" stroke-width="18" stroke-linejoin="round"/><path d="M326 474 Q376 402 462 400 L512 438 L562 400 Q648 402 698 474 L656 530 Q604 486 550 492 L512 528 L474 492 Q420 486 368 530 Z" fill="#202750" stroke="#090B1A" stroke-width="18" stroke-linejoin="round"/><path d="M448 418 Q512 378 576 418 L550 480 Q512 456 474 480 Z" fill="#141936" stroke="#090B1A" stroke-width="14" stroke-linejoin="round"/><path d="M340 514 Q326 630 312 746 M684 514 Q698 630 712 746" fill="none" stroke="#202750" stroke-width="20" stroke-linecap="round" opacity="0.84"/></g></g>
+</svg>

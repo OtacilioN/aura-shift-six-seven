@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_c_01_glow</title>
+  <desc>official homologation chest badge with legible approval seal and controlled channel-split glitches; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_c_01_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><g id="homologation_badge_glow" transform="translate(385 535) scale(0.70) translate(-410 -554) rotate(-4 410 554)"><rect x="320" y="463" width="180" height="214" rx="31" fill="none" stroke="#FFD166" stroke-width="16" opacity="0.20"/><circle cx="410" cy="577" r="56" fill="none" stroke="#52E0A4" stroke-width="14" opacity="0.24"/><path d="M311 539 H345 M475 539 H509" fill="none" stroke="#43E6FF" stroke-width="10" stroke-linecap="round" opacity="0.20"/></g></g></g>
+</svg>

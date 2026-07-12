@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_s_06</title>
+  <desc>Shape-redundant achievement badge full_spectrum. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_s_06;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_s_06"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M256 94 L410 354 H102 Z" fill="none" stroke="#090B1A" stroke-width="58"/><path d="M256 94 L410 354" stroke="#43E6FF" stroke-width="24"/><path d="M410 354 H102" stroke="#FF4FA3" stroke-width="24"/><path d="M102 354 L256 94" stroke="#FFD166" stroke-width="24"/><path d="M256 196 L318 304 H194 Z" fill="#F7F5FF" opacity="0.86"/></g></g>
+</svg>

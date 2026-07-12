@@ -4,14 +4,42 @@ Repositório de planejamento de **Aura Shift: Six Seven**, um jogo incremental m
 
 ## Fase atual
 
-Este repositório contém somente documentação. Ainda não há código de jogo.
+O repositório agora contém a fundação executável do MVP em Flutter/Flame. O
+domínio econômico (`arith-v1`), Ciclo Six-Seven, produção passiva/offline,
+Loja, Árvore de Aura, Coleção, Ascensão, save local, Backup Manual e os oito
+catálogos de localização estão implementados e possuem análise/testes locais.
+As 18 Aparências equipáveis também são compostas na arena conforme slot, nível e
+Movimento Reduzido; o catálogo revisado usa humor sistêmico sem alterar a economia.
+
+Os assets visuais, sonoros, de marca e fontes foram aprovados e incorporados ao
+runtime por manifests derivados, preservando os candidatos técnicos e seus
+hashes. Ainda dependem de aparelho ou configuração externa antes de uma
+publicação:
+
+- teste em aparelho de loops, latência, retomada, ícone adaptativo e splash;
+- IDs/configurações de Google Mobile Ads, UMP e Play Age Signals;
+- configuração Firebase para Analytics opt-in e Crashlytics por ocorrência;
+- dispositivo e credenciais de assinatura para validar a experiência e o AAB
+  de release.
+
+Para executar localmente:
+
+```sh
+flutter pub get
+flutter test
+flutter run
+```
 
 - o conceito, o escopo do MVP e os sistemas centrais estão aprovados;
 - a economia possui parâmetros candidatos e contratos exatos prontos para simulação;
 - `balance-v0.1` ainda não está aprovado como balanceamento final: precisa passar integralmente por `balance-gate-v1` quando a fase de simulação for autorizada;
 - P01–P11 possuem artefatos documentais auditados: título/voz, 42 slots, UX/UI, arte, motion, áudio, acessibilidade, copy e oito catálogos de 261 strings;
-- o estado é `APPROVED`: o aceite do usuário está registrado em `docs/USER-APPROVAL-PACKET.md`;
-- assets visuais finais e os 40 masters de áudio continuam não produzidos; inventário não é apresentado como arquivo real;
+- o estado `APPROVED` do pacote histórico refere-se ao planejamento registrado
+  em `docs/USER-APPROVAL-PACKET.md`, não à aprovação dos assets produzidos;
+- candidatos reproduzíveis de arte, marca, fontes e áudio foram gerados com
+  manifests, hashes, fontes editáveis/procedurais, proveniência e revisão
+  automática; a aprovação humana é registrada sem alterar essa evidência e os
+  derivados aprovados são os contratos consumidos pelo runtime;
 - políticas de plataforma, privacidade e anúncios devem ser verificadas antes da integração dos SDKs e novamente perto da publicação.
 
 ## Comece por aqui
@@ -42,6 +70,8 @@ Este repositório contém somente documentação. Ainda não há código de jogo
 - [Onboarding e primeira sessão](docs/ONBOARDING.md)
 - [Direção de arte](docs/ART-DIRECTION.md)
 - [Manifesto de assets visuais](docs/ASSET-MANIFEST.md)
+- [Pipeline multiagente de produção](docs/ASSET-PRODUCTION-PIPELINE.md)
+- [Estado do pacote produzido](docs/ASSET-PRODUCTION-STATUS.md)
 - [Bíblia de motion, VFX e haptics](docs/MOTION-VFX-BIBLE.md)
 - [Direção de áudio](docs/AUDIO-DIRECTION.md)
 - [Inventário de áudio](docs/AUDIO-INVENTORY.md)

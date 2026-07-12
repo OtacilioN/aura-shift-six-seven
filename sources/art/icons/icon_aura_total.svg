@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>icon_aura_total</title>
+  <desc>Essential rounded functional glyph icon_aura_total. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=icon_aura_total;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="icon_aura_total"><circle cx="48" cy="48" r="34" fill="none" stroke="#F7F5FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M48 24 V72 M24 48 H72" stroke="#FFD166" stroke-width="6" stroke-linecap="round"/></g></g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="3840" viewBox="0 0 2160 3840" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>bg_form_03_grade</title>
+  <desc>Portrait bg_form_03_grade separated background plane. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=bg_form_03_grade;style=art-v1;license=project-original</metadata>
+  <defs><linearGradient id="grade" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#090B1A"/><stop offset="72%" stop-color="#202750"/><stop offset="100%" stop-color="#FF4FA3"/></linearGradient></defs>
+  <g id="asset"><g id="bg_form_03_grade"><rect x="0" y="0" width="2160" height="3840" fill="url(#grade)"/><rect x="0" y="0" width="2160" height="3840" fill="#090B1A" opacity="0.18"/></g></g>
+</svg>

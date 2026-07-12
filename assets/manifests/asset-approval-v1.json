@@ -1,0 +1,21 @@
+{
+  "schema": "asset-approval-v1",
+  "revision": 1,
+  "status": "approved",
+  "decisionSource": "human-user",
+  "decisionDate": "2026-07-10",
+  "statement": "Assets aprovados, incorpore os assets ao jogo",
+  "scope": [
+    "art",
+    "audio",
+    "brand",
+    "fonts",
+    "key-art"
+  ],
+  "promotionPolicy": "Preserve technical candidate manifests and their hashes; record human approval in a separate immutable decision and derive release manifests from it.",
+  "remainingDeviceValidation": [
+    "android-loop-latency-focus-and-resume-test",
+    "adaptive-icon-splash-and-safe-area-device-test",
+    "arabic-japanese-reflow-and-200-percent-text-scale-test"
+  ]
+}

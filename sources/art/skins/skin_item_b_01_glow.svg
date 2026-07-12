@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_b_01_glow</title>
+  <desc>6:70 twin-bell digital alarm clock ground prop; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_b_01_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><rect x="622" y="680" width="336" height="232" rx="82" fill="none" stroke="#FF4FA3" stroke-width="20" opacity="0.24"/><ellipse cx="790" cy="914" rx="174" ry="38" fill="none" stroke="#FF7A66" stroke-width="16" opacity="0.22"/><path d="M622 640 Q598 662 606 694 M958 640 Q982 662 974 694" fill="none" stroke="#FF7A66" stroke-width="14" stroke-linecap="round" opacity="0.44"/></g></g>
+</svg>

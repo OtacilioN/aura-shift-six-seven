@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Topologia da Árvore de Aura
 
-> Status: grafo, Pré-requisitos, Patamares e parâmetros econômicos aprovados em `balance-v0.1`; identidades culturais fechadas em P04.
+> Status: grafo, Pré-requisitos, Patamares e parâmetros econômicos aprovados em `balance-v0.1`; identidades culturais revisadas em 11 de julho de 2026.
 
 ## Visão geral
 
@@ -12,34 +12,34 @@ Os territórios finais são **Poise** (A), **Motion** (B) e **Signal** (C). Eles
 
 ```mermaid
 flowchart TD
-    T["Switch Stance nível 1"] --> A1["A-01 Quiet Flex"]
-    T --> B1["B-01 Pocket Pulse"]
-    T --> C1["C-01 Glitch Pin"]
+    T["Switch Stance nível 1"] --> A1["A-01 Suspicious Button"]
+    T --> B1["B-01 6:70 Alarm Clock"]
+    T --> C1["C-01 Certified Glitch"]
 
-    A1 -- "nível 10" --> A2["A-02 Clean Line"]
-    A2 -- "nível 25" --> A3["A-03 Mirror Glint"]
-    A3 -- "nível 50" --> A4["A-04 Gravity Coat"]
-    A4 -- "nível 100" --> A5["A-05 Crownless Halo"]
+    A1 -- "nível 10" --> A2["A-02 Glow Receipt"]
+    A2 -- "nível 25" --> A3["A-03 QA Goggles"]
+    A3 -- "nível 50" --> A4["A-04 Gate Coat"]
+    A4 -- "nível 100" --> A5["A-05 Hotfix Crown"]
 
-    B1 -- "nível 10" --> B2["B-02 Step Spark"]
-    B2 -- "nível 25" --> B3["B-03 Floor Echo"]
-    B3 -- "nível 50" --> B4["B-04 Night Current"]
-    B4 -- "nível 100" --> B5["B-05 City Tremor"]
+    B1 -- "nível 10" --> B2["B-02 Lag Shoes"]
+    B2 -- "nível 25" --> B3["B-03 Remainder Ring"]
+    B3 -- "nível 50" --> B4["B-04 Two-Tap Union"]
+    B4 -- "nível 100" --> B5["B-05 Creative Astral Statement"]
 
-    C1 -- "nível 10" --> C2["C-02 Loop Lens"]
-    C2 -- "nível 25" --> C3["C-03 Static Cape"]
-    C3 -- "nível 50" --> C4["C-04 Signal Crown"]
-    C4 -- "nível 100" --> C5["C-05 Horizon Frame"]
+    C1 -- "nível 10" --> C2["C-02 Fugitive Decimal"]
+    C2 -- "nível 25" --> C3["C-03 Cache Cape"]
+    C3 -- "nível 50" --> C4["C-04 Unemployed Router"]
+    C4 -- "nível 100" --> C5["C-05 404 Frame"]
 
-    A1 -. "todos no nível 10" .-> V1["CONV-01 Triple Sync"]
+    A1 -. "todos no nível 10" .-> V1["CONV-01 Meeting Knot"]
     B1 -. "todos no nível 10" .-> V1
     C1 -. "todos no nível 10" .-> V1
 
-    A3 -. "todos no nível 25" .-> V2["CONV-02 Full Spectrum"]
+    A3 -. "todos no nível 25" .-> V2["CONV-02 Convergence by Exhaustion"]
     B3 -. "todos no nível 25" .-> V2
     C3 -. "todos no nível 25" .-> V2
 
-    A5 -. "todos no nível 50" .-> V3["CONV-03 Worldline"]
+    A5 -. "todos no nível 50" .-> V3["CONV-03 Canonical Screw"]
     B5 -. "todos no nível 50" .-> V3
     C5 -. "todos no nível 50" .-> V3
 ```

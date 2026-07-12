@@ -1,0 +1,79 @@
+{
+  "approval": {
+    "decision": "assets/manifests/asset-approval-v1.json",
+    "decisionDate": "2026-07-10",
+    "decisionSha256": "4c04247dfe80ff1fb6fe8a4853c1f8c9f547524b920838e97fa34ecf187bcb6a",
+    "decisionSource": "human-user",
+    "statement": "Assets aprovados, incorpore os assets ao jogo"
+  },
+  "components": {
+    "art": {
+      "approvalStatus": "approved",
+      "integrationStatus": "integrated",
+      "manifest": "assets/manifests/art-approved-manifest-v1.json",
+      "manifestSha256": "cfeda03fec5097a21bd1b2c8b1a43cb939d0fdf157e2c31862d562e0e8e8e69f",
+      "reviewOnlyEntries": 3,
+      "revision": 3,
+      "runtimeConsumers": {
+        "scene": 136,
+        "total": 219,
+        "ui": 83
+      },
+      "runtimeEntries": 219,
+      "sourceManifest": "assets/manifests/art-manifest-v1.json",
+      "sourceManifestSha256": "88e0aee606881cf32a263d7d4179093229b66f3fce26ed70860c32761ccd650e"
+    },
+    "audio": {
+      "approvalStatus": "approved",
+      "integrationStatus": "integrated",
+      "manifest": "assets/audio/audio-manifest-v1.json",
+      "manifestSha256": "cb2d645c27462ee18577d4133d20344793118d5d85b8b98f10599dfe5a897777",
+      "revision": 3,
+      "runtimeConsumers": {
+        "cycle": 12,
+        "event": 10,
+        "musicFallback": 4,
+        "musicRequired": 5,
+        "total": 44,
+        "ui": 13
+      },
+      "runtimeEntries": 44,
+      "runtimeFormats": {
+        "ogg": 9,
+        "wav": 35
+      },
+      "sourceManifest": "assets/audio/audio-candidate-manifest-v1.json",
+      "sourceManifestSha256": "18c2efd2243054d8f3ddfd149a6df724a777e09e61e0a6dcdc8bbc3539a2e6dd"
+    },
+    "brand": {
+      "approvalStatus": "approved",
+      "files": 39,
+      "integrationStatus": "integrated-native-platforms",
+      "revision": 2,
+      "sourceManifest": "assets/manifests/brand-manifest-v1.json",
+      "sourceManifestSha256": "18ee7826361b0e0a035d2db0f97af7de53a1126eb8215a906e7f07485166c133"
+    },
+    "fonts": {
+      "approvalStatus": "approved",
+      "files": 6,
+      "integrationStatus": "integrated-flutter",
+      "revision": 1,
+      "sourceManifest": "assets/manifests/font-manifest-v1.json",
+      "sourceManifestSha256": "10be5a10808b4e58d1e1c9d6e15181978ab8aaefd7107f78bdb433e25af7cc3b"
+    }
+  },
+  "remainingDeviceValidation": [
+    "android-loop-latency-focus-and-resume-test",
+    "adaptive-icon-splash-and-safe-area-device-test",
+    "arabic-japanese-reflow-and-200-percent-text-scale-test"
+  ],
+  "revision": 1,
+  "runtimeIntegration": {
+    "audioEventPlayback": "integrated",
+    "audioRuntime": "integrated",
+    "visualSceneRuntime": "integrated",
+    "visualUiCollectionTree": "integrated"
+  },
+  "schema": "production-assets-v1",
+  "status": "integrated"
+}

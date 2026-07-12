@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_05_glow</title>
+  <desc>segmented technological hotfix crown worn above the cap; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_05_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M366 188 Q404 197 450 202 L446 226 Q404 220 370 212 Z" fill="none" stroke="#43E6FF" stroke-width="20" opacity="0.24" stroke-linejoin="round"/><path d="M464 204 Q512 210 560 204 L558 232 Q512 239 466 232 Z" fill="none" stroke="#3478F6" stroke-width="20" opacity="0.24" stroke-linejoin="round"/><path d="M574 202 Q620 197 658 188 L654 212 Q620 220 578 226 Z" fill="none" stroke="#43E6FF" stroke-width="20" opacity="0.24" stroke-linejoin="round"/></g></g>
+</svg>

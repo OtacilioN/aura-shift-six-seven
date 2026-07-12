@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_02_glow</title>
+  <desc>luminous thermal receipt tucked into right shorts pocket; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_02_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M590 570 L605 562 L620 570 L635 562 L650 570 L665 562 L680 570 L695 562 L710 570 L725 562 L740 570 L740 742 L725 734 L710 742 L695 734 L680 742 L665 734 L650 742 L635 734 L620 742 L605 734 L590 742 Z" fill="none" stroke="#43E6FF" stroke-width="32" opacity="0.30" stroke-linejoin="round" transform="rotate(-8 665 652)"/><circle cx="704" cy="690" r="43" fill="none" stroke="#3478F6" stroke-width="16" opacity="0.28" transform="rotate(-8 665 652)"/><path d="M758 574 L768 594 L790 604 L768 614 L758 636 L748 614 L726 604 L748 594 Z" fill="#43E6FF" opacity="0.82"/></g></g>
+</svg>

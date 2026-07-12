@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_04_accent</title>
+  <desc>open gate coat with lapels split zipper and geometric pockets; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_04_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><path d="M448 466 L494 522 L464 598 M576 466 L530 522 L560 598" fill="none" stroke="#43E6FF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M504 550 L484 786 M520 550 L540 786" fill="none" stroke="#43E6FF" stroke-width="11" stroke-dasharray="10 14" stroke-linecap="round"/><circle cx="522" cy="566" r="14" fill="#F7F5FF" stroke="#090B1A" stroke-width="8"/><path d="M522 580 L526 606" fill="none" stroke="#3478F6" stroke-width="10" stroke-linecap="round"/><path d="M402 658 L466 642 M558 642 L622 658" fill="none" stroke="#3478F6" stroke-width="12" stroke-linecap="round"/><path d="M416 784 Q452 804 486 782 M538 782 Q572 804 608 784" fill="none" stroke="#43E6FF" stroke-width="10" stroke-linecap="round"/></g></g>
+</svg>

@@ -1,0 +1,29 @@
+# SFX-SEVEN-04 — proveniência candidata
+
+- **ID:** `SFX-SEVEN-04`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `9847367331369263404`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/sfx_seven_04.wav` — `ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a`
+- **Runtime:** `assets/audio/sfx/cycle/sfx_seven_04.wav` — `5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `8501226384354091652`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `1` canal(is), `6048` amostras.
+- **Métricas master:** `None` LUFS-I, `-5.0` dBFS peak, `-4.9854` dBTP.
+- **Métricas runtime:** `None` LUFS-I, `-5.0004` dBFS peak, `-4.9855` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `6048/6048` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

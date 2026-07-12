@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>vfx_ribbon</title>
+  <desc>Structured Aura particle vfx_ribbon. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=vfx_ribbon;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="vfx_ribbon"><path d="M8 92 C34 28 74 110 120 28" fill="none" stroke="#090B1A" stroke-width="26" stroke-linecap="round"/><path d="M8 92 C34 28 74 110 120 28" fill="none" stroke="#43E6FF" stroke-width="12" stroke-linecap="round"/></g></g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_s_01</title>
+  <desc>Shape-redundant achievement badge held_pose. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_s_01;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_s_01"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M168 112 H344 M168 400 H344 M190 126 Q190 214 256 256 Q322 214 322 126 M190 386 Q190 298 256 256 Q322 298 322 386" fill="none" stroke="#8B7CFF" stroke-width="26" stroke-linecap="round"/><circle cx="256" cy="256" r="20" fill="#43E6FF"/></g></g>
+</svg>

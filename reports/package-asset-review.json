@@ -1,0 +1,24 @@
+{
+  "androidBrandFiles": 8,
+  "androidBrandTransformed": 1,
+  "apk": "build/app/outputs/bundle/release/app-release.aab",
+  "apkBytes": 77826747,
+  "apkSha256": "8c183daf7bf6b40195d2c9c7d4f06b6c9f8ad83cf9f16249ffabdda492d66bfa",
+  "approvalStatus": {
+    "art": "approved",
+    "audio": "approved"
+  },
+  "artRuntime": 219,
+  "audioFormats": {
+    "ogg": 9,
+    "wav": 35
+  },
+  "audioRuntime": 44,
+  "contract": "package-asset-review-v2",
+  "errors": [],
+  "fontFiles": 6,
+  "productionStatus": "integrated",
+  "reviewOnlyPackaged": 0,
+  "status": "passed",
+  "storeOnlyBrandPackaged": 0
+}

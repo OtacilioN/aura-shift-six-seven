@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>vfx_orb</title>
+  <desc>Structured Aura particle vfx_orb. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=vfx_orb;style=art-v1;license=project-original</metadata>
+  <defs><radialGradient id="orb" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#F7F5FF" stop-opacity="1.0"/><stop offset="34%" stop-color="#8B7CFF" stop-opacity="0.92"/><stop offset="100%" stop-color="#43E6FF" stop-opacity="0.0"/></radialGradient></defs>
+  <g id="asset"><g id="vfx_orb"><path d="M10 106 Q42 86 74 56" fill="none" stroke="#43E6FF" stroke-width="16" opacity="0.48" stroke-linecap="round"/><circle cx="82" cy="46" r="40" fill="url(#orb)"/></g></g>
+</svg>

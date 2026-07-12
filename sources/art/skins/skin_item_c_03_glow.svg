@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_c_03_glow</title>
+  <desc>worn cache cape with shoulder collar split fabric tails digital stitching and cache blocks; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_c_03_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M306 474 Q372 378 462 380 L512 416 L562 380 Q652 378 718 474" fill="none" stroke="#FFD166" stroke-width="24" stroke-linecap="round" opacity="0.22"/><path d="M314 506 Q278 552 252 760 Q322 830 420 832 M710 506 Q746 552 772 760 Q702 830 604 832" fill="none" stroke="#52E0A4" stroke-width="22" stroke-linecap="round" opacity="0.18"/><path d="M488 494 Q486 620 420 806 M536 494 Q538 620 604 806" fill="none" stroke="#FFD166" stroke-width="18" stroke-linecap="round" opacity="0.16"/></g></g>
+</svg>

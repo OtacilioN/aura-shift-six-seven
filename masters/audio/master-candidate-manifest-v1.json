@@ -1,0 +1,1478 @@
+{
+  "contract": "audio-master-candidate-manifest-v1",
+  "revision": 3,
+  "status": "candidate-reviewed",
+  "generatedAtUtc": "2026-07-10T22:07:33.023091+00:00",
+  "sourceBundleSha256": "23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f",
+  "sourceBundleContract": "audio-generation-source-bundle-v2",
+  "sourceBundleFiles": [
+    "sources/audio/procedural/score-v1.json",
+    "tools/assets/generate_audio_assets.py",
+    "tools/assets/audio_common.py",
+    "tools/assets/requirements-audio.txt"
+  ],
+  "sourcePolicy": {
+    "externalAudioInputs": false,
+    "samples": false,
+    "voice": false,
+    "foley": false,
+    "generativeAudioModel": false,
+    "method": "deterministic oscillators, seeded noise, filters and envelopes"
+  },
+  "sampleRate": 48000,
+  "masterBitDepth": 24,
+  "runtimeEncoding": {
+    "music": {
+      "container": "OGG",
+      "codec": "Vorbis",
+      "compressionLevel": 0.4,
+      "qualityIntent": "Vorbis q6; libsndfile 1.2.2 sets encoder quality to 1.0 - compressionLevel"
+    },
+    "sfx": {
+      "container": "WAV",
+      "codec": "PCM_16",
+      "dither": {
+        "type": "TPDF",
+        "peakToPeakLsb": 2,
+        "seedNamespace": "aura-shift-pcm16-tpdf-v1",
+        "quantizer": "round-to-nearest-even, clipped to signed int16"
+      },
+      "reason": "frame-exact cross-decoder behavior, smaller bundle and low-latency playback for short assets"
+    }
+  },
+  "loopBoundaryTreatment": {
+    "type": "squared-sine taper to digital zero",
+    "fadeFrames": 1024,
+    "fadeMilliseconds": 21.333333333,
+    "purpose": "preserve a low-energy seam across decoder pre-skip and final-packet variance"
+  },
+  "toolVersions": {
+    "python": "3.13.3",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "soundfile": "0.14.0",
+    "libsndfile": "1.2.2",
+    "pyloudnorm": "0.2.0"
+  },
+  "counts": {
+    "required": 40,
+    "conditional": 4,
+    "total": 44
+  },
+  "humanReview": "pending",
+  "similarityReview": "pending",
+  "androidDeviceReview": "pending",
+  "assets": [
+    {
+      "id": "MUS-GAME-BASE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_game_base.wav",
+      "sha256": "c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4",
+      "loopStartSample": 0,
+      "loopEndSample": 4404706,
+      "hashVerification": {
+        "expected": "c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4",
+        "observed": "c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.7745,
+        "rmsDbfs": -17.7809,
+        "dcOffset": [
+          0.0013053182,
+          0.0013053832
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.7587,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4",
+        "bytes": 26428280
+      }
+    },
+    {
+      "id": "MUS-GAME-GROOVE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_game_groove.wav",
+      "sha256": "9a81d7e461c630d7423587d6d6aad3702de58bc77c1db685e5c742a56b031410",
+      "loopStartSample": 0,
+      "loopEndSample": 4404706,
+      "hashVerification": {
+        "expected": "9a81d7e461c630d7423587d6d6aad3702de58bc77c1db685e5c742a56b031410",
+        "observed": "9a81d7e461c630d7423587d6d6aad3702de58bc77c1db685e5c742a56b031410",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -6.4655,
+        "rmsDbfs": -29.1056,
+        "dcOffset": [
+          0.0002094599,
+          0.0002093034
+        ],
+        "integratedLufs": -24.8,
+        "truePeakDbtp": -6.3633,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "9a81d7e461c630d7423587d6d6aad3702de58bc77c1db685e5c742a56b031410",
+        "bytes": 26428280
+      }
+    },
+    {
+      "id": "MUS-GAME-HYPE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_game_hype.wav",
+      "sha256": "948e119d705bf22e9e0ab37dce7b7048c166f9ccd0dc924a8e56270e3261db56",
+      "loopStartSample": 0,
+      "loopEndSample": 4404706,
+      "hashVerification": {
+        "expected": "948e119d705bf22e9e0ab37dce7b7048c166f9ccd0dc924a8e56270e3261db56",
+        "observed": "948e119d705bf22e9e0ab37dce7b7048c166f9ccd0dc924a8e56270e3261db56",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -7.1435,
+        "rmsDbfs": -30.1318,
+        "dcOffset": [
+          7.4657e-06,
+          6.4152e-06
+        ],
+        "integratedLufs": -26.3,
+        "truePeakDbtp": -7.138,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "948e119d705bf22e9e0ab37dce7b7048c166f9ccd0dc924a8e56270e3261db56",
+        "bytes": 26428280
+      }
+    },
+    {
+      "id": "MUS-MENU",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_menu.wav",
+      "sha256": "3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492",
+      "loopStartSample": 0,
+      "loopEndSample": 2202353,
+      "hashVerification": {
+        "expected": "3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492",
+        "observed": "3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 2202353,
+        "channels": 2,
+        "durationSeconds": 45.882354167,
+        "samplePeakDbfs": -1.795,
+        "rmsDbfs": -19.568,
+        "dcOffset": [
+          0.000134947,
+          0.0001346237
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.7894,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492",
+        "bytes": 13214162
+      }
+    },
+    {
+      "id": "MUS-SHOP",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_shop.wav",
+      "sha256": "ba4bd9b80dcf213409bf84df1db10c3cf571cf00bd731053f96e56b93b410d13",
+      "loopStartSample": 0,
+      "loopEndSample": 2202353,
+      "hashVerification": {
+        "expected": "ba4bd9b80dcf213409bf84df1db10c3cf571cf00bd731053f96e56b93b410d13",
+        "observed": "ba4bd9b80dcf213409bf84df1db10c3cf571cf00bd731053f96e56b93b410d13",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 2202353,
+        "channels": 2,
+        "durationSeconds": 45.882354167,
+        "samplePeakDbfs": -3.2199,
+        "rmsDbfs": -18.2957,
+        "dcOffset": [
+          0.0005414221,
+          0.0005372806
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -3.2143,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "ba4bd9b80dcf213409bf84df1db10c3cf571cf00bd731053f96e56b93b410d13",
+        "bytes": 13214162
+      }
+    },
+    {
+      "id": "MUS-GAME-I0-MIX",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_game_i0_mix.wav",
+      "sha256": "aabca5278fe33fa860ee0fc38b5bf94bff49813a848df4265f5da84f794f63bf",
+      "loopStartSample": 0,
+      "loopEndSample": 4404706,
+      "hashVerification": {
+        "expected": "aabca5278fe33fa860ee0fc38b5bf94bff49813a848df4265f5da84f794f63bf",
+        "observed": "aabca5278fe33fa860ee0fc38b5bf94bff49813a848df4265f5da84f794f63bf",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.8891,
+        "rmsDbfs": -17.7209,
+        "dcOffset": [
+          0.0012883777,
+          0.0012883247
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -2.8765,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "aabca5278fe33fa860ee0fc38b5bf94bff49813a848df4265f5da84f794f63bf",
+        "bytes": 26428280
+      }
+    },
+    {
+      "id": "MUS-GAME-I1-MIX",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_game_i1_mix.wav",
+      "sha256": "62bb190b1d2d4e5299382e2b453c1df450b3d0ff2db986df187256c6857eb5ae",
+      "loopStartSample": 0,
+      "loopEndSample": 4404706,
+      "hashVerification": {
+        "expected": "62bb190b1d2d4e5299382e2b453c1df450b3d0ff2db986df187256c6857eb5ae",
+        "observed": "62bb190b1d2d4e5299382e2b453c1df450b3d0ff2db986df187256c6857eb5ae",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.8266,
+        "rmsDbfs": -17.6345,
+        "dcOffset": [
+          0.0013549501,
+          0.0013547599
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -2.814,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "62bb190b1d2d4e5299382e2b453c1df450b3d0ff2db986df187256c6857eb5ae",
+        "bytes": 26428280
+      }
+    },
+    {
+      "id": "MUS-GAME-I2-MIX",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_game_i2_mix.wav",
+      "sha256": "a8cf2ff8f9e1c90ef0b4f2b689da88596e6d29729dccbc2cb23c55df4470445b",
+      "loopStartSample": 0,
+      "loopEndSample": 4404706,
+      "hashVerification": {
+        "expected": "a8cf2ff8f9e1c90ef0b4f2b689da88596e6d29729dccbc2cb23c55df4470445b",
+        "observed": "a8cf2ff8f9e1c90ef0b4f2b689da88596e6d29729dccbc2cb23c55df4470445b",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.1691,
+        "rmsDbfs": -16.9218,
+        "dcOffset": [
+          0.0015203709,
+          0.0015198736
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -2.1623,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "a8cf2ff8f9e1c90ef0b4f2b689da88596e6d29729dccbc2cb23c55df4470445b",
+        "bytes": 26428280
+      }
+    },
+    {
+      "id": "MUS-GAME-I3-MIX",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/mus_game_i3_mix.wav",
+      "sha256": "62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1",
+      "loopStartSample": 0,
+      "loopEndSample": 4404706,
+      "hashVerification": {
+        "expected": "62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1",
+        "observed": "62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.5404,
+        "rmsDbfs": -16.3929,
+        "dcOffset": [
+          0.0016819122,
+          0.0016799103
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.5349,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1",
+        "bytes": 26428280
+      }
+    },
+    {
+      "id": "SFX-SIX-01",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_six_01.wav",
+      "sha256": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+        "observed": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 3648,
+        "channels": 1,
+        "durationSeconds": 0.076,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -18.1627,
+        "dcOffset": [
+          0.0033451349
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+        "bytes": 10988
+      }
+    },
+    {
+      "id": "SFX-SIX-02",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_six_02.wav",
+      "sha256": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+        "observed": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4032,
+        "channels": 1,
+        "durationSeconds": 0.084,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -17.7938,
+        "dcOffset": [
+          0.0025148292
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9904,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+        "bytes": 12140
+      }
+    },
+    {
+      "id": "SFX-SIX-03",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_six_03.wav",
+      "sha256": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+        "observed": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4416,
+        "channels": 1,
+        "durationSeconds": 0.092,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -18.1694,
+        "dcOffset": [
+          0.0020644227
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9875,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+        "bytes": 13292
+      }
+    },
+    {
+      "id": "SFX-SIX-04",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_six_04.wav",
+      "sha256": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+        "observed": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4800,
+        "channels": 1,
+        "durationSeconds": 0.1,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -17.8358,
+        "dcOffset": [
+          0.0016169089
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+        "bytes": 14444
+      }
+    },
+    {
+      "id": "SFX-SIX-05",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_six_05.wav",
+      "sha256": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+        "observed": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 5088,
+        "channels": 1,
+        "durationSeconds": 0.106,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -18.2291,
+        "dcOffset": [
+          0.0014130247
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.8496,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+        "bytes": 15308
+      }
+    },
+    {
+      "id": "SFX-SIX-06",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_six_06.wav",
+      "sha256": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+        "observed": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 5280,
+        "channels": 1,
+        "durationSeconds": 0.11,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -17.9316,
+        "dcOffset": [
+          0.0011742584
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+        "bytes": 15884
+      }
+    },
+    {
+      "id": "SFX-SEVEN-01",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_seven_01.wav",
+      "sha256": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+        "observed": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 4608,
+        "channels": 1,
+        "durationSeconds": 0.096,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.0617,
+        "dcOffset": [
+          0.0057012183
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+        "bytes": 13868
+      }
+    },
+    {
+      "id": "SFX-SEVEN-02",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_seven_02.wav",
+      "sha256": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+        "observed": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 5088,
+        "channels": 1,
+        "durationSeconds": 0.106,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -12.59,
+        "dcOffset": [
+          0.0055593047
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+        "bytes": 15308
+      }
+    },
+    {
+      "id": "SFX-SEVEN-03",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_seven_03.wav",
+      "sha256": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+        "observed": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 5568,
+        "channels": 1,
+        "durationSeconds": 0.116,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.6344,
+        "dcOffset": [
+          0.0041580987
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+        "bytes": 16748
+      }
+    },
+    {
+      "id": "SFX-SEVEN-04",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_seven_04.wav",
+      "sha256": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+        "observed": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 6048,
+        "channels": 1,
+        "durationSeconds": 0.126,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.161,
+        "dcOffset": [
+          0.0039355513
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9854,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+        "bytes": 18188
+      }
+    },
+    {
+      "id": "SFX-SEVEN-05",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_seven_05.wav",
+      "sha256": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+        "observed": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 6624,
+        "channels": 1,
+        "durationSeconds": 0.138,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -14.0579,
+        "dcOffset": [
+          0.0031043107
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+        "bytes": 19916
+      }
+    },
+    {
+      "id": "SFX-SEVEN-06",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_seven_06.wav",
+      "sha256": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+        "observed": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 7104,
+        "channels": 1,
+        "durationSeconds": 0.148,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.7577,
+        "dcOffset": [
+          0.0030054867
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+        "bytes": 21356
+      }
+    },
+    {
+      "id": "SFX-UI-TAB",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_ui_tab.wav",
+      "sha256": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+        "observed": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 5760,
+        "channels": 1,
+        "durationSeconds": 0.12,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.8266,
+        "dcOffset": [
+          0.0002403523
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+        "bytes": 17324
+      }
+    },
+    {
+      "id": "SFX-UI-OPEN",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_ui_open.wav",
+      "sha256": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+        "observed": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 8640,
+        "channels": 1,
+        "durationSeconds": 0.18,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.7513,
+        "dcOffset": [
+          0.0001074537
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9672,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+        "bytes": 25964
+      }
+    },
+    {
+      "id": "SFX-UI-CLOSE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_ui_close.wav",
+      "sha256": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+        "observed": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 7680,
+        "channels": 1,
+        "durationSeconds": 0.16,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.4666,
+        "dcOffset": [
+          8.03263e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+        "bytes": 23084
+      }
+    },
+    {
+      "id": "SFX-UI-TOGGLE-ON",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_ui_toggle_on.wav",
+      "sha256": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+        "observed": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 6720,
+        "channels": 1,
+        "durationSeconds": 0.14,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -17.5241,
+        "dcOffset": [
+          0.0001617891
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9538,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+        "bytes": 20204
+      }
+    },
+    {
+      "id": "SFX-UI-TOGGLE-OFF",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_ui_toggle_off.wav",
+      "sha256": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+        "observed": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 6720,
+        "channels": 1,
+        "durationSeconds": 0.14,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -17.2705,
+        "dcOffset": [
+          0.0001706738
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.8624,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+        "bytes": 20204
+      }
+    },
+    {
+      "id": "SFX-UI-ERROR",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_ui_error.wav",
+      "sha256": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+        "observed": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.0016,
+        "dcOffset": [
+          0.000655185
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+        "bytes": 37484
+      }
+    },
+    {
+      "id": "SFX-SHOP-PURCHASE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_shop_purchase.wav",
+      "sha256": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+        "observed": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 16800,
+        "channels": 1,
+        "durationSeconds": 0.35,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -17.6609,
+        "dcOffset": [
+          0.0012785516
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.489,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+        "bytes": 50444
+      }
+    },
+    {
+      "id": "SFX-SHOP-BATCH",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_shop_batch.wav",
+      "sha256": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+        "observed": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 24000,
+        "channels": 1,
+        "durationSeconds": 0.5,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -16.7537,
+        "dcOffset": [
+          0.0019245383
+        ],
+        "integratedLufs": -18.3112,
+        "truePeakDbtp": -4.4945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+        "bytes": 72044
+      }
+    },
+    {
+      "id": "SFX-SHOP-UNAVAILABLE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_shop_unavailable.wav",
+      "sha256": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+        "observed": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -15.554,
+        "dcOffset": [
+          0.000852118
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9928,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+        "bytes": 37484
+      }
+    },
+    {
+      "id": "SFX-SHOP-UNLOCK",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_shop_unlock.wav",
+      "sha256": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+        "observed": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 43200,
+        "channels": 1,
+        "durationSeconds": 0.9,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -18.3252,
+        "dcOffset": [
+          0.000151481
+        ],
+        "integratedLufs": -18.8866,
+        "truePeakDbtp": -4.4271,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+        "bytes": 129644
+      }
+    },
+    {
+      "id": "SFX-SHOP-MILESTONE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_shop_milestone.wav",
+      "sha256": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+        "observed": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 33600,
+        "channels": 1,
+        "durationSeconds": 0.7,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -22.4137,
+        "dcOffset": [
+          0.0005097219
+        ],
+        "integratedLufs": -23.761,
+        "truePeakDbtp": -4.4835,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+        "bytes": 100844
+      }
+    },
+    {
+      "id": "SFX-COLLECTION-EQUIP",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_collection_equip.wav",
+      "sha256": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+        "observed": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 14400,
+        "channels": 1,
+        "durationSeconds": 0.3,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -21.6836,
+        "dcOffset": [
+          2.45179e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+        "bytes": 43244
+      }
+    },
+    {
+      "id": "SFX-COLLECTION-HIDE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_collection_hide.wav",
+      "sha256": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+        "observed": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -19.9262,
+        "dcOffset": [
+          6.13289e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+        "bytes": 37484
+      }
+    },
+    {
+      "id": "STG-FORM-01",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_form_01.wav",
+      "sha256": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+        "observed": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 57600,
+        "channels": 2,
+        "durationSeconds": 1.2,
+        "samplePeakDbfs": -2.4129,
+        "rmsDbfs": -19.0886,
+        "dcOffset": [
+          0.000575583,
+          0.0005819959
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.4074,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+        "bytes": 345644
+      }
+    },
+    {
+      "id": "STG-FORM-02",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_form_02.wav",
+      "sha256": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+        "observed": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 72000,
+        "channels": 2,
+        "durationSeconds": 1.5,
+        "samplePeakDbfs": -3.089,
+        "rmsDbfs": -19.1864,
+        "dcOffset": [
+          0.0005833913,
+          0.0005511531
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -3.0834,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+        "bytes": 432044
+      }
+    },
+    {
+      "id": "STG-FORM-03",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_form_03.wav",
+      "sha256": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+        "observed": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 86400,
+        "channels": 2,
+        "durationSeconds": 1.8,
+        "samplePeakDbfs": -1.8522,
+        "rmsDbfs": -19.2594,
+        "dcOffset": [
+          0.0005236237,
+          0.0005298612
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -1.8467,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+        "bytes": 518444
+      }
+    },
+    {
+      "id": "STG-FORM-04",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_form_04.wav",
+      "sha256": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+        "observed": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 100800,
+        "channels": 2,
+        "durationSeconds": 2.1,
+        "samplePeakDbfs": -2.6443,
+        "rmsDbfs": -19.4724,
+        "dcOffset": [
+          0.0004739487,
+          0.0004605857
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.6358,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+        "bytes": 604844
+      }
+    },
+    {
+      "id": "STG-FORM-05",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_form_05.wav",
+      "sha256": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+        "observed": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 115200,
+        "channels": 2,
+        "durationSeconds": 2.4,
+        "samplePeakDbfs": -2.0645,
+        "rmsDbfs": -19.6775,
+        "dcOffset": [
+          0.0004105078,
+          0.0004122537
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.0589,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+        "bytes": 691244
+      }
+    },
+    {
+      "id": "STG-ACHIEVEMENT",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_achievement.wav",
+      "sha256": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+        "observed": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 43200,
+        "channels": 2,
+        "durationSeconds": 0.9,
+        "samplePeakDbfs": -1.6775,
+        "rmsDbfs": -18.0483,
+        "dcOffset": [
+          0.00032037,
+          0.000280808
+        ],
+        "integratedLufs": -17.0,
+        "truePeakDbtp": -1.6687,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+        "bytes": 259244
+      }
+    },
+    {
+      "id": "STG-ASCENSION",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_ascension.wav",
+      "sha256": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+        "observed": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 153600,
+        "channels": 2,
+        "durationSeconds": 3.2,
+        "samplePeakDbfs": -1.7668,
+        "rmsDbfs": -18.5358,
+        "dcOffset": [
+          0.0007313826,
+          0.0007295558
+        ],
+        "integratedLufs": -15.5,
+        "truePeakDbtp": -1.7612,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+        "bytes": 921644
+      }
+    },
+    {
+      "id": "STG-MARK-67",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/stg_mark_67.wav",
+      "sha256": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+        "observed": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 86400,
+        "channels": 2,
+        "durationSeconds": 1.8,
+        "samplePeakDbfs": -3.2534,
+        "rmsDbfs": -19.3213,
+        "dcOffset": [
+          0.0009494208,
+          0.0009471858
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -3.2479,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+        "bytes": 518444
+      }
+    },
+    {
+      "id": "SFX-RETURN-OFFLINE",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_return_offline.wav",
+      "sha256": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+        "observed": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 24000,
+        "channels": 1,
+        "durationSeconds": 0.5,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -22.2629,
+        "dcOffset": [
+          0.0007697702
+        ],
+        "integratedLufs": -20.7841,
+        "truePeakDbtp": -4.3426,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+        "bytes": 72044
+      }
+    },
+    {
+      "id": "SFX-RETURN-BONUS",
+      "status": "candidate-reviewed",
+      "path": "masters/audio/sfx_return_bonus.wav",
+      "sha256": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+      "loopStartSample": null,
+      "loopEndSample": null,
+      "hashVerification": {
+        "expected": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+        "observed": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+        "result": "pass"
+      },
+      "metrics": {
+        "frames": 31200,
+        "channels": 1,
+        "durationSeconds": 0.65,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -19.1965,
+        "dcOffset": [
+          0.0005583146
+        ],
+        "integratedLufs": -19.8737,
+        "truePeakDbtp": -4.4224,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+        "bytes": 93644
+      }
+    }
+  ],
+  "reviewedAtUtc": "2026-07-10T22:13:00.237448+00:00",
+  "automatedReview": "pass-with-cross-decoder-warnings",
+  "reviewEvidenceRevision": 2,
+  "reviewBundle": {
+    "contract": "audio-review-evidence-bundle-v2",
+    "revision": 2,
+    "sha256": "0d7123c8c8ecab87133800bb38051a48a1848a92f33264e8ad5d922e1dd0a335",
+    "files": [
+      "sources/audio/procedural/score-v1.json",
+      "tools/assets/review_audio_assets.py",
+      "tools/assets/audio_common.py",
+      "tools/assets/requirements-audio.txt"
+    ],
+    "pathBasis": "repository-relative POSIX paths plus file contents"
+  },
+  "determinism": {
+    "result": "pass",
+    "calculatedByReviewer": true,
+    "independentTemporaryRenders": 2,
+    "masterWavMatches": "44/44",
+    "runtimeMatches": "44/44",
+    "runtimeWavMatches": "35/35",
+    "runtimeOggMatches": "9/9",
+    "currentCandidateMatchesRender": "88/88",
+    "renderCombinedSha256": [
+      "93606ece0532a7f9e71ff6d29d65c323d114863322b9a0ae09e2f860b9f119a6",
+      "93606ece0532a7f9e71ff6d29d65c323d114863322b9a0ae09e2f860b9f119a6"
+    ],
+    "currentCombinedAudioSha256": "93606ece0532a7f9e71ff6d29d65c323d114863322b9a0ae09e2f860b9f119a6",
+    "mismatches": [],
+    "method": "two generator subprocesses in separate temporary roots; per-file SHA-256 comparison against each other and the candidate under review",
+    "containerCanonicalization": "music Ogg stream serial derives from SHA-256(asset ID); page CRCs are recalculated; Vorbis packet bytes are not modified"
+  },
+  "sourceBundleVerification": {
+    "result": "pass",
+    "expectedFromGeneratedManifest": "23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f",
+    "observedByReviewer": "23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f",
+    "pathBasis": "repository-relative POSIX paths plus file contents"
+  },
+  "crossDecoderReview": {
+    "result": "pass-with-music-decoder-variance",
+    "tools": {
+      "afconvert": "/usr/bin/afconvert",
+      "afinfo": "/usr/bin/afinfo"
+    },
+    "sfxWavSampleExact": "35/35",
+    "sfxWavPcm16FrameAndValueExact": "35/35",
+    "musicOggFrameCountExact": "9/9",
+    "musicOggZeroOffsetAligned": "0/9",
+    "musicOggSampleExact": "0/9",
+    "musicOggCoreAudioSeamGate": "9/9",
+    "musicOggAlignmentOffsetsFrames": {
+      "128": 9
+    },
+    "hardErrors": [],
+    "warnings": [
+      "MUS-GAME-BASE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-31.3007, -31.3007] dBFS",
+      "MUS-GAME-GROOVE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-128.9314, -118.4738] dBFS",
+      "MUS-GAME-HYPE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-54.1637, -53.269] dBFS",
+      "MUS-MENU CoreAudio frame 0 aligns to libsndfile frame 128; frame count 2202353/2202353 (+0); unmatched CoreAudio tail 128 frames; seam [-37.9088, -37.5707] dBFS",
+      "MUS-SHOP CoreAudio frame 0 aligns to libsndfile frame 128; frame count 2202353/2202353 (+0); unmatched CoreAudio tail 128 frames; seam [-38.3425, -39.4289] dBFS",
+      "MUS-GAME-I0-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-50.9496, -50.9496] dBFS",
+      "MUS-GAME-I1-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-60.0432, -60.0432] dBFS",
+      "MUS-GAME-I2-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-56.6376, -57.631] dBFS",
+      "MUS-GAME-I3-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-108.1035, -58.4781] dBFS"
+    ],
+    "interpretation": "Frame-count equality is not sample alignment. WAV PCM16 SFX must preserve frame count and every PCM value. Ogg music may retain a decoder offset and frame-count variance, but every CoreAudio-decoded boundary must independently satisfy the numeric seam gate.",
+    "androidMusicLoopGate": "pending"
+  },
+  "pcm16DitherReview": {
+    "result": "pass",
+    "reconstructionExact": "35/35",
+    "method": "reviewer reconstructs signed PCM16 from the encoded PCM24 master with the stable asset-ID seed and compares every sample value"
+  }
+}

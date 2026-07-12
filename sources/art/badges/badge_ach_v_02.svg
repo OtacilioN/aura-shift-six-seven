@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_v_02</title>
+  <desc>Shape-redundant achievement badge hands_in_motion. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_v_02;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_v_02"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><circle cx="180" cy="278" r="52" fill="#43E6FF" stroke="#090B1A" stroke-width="16"/><circle cx="332" cy="218" r="52" fill="#FF4FA3" stroke="#090B1A" stroke-width="16"/><ellipse cx="256" cy="256" rx="160" ry="116" fill="none" stroke="#FFD166" stroke-width="20" stroke-dasharray="30 18"/></g></g>
+</svg>

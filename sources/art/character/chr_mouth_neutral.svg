@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>chr_mouth_neutral</title>
+  <desc>Canonical pseudo-rig component mouth_neutral. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=chr_mouth_neutral;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="mouth_neutral"><path d="M88 136 Q128 148 168 136" fill="none" stroke="#090B1A" stroke-width="14" stroke-linecap="round"/></g></g>
+</svg>

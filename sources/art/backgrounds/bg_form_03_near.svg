@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="3840" viewBox="0 0 2160 3840" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>bg_form_03_near</title>
+  <desc>Portrait bg_form_03_near separated background plane. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=bg_form_03_near;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="bg_form_03_near"><ellipse cx="1080" cy="3340" rx="720" ry="168" fill="#090B1A" opacity="0.44"/><path d="M140 3340 L430 3100 M1730 3400 L2050 3130" stroke="#FF4FA3" stroke-width="42" stroke-linecap="round" opacity="0.50"/><path d="M250 3450 L380 3320 L510 3450 M1650 3450 L1780 3320 L1910 3450" fill="none" stroke="#43E6FF" stroke-width="28" opacity="0.42"/></g></g>
+</svg>

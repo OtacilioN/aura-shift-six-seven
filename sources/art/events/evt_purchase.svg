@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>evt_purchase</title>
+  <desc>Text-free event emblem evt_purchase. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=evt_purchase;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="evt_purchase"><path d="M256 42 L428 140 L428 340 L256 438 L84 340 L84 140 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M142 266 L222 338 L374 166" fill="none" stroke="#43E6FF" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/><circle cx="374" cy="166" r="22" fill="#F7F5FF"/></g></g>
+</svg>

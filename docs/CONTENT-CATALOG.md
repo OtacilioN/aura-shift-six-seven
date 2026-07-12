@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Catálogo Cultural do MVP
 
-> Status: conteúdo-fonte de P04 fechado em 10 de julho de 2026; economia preservada em `balance-v0.1`. Nomes são `en-US` e podem ser transcriados sem alterar IDs ou função.
+> Status: catálogo revisado em 11 de julho de 2026 com humor sistêmico e feedback visual; economia preservada em `balance-v0.1`. Nomes são `en-US` e podem ser transcriados sem alterar IDs ou função.
 
 ## Contratos invariáveis
 
@@ -36,39 +36,39 @@ Os custos iguais de `03` e `04` são intencionais. A contribuição é aditiva a
 
 | ID | Nome-fonte | Descrição curta | Aparência e função visual | Variações nos Marcos | Dependências e risco |
 | --- | --- | --- | --- | --- | --- |
-| `ITEM-A-01` | **Quiet Flex** | `A small detail that does all the talking.` | broche assimétrico no peito; introduz Poise sem mudar silhueta | `10` borda dupla; `25` reflexo; `50` segundo plano; `100+` aro por centena | arte de torso, ping seco; baixo, expressão genérica |
-| `ITEM-A-02` | **Clean Line** | `One clean edge. No wasted motion.` | faixa diagonal de ombro compatível com braços | linha dupla, filete claro, sombra rígida, nós luminosos | rig de ombro e RTL neutro; baixo |
-| `ITEM-A-03` | **Mirror Glint** | `The room notices before the mascot does.` | visor abstrato sem lentes/marca, no slot de rosto | brilho lateral, prisma, reflexo móvel reduzível, facetas extras | oclusão facial e alternativa sem flash; baixo |
-| `ITEM-A-04` | **Gravity Coat** | `Presence with its own pull.` | cauda curta flutuante atrás do corpo, sem cobrir mãos | bainha, duas abas, sombra-aura, constelação de pontos | simulação leve e modo reduzido estático; baixo |
-| `ITEM-A-05` | **Crownless Halo** | `No throne. The signal is enough.` | arco aberto atrás da cabeça, explicitamente não religioso/real | segmento duplo, três órbitas, arco completo aberto, marcas por centena | legibilidade com FORM-04/05; baixo-médio por simbolismo, revisar locales |
+| `ITEM-A-01` | **Suspicious Button** | `On Six, it looks decorative. On Seven, too — but now it produces Aura.` | botão físico de quatro furos costurado no lado esquerdo do peito, fora das chamadas `SIX`/`SEVEN` | linha de auditoria, indicador luminoso, costura reforçada, marcas por centena | leitura de botão sem parecer joia ou controle interativo; baixo |
+| `ITEM-A-02` | **Glow Receipt** | `Proves you spent everything. Regret comes without a receipt.` | recibo térmico luminoso parcialmente encaixado no bolso direito, sem texto incorporado | borda dupla, picote claro, carimbo abstrato, nós luminosos | rig de quadril, RTL neutro e piada legível sem texto no asset; baixo |
+| `ITEM-A-03` | **QA Goggles** | `Reveal three bugs. Two will be promoted to mechanics.` | óculos frontais com duas lentes transparentes, ponte e hastes, vestidos sobre os olhos | reflexos de inspeção, duas marcas aprovadas, brilho reduzível, contorno extra | preservar olhos/expressão, alternativa sem flash e transcriação de `QA`; baixo |
+| `ITEM-A-04` | **Gate Coat** | `The zipper opens only when the previous pocket reaches level 50.` | jaqueta curta aberta sobre o torso, com lapelas, zíper bipartido e dois bolsos, sob as mãos | bainha, bolsos, zíper luminoso, fechos por centena | requisito real do predecessor em nível `50`; modo reduzido estático; baixo |
+| `ITEM-A-05` | **Hotfix Crown** | `Installed at 5:59 PM. Since then, the universe avoids eye contact.` | coroa frontal de três pontas apoiada sobre a cabeça, com placas remendadas e rebites | remendo duplo, três pontos de correção, placas sequenciais, marcas por centena | legibilidade com FORM-04/05; não embutir horário nem texto; baixo-médio |
 
 ## Ramo B — Motion
 
 | ID | Nome-fonte | Descrição curta | Aparência e função visual | Variações nos Marcos | Dependências e risco |
 | --- | --- | --- | --- | --- | --- |
-| `ITEM-B-01` | **Pocket Pulse** | `A beat small enough to carry anywhere.` | módulo arredondado no quadril, sem marca ou tela textual | um pulso, dois pulsos, equalizador abstrato, aro por centena | slot de quadril e tick grave; baixo |
-| `ITEM-B-02` | **Step Spark** | `Every move leaves the floor awake.` | tornozeleiras geométricas e faíscas no contato visual | contorno, rastro curto, rastro duplo, estrelas geométricas | não sugerir alvo de toque nem dança real; baixo |
-| `ITEM-B-03` | **Floor Echo** | `The second wave arrives on its own.` | anéis achatados atrás dos pés, apenas decorativos | segundo anel, recorte, eco alternado, anéis por centena | partículas limitadas e redundância de forma; baixo |
-| `ITEM-B-04` | **Night Current** | `The whole block moves in one direction.` | fita escura luminosa orbitando o torso atrás das mãos | ponta dupla, corrente larga, cortes rítmicos, nós adicionais | áudio percussivo original; médio por leitura urbana, sem caricatura |
-| `ITEM-B-05` | **City Tremor** | `A quiet step. A skyline-sized response.` | silhueta de barras abstratas no fundo, não uma cidade real | três barras, skyline genérico, onda panorâmica, módulos por centena | fundo, desempenho e reduzir movimento; baixo |
+| `ITEM-B-01` | **6:70 Alarm Clock** | `Rings one minute after impossible. You were already late for your own Aura.` | despertador clássico/digital no chão à direita, com dois sinos, pés e visor vetorial `6:70` | pulso, segundo pulso, vibração dos sinos, aro por centena | prop world-space, tick grave e leitura do horário sem fonte; baixo |
+| `ITEM-B-02` | **Lag Shoes** | `Arrive two cycles late and demand retroactive Aura.` | par completo de tênis vestido sobre os pés, com cadarços, solas e afterimages atrasados | contorno, rastro curto, rastro duplo, eco geométrico | não sugerir vantagem de velocidade nem alterar timing; baixo |
+| `ITEM-B-03` | **Remainder Ring** | `Holds 0.9999999 Aura and a tax grievance too small to abbreviate.` | anel físico ampliado junto à mão elevada, com encaixe, gema pequena e resto orbital | segundo aro, recorte de resto, eco alternado, anéis por centena | partículas limitadas; valor aparece apenas na copy, nunca no asset; baixo |
+| `ITEM-B-04` | **Two-Tap Union** | `Six works. Seven appears in the delivery photo.` | dois botões táteis presos às mãos por uma ligação dinâmica que acompanha o rig Six/Seven | ponta dupla, ligação larga, duas marcas de fase, nós adicionais | não prometer automação nem alterar crédito; humor de burocracia, não de trabalhador real; baixo |
+| `ITEM-B-05` | **Creative Astral Statement** | `Available Aura plummets. Total Aura calls it growth.` | gráfico abstrato de barras e curva no fundo; não exibe números nem simula painel financeiro real | três barras, sete colunas, curva panorâmica, módulos por centena | fundo, desempenho, redução de movimento e distinção entre Aura Disponível/Total; baixo |
 
 ## Ramo C — Signal
 
 | ID | Nome-fonte | Descrição curta | Aparência e função visual | Variações nos Marcos | Dependências e risco |
 | --- | --- | --- | --- | --- | --- |
-| `ITEM-C-01` | **Glitch Pin** | `A tiny error with perfect timing.` | pin quadrado no peito com deslocamento de canais | duplicata, recorte, três canais, fragmento por centena | sem copiar ícones de app; baixo |
-| `ITEM-C-02` | **Loop Lens** | `Catch the moment. Send it around again.` | lente flutuante única no slot lateral do rosto | anel duplo, retícula abstrata, eco de lente, pontos orbitais | não simular câmera/gravação; baixo-médio de privacidade, linguagem abstrata |
-| `ITEM-C-03` | **Static Cape** | `The noise learned how to flow.` | painel de estática largo atrás do corpo | granulação, duas bandas, onda tonal, banda por centena | evitar cintilação/ruído rápido; baixo |
-| `ITEM-C-04` | **Signal Crown** | `Every channel found the same frequency.` | três antenas curvas não funcionais atrás da cabeça | pontas, arcos, pulso de recepção, marcas por centena | distinguir de coroa real e Crownless Halo; baixo |
-| `ITEM-C-05` | **Horizon Frame** | `The edge of the screen moved farther away.` | moldura aberta no fundo, sem encerrar controles | cantos, segunda moldura, profundidade, horizonte por centena | safe areas, RTL e telas largas; baixo |
+| `ITEM-C-01` | **Certified Glitch** | `It was a bug until someone wrote “expected behavior.”` | crachá de certificação preso ao lado esquerdo do peito, com canais desalinhados e selo abstrato de aprovação | duplicata, recorte, três canais, fragmento por centena | sem copiar ícones de app nem inserir texto; baixo |
+| `ITEM-C-02` | **Fugitive Decimal** | `The interface cannot see it. The economy knows where it lives.` | ponto decimal e dígitos segmentados correndo para dentro do bolso direito | passo duplo, oclusão progressiva, eco de fuga, pontos orbitais | nenhum texto ou fonte; humor depende da economia e da oclusão; baixo |
+| `ITEM-C-03` | **Cache Cape** | `It was equipped yesterday. The interface preferred to mention it today.` | capa tecnológica vestida atrás do corpo, com gola, duas caudas, fenda e costuras digitais | granulação, blocos antigos, onda tonal, banda por centena | evitar cintilação/ruído rápido e explicar `cache` por transcriação; baixo |
+| `ITEM-C-04` | **Unemployed Router** | `The game works offline. It blinks to keep up appearances.` | roteador físico no chão à direita, com caixa, pés, LEDs, duas antenas e ondas vetoriais | LEDs, arcos, pulso sem conexão, marcas por centena | não sugerir rede necessária nem copiar hardware real; baixo |
+| `ITEM-C-05` | **404 Frame** | `The horizon was not found. We framed the error and moved on.` | moldura quebrada no fundo, com `404` em segmentos vetoriais e horizonte ausente no centro | cantos, segunda moldura falha, profundidade, horizonte por centena | safe areas, RTL, telas largas e piada preservada sem elemento de texto; baixo |
 
 ## Itens de Convergência
 
 | ID | Nome-fonte | Descrição curta | Requisitos simultâneos | Custo / contribuição | Aparência e Marcos | Dependências e risco |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ITEM-CONV-01` | **Triple Sync** | `Three routes. One clean beat.` | três `01` no nível `10` + `1K` | `6.700`; `+7,5 Aura/s` | nó triangular atrás do Mascote; `10/25/50/100+` acrescentam contorno, giro reduzível, três pulsos e marcas | combina três paletas sem hierarquia; baixo |
-| `ITEM-CONV-02` | **Full Spectrum** | `Every style, visible at once.` | três `03` no nível `25` + `1B` | `26.800.000`; `+3.350 Aura/s` | prisma aberto de três faixas; Marcos ampliam separação e profundidade | alternativa sem arco-íris piscante; baixo |
-| `ITEM-CONV-03` | **Worldline** | `All paths arrive before the horizon.` | três `05` no nível `50` + `1Qa` | `670.000.000.000.000`; `+13.400.000.000 Aura/s` | linha contínua liga halo, piso e moldura; Marcos adicionam camadas estáticas | composição FORM-05 e desempenho; baixo |
+| `ITEM-CONV-01` | **Meeting Knot** | `Three routes arrived. Now everyone pretends to be aligned.` | três `01` no nível `10` + `1K` | `6.700`; `+7,5 Aura/s` | três participantes enviam fitas entrelaçadas a um nó central; Marcos acrescentam ata circular, pulso reduzível e marcas | combina três paletas sem alegar que bloqueia rotas; baixo |
+| `ITEM-CONV-02` | **Convergence by Exhaustion** | `The three branches stopped arguing and called it Spectrum.` | três `03` no nível `25` + `1B` | `26.800.000`; `+3.350 Aura/s` | três fluxos irregulares e interrompidos estabilizam em um núcleo comum; Marcos ampliam encaixe e profundidade | alternativa sem arco-íris piscante; baixo |
+| `ITEM-CONV-03` | **Canonical Screw** | `Nobody knows where it fits. Removing it deletes half the universe.` | três `05` no nível `50` + `1Qa` | `670.000.000.000.000`; `+13.400.000.000 Aura/s` | parafuso físico lateral recebe três linhas coloridas presas à cabeça; Marcos acrescentam arruelas e camadas estáticas | composição FORM-05, desempenho e remoção apenas como piada, nunca ação real; baixo |
 
 Os Orçamentos de Amplitude permanecem `16.461`, `44.288.124` e `1.452.336.002.684.412 Aura`. Convergências são opcionais, reiniciam na Ascensão e não liberam ramo, Patamar ou Ascensão.
 
@@ -92,7 +92,7 @@ Técnicas não possuem pré-requisito entre si. Ascensão reinicia níveis, pres
 | `FORM-01` | **First Glow** | `1K` | contorno claro, duas partículas lentas, gradiente local | expansão de `450 ms`; reduzida: fade de `200 ms` | contraste e não ocultar itens; baixo |
 | `FORM-02` | **Afterimage** | `1M` | segunda silhueta deslocada, paleta em dois tons, rastro curto | desloca e assenta em `650 ms`; reduzida: contorno duplo | evitar duplicar leitura de mãos; baixo |
 | `FORM-03` | **Neon Weather** | `1B` | chuva diagonal lenta de símbolos abstratos e luz ambiente | frente passa em `900 ms`; reduzida: troca de fundo | limite de partículas e sem flash; baixo |
-| `FORM-04` | **Skyline Pulse** | `1T` | Mascote maior por luz, horizonte de barras e ondas largas | pulso único de `1.100 ms`; reduzida: barras estáticas | compatibilidade com City Tremor; baixo |
+| `FORM-04` | **Skyline Pulse** | `1T` | Mascote maior por luz, horizonte de barras e ondas largas | pulso único de `1.100 ms`; reduzida: barras estáticas | compatibilidade com Creative Astral Statement; baixo |
 | `FORM-05` | **Aura Zenith** | `1Qa` | halo aberto, piso e horizonte ligados; paleta espectral final | três estágios em `1.500 ms`; reduzida: fade por camadas | deve manter mãos e UI legíveis; `zenith` transcriável; baixo |
 
 Transformações são permanentes, não são aparência equipável e não alteram economia. Cor nunca é o único diferenciador.
@@ -112,7 +112,7 @@ O evento não credita Aura, não multiplica produção e não se repete para a m
 
 ## Inventário e slots visuais
 
-Slots compatíveis: `chest`, `shoulder`, `face-side`, `head-back`, `hip`, `ankles`, `body-back`, `ground-back` e `scene-frame`. Itens que dividem slot podem ser selecionados individualmente; efeitos econômicos continuam ativos. Convergências usam `aura-back` e podem coexistir com um item por slot. QA deve testar as 18 Aparências com as cinco Transformações, RTL e movimento reduzido.
+Slots compatíveis: `chest`, `shoulder`, `face-wear`, `body-wear`, `head-wear`, `hip`, `ankles`, `hand-prop`, `hands-wear`, `body-back`, `ground-back`, `ground-prop` e `scene-frame`. Os slots `*-wear` acompanham o bob, a inclinação e o lean do Mascote; `ground-prop`, `scene-frame` e `aura-back` permanecem fixos no mundo. Itens que dividem slot podem ser selecionados individualmente; efeitos econômicos continuam ativos. Convergências usam `aura-back` e podem coexistir com um item por slot. QA deve testar as 18 Aparências com as cinco Transformações, RTL e movimento reduzido.
 
 ## Dependências de produção
 

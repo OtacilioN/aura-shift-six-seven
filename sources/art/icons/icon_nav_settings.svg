@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>icon_nav_settings</title>
+  <desc>Essential rounded functional glyph icon_nav_settings. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=icon_nav_settings;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="icon_nav_settings"><path d="M18 24 H78 M18 48 H78 M18 72 H78" fill="none" stroke="#F7F5FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="24" r="8" fill="#43E6FF"/><circle cx="62" cy="48" r="8" fill="#FF4FA3"/><circle cx="42" cy="72" r="8" fill="#FFD166"/></g></g>
+</svg>

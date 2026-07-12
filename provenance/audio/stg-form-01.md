@@ -1,0 +1,29 @@
+# STG-FORM-01 — proveniência candidata
+
+- **ID:** `STG-FORM-01`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `13008716580334488497`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/stg_form_01.wav` — `4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a`
+- **Runtime:** `assets/audio/sfx/events/stg_form_01.wav` — `a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `15070329162450795008`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `2` canal(is), `57600` amostras.
+- **Métricas master:** `-16.5` LUFS-I, `-2.4129` dBFS peak, `-2.4074` dBTP.
+- **Métricas runtime:** `-16.5` LUFS-I, `-2.413` dBFS peak, `-2.4074` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `57600/57600` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

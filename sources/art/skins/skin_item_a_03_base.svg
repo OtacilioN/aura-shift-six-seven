@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_03_base</title>
+  <desc>QA goggles paired transparent lenses with bridge and temple arms; base layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_03_base;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="base"><g id="qa_glasses_eye_alignment" transform="translate(0 34)"><path d="M414 326 L382 316 Q366 314 356 330 M610 326 L642 316 Q658 314 668 330" fill="none" stroke="#090B1A" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M414 326 L382 316 Q366 314 356 330 M610 326 L642 316 Q658 314 668 330" fill="none" stroke="#43E6FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><rect x="414" y="304" width="88" height="72" rx="28" fill="#43E6FF" opacity="0.22" stroke="#090B1A" stroke-width="18"/><rect x="522" y="304" width="88" height="72" rx="28" fill="#43E6FF" opacity="0.22" stroke="#090B1A" stroke-width="18"/><path d="M502 330 Q512 316 522 330" fill="none" stroke="#090B1A" stroke-width="18" stroke-linecap="round"/></g></g></g>
+</svg>

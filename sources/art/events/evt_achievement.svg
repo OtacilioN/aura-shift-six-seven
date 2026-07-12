@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>evt_achievement</title>
+  <desc>Text-free event emblem evt_achievement. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=evt_achievement;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="evt_achievement"><path d="M256 42 L428 140 L428 340 L256 438 L84 340 L84 140 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M256 92 L300 180 L398 194 L326 264 L344 364 L256 318 L168 364 L186 264 L114 194 L212 180 Z" fill="#FFD166" stroke="#8B7CFF" stroke-width="22" stroke-linejoin="round"/></g></g>
+</svg>

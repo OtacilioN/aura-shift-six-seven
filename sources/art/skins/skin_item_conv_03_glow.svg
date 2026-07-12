@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_conv_03_glow</title>
+  <desc>oversized physical side screw with cross-slot head threaded shaft and three tether lines; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_conv_03_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><circle cx="800" cy="300" r="150" fill="none" stroke="#8B7CFF" stroke-width="24" opacity="0.18"/><path d="M746 408 L854 408 L850 846 L800 924 L750 846 Z" fill="none" stroke="#8B7CFF" stroke-width="48" stroke-linejoin="round" opacity="0.14" transform="rotate(-8 800 300)"/><path d="M690 104 C732 126 754 156 770 184" fill="none" stroke="#43E6FF" stroke-width="42" stroke-linecap="round" opacity="0.14"/><path d="M982 214 C942 214 922 238 918 276" fill="none" stroke="#FF4FA3" stroke-width="42" stroke-linecap="round" opacity="0.14"/><path d="M976 486 C936 442 906 398 878 374" fill="none" stroke="#FFD166" stroke-width="42" stroke-linecap="round" opacity="0.14"/></g></g>
+</svg>

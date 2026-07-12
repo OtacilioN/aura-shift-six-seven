@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_v_04</title>
+  <desc>Shape-redundant achievement badge three_directions. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_v_04;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_v_04"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M256 256 L256 112" stroke="#43E6FF" stroke-width="30" stroke-linecap="round"/><path d="M256 256 L386 348" stroke="#FF4FA3" stroke-width="30" stroke-linecap="round"/><path d="M256 256 L126 348" stroke="#FFD166" stroke-width="30" stroke-linecap="round"/><circle cx="256" cy="256" r="46" fill="#F7F5FF" stroke="#090B1A" stroke-width="18"/></g></g>
+</svg>

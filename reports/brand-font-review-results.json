@@ -1,0 +1,12 @@
+{
+  "contract": "brand-font-review-v1",
+  "status": "passed-automated",
+  "failures": [],
+  "warnings": [
+    "Adaptive icon masks still require inspection on physical launchers.",
+    "Arabic/Japanese shaping, locale reflow and 200% text scaling require Flutter device QA.",
+    "Feature graphic publication review and originality acceptance remain human gates."
+  ],
+  "brandFileCount": 39,
+  "fontFileCount": 6
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>evt_ascension</title>
+  <desc>Text-free event emblem evt_ascension. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=evt_ascension;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="evt_ascension"><path d="M256 42 L428 140 L428 340 L256 438 L84 340 L84 140 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M112 346 Q256 286 400 346" fill="none" stroke="#FF4FA3" stroke-width="34"/><path d="M256 350 V142 M186 212 L256 142 L326 212" fill="none" stroke="#FFD166" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+</svg>

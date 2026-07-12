@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>chr_mouth_celebration</title>
+  <desc>Canonical pseudo-rig component mouth_celebration. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=chr_mouth_celebration;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="mouth_celebration"><path d="M76 116 Q128 190 180 116 Q166 190 128 194 Q90 190 76 116 Z" fill="#090B1A"/></g></g>
+</svg>

@@ -17,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 L10N = ROOT / "localization"
+RUNTIME_L10N = ROOT / "assets" / "l10n"
 
 REQUIRED_DOCS = (
     "CULTURAL-RESEARCH-DOSSIER.md",
@@ -130,6 +131,19 @@ def check_catalogs(errors: list[str]) -> None:
             actual = sorted(PLACEHOLDER.findall(pseudo[key]))
             if actual != expected:
                 fail(errors, f"{PSEUDO_LOCALE}:{key}: placeholders {actual} != {expected}")
+
+    for locale in (*LOCALES, PSEUDO_LOCALE):
+        source_path = L10N / f"{locale}.json"
+        runtime_path = RUNTIME_L10N / f"{locale}.json"
+        if not runtime_path.exists():
+            fail(errors, f"catálogo runtime ausente: {runtime_path.relative_to(ROOT)}")
+            continue
+        if source_path.exists() and source_path.read_bytes() != runtime_path.read_bytes():
+            fail(
+                errors,
+                f"catálogo runtime divergente: {runtime_path.relative_to(ROOT)} != "
+                f"{source_path.relative_to(ROOT)}",
+            )
 
 
 def check_local_links(errors: list[str]) -> None:

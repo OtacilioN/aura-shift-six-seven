@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>icon_transformation</title>
+  <desc>Essential rounded functional glyph icon_transformation. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=icon_transformation;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="icon_transformation"><path d="M20 70 Q48 20 76 70" fill="none" stroke="#F7F5FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M48 12 V42" stroke="#8B7CFF" stroke-width="6"/><circle cx="48" cy="70" r="10" fill="#43E6FF"/></g></g>
+</svg>

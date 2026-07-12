@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_04_thumb</title>
+  <desc>FORM-04 canonical thumb layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_04_thumb;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_04_thumb"><rect x="60" y="60" width="2040" height="2040" rx="360" fill="#141936" stroke="#090B1A" stroke-width="54"/><rect x="180" y="1560" width="150" height="260" rx="34" fill="#141936" stroke="#FF4FA3" stroke-width="20"/><rect x="460" y="1430" width="150" height="390" rx="34" fill="#141936" stroke="#FFD166" stroke-width="20"/><rect x="740" y="1510" width="150" height="310" rx="34" fill="#141936" stroke="#FF4FA3" stroke-width="20"/><rect x="1020" y="1300" width="150" height="520" rx="34" fill="#141936" stroke="#FFD166" stroke-width="20"/><rect x="1300" y="1470" width="150" height="350" rx="34" fill="#141936" stroke="#FF4FA3" stroke-width="20"/><rect x="1580" y="1350" width="150" height="470" rx="34" fill="#141936" stroke="#FFD166" stroke-width="20"/><rect x="1860" y="1540" width="150" height="280" rx="34" fill="#141936" stroke="#FF4FA3" stroke-width="20"/><path d="M120 1480 Q420 1300 720 1480 T1320 1480 T2040 1400" fill="none" stroke="#FFD166" stroke-width="44"/></g></g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>chr_eye_surprise</title>
+  <desc>Canonical pseudo-rig component eyes_surprise. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=chr_eye_surprise;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="eyes_surprise"><path d="M50 72 Q82 52 110 70" fill="none" stroke="#090B1A" stroke-width="12" stroke-linecap="round"/><path d="M146 70 Q174 52 206 72" fill="none" stroke="#090B1A" stroke-width="12" stroke-linecap="round"/><ellipse cx="84" cy="130" rx="34" ry="54" fill="#090B1A"/><ellipse cx="172" cy="130" rx="34" ry="54" fill="#090B1A"/></g></g>
+</svg>

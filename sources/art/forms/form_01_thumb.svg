@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_01_thumb</title>
+  <desc>FORM-01 canonical thumb layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_01_thumb;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_01_thumb"><rect x="60" y="60" width="2040" height="2040" rx="360" fill="#141936" stroke="#090B1A" stroke-width="54"/><ellipse cx="1080" cy="1100" rx="610" ry="750" fill="none" stroke="#43E6FF" stroke-width="52"/><circle cx="650" cy="760" r="36" fill="#8B7CFF"/><circle cx="1510" cy="1440" r="36" fill="#43E6FF"/></g></g>
+</svg>

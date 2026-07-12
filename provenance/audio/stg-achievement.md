@@ -1,0 +1,29 @@
+# STG-ACHIEVEMENT — proveniência candidata
+
+- **ID:** `STG-ACHIEVEMENT`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `8079010451911306515`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/stg_achievement.wav` — `4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320`
+- **Runtime:** `assets/audio/sfx/events/stg_achievement.wav` — `c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `10613129900793045331`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `2` canal(is), `43200` amostras.
+- **Métricas master:** `-17.0` LUFS-I, `-1.6775` dBFS peak, `-1.6687` dBTP.
+- **Métricas runtime:** `-17.0` LUFS-I, `-1.6775` dBFS peak, `-1.6688` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `43200/43200` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

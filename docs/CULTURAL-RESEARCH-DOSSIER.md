@@ -38,7 +38,7 @@ Mewing continua reconhecível como gesto de “jawline”, mas é um território
 
 A identidade sonora pode dialogar com Recife, mas não deve reduzir uma cultura viva a um “skin pack”. A [Prefeitura do Recife](https://www2.recife.pe.gov.br/noticias/01/07/2021/movimento-brega-se-torna-patrimonio-imaterial-do-recife) registra o Movimento Brega como patrimônio cultural imaterial e destaca música, dança, visual, acessórios e cadeia econômica comunitária. A [Alepe](https://www.alepe.pe.gov.br/proposicao-texto-completo/?docid=14269&tipoprop=p) reconhece o brega funk como movimento das periferias de Recife e de outros centros urbanos pernambucanos.
 
-**Decisão:** a influência entra no áudio como energia percussiva, camadas e movimento, com proveniência e composição originais. Não há ramo “pernambucano”, caricatura regional, nome de artista, passinho específico, sample, bordão ou reprodução de moda comunitária. Conceitos como `Pocket Pulse`, `Floor Echo` e `City Tremor` são universais e podem receber uma realização sonora original informada, não imitativa.
+**Decisão:** a influência entra no áudio como energia percussiva, camadas e movimento, com proveniência e composição originais. Não há ramo “pernambucano”, caricatura regional, nome de artista, passinho específico, sample, bordão ou reprodução de moda comunitária. O ramo Motion agora usa objetos ficcionais como `6:70 Alarm Clock`, `Lag Shoes` e `Remainder Ring`; a realização sonora permanece original, informada e não imitativa.
 
 ## Mapa de repertório
 
@@ -53,25 +53,25 @@ A identidade sonora pode dialogar com Recife, mas não deve reduzir uma cultura 
 | brainrot | ainda usado como metacategoria | descrição externa informal | autodepreciação e vida curta | não usar como marca ou item |
 | brega funk recifense | cultura viva, não “meme” | direção de energia e percussão | apropriação, caricatura, direitos | influência abstrata com crédito |
 | glitch / loop / signal | estável, internet-native | ramo colecionável | clichê visual moderado | usar com desenho autoral |
-| poise / quiet flex | estável e transcriável | ramo de presença | anglicismo em alguns locales | transcriar, não transliterar à força |
+| burocracia cósmica / objetos defeituosos | estável e transcriável por função | humor interno dos Itens | jargão técnico e textos mais longos | transcriar a punchline, não transliterar à força |
 
 ## Territórios aprovados
 
 ### Ramo A — Poise
 
-Presença quieta, controle e silhueta. A piada é que o Mascote não precisa provar nada. Formas: linhas limpas, reflexos, gravidade visual e halo sem realeza. Evita anatomia, beleza normativa e mewing.
+Autoridade corporativa duvidosa aplicada à presença e à silhueta. `Suspicious Button`, `Glow Receipt`, `QA Goggles`, `Gate Coat` e `Hotfix Crown` transformam controles, auditoria e remendos em acessórios tratados com solenidade. Evita anatomia, beleza normativa, mewing e ataques ao jogador.
 
 ### Ramo B — Motion
 
-Ritmo que parece ocupar o espaço antes do Mascote chegar. Formas: pulso, passo abstrato, eco de piso, corrente noturna e vibração urbana. A produção musical pode receber energia recifense original, mas nomes e assets permanecem culturalmente portáteis.
+Slapstick visual sincronizado ao Ciclo e à economia: despertador impossível, sapatos atrasados, resto decimal, sindicato de dois toques e extrato astral. Formas continuam usando pulso, tornozelos, eco de piso, fita e gráfico de fundo. A produção musical pode receber energia recifense original, mas nomes e assets permanecem culturalmente portáteis.
 
 ### Ramo C — Signal
 
-Presença transmitida: falha, repetição, estática e horizonte digital. Formas: pin, lente, capa de estática, coroa-sinal e moldura de horizonte. O humor vem de tratar um ruído mínimo como evento cósmico, sem copiar interfaces ou marcas.
+Tecnologia quebrada e oficialmente homologada: `Certified Glitch`, `Fugitive Decimal`, `Cache Cape`, `Unemployed Router` e `404 Frame`. Formas preservam pin, lente, painel, antenas e moldura. O humor trata falhas pequenas como decisões institucionais sem copiar interfaces, marcas ou hardware real.
 
 ### Convergência — Spectrum
 
-Quando os três ramos se encontram, o resultado é sincronização, não superioridade cultural. `Triple Sync`, `Full Spectrum` e `Worldline` celebram amplitude e preservam a natureza opcional das Convergências.
+Quando os três ramos se encontram, o resultado é burocracia cósmica, não superioridade cultural. `Meeting Knot`, `Convergence by Exhaustion` e `Canonical Screw` satirizam consenso, alinhamento e dependências frágeis, preservando a natureza opcional das Convergências.
 
 ## Transcriação
 

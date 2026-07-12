@@ -1,0 +1,97 @@
+{
+  "contract": "audio-procedural-score-v1",
+  "revision": 3,
+  "status": "candidate-source",
+  "sampleRate": 48000,
+  "masterBitDepth": 24,
+  "bpm": 136,
+  "timeSignature": [4, 4],
+  "masterSeed": "aura-shift-six-seven-audio-v1-2026-07-10",
+  "gameBars": 52,
+  "menuBars": 26,
+  "gameLoopSamples": 4404706,
+  "menuLoopSamples": 2202353,
+  "phraseBoundarySamples": [0, 1101176, 2202353, 3303529, 4404706],
+  "loopBoundaryTreatment": {
+    "type": "squared-sine taper to digital zero",
+    "fadeFrames": 1024,
+    "fadeMilliseconds": 21.333333333,
+    "purpose": "preserve a low-energy seam across decoder pre-skip and final-packet variance"
+  },
+  "sourcePolicy": {
+    "externalAudioInputs": false,
+    "samples": false,
+    "voice": false,
+    "foley": false,
+    "generativeAudioModel": false,
+    "method": "deterministic oscillators, seeded noise, filters and envelopes"
+  },
+  "runtimeEncoding": {
+    "music": {
+      "container": "OGG",
+      "codec": "Vorbis",
+      "compressionLevel": 0.4,
+      "qualityIntent": "Vorbis q6; libsndfile 1.2.2 sets encoder quality to 1.0 - compressionLevel"
+    },
+    "sfx": {
+      "container": "WAV",
+      "codec": "PCM_16",
+      "dither": {
+        "type": "TPDF",
+        "peakToPeakLsb": 2,
+        "seedNamespace": "aura-shift-pcm16-tpdf-v1",
+        "quantizer": "round-to-nearest-even, clipped to signed int16"
+      },
+      "reason": "frame-exact cross-decoder behavior, smaller bundle and low-latency playback for short assets"
+    }
+  },
+  "assets": [
+    {"id":"MUS-GAME-BASE","group":"music","kind":"game_base","required":true,"master":"masters/audio/mus_game_base.wav","runtime":"assets/audio/music/mus_game_base.ogg","channels":2,"loopSamples":4404706,"targetLufs":-16.0,"truePeakCeilingDbtp":-1.5},
+    {"id":"MUS-GAME-GROOVE","group":"music","kind":"game_groove","required":true,"master":"masters/audio/mus_game_groove.wav","runtime":"assets/audio/music/mus_game_groove.ogg","channels":2,"loopSamples":4404706,"targetLufs":-24.8,"truePeakCeilingDbtp":-2.0,"note":"overlay deliberadamente mais baixo; alvo de -16 LUFS se aplica ao estado musical composto"},
+    {"id":"MUS-GAME-HYPE","group":"music","kind":"game_hype","required":true,"master":"masters/audio/mus_game_hype.wav","runtime":"assets/audio/music/mus_game_hype.ogg","channels":2,"loopSamples":4404706,"targetLufs":-26.3,"truePeakCeilingDbtp":-2.0,"note":"overlay deliberadamente mais baixo; alvo de -16 LUFS se aplica ao estado musical composto"},
+    {"id":"MUS-MENU","group":"music","kind":"menu","required":true,"master":"masters/audio/mus_menu.wav","runtime":"assets/audio/music/mus_menu.ogg","channels":2,"loopSamples":2202353,"targetLufs":-16.0,"truePeakCeilingDbtp":-1.5},
+    {"id":"MUS-SHOP","group":"music","kind":"shop","required":true,"master":"masters/audio/mus_shop.wav","runtime":"assets/audio/music/mus_shop.ogg","channels":2,"loopSamples":2202353,"targetLufs":-16.0,"truePeakCeilingDbtp":-1.5},
+    {"id":"MUS-GAME-I0-MIX","group":"music","kind":"mix_i0","required":false,"conditional":true,"master":"masters/audio/mus_game_i0_mix.wav","runtime":"assets/audio/music/mus_game_i0_mix.ogg","channels":2,"loopSamples":4404706,"targetLufs":-16.0,"truePeakCeilingDbtp":-1.5},
+    {"id":"MUS-GAME-I1-MIX","group":"music","kind":"mix_i1","required":false,"conditional":true,"master":"masters/audio/mus_game_i1_mix.wav","runtime":"assets/audio/music/mus_game_i1_mix.ogg","channels":2,"loopSamples":4404706,"targetLufs":-16.0,"truePeakCeilingDbtp":-1.5},
+    {"id":"MUS-GAME-I2-MIX","group":"music","kind":"mix_i2","required":false,"conditional":true,"master":"masters/audio/mus_game_i2_mix.wav","runtime":"assets/audio/music/mus_game_i2_mix.ogg","channels":2,"loopSamples":4404706,"targetLufs":-16.0,"truePeakCeilingDbtp":-1.5},
+    {"id":"MUS-GAME-I3-MIX","group":"music","kind":"mix_i3","required":false,"conditional":true,"master":"masters/audio/mus_game_i3_mix.wav","runtime":"assets/audio/music/mus_game_i3_mix.ogg","channels":2,"loopSamples":4404706,"targetLufs":-16.0,"truePeakCeilingDbtp":-1.5},
+
+    {"id":"SFX-SIX-01","group":"cycle","kind":"six","variant":1,"required":true,"master":"masters/audio/sfx_six_01.wav","runtime":"assets/audio/sfx/cycle/sfx_six_01.wav","channels":1,"durationMs":76,"maxDurationMs":110,"peakCeilingDbfs":-6.0},
+    {"id":"SFX-SIX-02","group":"cycle","kind":"six","variant":2,"required":true,"master":"masters/audio/sfx_six_02.wav","runtime":"assets/audio/sfx/cycle/sfx_six_02.wav","channels":1,"durationMs":84,"maxDurationMs":110,"peakCeilingDbfs":-6.0},
+    {"id":"SFX-SIX-03","group":"cycle","kind":"six","variant":3,"required":true,"master":"masters/audio/sfx_six_03.wav","runtime":"assets/audio/sfx/cycle/sfx_six_03.wav","channels":1,"durationMs":92,"maxDurationMs":110,"peakCeilingDbfs":-6.0},
+    {"id":"SFX-SIX-04","group":"cycle","kind":"six","variant":4,"required":true,"master":"masters/audio/sfx_six_04.wav","runtime":"assets/audio/sfx/cycle/sfx_six_04.wav","channels":1,"durationMs":100,"maxDurationMs":110,"peakCeilingDbfs":-6.0},
+    {"id":"SFX-SIX-05","group":"cycle","kind":"six","variant":5,"required":true,"master":"masters/audio/sfx_six_05.wav","runtime":"assets/audio/sfx/cycle/sfx_six_05.wav","channels":1,"durationMs":106,"maxDurationMs":110,"peakCeilingDbfs":-6.0},
+    {"id":"SFX-SIX-06","group":"cycle","kind":"six","variant":6,"required":true,"master":"masters/audio/sfx_six_06.wav","runtime":"assets/audio/sfx/cycle/sfx_six_06.wav","channels":1,"durationMs":110,"maxDurationMs":110,"peakCeilingDbfs":-6.0},
+    {"id":"SFX-SEVEN-01","group":"cycle","kind":"seven","variant":1,"required":true,"master":"masters/audio/sfx_seven_01.wav","runtime":"assets/audio/sfx/cycle/sfx_seven_01.wav","channels":1,"durationMs":96,"maxDurationMs":150,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-SEVEN-02","group":"cycle","kind":"seven","variant":2,"required":true,"master":"masters/audio/sfx_seven_02.wav","runtime":"assets/audio/sfx/cycle/sfx_seven_02.wav","channels":1,"durationMs":106,"maxDurationMs":150,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-SEVEN-03","group":"cycle","kind":"seven","variant":3,"required":true,"master":"masters/audio/sfx_seven_03.wav","runtime":"assets/audio/sfx/cycle/sfx_seven_03.wav","channels":1,"durationMs":116,"maxDurationMs":150,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-SEVEN-04","group":"cycle","kind":"seven","variant":4,"required":true,"master":"masters/audio/sfx_seven_04.wav","runtime":"assets/audio/sfx/cycle/sfx_seven_04.wav","channels":1,"durationMs":126,"maxDurationMs":150,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-SEVEN-05","group":"cycle","kind":"seven","variant":5,"required":true,"master":"masters/audio/sfx_seven_05.wav","runtime":"assets/audio/sfx/cycle/sfx_seven_05.wav","channels":1,"durationMs":138,"maxDurationMs":150,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-SEVEN-06","group":"cycle","kind":"seven","variant":6,"required":true,"master":"masters/audio/sfx_seven_06.wav","runtime":"assets/audio/sfx/cycle/sfx_seven_06.wav","channels":1,"durationMs":148,"maxDurationMs":150,"peakCeilingDbfs":-5.0},
+
+    {"id":"SFX-UI-TAB","group":"ui","kind":"ui_tab","required":true,"master":"masters/audio/sfx_ui_tab.wav","runtime":"assets/audio/sfx/ui/sfx_ui_tab.wav","channels":1,"durationMs":120,"maxDurationMs":120,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-UI-OPEN","group":"ui","kind":"ui_open","required":true,"master":"masters/audio/sfx_ui_open.wav","runtime":"assets/audio/sfx/ui/sfx_ui_open.wav","channels":1,"durationMs":180,"maxDurationMs":180,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-UI-CLOSE","group":"ui","kind":"ui_close","required":true,"master":"masters/audio/sfx_ui_close.wav","runtime":"assets/audio/sfx/ui/sfx_ui_close.wav","channels":1,"durationMs":160,"maxDurationMs":160,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-UI-TOGGLE-ON","group":"ui","kind":"ui_toggle_on","required":true,"master":"masters/audio/sfx_ui_toggle_on.wav","runtime":"assets/audio/sfx/ui/sfx_ui_toggle_on.wav","channels":1,"durationMs":140,"maxDurationMs":140,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-UI-TOGGLE-OFF","group":"ui","kind":"ui_toggle_off","required":true,"master":"masters/audio/sfx_ui_toggle_off.wav","runtime":"assets/audio/sfx/ui/sfx_ui_toggle_off.wav","channels":1,"durationMs":140,"maxDurationMs":140,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-UI-ERROR","group":"ui","kind":"ui_error","required":true,"master":"masters/audio/sfx_ui_error.wav","runtime":"assets/audio/sfx/ui/sfx_ui_error.wav","channels":1,"durationMs":260,"maxDurationMs":260,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-SHOP-PURCHASE","group":"ui","kind":"shop_purchase","required":true,"master":"masters/audio/sfx_shop_purchase.wav","runtime":"assets/audio/sfx/ui/sfx_shop_purchase.wav","channels":1,"durationMs":350,"maxDurationMs":350,"peakCeilingDbfs":-4.5},
+    {"id":"SFX-SHOP-BATCH","group":"ui","kind":"shop_batch","required":true,"master":"masters/audio/sfx_shop_batch.wav","runtime":"assets/audio/sfx/ui/sfx_shop_batch.wav","channels":1,"durationMs":500,"maxDurationMs":500,"peakCeilingDbfs":-4.5},
+    {"id":"SFX-SHOP-UNAVAILABLE","group":"ui","kind":"shop_unavailable","required":true,"master":"masters/audio/sfx_shop_unavailable.wav","runtime":"assets/audio/sfx/ui/sfx_shop_unavailable.wav","channels":1,"durationMs":260,"maxDurationMs":260,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-SHOP-UNLOCK","group":"ui","kind":"shop_unlock","required":true,"master":"masters/audio/sfx_shop_unlock.wav","runtime":"assets/audio/sfx/ui/sfx_shop_unlock.wav","channels":1,"durationMs":900,"maxDurationMs":900,"peakCeilingDbfs":-4.5},
+    {"id":"SFX-SHOP-MILESTONE","group":"ui","kind":"shop_milestone","required":true,"master":"masters/audio/sfx_shop_milestone.wav","runtime":"assets/audio/sfx/ui/sfx_shop_milestone.wav","channels":1,"durationMs":700,"maxDurationMs":700,"peakCeilingDbfs":-4.5},
+    {"id":"SFX-COLLECTION-EQUIP","group":"ui","kind":"collection_equip","required":true,"master":"masters/audio/sfx_collection_equip.wav","runtime":"assets/audio/sfx/ui/sfx_collection_equip.wav","channels":1,"durationMs":300,"maxDurationMs":300,"peakCeilingDbfs":-5.0},
+    {"id":"SFX-COLLECTION-HIDE","group":"ui","kind":"collection_hide","required":true,"master":"masters/audio/sfx_collection_hide.wav","runtime":"assets/audio/sfx/ui/sfx_collection_hide.wav","channels":1,"durationMs":260,"maxDurationMs":260,"peakCeilingDbfs":-5.0},
+
+    {"id":"STG-FORM-01","group":"event","kind":"form","variant":1,"required":true,"master":"masters/audio/stg_form_01.wav","runtime":"assets/audio/sfx/events/stg_form_01.wav","channels":2,"durationMs":1200,"maxDurationMs":1200,"targetLufs":-16.5,"truePeakCeilingDbtp":-1.5},
+    {"id":"STG-FORM-02","group":"event","kind":"form","variant":2,"required":true,"master":"masters/audio/stg_form_02.wav","runtime":"assets/audio/sfx/events/stg_form_02.wav","channels":2,"durationMs":1500,"maxDurationMs":1500,"targetLufs":-16.5,"truePeakCeilingDbtp":-1.5},
+    {"id":"STG-FORM-03","group":"event","kind":"form","variant":3,"required":true,"master":"masters/audio/stg_form_03.wav","runtime":"assets/audio/sfx/events/stg_form_03.wav","channels":2,"durationMs":1800,"maxDurationMs":1800,"targetLufs":-16.5,"truePeakCeilingDbtp":-1.5},
+    {"id":"STG-FORM-04","group":"event","kind":"form","variant":4,"required":true,"master":"masters/audio/stg_form_04.wav","runtime":"assets/audio/sfx/events/stg_form_04.wav","channels":2,"durationMs":2100,"maxDurationMs":2100,"targetLufs":-16.5,"truePeakCeilingDbtp":-1.5},
+    {"id":"STG-FORM-05","group":"event","kind":"form","variant":5,"required":true,"master":"masters/audio/stg_form_05.wav","runtime":"assets/audio/sfx/events/stg_form_05.wav","channels":2,"durationMs":2400,"maxDurationMs":2400,"targetLufs":-16.5,"truePeakCeilingDbtp":-1.5},
+    {"id":"STG-ACHIEVEMENT","group":"event","kind":"achievement","required":true,"master":"masters/audio/stg_achievement.wav","runtime":"assets/audio/sfx/events/stg_achievement.wav","channels":2,"durationMs":900,"maxDurationMs":900,"targetLufs":-17.0,"truePeakCeilingDbtp":-1.5},
+    {"id":"STG-ASCENSION","group":"event","kind":"ascension","required":true,"master":"masters/audio/stg_ascension.wav","runtime":"assets/audio/sfx/events/stg_ascension.wav","channels":2,"durationMs":3200,"maxDurationMs":3200,"targetLufs":-15.5,"truePeakCeilingDbtp":-1.5},
+    {"id":"STG-MARK-67","group":"event","kind":"mark67","required":true,"master":"masters/audio/stg_mark_67.wav","runtime":"assets/audio/sfx/events/stg_mark_67.wav","channels":2,"durationMs":1800,"maxDurationMs":1800,"targetLufs":-16.5,"truePeakCeilingDbtp":-1.5},
+    {"id":"SFX-RETURN-OFFLINE","group":"event","kind":"return_offline","required":true,"master":"masters/audio/sfx_return_offline.wav","runtime":"assets/audio/sfx/events/sfx_return_offline.wav","channels":1,"durationMs":500,"maxDurationMs":500,"peakCeilingDbfs":-4.5},
+    {"id":"SFX-RETURN-BONUS","group":"event","kind":"return_bonus","required":true,"master":"masters/audio/sfx_return_bonus.wav","runtime":"assets/audio/sfx/events/sfx_return_bonus.wav","channels":1,"durationMs":650,"maxDurationMs":650,"peakCeilingDbfs":-4.5}
+  ]
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_b_04_glow</title>
+  <desc>paired cooperative touch cuffs with tactile palm buttons; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_b_04_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><circle cx="238" cy="500" r="88" fill="none" stroke="#FF4FA3" stroke-width="24" opacity="0.22"/><circle cx="786" cy="506" r="88" fill="none" stroke="#FF7A66" stroke-width="24" opacity="0.22"/><circle cx="286" cy="579" r="31" fill="none" stroke="#FF4FA3" stroke-width="16" opacity="0.30"/><circle cx="738" cy="579" r="31" fill="none" stroke="#FF7A66" stroke-width="16" opacity="0.30"/></g></g>
+</svg>

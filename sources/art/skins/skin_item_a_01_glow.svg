@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_01_glow</title>
+  <desc>suspicious button physical four-hole stitched shirt button; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_01_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><g id="fitted_shirt_button_glow" transform="translate(400 548) scale(0.62) translate(-430 -580)"><circle cx="430" cy="580" r="98" fill="none" stroke="#43E6FF" stroke-width="18" opacity="0.28"/><path d="M350 536 A94 94 0 0 1 390 496 M510 624 A94 94 0 0 1 470 664" fill="none" stroke="#3478F6" stroke-width="12" stroke-linecap="round" opacity="0.34"/></g></g></g>
+</svg>

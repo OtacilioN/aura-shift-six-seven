@@ -1,6 +1,10 @@
 # Aura Shift: Six Seven — Direção de Áudio
 
-> Status: direção e pacote `audio-v1` fechados para produção; nenhum master é considerado existente ou aprovado até constar como `approved` em `AUDIO-INVENTORY.md`.
+> Status: direção `audio-v1` fechada. Os 40 masters obrigatórios e quatro
+> mixes condicionais possuem candidatos produzidos e auditados tecnicamente.
+> A decisão humana de 10 de julho de 2026 promoveu derivados para `approved`
+> sem alterar esses candidatos; os testes em aparelho descritos em
+> `AUDIO-INVENTORY.md` continuam obrigatórios antes da publicação.
 
 ## Objetivos
 

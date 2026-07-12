@@ -1,0 +1,29 @@
+# SFX-COLLECTION-HIDE — proveniência candidata
+
+- **ID:** `SFX-COLLECTION-HIDE`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `3935418662739601128`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/sfx_collection_hide.wav` — `3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec`
+- **Runtime:** `assets/audio/sfx/ui/sfx_collection_hide.wav` — `fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `9877134738428794387`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `1` canal(is), `12480` amostras.
+- **Métricas master:** `None` LUFS-I, `-5.0` dBFS peak, `-4.9945` dBTP.
+- **Métricas runtime:** `None` LUFS-I, `-4.9999` dBFS peak, `-4.9944` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `12480/12480` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

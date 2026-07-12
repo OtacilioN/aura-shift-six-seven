@@ -1,0 +1,29 @@
+# SFX-SEVEN-03 — proveniência candidata
+
+- **ID:** `SFX-SEVEN-03`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `9942509884225028380`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/sfx_seven_03.wav` — `b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971`
+- **Runtime:** `assets/audio/sfx/cycle/sfx_seven_03.wav` — `f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `12514209070610333818`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `1` canal(is), `5568` amostras.
+- **Métricas master:** `None` LUFS-I, `-5.0` dBFS peak, `-4.9945` dBTP.
+- **Métricas runtime:** `None` LUFS-I, `-4.9999` dBFS peak, `-4.9944` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `5568/5568` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

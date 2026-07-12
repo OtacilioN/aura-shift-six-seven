@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_s_04</title>
+  <desc>Shape-redundant achievement badge signals_stacked. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_s_04;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_s_04"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><path d="M202 118 L294 170 L294 274 L202 326 L110 274 L110 170 Z" fill="none" stroke="#43E6FF" stroke-width="18" opacity="0.88"/><path d="M256 118 L348 170 L348 274 L256 326 L164 274 L164 170 Z" fill="none" stroke="#FF4FA3" stroke-width="18" opacity="0.88"/><path d="M310 118 L402 170 L402 274 L310 326 L218 274 L218 170 Z" fill="none" stroke="#FFD166" stroke-width="18" opacity="0.88"/></g></g>
+</svg>

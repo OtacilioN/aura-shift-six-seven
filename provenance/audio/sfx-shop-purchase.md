@@ -1,0 +1,29 @@
+# SFX-SHOP-PURCHASE — proveniência candidata
+
+- **ID:** `SFX-SHOP-PURCHASE`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `17905846244029697339`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/sfx_shop_purchase.wav` — `5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07`
+- **Runtime:** `assets/audio/sfx/ui/sfx_shop_purchase.wav` — `771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `17939813930001531133`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `1` canal(is), `16800` amostras.
+- **Métricas master:** `None` LUFS-I, `-4.5` dBFS peak, `-4.489` dBTP.
+- **Métricas runtime:** `None` LUFS-I, `-4.5003` dBFS peak, `-4.4892` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `16800/16800` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

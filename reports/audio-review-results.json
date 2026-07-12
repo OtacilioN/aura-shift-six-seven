@@ -1,0 +1,4435 @@
+{
+  "contract": "audio-automated-review-v2",
+  "reviewEvidenceRevision": 2,
+  "reviewBundle": {
+    "contract": "audio-review-evidence-bundle-v2",
+    "revision": 2,
+    "sha256": "0d7123c8c8ecab87133800bb38051a48a1848a92f33264e8ad5d922e1dd0a335",
+    "files": [
+      "sources/audio/procedural/score-v1.json",
+      "tools/assets/review_audio_assets.py",
+      "tools/assets/audio_common.py",
+      "tools/assets/requirements-audio.txt"
+    ],
+    "pathBasis": "repository-relative POSIX paths plus file contents"
+  },
+  "status": "candidate-reviewed",
+  "automatedReview": "pass-with-cross-decoder-warnings",
+  "reviewedAtUtc": "2026-07-10T22:13:00.237448+00:00",
+  "globalErrors": [],
+  "compositeStateMetrics": {
+    "I0": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -1.7745,
+      "rmsDbfs": -17.7809,
+      "dcOffset": [
+        0.0013053182,
+        0.0013053832
+      ],
+      "integratedLufs": -16.0,
+      "truePeakDbtp": -1.7587
+    },
+    "I1": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -1.7745,
+      "rmsDbfs": -17.7603,
+      "dcOffset": [
+        0.0013579457,
+        0.0013579698
+      ],
+      "integratedLufs": -16.0551,
+      "truePeakDbtp": -1.7587
+    },
+    "I2": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -1.7454,
+      "rmsDbfs": -17.6968,
+      "dcOffset": [
+        0.0014113025,
+        0.0014109905
+      ],
+      "integratedLufs": -16.3562,
+      "truePeakDbtp": -1.7357
+    },
+    "I3": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -1.0433,
+      "rmsDbfs": -17.4131,
+      "dcOffset": [
+        0.0015184969,
+        0.0015178823
+      ],
+      "integratedLufs": -17.0612,
+      "truePeakDbtp": -1.0378
+    }
+  },
+  "determinism": {
+    "result": "pass",
+    "calculatedByReviewer": true,
+    "independentTemporaryRenders": 2,
+    "masterWavMatches": "44/44",
+    "runtimeMatches": "44/44",
+    "runtimeWavMatches": "35/35",
+    "runtimeOggMatches": "9/9",
+    "currentCandidateMatchesRender": "88/88",
+    "renderCombinedSha256": [
+      "93606ece0532a7f9e71ff6d29d65c323d114863322b9a0ae09e2f860b9f119a6",
+      "93606ece0532a7f9e71ff6d29d65c323d114863322b9a0ae09e2f860b9f119a6"
+    ],
+    "currentCombinedAudioSha256": "93606ece0532a7f9e71ff6d29d65c323d114863322b9a0ae09e2f860b9f119a6",
+    "mismatches": [],
+    "method": "two generator subprocesses in separate temporary roots; per-file SHA-256 comparison against each other and the candidate under review",
+    "containerCanonicalization": "music Ogg stream serial derives from SHA-256(asset ID); page CRCs are recalculated; Vorbis packet bytes are not modified"
+  },
+  "sourceBundleVerification": {
+    "result": "pass",
+    "expectedFromGeneratedManifest": "23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f",
+    "observedByReviewer": "23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f",
+    "pathBasis": "repository-relative POSIX paths plus file contents"
+  },
+  "crossDecoderReview": {
+    "result": "pass-with-music-decoder-variance",
+    "tools": {
+      "afconvert": "/usr/bin/afconvert",
+      "afinfo": "/usr/bin/afinfo"
+    },
+    "sfxWavSampleExact": "35/35",
+    "sfxWavPcm16FrameAndValueExact": "35/35",
+    "musicOggFrameCountExact": "9/9",
+    "musicOggZeroOffsetAligned": "0/9",
+    "musicOggSampleExact": "0/9",
+    "musicOggCoreAudioSeamGate": "9/9",
+    "musicOggAlignmentOffsetsFrames": {
+      "128": 9
+    },
+    "hardErrors": [],
+    "warnings": [
+      "MUS-GAME-BASE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-31.3007, -31.3007] dBFS",
+      "MUS-GAME-GROOVE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-128.9314, -118.4738] dBFS",
+      "MUS-GAME-HYPE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-54.1637, -53.269] dBFS",
+      "MUS-MENU CoreAudio frame 0 aligns to libsndfile frame 128; frame count 2202353/2202353 (+0); unmatched CoreAudio tail 128 frames; seam [-37.9088, -37.5707] dBFS",
+      "MUS-SHOP CoreAudio frame 0 aligns to libsndfile frame 128; frame count 2202353/2202353 (+0); unmatched CoreAudio tail 128 frames; seam [-38.3425, -39.4289] dBFS",
+      "MUS-GAME-I0-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-50.9496, -50.9496] dBFS",
+      "MUS-GAME-I1-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-60.0432, -60.0432] dBFS",
+      "MUS-GAME-I2-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-56.6376, -57.631] dBFS",
+      "MUS-GAME-I3-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-108.1035, -58.4781] dBFS"
+    ],
+    "interpretation": "Frame-count equality is not sample alignment. WAV PCM16 SFX must preserve frame count and every PCM value. Ogg music may retain a decoder offset and frame-count variance, but every CoreAudio-decoded boundary must independently satisfy the numeric seam gate.",
+    "androidMusicLoopGate": "pending"
+  },
+  "pcm16DitherReview": {
+    "result": "pass",
+    "reconstructionExact": "35/35",
+    "method": "reviewer reconstructs signed PCM16 from the encoded PCM24 master with the stable asset-ID seed and compares every sample value"
+  },
+  "results": [
+    {
+      "id": "MUS-GAME-BASE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.7745,
+        "rmsDbfs": -17.7809,
+        "dcOffset": [
+          0.0013053182,
+          0.0013053832
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.7587,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4",
+        "bytes": 26428280
+      },
+      "runtime": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.6931,
+        "rmsDbfs": -17.7237,
+        "dcOffset": [
+          0.0013300915,
+          0.0013312497
+        ],
+        "integratedLufs": -15.9442,
+        "truePeakDbtp": -1.6875,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "a9829ad360ade190632664552f6db21b1aa38de6351426734914695b98351b8c",
+        "bytes": 482129
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -69.4497,
+          -69.4497
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0115,
+          0.0115
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0,
+        "leftRightCorrelation": 0.999988
+      },
+      "roundTrip": {
+        "commonFrames": 4404706,
+        "errorRmsDbfs": -55.4035,
+        "signalToCodecErrorDb": 37.6226,
+        "correlationByChannel": [
+          0.9999358,
+          0.9999359
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4",
+          "observed": "c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4"
+        },
+        "runtime": {
+          "expected": "a9829ad360ade190632664552f6db21b1aa38de6351426734914695b98351b8c",
+          "observed": "a9829ad360ade190632664552f6db21b1aa38de6351426734914695b98351b8c"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 4404706,
+        "decodedFrames": 4404706,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.999808059029,
+          "alignedOverlapFrames": 4404578,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -150.5129,
+          "alignedMaxDifferenceDbfs": -130.515,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -71.988,
+          "candidateUnmatchedTailPeakDbfs": -69.9794,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -31.3007,
+            -31.3007
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.9288,
+            0.9289
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-GAME-BASE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-31.3007, -31.3007] dBFS"
+      }
+    },
+    {
+      "id": "MUS-GAME-GROOVE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -6.4655,
+        "rmsDbfs": -29.1056,
+        "dcOffset": [
+          0.0002094599,
+          0.0002093034
+        ],
+        "integratedLufs": -24.8,
+        "truePeakDbtp": -6.3633,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "9a81d7e461c630d7423587d6d6aad3702de58bc77c1db685e5c742a56b031410",
+        "bytes": 26428280
+      },
+      "runtime": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -6.7121,
+        "rmsDbfs": -29.2252,
+        "dcOffset": [
+          0.000206186,
+          0.0002062813
+        ],
+        "integratedLufs": -25.008,
+        "truePeakDbtp": -6.5133,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "edd36b59732373d6bfe4240a21b056e929fb89b265fad57961eaf3226a2d5340",
+        "bytes": 1127844
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -119.7418,
+          -144.7688
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0285,
+        "leftRightCorrelation": 0.986904
+      },
+      "roundTrip": {
+        "commonFrames": 4404706,
+        "errorRmsDbfs": -45.2062,
+        "signalToCodecErrorDb": 16.1006,
+        "correlationByChannel": [
+          0.9875514,
+          0.9877538
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "9a81d7e461c630d7423587d6d6aad3702de58bc77c1db685e5c742a56b031410",
+          "observed": "9a81d7e461c630d7423587d6d6aad3702de58bc77c1db685e5c742a56b031410"
+        },
+        "runtime": {
+          "expected": "edd36b59732373d6bfe4240a21b056e929fb89b265fad57961eaf3226a2d5340",
+          "observed": "edd36b59732373d6bfe4240a21b056e929fb89b265fad57961eaf3226a2d5340"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 4404706,
+        "decodedFrames": 4404706,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.875467839606,
+          "alignedOverlapFrames": 4404578,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -150.6862,
+          "alignedMaxDifferenceDbfs": -136.5356,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -124.0503,
+          "candidateUnmatchedTailPeakDbfs": -116.1949,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -128.9314,
+            -118.4738
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.0,
+            0.0
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-GAME-GROOVE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-128.9314, -118.4738] dBFS"
+      }
+    },
+    {
+      "id": "MUS-GAME-HYPE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -7.1435,
+        "rmsDbfs": -30.1318,
+        "dcOffset": [
+          7.4657e-06,
+          6.4152e-06
+        ],
+        "integratedLufs": -26.3,
+        "truePeakDbtp": -7.138,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "948e119d705bf22e9e0ab37dce7b7048c166f9ccd0dc924a8e56270e3261db56",
+        "bytes": 26428280
+      },
+      "runtime": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -7.2462,
+        "rmsDbfs": -30.0919,
+        "dcOffset": [
+          7.0182e-06,
+          5.9688e-06
+        ],
+        "integratedLufs": -26.2749,
+        "truePeakDbtp": -7.1768,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "a3df05b892e9a042eb6a2fdb6335961b5455c965cf9021f0ae5914dc04060713",
+        "bytes": 306249
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -58.6394,
+          -55.2205
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0267,
+          0.0509
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0954,
+        "leftRightCorrelation": 0.960852
+      },
+      "roundTrip": {
+        "commonFrames": 4404706,
+        "errorRmsDbfs": -57.1286,
+        "signalToCodecErrorDb": 26.9969,
+        "correlationByChannel": [
+          0.9987664,
+          0.9993193
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "948e119d705bf22e9e0ab37dce7b7048c166f9ccd0dc924a8e56270e3261db56",
+          "observed": "948e119d705bf22e9e0ab37dce7b7048c166f9ccd0dc924a8e56270e3261db56"
+        },
+        "runtime": {
+          "expected": "a3df05b892e9a042eb6a2fdb6335961b5455c965cf9021f0ae5914dc04060713",
+          "observed": "a3df05b892e9a042eb6a2fdb6335961b5455c965cf9021f0ae5914dc04060713"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 4404706,
+        "decodedFrames": 4404706,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.985464536756,
+          "alignedOverlapFrames": 4404578,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -154.837,
+          "alignedMaxDifferenceDbfs": -136.5356,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -60.2568,
+          "candidateUnmatchedTailPeakDbfs": -51.6788,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -54.1637,
+            -53.269
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.0447,
+            0.0637
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-GAME-HYPE CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-54.1637, -53.269] dBFS"
+      }
+    },
+    {
+      "id": "MUS-MENU",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 2202353,
+        "channels": 2,
+        "durationSeconds": 45.882354167,
+        "samplePeakDbfs": -1.795,
+        "rmsDbfs": -19.568,
+        "dcOffset": [
+          0.000134947,
+          0.0001346237
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.7894,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492",
+        "bytes": 13214162
+      },
+      "runtime": {
+        "frames": 2202353,
+        "channels": 2,
+        "durationSeconds": 45.882354167,
+        "samplePeakDbfs": -1.4865,
+        "rmsDbfs": -19.5449,
+        "dcOffset": [
+          6.8378e-05,
+          7.80093e-05
+        ],
+        "integratedLufs": -15.9816,
+        "truePeakDbtp": -1.4809,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "0718ad91172902f3d79a8796b41c9b61028351c9418520273b7dbcd8e8dad439",
+        "bytes": 300310
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -74.3265,
+          -72.9325
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0028,
+          0.003
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.011,
+        "leftRightCorrelation": 0.994944
+      },
+      "roundTrip": {
+        "commonFrames": 2202353,
+        "errorRmsDbfs": -45.1953,
+        "signalToCodecErrorDb": 25.6273,
+        "correlationByChannel": [
+          0.9986492,
+          0.9986286
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492",
+          "observed": "3f698e00d9b9ca212be42012c4a96e4d0e150a1fad20f2dd6b570cb534b60492"
+        },
+        "runtime": {
+          "expected": "0718ad91172902f3d79a8796b41c9b61028351c9418520273b7dbcd8e8dad439",
+          "observed": "0718ad91172902f3d79a8796b41c9b61028351c9418520273b7dbcd8e8dad439"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 2202353,
+        "decodedFrames": 2202353,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.989527463319,
+          "alignedOverlapFrames": 2202225,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -150.8886,
+          "alignedMaxDifferenceDbfs": -128.9314,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -69.6895,
+          "candidateUnmatchedTailPeakDbfs": -60.317,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -37.9088,
+            -37.5707
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.1862,
+            0.1779
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-MENU CoreAudio frame 0 aligns to libsndfile frame 128; frame count 2202353/2202353 (+0); unmatched CoreAudio tail 128 frames; seam [-37.9088, -37.5707] dBFS"
+      }
+    },
+    {
+      "id": "MUS-SHOP",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 2202353,
+        "channels": 2,
+        "durationSeconds": 45.882354167,
+        "samplePeakDbfs": -3.2199,
+        "rmsDbfs": -18.2957,
+        "dcOffset": [
+          0.0005414221,
+          0.0005372806
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -3.2143,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "ba4bd9b80dcf213409bf84df1db10c3cf571cf00bd731053f96e56b93b410d13",
+        "bytes": 13214162
+      },
+      "runtime": {
+        "frames": 2202353,
+        "channels": 2,
+        "durationSeconds": 45.882354167,
+        "samplePeakDbfs": -3.089,
+        "rmsDbfs": -18.2546,
+        "dcOffset": [
+          0.0004865011,
+          0.0004806344
+        ],
+        "integratedLufs": -15.9776,
+        "truePeakDbtp": -3.0835,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "eb5cdca2d974381d146991fc7a230d7444b21e23dd6277551289a598004bf729",
+        "bytes": 404389
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -60.0083,
+          -85.6754
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0177,
+          0.0009
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0077,
+        "leftRightCorrelation": 0.996447
+      },
+      "roundTrip": {
+        "commonFrames": 2202353,
+        "errorRmsDbfs": -45.7496,
+        "signalToCodecErrorDb": 27.454,
+        "correlationByChannel": [
+          0.9991058,
+          0.999128
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "ba4bd9b80dcf213409bf84df1db10c3cf571cf00bd731053f96e56b93b410d13",
+          "observed": "ba4bd9b80dcf213409bf84df1db10c3cf571cf00bd731053f96e56b93b410d13"
+        },
+        "runtime": {
+          "expected": "eb5cdca2d974381d146991fc7a230d7444b21e23dd6277551289a598004bf729",
+          "observed": "eb5cdca2d974381d146991fc7a230d7444b21e23dd6277551289a598004bf729"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 2202353,
+        "decodedFrames": 2202353,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.997676694156,
+          "alignedOverlapFrames": 2202225,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -149.7181,
+          "alignedMaxDifferenceDbfs": -127.5924,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -53.8251,
+          "candidateUnmatchedTailPeakDbfs": -43.614,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -38.3425,
+            -39.4289
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.215,
+            0.1918
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-SHOP CoreAudio frame 0 aligns to libsndfile frame 128; frame count 2202353/2202353 (+0); unmatched CoreAudio tail 128 frames; seam [-38.3425, -39.4289] dBFS"
+      }
+    },
+    {
+      "id": "MUS-GAME-I0-MIX",
+      "required": false,
+      "conditional": true,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.8891,
+        "rmsDbfs": -17.7209,
+        "dcOffset": [
+          0.0012883777,
+          0.0012883247
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -2.8765,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "aabca5278fe33fa860ee0fc38b5bf94bff49813a848df4265f5da84f794f63bf",
+        "bytes": 26428280
+      },
+      "runtime": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.7852,
+        "rmsDbfs": -17.6632,
+        "dcOffset": [
+          0.0013047941,
+          0.0013022362
+        ],
+        "integratedLufs": -15.9439,
+        "truePeakDbtp": -2.7797,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "9050280ee88c919ad9bd60d1dc1451201500faf2a5aa14d59c79c70288fe6b09",
+        "bytes": 485259
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -55.9606,
+          -55.9606
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0618,
+          0.0618
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0,
+        "leftRightCorrelation": 0.999986
+      },
+      "roundTrip": {
+        "commonFrames": 4404706,
+        "errorRmsDbfs": -55.0036,
+        "signalToCodecErrorDb": 37.2827,
+        "correlationByChannel": [
+          0.9999292,
+          0.9999292
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "aabca5278fe33fa860ee0fc38b5bf94bff49813a848df4265f5da84f794f63bf",
+          "observed": "aabca5278fe33fa860ee0fc38b5bf94bff49813a848df4265f5da84f794f63bf"
+        },
+        "runtime": {
+          "expected": "9050280ee88c919ad9bd60d1dc1451201500faf2a5aa14d59c79c70288fe6b09",
+          "observed": "9050280ee88c919ad9bd60d1dc1451201500faf2a5aa14d59c79c70288fe6b09"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 4404706,
+        "decodedFrames": 4404706,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.999839949216,
+          "alignedOverlapFrames": 4404578,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -150.4939,
+          "alignedMaxDifferenceDbfs": -130.515,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -54.4451,
+          "candidateUnmatchedTailPeakDbfs": -53.9043,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -50.9496,
+            -50.9496
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.1101,
+            0.1101
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-GAME-I0-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-50.9496, -50.9496] dBFS"
+      }
+    },
+    {
+      "id": "MUS-GAME-I1-MIX",
+      "required": false,
+      "conditional": true,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.8266,
+        "rmsDbfs": -17.6345,
+        "dcOffset": [
+          0.0013549501,
+          0.0013547599
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -2.814,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "62bb190b1d2d4e5299382e2b453c1df450b3d0ff2db986df187256c6857eb5ae",
+        "bytes": 26428280
+      },
+      "runtime": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.6696,
+        "rmsDbfs": -17.5796,
+        "dcOffset": [
+          0.0013582871,
+          0.0013602283
+        ],
+        "integratedLufs": -15.9412,
+        "truePeakDbtp": -2.6641,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "4e6db3f48f93f1c49804efae67a32d8bcc9e4549c8103d99b78d31e5a9cf2f11",
+        "bytes": 1275653
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -68.9878,
+          -68.9878
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.008,
+          0.0082
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0002,
+        "leftRightCorrelation": 0.999915
+      },
+      "roundTrip": {
+        "commonFrames": 4404706,
+        "errorRmsDbfs": -52.4599,
+        "signalToCodecErrorDb": 34.8255,
+        "correlationByChannel": [
+          0.9998558,
+          0.999857
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "62bb190b1d2d4e5299382e2b453c1df450b3d0ff2db986df187256c6857eb5ae",
+          "observed": "62bb190b1d2d4e5299382e2b453c1df450b3d0ff2db986df187256c6857eb5ae"
+        },
+        "runtime": {
+          "expected": "4e6db3f48f93f1c49804efae67a32d8bcc9e4549c8103d99b78d31e5a9cf2f11",
+          "observed": "4e6db3f48f93f1c49804efae67a32d8bcc9e4549c8103d99b78d31e5a9cf2f11"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 4404706,
+        "decodedFrames": 4404706,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.999465074546,
+          "alignedOverlapFrames": 4404578,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -149.0201,
+          "alignedMaxDifferenceDbfs": -128.9314,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -75.9728,
+          "candidateUnmatchedTailPeakDbfs": -69.1216,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -60.0432,
+            -60.0432
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.0225,
+            0.023
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-GAME-I1-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-60.0432, -60.0432] dBFS"
+      }
+    },
+    {
+      "id": "MUS-GAME-I2-MIX",
+      "required": false,
+      "conditional": true,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.1691,
+        "rmsDbfs": -16.9218,
+        "dcOffset": [
+          0.0015203709,
+          0.0015198736
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -2.1623,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "a8cf2ff8f9e1c90ef0b4f2b689da88596e6d29729dccbc2cb23c55df4470445b",
+        "bytes": 26428280
+      },
+      "runtime": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.0845,
+        "rmsDbfs": -16.8686,
+        "dcOffset": [
+          0.0015461574,
+          0.0015433675
+        ],
+        "integratedLufs": -15.8469,
+        "truePeakDbtp": -2.0747,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "2200bd7753250ef3664a5b9741b412458a55fe737c67357eec15e99501b56808",
+        "bytes": 1416594
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -65.2164,
+          -58.3158
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.006,
+          0.0137
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0007,
+        "leftRightCorrelation": 0.999666
+      },
+      "roundTrip": {
+        "commonFrames": 4404706,
+        "errorRmsDbfs": -48.2955,
+        "signalToCodecErrorDb": 31.3738,
+        "correlationByChannel": [
+          0.9996537,
+          0.9996594
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "a8cf2ff8f9e1c90ef0b4f2b689da88596e6d29729dccbc2cb23c55df4470445b",
+          "observed": "a8cf2ff8f9e1c90ef0b4f2b689da88596e6d29729dccbc2cb23c55df4470445b"
+        },
+        "runtime": {
+          "expected": "2200bd7753250ef3664a5b9741b412458a55fe737c67357eec15e99501b56808",
+          "observed": "2200bd7753250ef3664a5b9741b412458a55fe737c67357eec15e99501b56808"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 4404706,
+        "decodedFrames": 4404706,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.99831434255,
+          "alignedOverlapFrames": 4404578,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -148.8518,
+          "alignedMaxDifferenceDbfs": -130.515,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -64.6832,
+          "candidateUnmatchedTailPeakDbfs": -56.949,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -56.6376,
+            -57.631
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.0161,
+            0.0148
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-GAME-I2-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-56.6376, -57.631] dBFS"
+      }
+    },
+    {
+      "id": "MUS-GAME-I3-MIX",
+      "required": false,
+      "conditional": true,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.5404,
+        "rmsDbfs": -16.3929,
+        "dcOffset": [
+          0.0016819122,
+          0.0016799103
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.5349,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1",
+        "bytes": 26428280
+      },
+      "runtime": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.425,
+        "rmsDbfs": -16.3502,
+        "dcOffset": [
+          0.0017148353,
+          0.0017175261
+        ],
+        "integratedLufs": -15.9961,
+        "truePeakDbtp": -1.4194,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "627739d6dc9fcfb9bd55827b822fa5a7e1efacea6ed9bd5ca0a8b50d6db09b46",
+        "bytes": 1458944
+      },
+      "boundary": {
+        "boundaryDeltaDbfs": [
+          -240.0,
+          -240.0
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0,
+          0.0
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "runtimeBoundary": {
+        "boundaryDeltaDbfs": [
+          -49.2691,
+          -64.7209
+        ],
+        "boundaryToP999DerivativeRatio": [
+          0.0185,
+          0.0032
+        ],
+        "tenConcatenationsEquivalent": true
+      },
+      "mono": {
+        "monoToStereoRmsDb": -0.0036,
+        "leftRightCorrelation": 0.998341
+      },
+      "roundTrip": {
+        "commonFrames": 4404706,
+        "errorRmsDbfs": -43.1376,
+        "signalToCodecErrorDb": 26.7446,
+        "correlationByChannel": [
+          0.9989496,
+          0.9989687
+        ]
+      },
+      "pcm16Dither": null,
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1",
+          "observed": "62af48e09005f79ef01e13cefb6c998d7912a0e70663c3b736df59b70b0260c1"
+        },
+        "runtime": {
+          "expected": "627739d6dc9fcfb9bd55827b822fa5a7e1efacea6ed9bd5ca0a8b50d6db09b46",
+          "observed": "627739d6dc9fcfb9bd55827b822fa5a7e1efacea6ed9bd5ca0a8b50d6db09b46"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "seam-pass-with-decoder-variance",
+        "runtimeFormat": "OGG/VORBIS",
+        "expectedFrames": 4404706,
+        "decodedFrames": 4404706,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "alignment": {
+          "result": "resolved",
+          "searchRangeFrames": [
+            -512,
+            512
+          ],
+          "coreAudioFrame0MatchesLibsndfileFrame": 128,
+          "zeroOffsetAligned": false,
+          "searchCorrelationPeak": 1.0,
+          "searchSecondBestCorrelation": 0.993819615576,
+          "alignedOverlapFrames": 4404578,
+          "alignedCorrelation": 1.0,
+          "alignedPcmValuesExact": false,
+          "alignedErrorRmsDbfs": -148.7277,
+          "alignedMaxDifferenceDbfs": -128.9314,
+          "referenceLeadingFramesOutsideOverlap": 128,
+          "candidateLeadingFramesOutsideOverlap": 0,
+          "referenceTrailingFramesOutsideOverlap": 0,
+          "candidateTrailingFramesOutsideOverlap": 128,
+          "candidateUnmatchedTailRmsDbfs": -61.3495,
+          "candidateUnmatchedTailPeakDbfs": -49.1264,
+          "offsetConvention": "positive N means CoreAudio frame 0 best matches libsndfile frame N"
+        },
+        "zeroOffsetAligned": false,
+        "sampleExact": false,
+        "coreAudioLoopBoundary": {
+          "boundaryDeltaDbfs": [
+            -108.1035,
+            -58.4781
+          ],
+          "boundaryToP999DerivativeRatio": [
+            0.0,
+            0.0066
+          ],
+          "tenConcatenationsEquivalent": true
+        },
+        "coreAudioSeamGate": "pass",
+        "warning": "MUS-GAME-I3-MIX CoreAudio frame 0 aligns to libsndfile frame 128; frame count 4404706/4404706 (+0); unmatched CoreAudio tail 128 frames; seam [-108.1035, -58.4781] dBFS"
+      }
+    },
+    {
+      "id": "SFX-SIX-01",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 3648,
+        "channels": 1,
+        "durationSeconds": 0.076,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -18.1627,
+        "dcOffset": [
+          0.0033451349
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+        "bytes": 10988
+      },
+      "runtime": {
+        "frames": 3648,
+        "channels": 1,
+        "durationSeconds": 0.076,
+        "samplePeakDbfs": -5.9999,
+        "rmsDbfs": -18.1627,
+        "dcOffset": [
+          0.0033446278
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "ea2c8d10250a3e692ef0d2f3ff936bfa42d53a3ea4fb19f28dbe8ca49a911968",
+        "bytes": 7340
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 3648,
+        "errorRmsDbfs": -96.2297,
+        "signalToCodecErrorDb": 78.067,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 17353260297010748141,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1231,
+        "totalSamples": 3648,
+        "maxAbsoluteQuantizationErrorLsb": 1.4140625,
+        "rmsQuantizationErrorLsb": 0.5057817
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+          "observed": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e"
+        },
+        "runtime": {
+          "expected": "ea2c8d10250a3e692ef0d2f3ff936bfa42d53a3ea4fb19f28dbe8ca49a911968",
+          "observed": "ea2c8d10250a3e692ef0d2f3ff936bfa42d53a3ea4fb19f28dbe8ca49a911968"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 3648,
+        "decodedFrames": 3648,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SIX-02",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4032,
+        "channels": 1,
+        "durationSeconds": 0.084,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -17.7938,
+        "dcOffset": [
+          0.0025148292
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9904,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+        "bytes": 12140
+      },
+      "runtime": {
+        "frames": 4032,
+        "channels": 1,
+        "durationSeconds": 0.084,
+        "samplePeakDbfs": -5.9999,
+        "rmsDbfs": -17.7938,
+        "dcOffset": [
+          0.0025149377
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9903,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6",
+        "bytes": 8108
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 4032,
+        "errorRmsDbfs": -96.4995,
+        "signalToCodecErrorDb": 78.7057,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 5646522680568904705,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1304,
+        "totalSamples": 4032,
+        "maxAbsoluteQuantizationErrorLsb": 1.421875,
+        "rmsQuantizationErrorLsb": 0.49031216
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+          "observed": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289"
+        },
+        "runtime": {
+          "expected": "e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6",
+          "observed": "e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 4032,
+        "decodedFrames": 4032,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SIX-03",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4416,
+        "channels": 1,
+        "durationSeconds": 0.092,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -18.1694,
+        "dcOffset": [
+          0.0020644227
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9875,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+        "bytes": 13292
+      },
+      "runtime": {
+        "frames": 4416,
+        "channels": 1,
+        "durationSeconds": 0.092,
+        "samplePeakDbfs": -5.9999,
+        "rmsDbfs": -18.1694,
+        "dcOffset": [
+          0.0020643456
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9877,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "e8a81e7f0da8e17c920065716323e146248deec04b55c1e6029dde05f4dd56af",
+        "bytes": 8876
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 4416,
+        "errorRmsDbfs": -96.4198,
+        "signalToCodecErrorDb": 78.2505,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 6189183752305137399,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1459,
+        "totalSamples": 4416,
+        "maxAbsoluteQuantizationErrorLsb": 1.3984375,
+        "rmsQuantizationErrorLsb": 0.49483312
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+          "observed": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e"
+        },
+        "runtime": {
+          "expected": "e8a81e7f0da8e17c920065716323e146248deec04b55c1e6029dde05f4dd56af",
+          "observed": "e8a81e7f0da8e17c920065716323e146248deec04b55c1e6029dde05f4dd56af"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 4416,
+        "decodedFrames": 4416,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SIX-04",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4800,
+        "channels": 1,
+        "durationSeconds": 0.1,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -17.8358,
+        "dcOffset": [
+          0.0016169089
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+        "bytes": 14444
+      },
+      "runtime": {
+        "frames": 4800,
+        "channels": 1,
+        "durationSeconds": 0.1,
+        "samplePeakDbfs": -5.9999,
+        "rmsDbfs": -17.8358,
+        "dcOffset": [
+          0.001616923
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "5f75ab6b9efe2cf8d3741664d1ee6887b88c6541e0ac69eed51abdc87a5e6601",
+        "bytes": 9644
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 4800,
+        "errorRmsDbfs": -96.3708,
+        "signalToCodecErrorDb": 78.535,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 1957679763414509585,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1585,
+        "totalSamples": 4800,
+        "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+        "rmsQuantizationErrorLsb": 0.49763508
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+          "observed": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5"
+        },
+        "runtime": {
+          "expected": "5f75ab6b9efe2cf8d3741664d1ee6887b88c6541e0ac69eed51abdc87a5e6601",
+          "observed": "5f75ab6b9efe2cf8d3741664d1ee6887b88c6541e0ac69eed51abdc87a5e6601"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 4800,
+        "decodedFrames": 4800,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SIX-05",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 5088,
+        "channels": 1,
+        "durationSeconds": 0.106,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -18.2291,
+        "dcOffset": [
+          0.0014130247
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.8496,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+        "bytes": 15308
+      },
+      "runtime": {
+        "frames": 5088,
+        "channels": 1,
+        "durationSeconds": 0.106,
+        "samplePeakDbfs": -5.9999,
+        "rmsDbfs": -18.2291,
+        "dcOffset": [
+          0.0014128955
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.8495,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "1ff0319a329390a7cd240ec628c956951db14b8776e64fd8f72aafcdd2e732b4",
+        "bytes": 10220
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 5088,
+        "errorRmsDbfs": -96.4673,
+        "signalToCodecErrorDb": 78.2382,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 1711265899418547385,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1648,
+        "totalSamples": 5088,
+        "maxAbsoluteQuantizationErrorLsb": 1.421875,
+        "rmsQuantizationErrorLsb": 0.49213431
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+          "observed": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7"
+        },
+        "runtime": {
+          "expected": "1ff0319a329390a7cd240ec628c956951db14b8776e64fd8f72aafcdd2e732b4",
+          "observed": "1ff0319a329390a7cd240ec628c956951db14b8776e64fd8f72aafcdd2e732b4"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 5088,
+        "decodedFrames": 5088,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SIX-06",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 5280,
+        "channels": 1,
+        "durationSeconds": 0.11,
+        "samplePeakDbfs": -6.0,
+        "rmsDbfs": -17.9316,
+        "dcOffset": [
+          0.0011742584
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+        "bytes": 15884
+      },
+      "runtime": {
+        "frames": 5280,
+        "channels": 1,
+        "durationSeconds": 0.11,
+        "samplePeakDbfs": -5.9999,
+        "rmsDbfs": -17.9316,
+        "dcOffset": [
+          0.0011742505
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -5.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "db8231c3194c01ca7ac285f6db5c8780f1c679a2cb6299d89fe36275581e6bf7",
+        "bytes": 10604
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 5280,
+        "errorRmsDbfs": -96.2821,
+        "signalToCodecErrorDb": 78.3505,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 7540827228954021790,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1771,
+        "totalSamples": 5280,
+        "maxAbsoluteQuantizationErrorLsb": 1.39453125,
+        "rmsQuantizationErrorLsb": 0.50273989
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+          "observed": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79"
+        },
+        "runtime": {
+          "expected": "db8231c3194c01ca7ac285f6db5c8780f1c679a2cb6299d89fe36275581e6bf7",
+          "observed": "db8231c3194c01ca7ac285f6db5c8780f1c679a2cb6299d89fe36275581e6bf7"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 5280,
+        "decodedFrames": 5280,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SEVEN-01",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 4608,
+        "channels": 1,
+        "durationSeconds": 0.096,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.0617,
+        "dcOffset": [
+          0.0057012183
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+        "bytes": 13868
+      },
+      "runtime": {
+        "frames": 4608,
+        "channels": 1,
+        "durationSeconds": 0.096,
+        "samplePeakDbfs": -5.0004,
+        "rmsDbfs": -13.0617,
+        "dcOffset": [
+          0.0057008797
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9948,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "09ffcab833ce9b2873e7de1b03ff90bc0d5dfd5c800c101be852ad30912b2aa3",
+        "bytes": 9260
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 4608,
+        "errorRmsDbfs": -96.3667,
+        "signalToCodecErrorDb": 83.3051,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 7294863235666712082,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1534,
+        "totalSamples": 4608,
+        "maxAbsoluteQuantizationErrorLsb": 1.38671875,
+        "rmsQuantizationErrorLsb": 0.49786602
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+          "observed": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00"
+        },
+        "runtime": {
+          "expected": "09ffcab833ce9b2873e7de1b03ff90bc0d5dfd5c800c101be852ad30912b2aa3",
+          "observed": "09ffcab833ce9b2873e7de1b03ff90bc0d5dfd5c800c101be852ad30912b2aa3"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 4608,
+        "decodedFrames": 4608,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SEVEN-02",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 5088,
+        "channels": 1,
+        "durationSeconds": 0.106,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -12.59,
+        "dcOffset": [
+          0.0055593047
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+        "bytes": 15308
+      },
+      "runtime": {
+        "frames": 5088,
+        "channels": 1,
+        "durationSeconds": 0.106,
+        "samplePeakDbfs": -5.0004,
+        "rmsDbfs": -12.59,
+        "dcOffset": [
+          0.0055595376
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9948,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "38c5331aba4ffa5a5bf37c16a4fd240822dd949431eab7fcaf9e908ebbf3f63e",
+        "bytes": 10220
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 5088,
+        "errorRmsDbfs": -96.4247,
+        "signalToCodecErrorDb": 83.8347,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 1598602202895533024,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1648,
+        "totalSamples": 5088,
+        "maxAbsoluteQuantizationErrorLsb": 1.46484375,
+        "rmsQuantizationErrorLsb": 0.49455472
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+          "observed": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858"
+        },
+        "runtime": {
+          "expected": "38c5331aba4ffa5a5bf37c16a4fd240822dd949431eab7fcaf9e908ebbf3f63e",
+          "observed": "38c5331aba4ffa5a5bf37c16a4fd240822dd949431eab7fcaf9e908ebbf3f63e"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 5088,
+        "decodedFrames": 5088,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SEVEN-03",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 5568,
+        "channels": 1,
+        "durationSeconds": 0.116,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.6344,
+        "dcOffset": [
+          0.0041580987
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+        "bytes": 16748
+      },
+      "runtime": {
+        "frames": 5568,
+        "channels": 1,
+        "durationSeconds": 0.116,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -13.6344,
+        "dcOffset": [
+          0.0041581569
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5",
+        "bytes": 11180
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 5568,
+        "errorRmsDbfs": -96.2247,
+        "signalToCodecErrorDb": 82.5903,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 12514209070610333818,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1902,
+        "totalSamples": 5568,
+        "maxAbsoluteQuantizationErrorLsb": 1.39453125,
+        "rmsQuantizationErrorLsb": 0.50607565
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+          "observed": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971"
+        },
+        "runtime": {
+          "expected": "f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5",
+          "observed": "f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 5568,
+        "decodedFrames": 5568,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SEVEN-04",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 6048,
+        "channels": 1,
+        "durationSeconds": 0.126,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.161,
+        "dcOffset": [
+          0.0039355513
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9854,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+        "bytes": 18188
+      },
+      "runtime": {
+        "frames": 6048,
+        "channels": 1,
+        "durationSeconds": 0.126,
+        "samplePeakDbfs": -5.0004,
+        "rmsDbfs": -13.161,
+        "dcOffset": [
+          0.0039355215
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9855,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5",
+        "bytes": 12140
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 6048,
+        "errorRmsDbfs": -96.316,
+        "signalToCodecErrorDb": 83.1549,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 8501226384354091652,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1993,
+        "totalSamples": 6048,
+        "maxAbsoluteQuantizationErrorLsb": 1.48046875,
+        "rmsQuantizationErrorLsb": 0.50078586
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+          "observed": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a"
+        },
+        "runtime": {
+          "expected": "5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5",
+          "observed": "5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 6048,
+        "decodedFrames": 6048,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SEVEN-05",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 6624,
+        "channels": 1,
+        "durationSeconds": 0.138,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -14.0579,
+        "dcOffset": [
+          0.0031043107
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+        "bytes": 19916
+      },
+      "runtime": {
+        "frames": 6624,
+        "channels": 1,
+        "durationSeconds": 0.138,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -14.0579,
+        "dcOffset": [
+          0.003104408
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "3fa21b5de79794958a11ddd8c9cebceb99b87030bc76762fbb14bb25f9d262dc",
+        "bytes": 13292
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 6624,
+        "errorRmsDbfs": -96.2066,
+        "signalToCodecErrorDb": 82.1487,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 6248571555405137255,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 2234,
+        "totalSamples": 6624,
+        "maxAbsoluteQuantizationErrorLsb": 1.40625,
+        "rmsQuantizationErrorLsb": 0.50712972
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+          "observed": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72"
+        },
+        "runtime": {
+          "expected": "3fa21b5de79794958a11ddd8c9cebceb99b87030bc76762fbb14bb25f9d262dc",
+          "observed": "3fa21b5de79794958a11ddd8c9cebceb99b87030bc76762fbb14bb25f9d262dc"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 6624,
+        "decodedFrames": 6624,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SEVEN-06",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 7104,
+        "channels": 1,
+        "durationSeconds": 0.148,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -13.7577,
+        "dcOffset": [
+          0.0030054867
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+        "bytes": 21356
+      },
+      "runtime": {
+        "frames": 7104,
+        "channels": 1,
+        "durationSeconds": 0.148,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -13.7577,
+        "dcOffset": [
+          0.0030057624
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "00563700f99c7275a948ab696b850d4ab9c04c616b093e5406bce9ec81551185",
+        "bytes": 14252
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 7104,
+        "errorRmsDbfs": -96.3644,
+        "signalToCodecErrorDb": 82.6067,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 1776073093371579436,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 2331,
+        "totalSamples": 7104,
+        "maxAbsoluteQuantizationErrorLsb": 1.4375,
+        "rmsQuantizationErrorLsb": 0.49799909
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+          "observed": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2"
+        },
+        "runtime": {
+          "expected": "00563700f99c7275a948ab696b850d4ab9c04c616b093e5406bce9ec81551185",
+          "observed": "00563700f99c7275a948ab696b850d4ab9c04c616b093e5406bce9ec81551185"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 7104,
+        "decodedFrames": 7104,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-UI-TAB",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 5760,
+        "channels": 1,
+        "durationSeconds": 0.12,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.8266,
+        "dcOffset": [
+          0.0002403523
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+        "bytes": 17324
+      },
+      "runtime": {
+        "frames": 5760,
+        "channels": 1,
+        "durationSeconds": 0.12,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -16.8266,
+        "dcOffset": [
+          0.0002401723
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "216b2a98c050f70c5ae9512976d60863dfcc9d10141efdf1527be05b8eead7bb",
+        "bytes": 11564
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 5760,
+        "errorRmsDbfs": -96.2932,
+        "signalToCodecErrorDb": 79.4666,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 17524043075303136713,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 1948,
+        "totalSamples": 5760,
+        "maxAbsoluteQuantizationErrorLsb": 1.43359375,
+        "rmsQuantizationErrorLsb": 0.50209869
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+          "observed": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f"
+        },
+        "runtime": {
+          "expected": "216b2a98c050f70c5ae9512976d60863dfcc9d10141efdf1527be05b8eead7bb",
+          "observed": "216b2a98c050f70c5ae9512976d60863dfcc9d10141efdf1527be05b8eead7bb"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 5760,
+        "decodedFrames": 5760,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-UI-OPEN",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 8640,
+        "channels": 1,
+        "durationSeconds": 0.18,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.7513,
+        "dcOffset": [
+          0.0001074537
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9672,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+        "bytes": 25964
+      },
+      "runtime": {
+        "frames": 8640,
+        "channels": 1,
+        "durationSeconds": 0.18,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -16.7513,
+        "dcOffset": [
+          0.0001073767
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9669,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "d998047eb0929a4b04b68ae45fc80d7f41a8620585a38f00caf3c9c088437723",
+        "bytes": 17324
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 8640,
+        "errorRmsDbfs": -96.2148,
+        "signalToCodecErrorDb": 79.4635,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 4838240405388521804,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 2945,
+        "totalSamples": 8640,
+        "maxAbsoluteQuantizationErrorLsb": 1.44140625,
+        "rmsQuantizationErrorLsb": 0.50665158
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+          "observed": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922"
+        },
+        "runtime": {
+          "expected": "d998047eb0929a4b04b68ae45fc80d7f41a8620585a38f00caf3c9c088437723",
+          "observed": "d998047eb0929a4b04b68ae45fc80d7f41a8620585a38f00caf3c9c088437723"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 8640,
+        "decodedFrames": 8640,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-UI-CLOSE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 7680,
+        "channels": 1,
+        "durationSeconds": 0.16,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.4666,
+        "dcOffset": [
+          8.03263e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+        "bytes": 23084
+      },
+      "runtime": {
+        "frames": 7680,
+        "channels": 1,
+        "durationSeconds": 0.16,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -16.4666,
+        "dcOffset": [
+          8.04067e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "030fb3b5466a8c04c689122b404b4520e80999227af6877e76dd30ab1911737f",
+        "bytes": 15404
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 7680,
+        "errorRmsDbfs": -96.3219,
+        "signalToCodecErrorDb": 79.8553,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 3426131891119832370,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 2534,
+        "totalSamples": 7680,
+        "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+        "rmsQuantizationErrorLsb": 0.50044333
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+          "observed": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f"
+        },
+        "runtime": {
+          "expected": "030fb3b5466a8c04c689122b404b4520e80999227af6877e76dd30ab1911737f",
+          "observed": "030fb3b5466a8c04c689122b404b4520e80999227af6877e76dd30ab1911737f"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 7680,
+        "decodedFrames": 7680,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-UI-TOGGLE-ON",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 6720,
+        "channels": 1,
+        "durationSeconds": 0.14,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -17.5241,
+        "dcOffset": [
+          0.0001617891
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9538,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+        "bytes": 20204
+      },
+      "runtime": {
+        "frames": 6720,
+        "channels": 1,
+        "durationSeconds": 0.14,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -17.5241,
+        "dcOffset": [
+          0.0001615933
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9541,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "d68ef87cbd18577110ce6ea3d547e7c2d48f5e54671a0a06224ba18e744288da",
+        "bytes": 13484
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 6720,
+        "errorRmsDbfs": -96.3312,
+        "signalToCodecErrorDb": 78.8071,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 6597849457215141831,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 2079,
+        "totalSamples": 6720,
+        "maxAbsoluteQuantizationErrorLsb": 1.40625,
+        "rmsQuantizationErrorLsb": 0.49990617
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+          "observed": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22"
+        },
+        "runtime": {
+          "expected": "d68ef87cbd18577110ce6ea3d547e7c2d48f5e54671a0a06224ba18e744288da",
+          "observed": "d68ef87cbd18577110ce6ea3d547e7c2d48f5e54671a0a06224ba18e744288da"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 6720,
+        "decodedFrames": 6720,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-UI-TOGGLE-OFF",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 6720,
+        "channels": 1,
+        "durationSeconds": 0.14,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -17.2705,
+        "dcOffset": [
+          0.0001706738
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.8624,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+        "bytes": 20204
+      },
+      "runtime": {
+        "frames": 6720,
+        "channels": 1,
+        "durationSeconds": 0.14,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -17.2705,
+        "dcOffset": [
+          0.0001704761
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.8623,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "8f5e76f2ae8f01834ff0d26d7749e7a1b099a8c08342ebf6c5951bdf8c6cd7b0",
+        "bytes": 13484
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 6720,
+        "errorRmsDbfs": -96.324,
+        "signalToCodecErrorDb": 79.0535,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 10304923922782378390,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 2107,
+        "totalSamples": 6720,
+        "maxAbsoluteQuantizationErrorLsb": 1.44921875,
+        "rmsQuantizationErrorLsb": 0.50032252
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+          "observed": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622"
+        },
+        "runtime": {
+          "expected": "8f5e76f2ae8f01834ff0d26d7749e7a1b099a8c08342ebf6c5951bdf8c6cd7b0",
+          "observed": "8f5e76f2ae8f01834ff0d26d7749e7a1b099a8c08342ebf6c5951bdf8c6cd7b0"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 6720,
+        "decodedFrames": 6720,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-UI-ERROR",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -16.0016,
+        "dcOffset": [
+          0.000655185
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+        "bytes": 37484
+      },
+      "runtime": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -5.0004,
+        "rmsDbfs": -16.0016,
+        "dcOffset": [
+          0.0006552403
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9948,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "acdb8387398035e45d7b72dd001f150d03c55619ddf4e58eebfba4cad34fe3ed",
+        "bytes": 25004
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 12480,
+        "errorRmsDbfs": -96.3688,
+        "signalToCodecErrorDb": 80.3672,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 1450545113976416427,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 4117,
+        "totalSamples": 12480,
+        "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+        "rmsQuantizationErrorLsb": 0.49774888
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+          "observed": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828"
+        },
+        "runtime": {
+          "expected": "acdb8387398035e45d7b72dd001f150d03c55619ddf4e58eebfba4cad34fe3ed",
+          "observed": "acdb8387398035e45d7b72dd001f150d03c55619ddf4e58eebfba4cad34fe3ed"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 12480,
+        "decodedFrames": 12480,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SHOP-PURCHASE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 16800,
+        "channels": 1,
+        "durationSeconds": 0.35,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -17.6609,
+        "dcOffset": [
+          0.0012785516
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.489,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+        "bytes": 50444
+      },
+      "runtime": {
+        "frames": 16800,
+        "channels": 1,
+        "durationSeconds": 0.35,
+        "samplePeakDbfs": -4.5003,
+        "rmsDbfs": -17.6609,
+        "dcOffset": [
+          0.0012786429
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.4892,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8",
+        "bytes": 33644
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 16800,
+        "errorRmsDbfs": -96.3338,
+        "signalToCodecErrorDb": 78.6729,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 17939813930001531133,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 5321,
+        "totalSamples": 16800,
+        "maxAbsoluteQuantizationErrorLsb": 1.453125,
+        "rmsQuantizationErrorLsb": 0.49976061
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+          "observed": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07"
+        },
+        "runtime": {
+          "expected": "771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8",
+          "observed": "771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 16800,
+        "decodedFrames": 16800,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SHOP-BATCH",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 24000,
+        "channels": 1,
+        "durationSeconds": 0.5,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -16.7537,
+        "dcOffset": [
+          0.0019245383
+        ],
+        "integratedLufs": -18.3112,
+        "truePeakDbtp": -4.4945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+        "bytes": 72044
+      },
+      "runtime": {
+        "frames": 24000,
+        "channels": 1,
+        "durationSeconds": 0.5,
+        "samplePeakDbfs": -4.4994,
+        "rmsDbfs": -16.7537,
+        "dcOffset": [
+          0.0019245656
+        ],
+        "integratedLufs": -18.3112,
+        "truePeakDbtp": -4.4939,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "91da552e70bc80b0a301c97c38631d6ab4daf05ef106d812e4d15004fe908e07",
+        "bytes": 48044
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 24000,
+        "errorRmsDbfs": -96.3105,
+        "signalToCodecErrorDb": 79.5568,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 15180222054419711002,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 7873,
+        "totalSamples": 24000,
+        "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+        "rmsQuantizationErrorLsb": 0.5011007
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+          "observed": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf"
+        },
+        "runtime": {
+          "expected": "91da552e70bc80b0a301c97c38631d6ab4daf05ef106d812e4d15004fe908e07",
+          "observed": "91da552e70bc80b0a301c97c38631d6ab4daf05ef106d812e4d15004fe908e07"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 24000,
+        "decodedFrames": 24000,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SHOP-UNAVAILABLE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -15.554,
+        "dcOffset": [
+          0.000852118
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9928,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+        "bytes": 37484
+      },
+      "runtime": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -15.554,
+        "dcOffset": [
+          0.0008523036
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9927,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "873edfa3405248da06fd1302e079e96f47b58253d42a7150b3878e1c25c76bab",
+        "bytes": 25004
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 12480,
+        "errorRmsDbfs": -96.3695,
+        "signalToCodecErrorDb": 80.8156,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 16263448811817233399,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 4144,
+        "totalSamples": 12480,
+        "maxAbsoluteQuantizationErrorLsb": 1.421875,
+        "rmsQuantizationErrorLsb": 0.49770672
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+          "observed": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4"
+        },
+        "runtime": {
+          "expected": "873edfa3405248da06fd1302e079e96f47b58253d42a7150b3878e1c25c76bab",
+          "observed": "873edfa3405248da06fd1302e079e96f47b58253d42a7150b3878e1c25c76bab"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 12480,
+        "decodedFrames": 12480,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SHOP-UNLOCK",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 43200,
+        "channels": 1,
+        "durationSeconds": 0.9,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -18.3252,
+        "dcOffset": [
+          0.000151481
+        ],
+        "integratedLufs": -18.8866,
+        "truePeakDbtp": -4.4271,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+        "bytes": 129644
+      },
+      "runtime": {
+        "frames": 43200,
+        "channels": 1,
+        "durationSeconds": 0.9,
+        "samplePeakDbfs": -4.4998,
+        "rmsDbfs": -18.3252,
+        "dcOffset": [
+          0.0001514675
+        ],
+        "integratedLufs": -18.8866,
+        "truePeakDbtp": -4.4272,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "0507ffd2b3cd5ce94d5a9e59bbed69c20814393ac46d90e01ad54a856368ceff",
+        "bytes": 86444
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 43200,
+        "errorRmsDbfs": -96.3244,
+        "signalToCodecErrorDb": 77.9992,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 6381839884780678613,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 14043,
+        "totalSamples": 43200,
+        "maxAbsoluteQuantizationErrorLsb": 1.46875,
+        "rmsQuantizationErrorLsb": 0.50029919
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+          "observed": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414"
+        },
+        "runtime": {
+          "expected": "0507ffd2b3cd5ce94d5a9e59bbed69c20814393ac46d90e01ad54a856368ceff",
+          "observed": "0507ffd2b3cd5ce94d5a9e59bbed69c20814393ac46d90e01ad54a856368ceff"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 43200,
+        "decodedFrames": 43200,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-SHOP-MILESTONE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 33600,
+        "channels": 1,
+        "durationSeconds": 0.7,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -22.4137,
+        "dcOffset": [
+          0.0005097219
+        ],
+        "integratedLufs": -23.761,
+        "truePeakDbtp": -4.4835,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+        "bytes": 100844
+      },
+      "runtime": {
+        "frames": 33600,
+        "channels": 1,
+        "durationSeconds": 0.7,
+        "samplePeakDbfs": -4.4998,
+        "rmsDbfs": -22.4137,
+        "dcOffset": [
+          0.0005096663
+        ],
+        "integratedLufs": -23.761,
+        "truePeakDbtp": -4.4837,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8",
+        "bytes": 67244
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 33600,
+        "errorRmsDbfs": -96.2755,
+        "signalToCodecErrorDb": 73.8618,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 18119930800897486700,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 10710,
+        "totalSamples": 33600,
+        "maxAbsoluteQuantizationErrorLsb": 1.4609375,
+        "rmsQuantizationErrorLsb": 0.50312329
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+          "observed": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89"
+        },
+        "runtime": {
+          "expected": "b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8",
+          "observed": "b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 33600,
+        "decodedFrames": 33600,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-COLLECTION-EQUIP",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 14400,
+        "channels": 1,
+        "durationSeconds": 0.3,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -21.6836,
+        "dcOffset": [
+          2.45179e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+        "bytes": 43244
+      },
+      "runtime": {
+        "frames": 14400,
+        "channels": 1,
+        "durationSeconds": 0.3,
+        "samplePeakDbfs": -5.0004,
+        "rmsDbfs": -21.6836,
+        "dcOffset": [
+          2.44713e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9948,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "1f3081eb43078a3ba6188d21538cfc5360dcaddf139c3f87a0eb0789c3dc817e",
+        "bytes": 28844
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 14400,
+        "errorRmsDbfs": -96.2647,
+        "signalToCodecErrorDb": 74.5811,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 17809336828176935189,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 4845,
+        "totalSamples": 14400,
+        "maxAbsoluteQuantizationErrorLsb": 1.4453125,
+        "rmsQuantizationErrorLsb": 0.50374752
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+          "observed": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca"
+        },
+        "runtime": {
+          "expected": "1f3081eb43078a3ba6188d21538cfc5360dcaddf139c3f87a0eb0789c3dc817e",
+          "observed": "1f3081eb43078a3ba6188d21538cfc5360dcaddf139c3f87a0eb0789c3dc817e"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 14400,
+        "decodedFrames": 14400,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-COLLECTION-HIDE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -5.0,
+        "rmsDbfs": -19.9262,
+        "dcOffset": [
+          6.13289e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9945,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+        "bytes": 37484
+      },
+      "runtime": {
+        "frames": 12480,
+        "channels": 1,
+        "durationSeconds": 0.26,
+        "samplePeakDbfs": -4.9999,
+        "rmsDbfs": -19.9262,
+        "dcOffset": [
+          6.12283e-05
+        ],
+        "integratedLufs": null,
+        "truePeakDbtp": -4.9944,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059",
+        "bytes": 25004
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 12480,
+        "errorRmsDbfs": -96.2798,
+        "signalToCodecErrorDb": 76.3535,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 9877134738428794387,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 4207,
+        "totalSamples": 12480,
+        "maxAbsoluteQuantizationErrorLsb": 1.4296875,
+        "rmsQuantizationErrorLsb": 0.50287662
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+          "observed": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec"
+        },
+        "runtime": {
+          "expected": "fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059",
+          "observed": "fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 12480,
+        "decodedFrames": 12480,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-FORM-01",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 57600,
+        "channels": 2,
+        "durationSeconds": 1.2,
+        "samplePeakDbfs": -2.4129,
+        "rmsDbfs": -19.0886,
+        "dcOffset": [
+          0.000575583,
+          0.0005819959
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.4074,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+        "bytes": 345644
+      },
+      "runtime": {
+        "frames": 57600,
+        "channels": 2,
+        "durationSeconds": 1.2,
+        "samplePeakDbfs": -2.413,
+        "rmsDbfs": -19.0886,
+        "dcOffset": [
+          0.0005755732,
+          0.0005819644
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.4074,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742",
+        "bytes": 230444
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.0223,
+        "leftRightCorrelation": 0.989903
+      },
+      "roundTrip": {
+        "commonFrames": 57600,
+        "errorRmsDbfs": -96.3282,
+        "signalToCodecErrorDb": 77.2396,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 15070329162450795008,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 37740,
+        "totalSamples": 115200,
+        "maxAbsoluteQuantizationErrorLsb": 1.48046875,
+        "rmsQuantizationErrorLsb": 0.50008033
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+          "observed": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a"
+        },
+        "runtime": {
+          "expected": "a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742",
+          "observed": "a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 57600,
+        "decodedFrames": 57600,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-FORM-02",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 72000,
+        "channels": 2,
+        "durationSeconds": 1.5,
+        "samplePeakDbfs": -3.089,
+        "rmsDbfs": -19.1864,
+        "dcOffset": [
+          0.0005833913,
+          0.0005511531
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -3.0834,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+        "bytes": 432044
+      },
+      "runtime": {
+        "frames": 72000,
+        "channels": 2,
+        "durationSeconds": 1.5,
+        "samplePeakDbfs": -3.0892,
+        "rmsDbfs": -19.1864,
+        "dcOffset": [
+          0.0005832876,
+          0.000551225
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -3.0837,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "90bcf1b8951d2a4fc8463213337c3e252ada85936c798b6b6cd25e7751c35b20",
+        "bytes": 288044
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.0242,
+        "leftRightCorrelation": 0.988998
+      },
+      "roundTrip": {
+        "commonFrames": 72000,
+        "errorRmsDbfs": -96.3284,
+        "signalToCodecErrorDb": 77.1421,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 16530024837601311517,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 47031,
+        "totalSamples": 144000,
+        "maxAbsoluteQuantizationErrorLsb": 1.47265625,
+        "rmsQuantizationErrorLsb": 0.50006729
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+          "observed": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa"
+        },
+        "runtime": {
+          "expected": "90bcf1b8951d2a4fc8463213337c3e252ada85936c798b6b6cd25e7751c35b20",
+          "observed": "90bcf1b8951d2a4fc8463213337c3e252ada85936c798b6b6cd25e7751c35b20"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 72000,
+        "decodedFrames": 72000,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-FORM-03",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 86400,
+        "channels": 2,
+        "durationSeconds": 1.8,
+        "samplePeakDbfs": -1.8522,
+        "rmsDbfs": -19.2594,
+        "dcOffset": [
+          0.0005236237,
+          0.0005298612
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -1.8467,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+        "bytes": 518444
+      },
+      "runtime": {
+        "frames": 86400,
+        "channels": 2,
+        "durationSeconds": 1.8,
+        "samplePeakDbfs": -1.8523,
+        "rmsDbfs": -19.2594,
+        "dcOffset": [
+          0.0005235467,
+          0.0005298607
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -1.8468,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "7fe4e0c9c51a95c4e83ea6a5f2e551211713ca7e8bcd2cf059d12beb99fcf7ce",
+        "bytes": 345644
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.025,
+        "leftRightCorrelation": 0.988592
+      },
+      "roundTrip": {
+        "commonFrames": 86400,
+        "errorRmsDbfs": -96.3294,
+        "signalToCodecErrorDb": 77.0699,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 6154785493164063299,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 56403,
+        "totalSamples": 172800,
+        "maxAbsoluteQuantizationErrorLsb": 1.4765625,
+        "rmsQuantizationErrorLsb": 0.50001346
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+          "observed": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b"
+        },
+        "runtime": {
+          "expected": "7fe4e0c9c51a95c4e83ea6a5f2e551211713ca7e8bcd2cf059d12beb99fcf7ce",
+          "observed": "7fe4e0c9c51a95c4e83ea6a5f2e551211713ca7e8bcd2cf059d12beb99fcf7ce"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 86400,
+        "decodedFrames": 86400,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-FORM-04",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 100800,
+        "channels": 2,
+        "durationSeconds": 2.1,
+        "samplePeakDbfs": -2.6443,
+        "rmsDbfs": -19.4724,
+        "dcOffset": [
+          0.0004739487,
+          0.0004605857
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.6358,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+        "bytes": 604844
+      },
+      "runtime": {
+        "frames": 100800,
+        "channels": 2,
+        "durationSeconds": 2.1,
+        "samplePeakDbfs": -2.6442,
+        "rmsDbfs": -19.4724,
+        "dcOffset": [
+          0.0004738726,
+          0.0004606625
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.6356,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "0843cdf86d646ba79f78e05a7feb354afc855704fc606fc50406b84179b44461",
+        "bytes": 403244
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.0257,
+        "leftRightCorrelation": 0.988206
+      },
+      "roundTrip": {
+        "commonFrames": 100800,
+        "errorRmsDbfs": -96.313,
+        "signalToCodecErrorDb": 76.8406,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 14926592243992954118,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 66148,
+        "totalSamples": 201600,
+        "maxAbsoluteQuantizationErrorLsb": 1.4765625,
+        "rmsQuantizationErrorLsb": 0.50095832
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+          "observed": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288"
+        },
+        "runtime": {
+          "expected": "0843cdf86d646ba79f78e05a7feb354afc855704fc606fc50406b84179b44461",
+          "observed": "0843cdf86d646ba79f78e05a7feb354afc855704fc606fc50406b84179b44461"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 100800,
+        "decodedFrames": 100800,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-FORM-05",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 115200,
+        "channels": 2,
+        "durationSeconds": 2.4,
+        "samplePeakDbfs": -2.0645,
+        "rmsDbfs": -19.6775,
+        "dcOffset": [
+          0.0004105078,
+          0.0004122537
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.0589,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+        "bytes": 691244
+      },
+      "runtime": {
+        "frames": 115200,
+        "channels": 2,
+        "durationSeconds": 2.4,
+        "samplePeakDbfs": -2.0645,
+        "rmsDbfs": -19.6775,
+        "dcOffset": [
+          0.0004105359,
+          0.0004121709
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -2.059,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "d9255899e0b1ec67da3f8be97f3259019e312b075a5f4ceb1c2622606a931b1c",
+        "bytes": 460844
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.0262,
+        "leftRightCorrelation": 0.988085
+      },
+      "roundTrip": {
+        "commonFrames": 115200,
+        "errorRmsDbfs": -96.3299,
+        "signalToCodecErrorDb": 76.6524,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 14027650767609683785,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 75686,
+        "totalSamples": 230400,
+        "maxAbsoluteQuantizationErrorLsb": 1.47265625,
+        "rmsQuantizationErrorLsb": 0.49998345
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+          "observed": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f"
+        },
+        "runtime": {
+          "expected": "d9255899e0b1ec67da3f8be97f3259019e312b075a5f4ceb1c2622606a931b1c",
+          "observed": "d9255899e0b1ec67da3f8be97f3259019e312b075a5f4ceb1c2622606a931b1c"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 115200,
+        "decodedFrames": 115200,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-ACHIEVEMENT",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 43200,
+        "channels": 2,
+        "durationSeconds": 0.9,
+        "samplePeakDbfs": -1.6775,
+        "rmsDbfs": -18.0483,
+        "dcOffset": [
+          0.00032037,
+          0.000280808
+        ],
+        "integratedLufs": -17.0,
+        "truePeakDbtp": -1.6687,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+        "bytes": 259244
+      },
+      "runtime": {
+        "frames": 43200,
+        "channels": 2,
+        "durationSeconds": 0.9,
+        "samplePeakDbfs": -1.6775,
+        "rmsDbfs": -18.0483,
+        "dcOffset": [
+          0.0003203498,
+          0.0002808316
+        ],
+        "integratedLufs": -17.0,
+        "truePeakDbtp": -1.6688,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f",
+        "bytes": 172844
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.0166,
+        "leftRightCorrelation": 0.993143
+      },
+      "roundTrip": {
+        "commonFrames": 43200,
+        "errorRmsDbfs": -96.3021,
+        "signalToCodecErrorDb": 78.2538,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 10613129900793045331,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 27609,
+        "totalSamples": 86400,
+        "maxAbsoluteQuantizationErrorLsb": 1.484375,
+        "rmsQuantizationErrorLsb": 0.50158488
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+          "observed": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320"
+        },
+        "runtime": {
+          "expected": "c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f",
+          "observed": "c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 43200,
+        "decodedFrames": 43200,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-ASCENSION",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 153600,
+        "channels": 2,
+        "durationSeconds": 3.2,
+        "samplePeakDbfs": -1.7668,
+        "rmsDbfs": -18.5358,
+        "dcOffset": [
+          0.0007313826,
+          0.0007295558
+        ],
+        "integratedLufs": -15.5,
+        "truePeakDbtp": -1.7612,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+        "bytes": 921644
+      },
+      "runtime": {
+        "frames": 153600,
+        "channels": 2,
+        "durationSeconds": 3.2,
+        "samplePeakDbfs": -1.7664,
+        "rmsDbfs": -18.5358,
+        "dcOffset": [
+          0.0007314003,
+          0.0007295628
+        ],
+        "integratedLufs": -15.5,
+        "truePeakDbtp": -1.7609,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "56a9d1804d0d800416df1c72ee3da63306e76c17046347cd56a28221d0862ab2",
+        "bytes": 614444
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.0039,
+        "leftRightCorrelation": 0.998226
+      },
+      "roundTrip": {
+        "commonFrames": 153600,
+        "errorRmsDbfs": -96.3229,
+        "signalToCodecErrorDb": 77.7871,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 307032754321625896,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 101587,
+        "totalSamples": 307200,
+        "maxAbsoluteQuantizationErrorLsb": 1.484375,
+        "rmsQuantizationErrorLsb": 0.50038454
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+          "observed": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2"
+        },
+        "runtime": {
+          "expected": "56a9d1804d0d800416df1c72ee3da63306e76c17046347cd56a28221d0862ab2",
+          "observed": "56a9d1804d0d800416df1c72ee3da63306e76c17046347cd56a28221d0862ab2"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 153600,
+        "decodedFrames": 153600,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "STG-MARK-67",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 86400,
+        "channels": 2,
+        "durationSeconds": 1.8,
+        "samplePeakDbfs": -3.2534,
+        "rmsDbfs": -19.3213,
+        "dcOffset": [
+          0.0009494208,
+          0.0009471858
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -3.2479,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+        "bytes": 518444
+      },
+      "runtime": {
+        "frames": 86400,
+        "channels": 2,
+        "durationSeconds": 1.8,
+        "samplePeakDbfs": -3.2534,
+        "rmsDbfs": -19.3213,
+        "dcOffset": [
+          0.000949351,
+          0.0009472416
+        ],
+        "integratedLufs": -16.5,
+        "truePeakDbtp": -3.2479,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "aa254e794cc4bc0769f61612e4e996ab9825721105be40eec2679a796944bfaf",
+        "bytes": 345644
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": {
+        "monoToStereoRmsDb": -0.0185,
+        "leftRightCorrelation": 0.99151
+      },
+      "roundTrip": {
+        "commonFrames": 86400,
+        "errorRmsDbfs": -96.3196,
+        "signalToCodecErrorDb": 76.9983,
+        "correlationByChannel": [
+          1.0,
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 15763404296936163006,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 54422,
+        "totalSamples": 172800,
+        "maxAbsoluteQuantizationErrorLsb": 1.4765625,
+        "rmsQuantizationErrorLsb": 0.50057722
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+          "observed": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4"
+        },
+        "runtime": {
+          "expected": "aa254e794cc4bc0769f61612e4e996ab9825721105be40eec2679a796944bfaf",
+          "observed": "aa254e794cc4bc0769f61612e4e996ab9825721105be40eec2679a796944bfaf"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 86400,
+        "decodedFrames": 86400,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-RETURN-OFFLINE",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 24000,
+        "channels": 1,
+        "durationSeconds": 0.5,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -22.2629,
+        "dcOffset": [
+          0.0007697702
+        ],
+        "integratedLufs": -20.7841,
+        "truePeakDbtp": -4.3426,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+        "bytes": 72044
+      },
+      "runtime": {
+        "frames": 24000,
+        "channels": 1,
+        "durationSeconds": 0.5,
+        "samplePeakDbfs": -4.5003,
+        "rmsDbfs": -22.2629,
+        "dcOffset": [
+          0.0007697754
+        ],
+        "integratedLufs": -20.7841,
+        "truePeakDbtp": -4.3429,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "9b85557737390b03fc6168e8968b4fbdda8208f6f1bb5cc967cd51e9d26e77ba",
+        "bytes": 48044
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 24000,
+        "errorRmsDbfs": -96.3504,
+        "signalToCodecErrorDb": 74.0876,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 14405012320787335216,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 7757,
+        "totalSamples": 24000,
+        "maxAbsoluteQuantizationErrorLsb": 1.453125,
+        "rmsQuantizationErrorLsb": 0.49880294
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+          "observed": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57"
+        },
+        "runtime": {
+          "expected": "9b85557737390b03fc6168e8968b4fbdda8208f6f1bb5cc967cd51e9d26e77ba",
+          "observed": "9b85557737390b03fc6168e8968b4fbdda8208f6f1bb5cc967cd51e9d26e77ba"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 24000,
+        "decodedFrames": 24000,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    },
+    {
+      "id": "SFX-RETURN-BONUS",
+      "required": true,
+      "conditional": false,
+      "passed": true,
+      "errors": [],
+      "master": {
+        "frames": 31200,
+        "channels": 1,
+        "durationSeconds": 0.65,
+        "samplePeakDbfs": -4.5,
+        "rmsDbfs": -19.1965,
+        "dcOffset": [
+          0.0005583146
+        ],
+        "integratedLufs": -19.8737,
+        "truePeakDbtp": -4.4224,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+        "bytes": 93644
+      },
+      "runtime": {
+        "frames": 31200,
+        "channels": 1,
+        "durationSeconds": 0.65,
+        "samplePeakDbfs": -4.5003,
+        "rmsDbfs": -19.1965,
+        "dcOffset": [
+          0.0005582761
+        ],
+        "integratedLufs": -19.8737,
+        "truePeakDbtp": -4.4226,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sha256": "918fe65122311e9f004205a68df50a3d3e2d80507db89fba41a804656a32785c",
+        "bytes": 62444
+      },
+      "boundary": null,
+      "runtimeBoundary": null,
+      "mono": null,
+      "roundTrip": {
+        "commonFrames": 31200,
+        "errorRmsDbfs": -96.3072,
+        "signalToCodecErrorDb": 77.1107,
+        "correlationByChannel": [
+          1.0
+        ]
+      },
+      "pcm16Dither": {
+        "result": "pass",
+        "type": "TPDF",
+        "seed": 15425340719427791497,
+        "source": "encoded PCM24 master",
+        "reconstructionExact": true,
+        "changedSamplesVersusUndithered": 10136,
+        "totalSamples": 31200,
+        "maxAbsoluteQuantizationErrorLsb": 1.453125,
+        "rmsQuantizationErrorLsb": 0.50129305
+      },
+      "hashVerification": {
+        "result": "pass",
+        "master": {
+          "expected": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+          "observed": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9"
+        },
+        "runtime": {
+          "expected": "918fe65122311e9f004205a68df50a3d3e2d80507db89fba41a804656a32785c",
+          "observed": "918fe65122311e9f004205a68df50a3d3e2d80507db89fba41a804656a32785c"
+        },
+        "expectedHashesPreserved": true
+      },
+      "coreAudio": {
+        "result": "sample-exact",
+        "runtimeFormat": "WAV/PCM_16",
+        "expectedFrames": 31200,
+        "decodedFrames": 31200,
+        "deltaFrames": 0,
+        "frameCountExact": true,
+        "zeroOffsetAligned": true,
+        "pcmValuesExact": true,
+        "sampleExact": true
+      }
+    }
+  ],
+  "limitations": [
+    "no human listening",
+    "no adversarial similarity review",
+    "no Android latency/drift/focus test",
+    "CoreAudio music Ogg has a measured decoder offset and some frame-count variance; numeric seam passes do not replace Android audible-loop validation",
+    "true peak is a 4x oversampling estimate",
+    "tool license archive pending",
+    "procedural source acceptance in place of REAPER session pending"
+  ]
+}

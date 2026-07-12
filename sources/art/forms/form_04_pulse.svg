@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="2160" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_04_pulse</title>
+  <desc>FORM-04 canonical pulse layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_04_pulse;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_04_pulse"><path d="M80 1480 Q350 1280 620 1470 T1160 1460 T1700 1450 T2080 1390" fill="none" stroke="#FFD166" stroke-width="58" stroke-linecap="round"/><path d="M80 1560 Q350 1360 620 1550 T1160 1540 T1700 1530 T2080 1470" fill="none" stroke="#FF4FA3" stroke-width="30" opacity="0.65"/></g></g>
+</svg>

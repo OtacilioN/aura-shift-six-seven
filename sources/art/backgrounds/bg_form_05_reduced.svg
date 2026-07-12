@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="3840" viewBox="0 0 2160 3840" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>bg_form_05_reduced</title>
+  <desc>Portrait bg_form_05_reduced separated background plane. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=bg_form_05_reduced;style=art-v1;license=project-original</metadata>
+  <defs><linearGradient id="grade" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#141936"/><stop offset="72%" stop-color="#322860"/><stop offset="100%" stop-color="#FFD166"/></linearGradient></defs>
+  <g id="asset"><g id="bg_form_05_reduced"><rect x="0" y="0" width="2160" height="3840" fill="url(#grade)"/><rect x="0" y="0" width="2160" height="3840" fill="#090B1A" opacity="0.18"/><path d="M360 1540 A820 820 0 0 1 1800 1540" fill="none" stroke="#FFD166" stroke-width="54" opacity="0.36"/><path d="M480 1360 A700 700 0 0 1 1680 1360" fill="none" stroke="#43E6FF" stroke-width="34" opacity="0.28"/><path d="M150 2900 V1540 M2010 2900 V1540" stroke="#43E6FF" stroke-width="42" opacity="0.34"/><path d="M150 2900 Q600 2720 1080 2900 Q1560 3080 2010 2900" fill="none" stroke="#FF4FA3" stroke-width="52" opacity="0.42"/><ellipse cx="1080" cy="3340" rx="820" ry="194" fill="#090B1A" opacity="0.50"/><path d="M120 3320 Q560 3120 1080 3320 Q1600 3520 2040 3320" fill="none" stroke="#FF4FA3" stroke-width="44" opacity="0.48"/><path d="M120 3320 V3060 M2040 3320 V3060" stroke="#43E6FF" stroke-width="30" opacity="0.46"/><circle cx="1080" cy="3320" r="28" fill="#FFD166" opacity="0.86"/></g></g>
+</svg>

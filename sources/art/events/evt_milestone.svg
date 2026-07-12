@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>evt_milestone</title>
+  <desc>Text-free event emblem evt_milestone. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=evt_milestone;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="evt_milestone"><path d="M256 42 L428 140 L428 340 L256 438 L84 340 L84 140 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><circle cx="256" cy="256" r="112" fill="none" stroke="#FFD166" stroke-width="34"/><path d="M256 112 V174 M256 338 V400 M112 256 H174 M338 256 H400" stroke="#8B7CFF" stroke-width="22" stroke-linecap="round"/></g></g>
+</svg>

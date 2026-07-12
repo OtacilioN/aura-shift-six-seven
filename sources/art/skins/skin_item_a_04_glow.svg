@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_a_04_glow</title>
+  <desc>open gate coat with lapels split zipper and geometric pockets; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_a_04_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M352 500 Q388 444 446 438 M578 438 Q636 444 672 500" fill="none" stroke="#43E6FF" stroke-width="28" opacity="0.22" stroke-linecap="round"/><path d="M494 536 L470 800 M530 536 L554 800" fill="none" stroke="#43E6FF" stroke-width="24" opacity="0.24" stroke-linecap="round"/><path d="M388 642 L474 620 M550 620 L636 642" fill="none" stroke="#3478F6" stroke-width="22" opacity="0.20" stroke-linecap="round"/></g></g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_s_02</title>
+  <desc>Shape-redundant achievement badge quiet_hours. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_s_02;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_s_02"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><circle cx="230" cy="212" r="112" fill="#FFD166"/><circle cx="286" cy="174" r="112" fill="#141936"/><path d="M116 352 Q256 294 396 352" fill="none" stroke="#8B7CFF" stroke-width="30"/></g></g>
+</svg>

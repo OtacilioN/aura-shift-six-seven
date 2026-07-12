@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>badge_ach_v_01</title>
+  <desc>Shape-redundant achievement badge first_shift. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=badge_ach_v_01;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="badge_ach_v_01"><path d="M256 34 L434 136 L434 342 L256 444 L78 342 L78 136 Z" fill="#141936" stroke="#090B1A" stroke-width="28" stroke-linejoin="round"/><circle cx="176" cy="278" r="62" fill="#43E6FF" stroke="#090B1A" stroke-width="18"/><circle cx="336" cy="218" r="62" fill="#FF4FA3" stroke="#090B1A" stroke-width="18"/><path d="M176 192 Q256 118 336 156 M336 304 Q256 378 176 340" fill="none" stroke="#8B7CFF" stroke-width="24" stroke-linecap="round"/></g></g>
+</svg>

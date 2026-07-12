@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_conv_03_accent</title>
+  <desc>oversized physical side screw with cross-slot head threaded shaft and three tether lines; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_conv_03_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><path d="M800 228 V372 M728 300 H872" fill="none" stroke="#090B1A" stroke-width="44" stroke-linecap="round"/><path d="M800 228 V372 M728 300 H872" fill="none" stroke="#F7F5FF" stroke-width="18" stroke-linecap="round"/><path d="M772 438 L832 422 M764 824 L820 892" fill="none" stroke="#F7F5FF" stroke-width="10" stroke-linecap="round" opacity="0.58" transform="rotate(-8 800 300)"/><circle cx="770" cy="184" r="17" fill="#43E6FF" stroke="#090B1A" stroke-width="9"/><circle cx="918" cy="276" r="17" fill="#FF4FA3" stroke="#090B1A" stroke-width="9"/><circle cx="878" cy="374" r="17" fill="#FFD166" stroke="#090B1A" stroke-width="9"/></g></g>
+</svg>

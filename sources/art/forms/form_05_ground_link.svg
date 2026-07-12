@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="2160" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_05_ground_link</title>
+  <desc>FORM-05 canonical ground_link layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_05_ground_link;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_05_ground_link"><path d="M220 1760 Q620 1940 1080 1760 Q1540 1580 1940 1760" fill="none" stroke="#090B1A" stroke-width="100" stroke-linecap="round"/><path d="M220 1760 Q620 1940 1080 1760 Q1540 1580 1940 1760" fill="none" stroke="#FF4FA3" stroke-width="36" stroke-linecap="round"/></g></g>
+</svg>

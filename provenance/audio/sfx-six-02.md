@@ -1,0 +1,29 @@
+# SFX-SIX-02 — proveniência candidata
+
+- **ID:** `SFX-SIX-02`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `2183538422045756449`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/sfx_six_02.wav` — `a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289`
+- **Runtime:** `assets/audio/sfx/cycle/sfx_six_02.wav` — `e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `5646522680568904705`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `1` canal(is), `4032` amostras.
+- **Métricas master:** `None` LUFS-I, `-6.0` dBFS peak, `-5.9904` dBTP.
+- **Métricas runtime:** `None` LUFS-I, `-5.9999` dBFS peak, `-5.9903` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `4032/4032` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

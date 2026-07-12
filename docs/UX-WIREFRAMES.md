@@ -167,17 +167,17 @@ Inteiros arbitrariamente longos usam segmentos quebráveis ou virtualizados; nã
 ### Folha — Nó e bloqueios
 
 ```text
-┌──────────── Mirror Glint ─────┐
+┌───────────── QA Goggles ──────┐
 │ nível 0 · Produção Passiva    │
 │ atual 0 → +67 Aura/s          │
 │ Próximo Marco: nível 10       │
 │                               │
 │ Requisitos                    │
 │ ✓ Patamar 1M                  │
-│ ! Clean Line nível 18 de 25   │
+│ ! Glow Receipt nível 18 de 25 │
 │                               │
 │ Faltam 7 níveis no predecessor│
-│ [Ir para Clean Line]          │
+│ [Ir para Glow Receipt]        │
 │ [Comprar — indisponível]      │
 └───────────────────────────────┘
 ```

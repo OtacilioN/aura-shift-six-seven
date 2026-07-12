@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_c_02_accent</title>
+  <desc>small clandestine runaway decimal point and partial segmented digits diving into a side pocket; accent layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_c_02_accent;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="accent"><g id="clandestine_decimal_hip_fit_accent" transform="translate(730 690) scale(0.78) translate(-710 -670)"><path d="M752 650 Q792 630 834 650" fill="none" stroke="#52E0A4" stroke-width="12" stroke-linecap="round"/><path d="M766 674 Q794 660 820 674 L814 724 Q794 740 770 726 Z" fill="none" stroke="#FFD166" stroke-width="9" stroke-dasharray="12 10" stroke-linejoin="round"/><path d="M558 622 H594 M570 602 H608" fill="none" stroke="#52E0A4" stroke-width="10" stroke-linecap="round"/><path d="M636 650 L646 634 L654 650 Z" fill="#FFD166" stroke="#090B1A" stroke-width="6" stroke-linejoin="round"/></g></g></g>
+</svg>

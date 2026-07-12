@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_b_05_glow</title>
+  <desc>right-side astral financial statement with transactions total and opposing trend chart; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_b_05_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M730 138 H914 L990 214 V728 Q990 758 960 758 H730 Q698 758 698 726 V170 Q698 138 730 138 Z" fill="none" stroke="#FF4FA3" stroke-width="22" opacity="0.22" stroke-linejoin="round"/><path d="M772 424 L822 410 L864 378 L920 332" fill="none" stroke="#FF4FA3" stroke-width="24" opacity="0.20" stroke-linecap="round"/><path d="M772 336 L822 348 L864 376 L920 424" fill="none" stroke="#FF7A66" stroke-width="20" opacity="0.18" stroke-linecap="round"/><rect x="728" y="656" width="232" height="70" rx="24" fill="none" stroke="#FF7A66" stroke-width="18" opacity="0.20"/></g></g>
+</svg>

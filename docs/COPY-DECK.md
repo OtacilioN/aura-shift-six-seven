@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Copy deck canônico `copy-v1`
 
-> Status: fonte `en-US` congelada para planejamento; nomes de conteúdo cultural usam os IDs estáveis definidos em `CONTENT-CATALOG.md`. Revisão em tela permanece parte do desenvolvimento.
+> Status: fonte `en-US` revisada em 11 de julho de 2026; nomes de conteúdo cultural usam os IDs estáveis definidos em `CONTENT-CATALOG.md`. Revisão em tela permanece parte do desenvolvimento.
 
 ## Contrato
 
@@ -21,7 +21,7 @@
 | `{rate}` | taxa econômica | `67 Aura/s` | unidade incluída pelo formatter |
 | `{level}` | inteiro ASCII | `25` | sem agrupamento |
 | `{count}` | inteiro para plural | `2` | plural do locale |
-| `{name}` | nome localizado de conteúdo | `Quiet Flex` | nunca interpolar ID técnico |
+| `{name}` | nome localizado de conteúdo | `Suspicious Button` | nunca interpolar ID técnico |
 | `{date}` | data/hora local | `Jul 10, 2026, 2:30 PM` | formatter do locale |
 | `{duration}` | duração localizada | `6 hr 7 min` | formatter do locale; não é token econômico |
 | `{version}` | versão ASCII | `1.0.0` | LTR em RTL |

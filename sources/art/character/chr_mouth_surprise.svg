@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>chr_mouth_surprise</title>
+  <desc>Canonical pseudo-rig component mouth_surprise. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=chr_mouth_surprise;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="mouth_surprise"><ellipse cx="128" cy="140" rx="26" ry="34" fill="#090B1A"/></g></g>
+</svg>

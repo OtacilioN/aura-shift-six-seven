@@ -1,0 +1,29 @@
+# MUS-GAME-BASE — proveniência candidata
+
+- **ID:** `MUS-GAME-BASE`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `1340819728716098279`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/mus_game_base.wav` — `c2ce90f8be581bc7c71a944e6c346d339fabe87240d154ecfc4c6cc597f5bbe4`
+- **Runtime:** `assets/audio/music/mus_game_base.ogg` — `a9829ad360ade190632664552f6db21b1aa38de6351426734914695b98351b8c`
+- **Conversão SFX:** `n/a`; TPDF determinístico a partir do master PCM24; seed `n/a`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `2` canal(is), `4404706` amostras.
+- **Métricas master:** `-16.0` LUFS-I, `-1.7745` dBFS peak, `-1.7587` dBTP.
+- **Métricas runtime:** `-15.9442` LUFS-I, `-1.6931` dBFS peak, `-1.6875` dBTP.
+- **Boundary musical:** taper squared-sine de `1024` frames por lado; gate CoreAudio `pass`.
+- **CoreAudio:** `seam-pass-with-decoder-variance`; frame count `4404706/4404706`; frame 0 alinha ao frame libsndfile `128`; sample-exact `false`; seam `[-31.3007, -31.3007]` dBFS; gate `pass`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

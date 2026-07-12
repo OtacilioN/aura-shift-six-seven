@@ -1,0 +1,29 @@
+# SFX-SHOP-MILESTONE — proveniência candidata
+
+- **ID:** `SFX-SHOP-MILESTONE`
+- **Revisão:** `3`
+- **Revisão da evidência:** `2`
+- **Status:** `candidate-reviewed`
+- **Método:** síntese procedural determinística; osciladores, ruído com seed, filtros e envelopes.
+- **Entradas externas de áudio:** nenhuma.
+- **Voz, foley, samples e IA generativa:** não utilizados.
+- **Score:** `sources/audio/procedural/score-v1.json`
+- **Seed derivada:** `5121557483574678193`
+- **Bundle-fonte SHA-256:** `23d5c30e6a44bb6ef8d213887d364676e349c419154af894e456f131de54cb5f`
+- **Master:** `masters/audio/sfx_shop_milestone.wav` — `46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89`
+- **Runtime:** `assets/audio/sfx/ui/sfx_shop_milestone.wav` — `b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8`
+- **Conversão SFX:** `pass`; TPDF determinístico a partir do master PCM24; seed `18119930800897486700`.
+- **Verificação de hash:** `pass`; hashes esperados do manifesto gerado comparados sem sobrescrita aos arquivos observados.
+- **Master:** `48000 Hz`, `PCM_24`, `1` canal(is), `33600` amostras.
+- **Métricas master:** `-23.761` LUFS-I, `-4.5` dBFS peak, `-4.4835` dBTP.
+- **Métricas runtime:** `-23.761` LUFS-I, `-4.4998` dBFS peak, `-4.4837` dBTP.
+- **Boundary musical:** não aplicável.
+- **CoreAudio:** `sample-exact`; `33600/33600` frames; sample-exact `true`.
+- **Determinismo:** `pass` em duas renderizações temporárias independentes; candidato atual `88/88`.
+- **Ferramentas:** versões exatas registradas no manifesto candidato; nenhuma sessão REAPER foi usada ou presumida.
+- **Licenças da cadeia:** NumPy/SciPy/SoundFile/pyloudnorm/libsndfile exigem arquivamento dos termos antes de aprovação; esta nota não é parecer jurídico.
+- **Briefing sanitizado:** aplicável sem referência musical, nome de artista, faixa ou gravação-fonte.
+- **Auditoria adversarial de similaridade:** pendente.
+- **Escuta humana em celular, mono e fones:** pendente.
+- **Latência, drift e retomada em Android:** pendentes.
+- **Aprovação final:** não concedida por esta pipeline.

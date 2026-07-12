@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>skin_item_conv_01_glow</title>
+  <desc>three participant ribbons braided into one meeting knot; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=skin_item_conv_01_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="glow"><path d="M160 270 C288 272 324 376 404 430 C470 474 532 444 566 492 C600 540 566 590 510 598" fill="none" stroke="#8B7CFF" stroke-width="82" stroke-linecap="round" opacity="0.12"/><path d="M864 270 C736 272 700 376 620 430 C554 474 492 444 458 492 C424 540 458 590 514 598" fill="none" stroke="#43E6FF" stroke-width="82" stroke-linecap="round" opacity="0.12"/><path d="M512 872 C512 748 634 704 626 594 C620 518 546 486 486 520 C430 552 430 620 478 654" fill="none" stroke="#FFD166" stroke-width="82" stroke-linecap="round" opacity="0.12"/><circle cx="160" cy="270" r="78" fill="none" stroke="#8B7CFF" stroke-width="18" opacity="0.18"/><circle cx="864" cy="270" r="78" fill="none" stroke="#43E6FF" stroke-width="18" opacity="0.18"/><circle cx="512" cy="872" r="78" fill="none" stroke="#FFD166" stroke-width="18" opacity="0.18"/></g></g>
+</svg>

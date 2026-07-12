@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="2160" viewBox="0 0 2160 2160" color-interpolation="sRGB" shape-rendering="geometricPrecision">
+  <title>form_01_glow</title>
+  <desc>FORM-01 canonical glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <metadata>manifestId=form_01_glow;style=art-v1;license=project-original</metadata>
+  <defs></defs>
+  <g id="asset"><g id="form_01_glow"><ellipse cx="1080" cy="1110" rx="620" ry="760" fill="none" stroke="#8B7CFF" stroke-width="92" opacity="0.22"/><circle cx="612" cy="720" r="32" fill="#43E6FF"/><circle cx="1548" cy="1470" r="32" fill="#8B7CFF"/></g></g>
+</svg>
