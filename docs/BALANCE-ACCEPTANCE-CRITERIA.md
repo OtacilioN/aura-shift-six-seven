@@ -1,10 +1,10 @@
 # Aura Shift: Six Seven — Critérios de Aceitação do Balanceamento
 
-> Status: gate `balance-gate-v1` aprovado para validar `balance-v0.1` com `arith-v1`.
+> Status: gate `balance-gate-v1` aprovado para validar `balance-v0.2` com `arith-v1`.
 
 ## Regra de decisão
 
-O gate é binário. Não existe média, nota geral ou compensação entre critérios obrigatórios: qualquer falha reprova a versão de balanceamento testada. O relatório pode recomendar novos parâmetros, mas não pode sobrescrever `balance-v0.1` sem criar uma versão identificada e repetir toda a matriz.
+O gate é binário. Não existe média, nota geral ou compensação entre critérios obrigatórios: qualquer falha reprova a versão de balanceamento testada. O relatório pode recomendar novos parâmetros, mas não pode sobrescrever `balance-v0.2` sem criar uma versão identificada e repetir toda a matriz.
 
 Antes do balanceamento, o simulador precisa passar todas as fixtures e provas de particionamento de `ECONOMIC-ARITHMETIC.md`. Divergência determinística reprova o simulador, não os parâmetros.
 

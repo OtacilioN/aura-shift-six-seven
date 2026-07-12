@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +11,7 @@ import '../audio/aura_audio_controller.dart';
 import '../core/formatting.dart';
 import '../core/game_controller.dart';
 import 'art_catalog.dart';
+import 'aura_input_gate.dart';
 import 'item_visual_effects.dart';
 
 /// Pure, testable geometry for the on-canvas character rig.
@@ -324,7 +324,7 @@ abstract final class AuraPoseSpring {
 ///    shake and rising numbers all scale with it.
 ///  * **Motion** — every contact retargets a continuous spring immediately;
 ///    visual completion never changes the canonical Aura reward.
-class AuraScene extends FlameGame with TapCallbacks {
+class AuraScene extends FlameGame {
   AuraScene(this.controller, this.audio) {
     final restoredPose = controller.phase == CyclePhase.seven
         ? -1.0
@@ -339,6 +339,7 @@ class AuraScene extends FlameGame with TapCallbacks {
   final AuraAudioController audio;
   final _random = Random();
   final _inputClock = Stopwatch()..start();
+  final AuraInputGate _inputGate = AuraInputGate();
   ArtCatalog? _artCatalog;
   final Map<String, ui.Image> _appearanceImages = <String, ui.Image>{};
   String? _requestedAppearanceId;
@@ -355,9 +356,6 @@ class AuraScene extends FlameGame with TapCallbacks {
   double _shake = 0;
   double _elapsed = 0;
   double _passiveTimer = 0;
-  int _windowStart = 0;
-  int _contactsInWindow = 0;
-
   // Retargetable pseudo-rig state. -1 = Six (screen-right hand high),
   // +1 = Seven (screen-left hand high), 0 = neutral crossing pose.
   double _swing = 0;
@@ -497,18 +495,25 @@ class AuraScene extends FlameGame with TapCallbacks {
   // ---------------------------------------------------------------------------
   // Input
   // ---------------------------------------------------------------------------
-  @override
-  void onTapDown(TapDownEvent event) => activateCycle();
+  void contactDown(int pointerId) {
+    if (_inputGate.pointerDown(
+      pointerId,
+      _inputClock.elapsedMilliseconds,
+    )) {
+      _performCycle();
+    }
+  }
+
+  void contactEnded(int pointerId) => _inputGate.pointerUp(pointerId);
 
   void activateCycle() {
-    final now = _inputClock.elapsedMilliseconds;
-    if (now - _windowStart >= 1000) {
-      _windowStart = now;
-      _contactsInWindow = 0;
+    if (!_inputGate.accessibilityAction(_inputClock.elapsedMilliseconds)) {
+      return;
     }
-    if (_contactsInWindow >= 20) return;
-    _contactsInWindow++;
+    _performCycle();
+  }
 
+  void _performCycle() {
     final phaseBefore = controller.phase;
     final completesCycle = phaseBefore == CyclePhase.seven;
     final reduce = controller.reduceMotion;

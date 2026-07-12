@@ -20,7 +20,7 @@ O estado persistente deve abranger, no mínimo:
 
 - Aura Disponível, Aura Total e Aura da Jornada;
 - versão do contrato aritmético e Resto de Produção inteiro;
-- caches inteiros derivados `P20` da Potência de Ciclo e `T20` da Produção Passiva, além da quantidade de Ascensões e do Multiplicador `A` em centésimos;
+- caches inteiros derivados `P20` da Potência de Ciclo e `T20` da Produção Passiva, além da quantidade de Ascensões, da Aura de Ascensão acumulada `L` e do Multiplicador derivado `A` em centésimos;
 - Técnicas Six-Seven, Itens de Aura, níveis e desbloqueios;
 - Patamares, ramos, conquistas e Transformações de Aura;
 - Aparências de Item e personalização vigente;
@@ -37,7 +37,9 @@ O estado persistente deve abranger, no mínimo:
 - referências temporais necessárias para preservar cotas publicitárias diante de mudanças de relógio;
 - configurações e idioma escolhido.
 
-Aura Disponível, Aura Total, Aura da Jornada, níveis e demais inteiros econômicos arbitrariamente grandes são serializados como texto decimal integral. O Resto de Produção satisfaz `0 ≤ R < 10.000.000` e permanece em fechamento, exportação, importação e Ascensão. `P20` e `T20` são caches inteiros verificáveis e reconciliáveis a partir de níveis e parâmetros. `F_registrado` é um snapshot canônico congelado até materializar a Recompensa de Retorno e nunca é recalculado com estado ou parâmetros posteriores. Taxas decimais pós-multiplicador nunca são fonte canônica.
+Aura Disponível, Aura Total, Aura da Jornada, `L`, níveis e demais inteiros econômicos arbitrariamente grandes são serializados como texto decimal integral. O Resto de Produção satisfaz `0 ≤ R < 10.000.000` e permanece em fechamento, exportação, importação e Ascensão. `P20`, `T20` e `A(L)` são derivados verificáveis e reconciliáveis a partir de níveis, parâmetros e `L`. `F_registrado` é um snapshot canônico congelado até materializar a Recompensa de Retorno e nunca é recalculado com estado ou parâmetros posteriores. Taxas decimais pós-multiplicador nunca são fonte canônica.
+
+Backups `balance-v0.1` sem `L` permanecem importáveis. A migração para `balance-v0.2` deriva `L` uma única vez da contagem de Ascensões e do multiplicador anterior, grava o marcador de versão e passa a exportar `L`; saldos, Aura Total, Resto, níveis permanentes, coleção e snapshot offline não são descartados.
 
 Uma Ascensão deve ser uma transação atômica do save. O novo total inteiro do Multiplicador de Ascensão, a contagem de Ascensões, o zero da Aura da Jornada e todos os estados econômicos reiniciados precisam pertencer à mesma gravação válida. Uma falha não pode produzir metade da transação.
 

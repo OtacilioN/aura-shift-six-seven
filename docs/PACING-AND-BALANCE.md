@@ -85,7 +85,7 @@ Os marcos iniciais usam Cadência de Referência para todos os perfis. Depois do
 
 O cenário-base não usa anúncios. Bônus de Retorno e Complementos são adicionados somente em análises de sensibilidade, impedindo que a progressão planejada dependa de monetização.
 
-Um limite técnico de 20 toques/s protege estabilidade, muito acima dos perfis usados para balanceamento. O jogo não é calibrado para depender desse limite nem tenta detectar autoclickers abaixo dele.
+Um limite de oito toques em qualquer janela móvel de um segundo restringe a entrada a quatro Ciclos/s, ainda acima do perfil máximo de `3 ciclos/s`. O jogo não é calibrado para depender do teto nem tenta detectar autoclickers abaixo dele.
 
 ## Relação entre produção ativa e passiva
 
@@ -105,7 +105,7 @@ A ausência usa a Produção Passiva final registrada na saída, já modificada 
 
 ## Acúmulo de Ascensão
 
-O multiplicador começa em `1×` e soma as parcelas permanentes obtidas em cada Ascensão. Cada jornada exige ao menos `1Qa` e concede `floor(100 × √(Aura da Jornada ÷ 1Qa))` centésimos. Parcelas não se multiplicam entre si. A primeira Ascensão em `1Qa` leva o total a `2×`; esperar até `4Qa` concede `+2×` em vez de `+4×`, preservando retornos decrescentes.
+O multiplicador começa em `1×` e é derivado da Aura sacrificada acumulada `L`: `A(L)=100+floor(√(L÷10¹¹))` em centésimos. Cada jornada exige ao menos `1Qa` e acrescenta toda a Aura da Jornada a `L`. A primeira Ascensão mínima leva o total a `2×`; quatro Ascensões mínimas e uma jornada de `4Qa` resultam igualmente em `3×`, removendo o bônus oculto por resetar com mais frequência.
 
 As simulações devem comparar Ascender imediatamente em `1Qa` com esperar `2Qa`, `4Qa` e `9Qa`, medindo tempo de reconstrução, ganho por hora e risco de uma estratégia dominar todas as demais.
 
@@ -123,7 +123,7 @@ As simulações devem avaliar o retorno marginal antes, no momento e depois de c
 
 1. carregar os Perfis de Simulação e frequências de retorno aprovados;
 2. carregar as âncoras ativas e passivas já confirmadas;
-3. carregar todos os custos e contribuições versionados em `balance-v0.1`;
+3. carregar todos os custos e contribuições versionados em `balance-v0.2`;
 4. simular cada perfil por minutos, horas e dias;
 5. procurar esperas mortas, crescimento explosivo e caminhos dominantes;
 6. revisar com agentes independentes de economia e UX;
@@ -140,7 +140,7 @@ Nenhuma delas pode ser uma armadilha irreversível. A rota ampla pode ter ganhos
 
 Especialista A, B e C formam um teste de invariância: com perfil e compras equivalentes, seus tempos, produção e níveis precisam coincidir exatamente. A comparação estratégica relevante é especialização versus divisão ou amplitude, não A versus B versus C.
 
-### Orçamentos de Gate do `balance-v0.1`
+### Orçamentos de Gate do `balance-v0.2`
 
 O balanceamento ancora os custos-base espelhados por profundidade em `270`, `2.350`, `67.000`, `67.000` e `67.000.000.000 Aura`. Com a curva `23/20`, elevar o predecessor aos níveis `10`, `25`, `50` e `100` custa, respectivamente, `5.487`, `500.078`, `483.587.018` e `524.526.228.030 Aura`.
 
@@ -150,7 +150,7 @@ As contribuições-base espelhadas, expressas em `Aura/s por nível`, são `0,75
 
 As Técnicas usam custos-base de `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`. Depois de `TECH-01`, cada entrada custa `6,7%` do Patamar que a desbloqueia. A simulação deve verificar tanto a compra próxima ao primeiro desbloqueio quanto a recompra em jornadas posteriores, quando o desbloqueio já é permanente mas o nível voltou a zero.
 
-Suas Contribuições-base são `1`, `6,7`, `6,7K`, `6,7M`, `6,7B` e `6,7T Aura/ciclo por nível`. De `TECH-02` em diante, custo e ganho crescem juntos em `1.000×`, mantendo `Contribuição-base ÷ custo-base = 1/10`. A avaliação por calendário deve continuar separando o valor por sessão do valor passivo entre sessões.
+Suas Contribuições-base são `1`, `5`, `5K`, `5M`, `5B` e `5T Aura/ciclo por nível`. De `TECH-02` em diante, custo e ganho crescem juntos em `1.000×`, mantendo `Contribuição-base ÷ custo-base = 5/67`. A redução de aproximadamente `25,37%` em `balance-v0.2` deve ser medida contra a utilidade passiva e as Janelas de Patamar.
 
 As três Convergências custam `6.700`, `26,8M` e `670T Aura` e acrescentam `7,5`, `3.350` e `13,4B Aura/s` por nível. Em L1, cada uma entrega somente `1/6` da produção dos três nós exigidos, depois de um custo equivalente a aproximadamente `40–61%` do Orçamento de Amplitude já investido. A rota ampla recebe uma recompensa real, mas não gratuita nem necessária para Ascender.
 

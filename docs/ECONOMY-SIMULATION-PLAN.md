@@ -122,17 +122,17 @@ Cada versão segue as camadas ortogonais de `BALANCE-ACCEPTANCE-CRITERIA.md`, co
 - equivalência de `×1`, `×10` e `MÁX` como fixtures ortogonais;
 - retornos abaixo, iguais e acima de oito horas.
 
-Antes de medir qualquer janela, a simulação deve carregar explicitamente o conjunto `balance-v0.1` e validar estas fixtures da curva `23/20`: `270→L10 = 5.487`, `2.350→L25 = 500.078`, `67.000→L50 = 483.587.018` e `67.000→L100 = 524.526.228.030`. Para `C₀ = 67.000`, deve também distinguir `99→100 = 68.416.522.780` de `100→101 = 78.679.001.197`.
+Antes de medir qualquer janela, a simulação deve carregar explicitamente o conjunto `balance-v0.2` e validar estas fixtures da curva `23/20`: `270→L10 = 5.487`, `2.350→L25 = 500.078`, `67.000→L50 = 483.587.018` e `67.000→L100 = 524.526.228.030`. Para `C₀ = 67.000`, deve também distinguir `99→100 = 68.416.522.780` de `100→101 = 78.679.001.197`.
 
 A mesma validação deve conferir a escada de Contribuição-base `Bᵢ`, expressa em `Aura/s por nível`: `0,75`, `6,7`, `67`, `6.700` e `67.000.000`. Nos gates das profundidades `01` a `04`, os resultados de `Bᵢ × n × M(n)` devem ser exatamente `15 Aura/s`, `670 Aura/s`, `26.800 Aura/s` e `10.720.000 Aura/s`. Para a profundidade `05`, os níveis `1`, `10`, `25`, `50` e `100` devem produzir `67.000.000 Aura/s`, `1.340.000.000 Aura/s`, `6.700.000.000 Aura/s`, `26.800.000.000 Aura/s` e `107.200.000.000 Aura/s` antes da Ascensão.
 
 Os custos-base das Técnicas devem ser carregados exatamente como `45`, `67`, `67.000`, `67.000.000`, `67.000.000.000` e `67.000.000.000.000 Aura`. A validação deve confirmar que `TECH-02` a `TECH-06` custam `6,7%` do respectivo limiar e que seu desbloqueio permanente não concede níveis gratuitos depois da Ascensão.
 
-As Contribuições-base ativas devem ser carregadas como `1`, `6,7`, `6.700`, `6.700.000`, `6.700.000.000` e `6.700.000.000.000 Aura/ciclo por nível`. No nível `10`, depois do Marco `2×`, as fixtures são `20`, `134`, `134.000`, `134.000.000`, `134.000.000.000` e `134.000.000.000.000 Aura/ciclo`. A simulação deve reportar separadamente produção ativa e passiva por perfil, impedindo que a eficiência constante das Técnicas esconda uma economia offline sem utilidade.
+As Contribuições-base ativas devem ser carregadas como `1`, `5`, `5.000`, `5.000.000`, `5.000.000.000` e `5.000.000.000.000 Aura/ciclo por nível`. No nível `10`, depois do Marco `2×`, as fixtures são `20`, `100`, `100.000`, `100.000.000`, `100.000.000.000` e `100.000.000.000.000 Aura/ciclo`. A simulação deve reportar separadamente produção ativa e passiva por perfil, impedindo que as Técnicas tornem a economia offline irrelevante.
 
 As Convergências devem carregar custos-base `6.700`, `26.800.000` e `670.000.000.000.000 Aura`, com Contribuições-base `7,5`, `3.350` e `13.400.000.000 Aura/s`. Seus Orçamentos de Amplitude exatos são `16.461`, `44.288.124` e `1.452.336.002.684.412 Aura`; seus custos cumulativos até L10 são `136.039`, `544.139.651` e `13.603.491.219.495.333 Aura`. Toda execução Ampla deve reportar separadamente o ganho e o atraso atribuíveis a cada Convergência.
 
-Uma execução com fixture divergente é inválida e não pode fundamentar ajuste de balanceamento. Se os custos confirmados impedirem as Janelas de Patamar, o relatório deve propor uma nova versão identificada, explicar quais métricas falharam e listar todos os parâmetros alterados; não se sobrescreve silenciosamente `balance-v0.1`.
+Uma execução com fixture divergente é inválida e não pode fundamentar ajuste de balanceamento. Se os custos confirmados impedirem as Janelas de Patamar, o relatório deve propor uma nova versão identificada, explicar quais métricas falharam e listar todos os parâmetros alterados; não se sobrescreve silenciosamente `balance-v0.2`.
 
 Toda execução deve declarar `arith-v1`, usar inteiros exatos e passar as fixtures de `ECONOMIC-ARITHMETIC.md` antes de medir pacing. Rodar a mesma agenda com atualizações de `1.000ms`, `100ms` e partições aleatórias sem mudança de taxa deve produzir contadores, resto, compras, desbloqueios e limiares idênticos. Uma diferença de um único quantum, Aura ou preço reprova o simulador; agrupamento visual e timestamp de telemetria ficam fora dessa igualdade.
 
@@ -177,4 +177,4 @@ Os critérios quantitativos, tolerâncias, diagnósticos e formato de decisão c
 
 ## Próxima entrega
 
-- executar a matriz completa e produzir o primeiro relatório `APROVADO` ou `REPROVADO` sem alterar silenciosamente `balance-v0.1`.
+- executar a matriz completa e produzir o primeiro relatório `APROVADO` ou `REPROVADO` sem alterar silenciosamente `balance-v0.2`.

@@ -32,7 +32,7 @@ flutter run
 
 - o conceito, o escopo do MVP e os sistemas centrais estão aprovados;
 - a economia possui parâmetros candidatos e contratos exatos prontos para simulação;
-- `balance-v0.1` ainda não está aprovado como balanceamento final: precisa passar integralmente por `balance-gate-v1` quando a fase de simulação for autorizada;
+- `balance-v0.2` incorpora o nerf de Técnicas, entrada e Ascensão solicitado em 11 de julho de 2026, mas ainda precisa passar integralmente por `balance-gate-v1` para ser considerado balanceamento final;
 - P01–P11 possuem artefatos documentais auditados: título/voz, 42 slots, UX/UI, arte, motion, áudio, acessibilidade, copy e oito catálogos de 261 strings;
 - o estado `APPROVED` do pacote histórico refere-se ao planejamento registrado
   em `docs/USER-APPROVAL-PACKET.md`, não à aprovação dos assets produzidos;
@@ -55,7 +55,7 @@ flutter run
 
 | Contrato | Papel | Estado |
 | --- | --- | --- |
-| `balance-v0.1` | parâmetros econômicos candidatos | pronto para simulação, ainda não validado |
+| `balance-v0.2` | parâmetros econômicos candidatos; substitui `balance-v0.1` | implementado, pronto para simulação, ainda não validado |
 | `arith-v1` | aritmética inteira exata e ordem transacional | aprovado para planejamento e simulação |
 | `number-format-v1` | apresentação de inteiros, taxas e grandes magnitudes | aprovado |
 | `balance-gate-v1` | critérios binários de aceitação da economia | aprovado |

@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Parâmetros de Balanceamento
 
-> Status: parâmetros `balance-v0.1`, aritmética `arith-v1` e gate `balance-gate-v1` confirmados; resultados da matriz ainda serão produzidos.
+> Status: parâmetros `balance-v0.2` implementados em 11 de julho de 2026, aritmética `arith-v1` e gate `balance-gate-v1` confirmados; resultados da matriz ainda serão produzidos.
 
 ## Constantes globais aprovadas
 
@@ -58,7 +58,7 @@ O baseline guarda Aura para sua melhor candidata, compra somente durante sessõe
 | `ITEM-B-01` | Item-raiz | `270 Aura` | `+0,75 Aura/s` por nível | primeiro nível de `TECH-01` |
 | `ITEM-C-01` | Item-raiz | `270 Aura` | `+0,75 Aura/s` por nível | primeiro nível de `TECH-01` |
 
-## Escada econômica dos Ramos de Aura — `balance-v0.1`
+## Escada econômica dos Ramos de Aura — `balance-v0.2`
 
 | Profundidade | IDs espelhados | Custo-base | Contribuição-base por nível | Nível-gate | Orçamento de Gate exato | Contribuição no gate |
 | ---: | --- | ---: | ---: | ---: | ---: | ---: |
@@ -79,15 +79,15 @@ As contribuições de gate já incluem os Marcos de Nível: `2×` no nível `10`
 | ID | Aura Total | Custo-base | Contribuição-base por nível | Eficiência-base |
 | --- | ---: | ---: | ---: | ---: |
 | `TECH-01` | início | `45 Aura` | `1 Aura/ciclo` | `1/45` |
-| `TECH-02` | `1K` | `67 Aura` | `6,7 Aura/ciclo` | `1/10` |
-| `TECH-03` | `1M` | `67.000 Aura` | `6.700 Aura/ciclo` | `1/10` |
-| `TECH-04` | `1B` | `67.000.000 Aura` | `6.700.000 Aura/ciclo` | `1/10` |
-| `TECH-05` | `1T` | `67.000.000.000 Aura` | `6.700.000.000 Aura/ciclo` | `1/10` |
-| `TECH-06` | `1Qa` | `67.000.000.000.000 Aura` | `6.700.000.000.000 Aura/ciclo` | `1/10` |
+| `TECH-02` | `1K` | `67 Aura` | `5 Aura/ciclo` | `5/67` |
+| `TECH-03` | `1M` | `67.000 Aura` | `5.000 Aura/ciclo` | `5/67` |
+| `TECH-04` | `1B` | `67.000.000 Aura` | `5.000.000 Aura/ciclo` | `5/67` |
+| `TECH-05` | `1T` | `67.000.000.000 Aura` | `5.000.000.000 Aura/ciclo` | `5/67` |
+| `TECH-06` | `1Qa` | `67.000.000.000.000 Aura` | `5.000.000.000.000 Aura/ciclo` | `5/67` |
 
 Os desbloqueios são permanentes. Níveis são reiniciados pela Ascensão e custos permanecem inalterados. Depois do primeiro desbloqueio, uma Técnica pode estar visível desde o começo de jornadas futuras, mas seu custo-base continua limitando quando seus níveis voltam a ser compráveis.
 
-De `TECH-02` a `TECH-06`, custo e contribuição avançam juntos por `1.000×`, preservando a razão exata `Contribuição-base ÷ custo-base = 1/10`. No nível `10`, o Marco `2×` produz, de `TECH-01` a `TECH-06`, `20`, `134`, `134.000`, `134.000.000`, `134.000.000.000` e `134.000.000.000.000 Aura/ciclo` antes da Ascensão.
+De `TECH-02` a `TECH-06`, custo e contribuição avançam juntos por `1.000×`, preservando a razão exata `Contribuição-base ÷ custo-base = 5/67`. No nível `10`, o Marco `2×` produz, de `TECH-01` a `TECH-06`, `20`, `100`, `100.000`, `100.000.000`, `100.000.000.000` e `100.000.000.000.000 Aura/ciclo` antes da Ascensão.
 
 ## Patamares e marcos visuais
 
@@ -114,7 +114,7 @@ De `TECH-02` a `TECH-06`, custo e contribuição avançam juntos por `1.000×`, 
 
 Cada nó também exige seu Patamar de Aura conforme a tabela anterior. Convergências são opcionais e não participam dos requisitos de Ascensão; `1Qa` libera a Ascensão independentemente de terem sido adquiridas.
 
-## Economia das Convergências — `balance-v0.1`
+## Economia das Convergências — `balance-v0.2`
 
 | Entrada | Custo-base | Contribuição-base por nível | Orçamento de Amplitude | Soma dos três requisitos | Parcela adicionada em L1 |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -152,22 +152,22 @@ Esse cálculo pressupõe Cadência de Referência, compra imediata de um nível 
 
 ## Recompensa de Ascensão
 
-Para `J = Aura da Jornada` e `Jmín = 10¹⁵`:
+Para `L = Aura vitalícia já sacrificada em Ascensões`, `J = Aura da Jornada atual` e `L' = L + J`:
 
-`U = floor(100 × √(J ÷ Jmín))`
+`A(L) = 100 + floor(√(L ÷ 10¹¹))`
 
-`Parcela = U ÷ 100`
+`Ganho = A(L') − A(L)`
 
-`Multiplicador total em centésimos = 100 + ΣU`
+`Multiplicador total em centésimos = A(L')`
 
-| `J` | `U` | Parcela |
+| `L'` | `A(L')` | Total |
 | ---: | ---: | ---: |
-| `1Qa` | `100` | `+1,00×` |
-| `2Qa` | `141` | `+1,41×` |
-| `4Qa` | `200` | `+2,00×` |
-| `9Qa` | `300` | `+3,00×` |
+| `1Qa` | `200` | `2,00×` |
+| `2Qa` | `241` | `2,41×` |
+| `4Qa` | `300` | `3,00×` |
+| `9Qa` | `400` | `4,00×` |
 
-Elegibilidade por jornada: `J ≥ 1Qa`. Não existe teto. O cálculo e a persistência usam inteiros.
+Elegibilidade por jornada: `J ≥ 1Qa`. Não existe teto. O cálculo e a persistência usam inteiros. Dividir `4Qa` em quatro Ascensões mínimas ou sacrificá-la em uma única Ascensão resulta no mesmo total `3,00×`.
 
 ### Políticas simuladas
 

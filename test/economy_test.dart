@@ -148,6 +148,42 @@ void main() {
     controller.dispose();
   });
 
+  test('later Techniques use the nerfed balance-v0.2 contributions', () async {
+    expect(
+      upgrades.where((upgrade) => upgrade.isTechnique).map((u) => u.base20),
+      [
+        BigInt.from(20),
+        BigInt.from(100),
+        BigInt.from(100000),
+        BigInt.from(100000000),
+        BigInt.from(100000000000),
+        BigInt.from(100000000000000),
+      ],
+    );
+
+    final levelOne = await controllerWith({
+      'levels': {'TECH-02': 1},
+    });
+    expect(levelOne.power20, BigInt.from(120));
+    expect(levelOne.powerNumerator, BigInt.from(12000));
+    levelOne.dispose();
+
+    final levelNine = await controllerWith({
+      'levels': {'TECH-02': 9},
+    });
+    final levelTen = await controllerWith({
+      'levels': {'TECH-02': 10},
+    });
+    expect(levelNine.power20, BigInt.from(920));
+    expect(levelTen.power20, BigInt.from(2020));
+    expect(
+      levelTen.powerNumerator - levelNine.powerNumerator,
+      BigInt.from(110000),
+    );
+    levelNine.dispose();
+    levelTen.dispose();
+  });
+
   test('first Ascension adds rather than compounds the multiplier', () async {
     final controller = await controllerWith({
       'journey': '1000000000000000',
@@ -161,6 +197,188 @@ void main() {
     expect(controller.journey, BigInt.zero);
     expect(controller.total, BigInt.parse('1000000000000000'));
     controller.dispose();
+  });
+
+  test('Ascension uses cumulative sacrificed Aura with diminishing returns',
+      () async {
+    final secondAscension = await controllerWith({
+      'journey': '1000000000000000',
+      'total': '2000000000000000',
+      'multiplier': '200',
+      'ascensions': 1,
+    });
+    expect(secondAscension.ascensionAura, BigInt.parse('1000000000000000'));
+    expect(secondAscension.ascensionGain(), BigInt.from(41));
+    secondAscension.ascend();
+    expect(secondAscension.multiplier, BigInt.from(241));
+    expect(secondAscension.ascensionAura, BigInt.parse('2000000000000000'));
+    secondAscension.dispose();
+
+    const expectedMultipliers = [
+      200,
+      241,
+      273,
+      300,
+      323,
+      344,
+      364,
+      382,
+      400,
+      416
+    ];
+    for (var ascension = 1;
+        ascension <= expectedMultipliers.length;
+        ascension++) {
+      final previousAura =
+          BigInt.from(ascension - 1) * BigInt.parse('1000000000000000');
+      final previousMultiplier =
+          ascension == 1 ? 100 : expectedMultipliers[ascension - 2];
+      final controller = await controllerWith({
+        'journey': '1000000000000000',
+        'total': '${BigInt.from(ascension) * BigInt.parse('1000000000000000')}',
+        'multiplier': '$previousMultiplier',
+        'ascensions': ascension - 1,
+        'ascensionAura': '$previousAura',
+      });
+      controller.ascend();
+      expect(
+        controller.multiplier,
+        BigInt.from(expectedMultipliers[ascension - 1]),
+        reason: 'unexpected multiplier after Ascension $ascension',
+      );
+      controller.dispose();
+    }
+  });
+
+  test('Ascension reward is invariant to partitioning the same Aura', () async {
+    final oneLongJourney = await controllerWith({
+      'journey': '4000000000000000',
+      'total': '4000000000000000',
+    });
+    expect(oneLongJourney.ascensionGain(), BigInt.from(200));
+
+    final fourthShortJourney = await controllerWith({
+      'journey': '1000000000000000',
+      'total': '4000000000000000',
+      'multiplier': '273',
+      'ascensions': 3,
+      'ascensionAura': '3000000000000000',
+    });
+    expect(fourthShortJourney.ascensionGain(), BigInt.from(27));
+
+    oneLongJourney.ascend();
+    fourthShortJourney.ascend();
+    expect(oneLongJourney.multiplier, BigInt.from(300));
+    expect(fourthShortJourney.multiplier, BigInt.from(300));
+    oneLongJourney.dispose();
+    fourthShortJourney.dispose();
+  });
+
+  test('legacy repeated-Ascension saves migrate to the cumulative curve',
+      () async {
+    final controller = await controllerWith({
+      'available': '0',
+      'journey': '0',
+      'total': '10000000000000000',
+      'multiplier': '1100',
+      'ascensions': 10,
+    });
+
+    expect(controller.ascensionAura, BigInt.parse('10000000000000000'));
+    expect(controller.multiplier, BigInt.from(416));
+
+    final exported =
+        jsonDecode(controller.exportState()) as Map<String, dynamic>;
+    expect(exported['balanceVersion'], balanceVersion);
+    expect(exported['ascensionAura'], '10000000000000000');
+    controller.dispose();
+
+    final longerJourneys = await controllerWith({
+      'total': '8000000000000000',
+      'multiplier': '500',
+      'ascensions': 2,
+    });
+    expect(longerJourneys.ascensionAura, BigInt.parse('8000000000000000'));
+    expect(longerJourneys.multiplier, BigInt.from(382));
+    longerJourneys.dispose();
+  });
+
+  test('balance-v0.1 backups remain importable and migrate once', () async {
+    final controller = await controllerWith({});
+    final imported = await controller.restoreState(jsonEncode({
+      'saveVersion': 1,
+      'arithVersion': 'arith-v1',
+      'balanceVersion': 'balance-v0.1',
+      'available': '123',
+      'journey': '456',
+      'total': '2000000000000456',
+      'remainder': '999',
+      'multiplier': '300',
+      'ascensions': 2,
+      'levels': {'TECH-01': 2},
+      'appearances': ['ITEM-A-01'],
+      'achievements': ['ACH-V-01'],
+    }));
+
+    expect(imported, isTrue);
+    expect(controller.ascensionAura, BigInt.parse('2000000000000000'));
+    expect(controller.multiplier, BigInt.from(241));
+    expect(controller.available, BigInt.from(123));
+    expect(controller.journey, BigInt.from(456));
+    expect(controller.remainder, BigInt.from(999));
+    expect(controller.level('TECH-01'), 2);
+    expect(controller.appearances, ['ITEM-A-01']);
+    expect(controller.achievements, {'ACH-V-01'});
+    final reexported =
+        jsonDecode(controller.exportState()) as Map<String, dynamic>;
+    expect(reexported['balanceVersion'], balanceVersion);
+    expect(await controller.restoreState(jsonEncode(reexported)), isTrue);
+    expect(controller.ascensionAura, BigInt.parse('2000000000000000'));
+    expect(controller.multiplier, BigInt.from(241));
+    controller.dispose();
+  });
+
+  test('balance-v0.2 backups require their canonical Ascension pool', () async {
+    final controller = await controllerWith({
+      'available': '7',
+      'journey': '7',
+      'total': '7',
+    });
+    final before = jsonDecode(controller.exportState()) as Map<String, dynamic>
+      ..remove('exportedAt');
+    final imported = await controller.restoreState(jsonEncode({
+      'saveVersion': 1,
+      'arithVersion': 'arith-v1',
+      'balanceVersion': balanceVersion,
+      'available': '0',
+      'journey': '0',
+      'total': '2000000000000000',
+      'remainder': '0',
+      'multiplier': '241',
+      'ascensions': 2,
+    }));
+    final after = jsonDecode(controller.exportState()) as Map<String, dynamic>
+      ..remove('exportedAt');
+
+    expect(imported, isFalse);
+    expect(after, before);
+    controller.dispose();
+  });
+
+  test('cumulative Ascension square-root boundaries are exact', () async {
+    final below = await controllerWith({
+      'journey': '2016399999999999',
+      'total': '2016399999999999',
+    });
+    final exact = await controllerWith({
+      'journey': '2016400000000000',
+      'total': '2016400000000000',
+    });
+
+    expect(below.ascensionGain(), BigInt.from(141));
+    expect(exact.ascensionGain(), BigInt.from(142));
+    below.dispose();
+    exact.dispose();
   });
 
   test(
@@ -178,6 +396,24 @@ void main() {
     expect(controller.resolveReturnBonus(rewarded: true), isTrue);
     expect(controller.available, BigInt.from(463104));
     expect(controller.resolveReturnBonus(rewarded: true), isFalse);
+    controller.dispose();
+  });
+
+  test('balance migration preserves the frozen offline-rate snapshot',
+      () async {
+    final controller = await controllerWith({
+      'offlineAt': DateTime.now().millisecondsSinceEpoch -
+          const Duration(hours: 12).inMilliseconds,
+      'offlineRate': '26800',
+      'multiplier': '1100',
+      'ascensions': 10,
+      'total': '10000000000000000',
+      'remainder': '0',
+    });
+
+    expect(controller.multiplier, BigInt.from(416));
+    expect(controller.available, BigInt.from(385920));
+    expect(controller.returnBonusAvailable, isTrue);
     controller.dispose();
   });
 

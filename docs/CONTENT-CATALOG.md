@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Catálogo Cultural do MVP
 
-> Status: catálogo revisado em 11 de julho de 2026 com humor sistêmico e feedback visual; economia preservada em `balance-v0.1`. Nomes são `en-US` e podem ser transcriados sem alterar IDs ou função.
+> Status: catálogo revisado em 11 de julho de 2026 com humor sistêmico e feedback visual; economia atualizada para `balance-v0.2`. Nomes são `en-US` e podem ser transcriados sem alterar IDs ou função.
 
 ## Contratos invariáveis
 
@@ -77,11 +77,11 @@ Os Orçamentos de Amplitude permanecem `16.461`, `44.288.124` e `1.452.336.002.6
 | ID | Nome-fonte | Descrição curta | Desbloqueio | Custo / contribuição por nível | Marcos e feedback audiovisual | Risco/localização |
 | --- | --- | --- | --- | --- | --- | --- |
 | `TECH-01` | **Switch Stance** | `Set one hand. Send the other.` | início | `45`; `+1 Aura/ciclo` | mãos ganham contorno; Six “tak”, Seven “tum”; marcas engrossam rastro sem mudar timing | baixo; `stance` pode ser transcriado como posição |
-| `TECH-02` | **Counterflow** | `One side rises as the other answers.` | `1K` | `67`; `+6,7 Aura/ciclo` | rastros complementares e resposta estéreo moderada | baixo; nunca exigir alternância espacial do toque |
-| `TECH-03` | **Ghost Timing** | `The next move leaves an echo behind.` | `1M` | `67.000`; `+6.700 Aura/ciclo` | afterimage único e eco tonal; versão reduzida usa contorno | baixo; `ghost` pode exigir equivalente não sobrenatural |
-| `TECH-04` | **Double Take** | `The motion lands twice. The reward lands once.` | `1B` | `67.000.000`; `+6.700.000 Aura/ciclo` | dois impactos visuais, um crédito claramente na Seven | médio: QA obrigatório para não sugerir recompensa dupla |
-| `TECH-05` | **Zero-Drag** | `Nothing slows the shift.` | `1T` | `67.000.000.000`; `+6.700.000.000 Aura/ciclo` | smear curto e ataque sonoro limpo, sem acelerar economia | baixo; não prometer remoção de limite técnico |
-| `TECH-06` | **Perfect Shift** | `Six moves. Seven closes the signal.` | `1Qa` | `67.000.000.000.000`; `+6.700.000.000.000 Aura/ciclo` | arco total Six→Seven, acorde original e haptic médio | baixo; “perfect” descreve ficção, não precisão exigida |
+| `TECH-02` | **Counterflow** | `One side rises as the other answers.` | `1K` | `67`; `+5 Aura/ciclo` | rastros complementares e resposta estéreo moderada | baixo; nunca exigir alternância espacial do toque |
+| `TECH-03` | **Ghost Timing** | `The next move leaves an echo behind.` | `1M` | `67.000`; `+5.000 Aura/ciclo` | afterimage único e eco tonal; versão reduzida usa contorno | baixo; `ghost` pode exigir equivalente não sobrenatural |
+| `TECH-04` | **Double Take** | `The motion lands twice. The reward lands once.` | `1B` | `67.000.000`; `+5.000.000 Aura/ciclo` | dois impactos visuais, um crédito claramente na Seven | médio: QA obrigatório para não sugerir recompensa dupla |
+| `TECH-05` | **Zero-Drag** | `Nothing slows the shift.` | `1T` | `67.000.000.000`; `+5.000.000.000 Aura/ciclo` | smear curto e ataque sonoro limpo, sem acelerar economia | baixo; não prometer remoção de limite técnico |
+| `TECH-06` | **Perfect Shift** | `Six moves. Seven closes the signal.` | `1Qa` | `67.000.000.000.000`; `+5.000.000.000.000 Aura/ciclo` | arco total Six→Seven, acorde original e haptic médio | baixo; “perfect” descreve ficção, não precisão exigida |
 
 Técnicas não possuem pré-requisito entre si. Ascensão reinicia níveis, preserva desbloqueios. Os Marcos alteram apresentação, nunca a quantidade de toques, o limite de entrada ou a regra de crédito.
 

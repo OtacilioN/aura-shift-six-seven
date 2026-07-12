@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Aritmética Econômica Exata
 
-> Status: contrato econômico `arith-v1` aprovado para planejamento e simulação; nenhuma implementação faz parte desta fase.
+> Status: representação e ordem econômica `arith-v1` implementadas; `balance-v0.2` reutiliza a mesma precisão inteira e substitui a fórmula de recompensa repetida da Ascensão.
 
 ## Objetivo
 
@@ -122,19 +122,17 @@ O cálculo não usa `0,7` em ponto flutuante. Ao iniciar o anúncio, a transaç�
 
 ## Ascensão
 
-A transação de Ascensão somente é elegível quando `J ≥ Jmín = 10¹⁵`. A fórmula pode alimentar uma prévia abaixo do limiar, mas a confirmação permanece inválida. Para Aura da Jornada inteira `J`, a parcela em centésimos é o maior inteiro `U` que satisfaz:
+A transação de Ascensão somente é elegível quando `J ≥ Jmín = 10¹⁵`. `L` é a Aura acumulada sacrificada em todas as Ascensões confirmadas e `L' = L + J`. Para qualquer acumulado inteiro, o bônus em centésimos é o maior inteiro `B` que satisfaz:
 
-`U² × 10¹¹ ≤ J`
+`B² × 10¹¹ ≤ L`
 
-Isso equivale exatamente a:
+O Multiplicador total é derivado diretamente do acumulado:
 
-`U = floor(100 × √(J ÷ 10¹⁵))`
+`A(L) = 100 + B(L)`
 
-O Multiplicador total permanece:
+O ganho apresentado pela próxima Ascensão é `G = A(L') − A(L)`. A prévia e a confirmação usam o mesmo cálculo inteiro. Antes de confirmar, o jogo integra a produção aberta até o timestamp da ação, atualiza `J` e recalcula a prévia. A transação persiste `L'`, `A(L')`, reinícios e contagem atomicamente. Aura Total e `R` permanecem; Aura Disponível e Aura da Jornada voltam a zero.
 
-`A = 100 + ΣU`
-
-A prévia e a confirmação usam o mesmo cálculo inteiro. Antes de confirmar, o jogo integra a produção aberta até o timestamp da ação, atualiza `J` e recalcula a prévia se necessário. A transação persiste parcela, total, reinícios e contagem atomicamente. Aura Total e `R` permanecem; Aura Disponível e Aura da Jornada voltam a zero.
+Essa definição é invariável à partição: quatro Ascensões de `1Qa` e uma Ascensão de `4Qa` acumulam o mesmo `L=4Qa` e resultam em `A=300`. Saves anteriores sem `L` são migrados uma vez. Para `N>0` Ascensões antigas e bônus anterior `B_antigo=max(0,A_antigo−100)`, usa-se `L=max(N×1Qa, floor(B_antigo²×10¹¹/N))`; para `N=0`, usa-se `B_antigo²×10¹¹`. O snapshot offline já registrado não é recalculado.
 
 ## Ordem econômica normativa
 
@@ -148,7 +146,7 @@ A prévia e a confirmação usam o mesmo cálculo inteiro. Antes de confirmar, o
 
 Ao entrar em segundo plano, a taxa offline somente é registrada depois da integração aberta. Ao retornar, a ausência não é integrada como tempo aberto; ela passa exclusivamente pela Recompensa de Retorno.
 
-Potência de Ciclo, Produção Passiva e preço seguinte podem ser caches verificáveis. Níveis, parâmetros versionados, Aura inteira, `R` e `A` são as fontes canônicas; enquanto uma ausência ainda não foi materializada, `F_registrado` também é fonte canônica daquele retorno.
+Potência de Ciclo, Produção Passiva, preço seguinte e `A` podem ser caches verificáveis. Níveis, parâmetros versionados, Aura inteira, `R` e `L` são as fontes canônicas; enquanto uma ausência ainda não foi materializada, `F_registrado` também é fonte canônica daquele retorno.
 
 ## Invariantes
 
@@ -159,7 +157,7 @@ Potência de Ciclo, Produção Passiva e preço seguinte podem ser caches verifi
 - dividir um intervalo sem mudança de taxa não altera contadores, `R`, desbloqueios ou limiares cruzados;
 - a identidade e a ordem de Marcos usam seus limiares canônicos, não o checkpoint de atualização;
 - telemetria atribui produção por quanta de cada fonte e não tenta atribuir a uma fonte única a Aura inteira completada pelo resto compartilhado;
-- Ascensão é aplicada uma única vez depois das somas;
+- o Multiplicador de Ascensão é derivado uma única vez de `L` e aplicado uma única vez depois das somas;
 - Bônus de Retorno é aplicado uma única vez sobre a produção offline já multiplicada;
 - texto compacto ou localizado nunca participa de cálculo;
 - nenhum intermediário pode sofrer overflow ou perda silenciosa de precisão;
@@ -175,7 +173,7 @@ Salvo quando uma linha declara encadeamento, cada fixture começa com `R=0`, con
 | mesmo estado por mais `1s` | crédito `1`, `R=5.000.000` |
 | `6,7 Aura/s`, `A=100`, `1s` | crédito `6`, `R=7.000.000` |
 | `7,45 Aura/s`, `A=141`, `1s` | crédito `10`, `R=5.045.000` |
-| Potência-base `1` + `TECH-02` L1 (`P=7,7`), `A=141` | crédito `10`, `R=8.570.000` |
+| Potência-base `1` + `TECH-02` L1 (`P=6`), `A=141` | crédito `8`, `R=4.600.000` |
 | `10 × 100ms` versus `1 × 1.000ms` | contadores, `R`, desbloqueios e limiares idênticos |
 | `0,75/s` por `1s`, depois `6,7/s` por `1s` | produção exata `7,45 Aura` |
 | offline `6,7 Aura/s`, `A=200`, `8h` | `385.920 Aura` |
@@ -184,11 +182,13 @@ Salvo quando uma linha declara encadeamento, cada fixture começa com `R=0`, con
 | `C₀=270`, `n=0,1,2` | preços `270`, `311`, `358` |
 | `C₀=270`, níveis `0..9` | total `5.487` |
 | partindo de L0, saldo `5.486` e `5.487` | não compra / compra o lote completo `0→10` |
-| `J=1Qa,2Qa,4Qa,9Qa` | `U=100,141,200,300` |
-| `J=2.016.399.999.999.999` | `U=141` |
-| `J=2.016.400.000.000.000` | `U=142` |
+| `L=0`, `J=1Qa,2Qa,4Qa,9Qa` | `A(L')=200,241,300,400` |
+| `L'=2.016.399.999.999.999` | `A=241` |
+| `L'=2.016.400.000.000.000` | `A=242` |
+| `L=1Qa`, nova jornada `J=1Qa` | `G=41`, `A(L')=241` |
+| quatro jornadas de `1Qa` versus uma de `4Qa` | mesmo `L=4Qa` e `A=300` |
 | primeira Ascensão em `1Qa` | `A=200` |
-| estado inicial `A=200`, segunda Ascensão com `J=2Qa` | `A=341`, nunca `482` |
+| estado inicial `L=1Qa`, `A=200`, segunda Ascensão com `J=2Qa` | `L'=3Qa`, `A=273`, nunca `341` |
 | `J=1Qa`, Ascensão elegível e `R=9.999.999`; depois `1` quantum | crédito `1` na nova jornada |
 | relógio offline negativo | base zero, `R` preservado e nova referência |
 | reprocessar a mesma Recompensa de Retorno | nenhum segundo crédito |

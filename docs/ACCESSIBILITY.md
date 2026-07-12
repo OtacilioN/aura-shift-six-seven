@@ -52,7 +52,7 @@ Contraste aumentado troca superfícies translúcidas por equivalentes opacas, el
 - ações primárias medem no mínimo `52dp` de altura;
 - alvos independentes mantêm `8dp` de separação quando não formarem um controle segmentado;
 - a Área de Aura é ampla e aceita toque em qualquer ponto livre de controles; Mascote e mãos não são alvos;
-- manter, arrastar ou tocar com mais de dois dedos não gera ações extras nem punição;
+- manter, arrastar ou tocar com um segundo dedo enquanto houver contato ativo não gera ações extras nem punição;
 - não há limite mínimo de velocidade, erro de ritmo, gesto complexo obrigatório ou timeout para completar Fase Seven;
 - ações destrutivas/irreversíveis exigem ativação explícita e confirmação; não dependem de swipe ou pressão prolongada.
 

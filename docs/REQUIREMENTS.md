@@ -298,13 +298,13 @@
 - **REQ-CORE-014:** lentidão ou interrupção dos toques NÃO DEVE causar perda de Aura ou punição.
 - **REQ-CORE-015:** sequências rápidas PODEM intensificar feedback audiovisual sem alterar a recompensa econômica.
 - **REQ-CORE-016:** cada novo contato válido na Área de Aura DEVE avançar exatamente uma fase.
-- **REQ-CORE-017:** o jogo DEVE aceitar até dois contatos simultâneos na Área de Aura.
-- **REQ-CORE-018:** dois contatos válidos simultâneos DEVEM ser ordenados como Fase Six e Fase Seven.
+- **REQ-CORE-017:** o jogo DEVE aceitar somente um contato físico ativo por vez na Área de Aura.
+- **REQ-CORE-018:** contatos que começarem enquanto qualquer outro contato permanecer pressionado NÃO DEVEM avançar Fase Six ou Fase Seven.
 - **REQ-CORE-019:** manter um contato pressionado NÃO DEVE repetir fases ou produzir Aura adicional.
 - **REQ-CORE-020:** arrastar um contato já reconhecido NÃO DEVE gerar novos toques.
-- **REQ-CORE-021:** contatos simultâneos além do segundo NÃO DEVEM avançar o Ciclo Six-Seven.
-- **REQ-CORE-022:** o jogo DEVE processar até 20 novos contatos válidos por segundo na Área de Aura.
-- **REQ-CORE-023:** contatos além desse limite PODEM ser ignorados para proteger desempenho e coerência visual.
+- **REQ-CORE-021:** contatos simultâneos ignorados NÃO DEVEM gerar crédito, marcador, áudio, vibração ou efeito de ciclo.
+- **REQ-CORE-022:** o jogo DEVE processar no máximo oito novos contatos válidos em qualquer janela móvel de `1.000ms` na Área de Aura.
+- **REQ-CORE-023:** o nono contato dentro dessa janela e os seguintes PODEM ser ignorados para proteger desempenho, coerência visual e ritmo econômico.
 - **REQ-CORE-024:** exceder o limite NÃO DEVE causar banimento, perda de progresso ou acusação de trapaça.
 - **REQ-CORE-025:** o lançamento NÃO DEVE implementar detecção de autoclicker ou depender de servidor anti-cheat.
 - **REQ-CORE-026:** o limite de entrada NÃO DEVE reduzir Produção Passiva nem alterar acessibilidade ou anúncios.
@@ -541,12 +541,12 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ARITH-019:** custo, preço de lote e teto DEVEM usar somente aritmética inteira e a fórmula racional `23ⁿ/20ⁿ`.
 - **REQ-ARITH-020:** a elegibilidade do Complemento DEVE usar `7×preço ≤ 10×saldo < 10×preço`, sem porcentagem em ponto flutuante.
 - **REQ-ARITH-021:** uma cotação de Complemento DEVE registrar item, nível, preço, saldo comprometido e falta coberta; sucesso consome somente o saldo cotado e falha não consome saldo nem cota.
-- **REQ-ARITH-022:** a parcela de Ascensão `U` DEVE ser o maior inteiro que satisfaz `U² × 10¹¹ ≤ Aura da Jornada`.
+- **REQ-ARITH-022:** para Aura de Ascensão acumulada `L`, o bônus `B` DEVE ser o maior inteiro que satisfaz `B² × 10¹¹ ≤ L`, e o multiplicador total DEVE ser `A=100+B`.
 - **REQ-ARITH-023:** produção pendente DEVE ser integrada antes de calcular e confirmar uma Ascensão.
 - **REQ-ARITH-024:** Aura Total e Resto de Produção DEVEM permanecer após Ascensão; Aura Disponível e Aura da Jornada DEVEM voltar a zero.
 - **REQ-ARITH-025:** efeitos econômicos com o mesmo timestamp DEVEM possuir sequência determinística persistível.
 - **REQ-ARITH-026:** eventos econômicos DEVEM integrar e creditar produção anterior, processar seus limiares, validar a ação, creditar a produção da própria ação, processar novos limiares, aplicar mutações não produtivas, recalcular taxas e persistir nessa ordem normativa.
-- **REQ-ARITH-027:** Potência de Ciclo e Produção Passiva persistidas DEVEM ser tratadas como caches verificáveis; níveis, parâmetros, `A` e contadores são fontes canônicas.
+- **REQ-ARITH-027:** Potência de Ciclo, Produção Passiva e `A` persistidos DEVEM ser tratados como caches verificáveis; níveis, parâmetros, `L` e contadores são fontes canônicas.
 - **REQ-ARITH-028:** nenhum intermediário econômico PODE sofrer overflow silencioso ou perda de precisão.
 - **REQ-ARITH-029:** uma contribuição futura cujo denominador não seja representável por `arith-v1` DEVE versionar e migrar o contrato, nunca aproximá-lo silenciosamente.
 - **REQ-ARITH-030:** simulações e implementação futura DEVEM passar todas as fixtures de `ECONOMIC-ARITHMETIC.md`.
@@ -657,9 +657,9 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-CURVE-028:** diferenças de progressão entre entradas DEVEM ser expressas por custo-base, contribuição-base, desbloqueio e Pré-requisitos, não pela razão geométrica.
 - **REQ-CURVE-029:** Ascensão de Aura e Marcos de Nível NÃO DEVEM alterar custos-base nem a razão geométrica.
 
-## Escada de custos dos Ramos de Aura — `balance-v0.1`
+## Escada de custos dos Ramos de Aura — `balance-v0.2`
 
-- **REQ-COST-001:** o conjunto inicial de parâmetros de balanceamento DEVE ser identificado como `balance-v0.1` até sua primeira revisão documentada por simulação.
+- **REQ-COST-001:** o conjunto atual de parâmetros de balanceamento DEVE ser identificado como `balance-v0.2`; ele substitui `balance-v0.1` e permanece candidato até passar por `balance-gate-v1`.
 - **REQ-COST-002:** `ITEM-A/B/C-01` DEVEM possuir custo-base idêntico de `270 Aura`.
 - **REQ-COST-003:** `ITEM-A/B/C-02` DEVEM possuir custo-base idêntico de `2.350 Aura`.
 - **REQ-COST-004:** `ITEM-A/B/C-03` DEVEM possuir custo-base idêntico de `67.000 Aura`.
@@ -675,7 +675,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-COST-014:** o Patamar de Aura e o Pré-requisito de Item DEVEM continuar sendo verificados independentemente do preço; possuir Aura suficiente NÃO DEVE liberar uma compra antecipada.
 - **REQ-COST-015:** qualquer alteração nessa escada DEVE decorrer de uma revisão identificada da simulação, registrar o motivo e atualizar conjuntamente requisitos, parâmetros, catálogo e fixtures numéricas.
 
-## Escada de contribuições dos Ramos de Aura — `balance-v0.1`
+## Escada de contribuições dos Ramos de Aura — `balance-v0.2`
 
 - **REQ-CONTRIB-001:** a Contribuição-base de `ITEM-A/B/C-01` DEVE ser idêntica e igual a `+0,75 Aura/s` por nível.
 - **REQ-CONTRIB-002:** a Contribuição-base de `ITEM-A/B/C-02` DEVE ser idêntica e igual a `+6,7 Aura/s` por nível.
@@ -719,7 +719,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-TREE-025:** simulações Especialista A, B e C com o mesmo perfil e heurística DEVEM produzir resultados econômicos idênticos.
 - **REQ-TREE-026:** qualquer divergência entre especialistas A, B e C DEVE ser tratada como erro de dados ou implementação.
 
-## Economia das Convergências — `balance-v0.1`
+## Economia das Convergências — `balance-v0.2`
 
 - **REQ-CONVECO-001:** `ITEM-CONV-01` DEVE possuir custo-base de `6.700 Aura` e Contribuição-base de `7,5 Aura/s` por nível.
 - **REQ-CONVECO-002:** `ITEM-CONV-02` DEVE possuir custo-base de `26.800.000 Aura` e Contribuição-base de `3.350 Aura/s` por nível.
@@ -780,15 +780,15 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-TECHPROG-023:** a permanência do desbloqueio após Ascensão NÃO DEVE eliminar o custo de recomprar níveis de uma Técnica.
 - **REQ-TECHPROG-024:** qualquer alteração nessa escada DEVE criar uma nova versão identificada de balanceamento e atualizar requisitos, parâmetros, catálogo e simulação.
 - **REQ-TECHPROG-025:** `TECH-01` DEVE manter a Contribuição-base de `+1 Aura/ciclo` por nível.
-- **REQ-TECHPROG-026:** `TECH-02` DEVE possuir Contribuição-base de `+6,7 Aura/ciclo` por nível.
-- **REQ-TECHPROG-027:** `TECH-03` DEVE possuir Contribuição-base de `+6.700 Aura/ciclo` por nível.
-- **REQ-TECHPROG-028:** `TECH-04` DEVE possuir Contribuição-base de `+6.700.000 Aura/ciclo` por nível.
-- **REQ-TECHPROG-029:** `TECH-05` DEVE possuir Contribuição-base de `+6.700.000.000 Aura/ciclo` por nível.
-- **REQ-TECHPROG-030:** `TECH-06` DEVE possuir Contribuição-base de `+6.700.000.000.000 Aura/ciclo` por nível.
-- **REQ-TECHPROG-031:** o valor decimal `6,7` DEVE ser tratado como o racional exato `67/10`, sem drift binário acumulado.
+- **REQ-TECHPROG-026:** `TECH-02` DEVE possuir Contribuição-base de `+5 Aura/ciclo` por nível.
+- **REQ-TECHPROG-027:** `TECH-03` DEVE possuir Contribuição-base de `+5.000 Aura/ciclo` por nível.
+- **REQ-TECHPROG-028:** `TECH-04` DEVE possuir Contribuição-base de `+5.000.000 Aura/ciclo` por nível.
+- **REQ-TECHPROG-029:** `TECH-05` DEVE possuir Contribuição-base de `+5.000.000.000 Aura/ciclo` por nível.
+- **REQ-TECHPROG-030:** `TECH-06` DEVE possuir Contribuição-base de `+5.000.000.000.000 Aura/ciclo` por nível.
+- **REQ-TECHPROG-031:** todas as contribuições de Técnica DEVEM permanecer exatas na escala `B20`, sem drift binário acumulado.
 - **REQ-TECHPROG-032:** de `TECH-02` a `TECH-06`, custo-base e Contribuição-base DEVEM crescer juntos por `1.000×` entre entradas consecutivas.
-- **REQ-TECHPROG-033:** de `TECH-02` a `TECH-06`, a razão `Contribuição-base ÷ custo-base` DEVE permanecer exatamente `1/10` antes da Cadência, dos Marcos e da Ascensão.
-- **REQ-TECHPROG-034:** no nível `10`, antes da Ascensão, `TECH-01` a `TECH-06` DEVEM contribuir respectivamente `20`, `134`, `134.000`, `134.000.000`, `134.000.000.000` e `134.000.000.000.000 Aura/ciclo`.
+- **REQ-TECHPROG-033:** de `TECH-02` a `TECH-06`, a razão `Contribuição-base ÷ custo-base` DEVE permanecer exatamente `5/67` antes da Cadência, dos Marcos e da Ascensão.
+- **REQ-TECHPROG-034:** no nível `10`, antes da Ascensão, `TECH-01` a `TECH-06` DEVEM contribuir respectivamente `20`, `100`, `100.000`, `100.000.000`, `100.000.000.000` e `100.000.000.000.000 Aura/ciclo`.
 - **REQ-TECHPROG-035:** a simulação DEVE validar a escada ativa em todas as Cadências e NÃO DEVE aceitar uma configuração na qual o toque torne a Produção Passiva irrelevante para todos os perfis.
 
 ## Conteúdo e linguagem cultural
@@ -838,41 +838,42 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ASC-007:** a Ascensão NÃO DEVE reduzir a Aura Total.
 - **REQ-ASC-008:** Patamares de Aura liberados por Aura Total NÃO DEVEM voltar a ser bloqueados após uma Ascensão.
 - **REQ-ASC-009:** conquistas e transformações visuais desbloqueadas NÃO DEVEM ser removidas por uma Ascensão.
-- **REQ-ASC-010:** cada Ascensão DEVE conceder um Multiplicador de Ascensão permanente.
+- **REQ-ASC-010:** cada Ascensão DEVE aumentar permanentemente `L`; o Multiplicador derivado PODE manter o mesmo centésimo somente em quantização extrema e DEVE aumentar quando `L` cruzar o próximo limiar inteiro.
 - **REQ-ASC-011:** antes da confirmação, o jogo DEVE apresentar o que será reiniciado, preservado e recebido.
 - **REQ-ASC-012:** a Ascensão NÃO DEVE exigir anúncio ou pagamento.
 - **REQ-ASC-013:** o jogo DEVE manter a Aura da Jornada separada da Aura Total e da Aura Disponível.
 - **REQ-ASC-014:** a Aura da Jornada DEVE contabilizar a Aura produzida desde o início da jornada atual.
 - **REQ-ASC-015:** realizar uma Ascensão DEVE reiniciar a Aura da Jornada.
-- **REQ-ASC-016:** o Multiplicador de Ascensão concedido DEVE ser calculado a partir da Aura da Jornada, não diretamente da Aura Total.
-- **REQ-ASC-017:** o cálculo DEVE aplicar retornos decrescentes à Aura da Jornada.
+- **REQ-ASC-016:** o ganho de Multiplicador DEVE ser calculado acrescentando a Aura da Jornada ao acumulado permanente de Aura sacrificada `L`, nunca diretamente da Aura Total.
+- **REQ-ASC-017:** o cálculo DEVE aplicar retornos decrescentes à Aura vitalícia sacrificada por meio de raiz quadrada inteira.
 - **REQ-ASC-018:** a prévia de confirmação DEVE informar o ganho projetado do Multiplicador de Ascensão.
 - **REQ-ASC-019:** Ascensões sucessivas sem nova produção relevante NÃO DEVEM repetir o ganho anterior.
 - **REQ-ASC-020:** o Multiplicador de Ascensão DEVE ampliar a Potência de Ciclo.
 - **REQ-ASC-021:** o Multiplicador de Ascensão DEVE ampliar a Produção Passiva.
 - **REQ-ASC-022:** a Produção Offline DEVE usar a taxa passiva resultante da aplicação do Multiplicador de Ascensão.
 - **REQ-ASC-023:** o Bônus de Retorno DEVE permanecer em 20% sobre a Produção Offline resultante e NÃO DEVE receber uma aplicação adicional exclusiva do Multiplicador de Ascensão.
-- **REQ-ASC-024:** cada Ascensão DEVE conceder uma parcela de bônus permanente calculada pela Aura da Jornada.
-- **REQ-ASC-025:** o Multiplicador de Ascensão total DEVE ser igual à base `1×` somada às parcelas obtidas em todas as Ascensões.
-- **REQ-ASC-026:** parcelas de Ascensão NÃO DEVEM ser multiplicadas ou compostas entre si.
+- **REQ-ASC-024:** cada Ascensão DEVE acrescentar toda a Aura da Jornada confirmada ao acumulado permanente `L`.
+- **REQ-ASC-025:** o Multiplicador total em centésimos DEVE ser derivado como `A(L)=100+floor(√(L÷10¹¹))`.
+- **REQ-ASC-026:** particionar a mesma quantidade total de Aura entre várias Ascensões NÃO DEVE produzir multiplicador maior do que sacrificá-la em menos Ascensões.
 - **REQ-ASC-027:** o Multiplicador de Ascensão total DEVE ser aplicado uma única vez a cada cálculo de Produção Ativa ou Passiva.
 - **REQ-ASC-028:** a Ascensão NÃO DEVE remover Aparências de Item ou variações já desbloqueadas.
 - **REQ-ASC-029:** o visual equipado DEVE poder permanecer após a Ascensão.
 - **REQ-ASC-030:** a Ascensão DEVE desativar o Efeito de Item reiniciado mesmo quando sua Aparência continuar equipada.
 - **REQ-ASC-031:** readquirir um Item de Aura DEVE reativar seu Efeito de Item sem duplicar a Aparência correspondente.
 - **REQ-ASC-032:** toda Ascensão, inclusive as posteriores à primeira, DEVE exigir pelo menos `1Qa` (`10¹⁵`) de Aura da Jornada.
-- **REQ-ASC-033:** para Aura da Jornada `J`, a parcela concedida DEVE seguir `Δ = floor(100 × √(J ÷ 10¹⁵)) ÷ 100`.
-- **REQ-ASC-034:** a parcela DEVE ser armazenada como o inteiro `U = floor(100 × √(J ÷ 10¹⁵))`, em que `100` unidades equivalem a `+1,00×`.
-- **REQ-ASC-035:** o Multiplicador de Ascensão total DEVE ser armazenado em centésimos inteiros como `100 + ΣU`.
-- **REQ-ASC-036:** a implementação NÃO DEVE depender de ponto flutuante para calcular, persistir ou comparar parcelas de Ascensão.
-- **REQ-ASC-037:** uma jornada de exatamente `1Qa` DEVE conceder `+1,00×` e elevar o primeiro multiplicador total de `1×` para `2×`.
-- **REQ-ASC-038:** jornadas de `2Qa`, `4Qa` e `9Qa` DEVEM conceder, respectivamente, `+1,41×`, `+2,00×` e `+3,00×`.
+- **REQ-ASC-033:** para acumulado anterior `L` e Aura da Jornada `J`, a transação DEVE persistir `L'=L+J` e calcular o ganho mostrado como `A(L')−A(L)`.
+- **REQ-ASC-034:** `L` DEVE ser armazenado como inteiro decimal arbitrariamente grande e `A` DEVE permanecer em centésimos inteiros, em que `100` unidades equivalem a `1,00×`.
+- **REQ-ASC-035:** o Multiplicador de Ascensão total DEVE ser reconciliável deterministicamente a partir de `L`.
+- **REQ-ASC-036:** a implementação NÃO DEVE depender de ponto flutuante para calcular, persistir ou comparar o ganho de Ascensão.
+- **REQ-ASC-037:** a primeira jornada de exatamente `1Qa` DEVE conceder `+1,00×` e elevar o multiplicador total de `1×` para `2×`.
+- **REQ-ASC-038:** acumulados vitalícios de `2Qa`, `4Qa` e `9Qa` DEVEM resultar, respectivamente, em multiplicadores totais de `2,41×`, `3,00×` e `4,00×`.
 - **REQ-ASC-039:** a fórmula NÃO DEVE possuir limite superior artificial.
 - **REQ-ASC-040:** quando a Aura da Jornada for inferior a `1Qa`, a confirmação DEVE permanecer indisponível e informar quanto falta.
 - **REQ-ASC-041:** a prévia DEVE informar Aura da Jornada considerada, parcela projetada, multiplicador total resultante e todos os estados reiniciados ou preservados.
-- **REQ-ASC-042:** confirmar uma Ascensão DEVE persistir atomicamente a nova parcela permanente e o reinício da Aura da Jornada e da economia corrente.
+- **REQ-ASC-042:** confirmar uma Ascensão DEVE persistir atomicamente o novo acumulado `L`, o multiplicador derivado e o reinício da Aura da Jornada e da economia corrente.
 - **REQ-ASC-043:** falha durante a persistência NÃO DEVE conceder o bônus sem reiniciar a jornada nem reiniciar a jornada sem conceder o bônus.
 - **REQ-ASC-044:** a confirmação de Ascensão DEVE permanecer indisponível enquanto uma oportunidade de Bônus de Retorno aguardar decisão, depois que a base já tiver sido garantida.
+- **REQ-ASC-045:** saves `balance-v0.1` sem `L` DEVEM ser migrados uma única vez usando contagem de Ascensões e multiplicador anterior, preservando saldos, Aura Total, Resto, coleção, conquistas e Taxa Offline Registrada.
 
 ## Anúncios Recompensados
 

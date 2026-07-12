@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Topologia da Árvore de Aura
 
-> Status: grafo, Pré-requisitos, Patamares e parâmetros econômicos aprovados em `balance-v0.1`; identidades culturais revisadas em 11 de julho de 2026.
+> Status: grafo, Pré-requisitos e Patamares preservados em `balance-v0.2`; identidades culturais revisadas em 11 de julho de 2026.
 
 ## Visão geral
 

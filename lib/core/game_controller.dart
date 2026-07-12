@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const _quanta = 10000000;
 const _ascensionThreshold = 1000000000000000;
+const _ascensionScale = 100000000000;
+const balanceVersion = 'balance-v0.2';
 const achievementIds = <String>[
   'ACH-V-01',
   'ACH-V-02',
@@ -107,7 +109,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_02.name',
       descriptionKey: 'content.tech_02.description',
       baseCost: BigInt.from(67),
-      base20: BigInt.from(134),
+      base20: BigInt.from(100),
       isTechnique: true,
       requiredTotal: BigInt.from(1000)),
   Upgrade(
@@ -115,7 +117,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_03.name',
       descriptionKey: 'content.tech_03.description',
       baseCost: BigInt.from(67000),
-      base20: BigInt.from(134000),
+      base20: BigInt.from(100000),
       isTechnique: true,
       requiredTotal: BigInt.from(1000000)),
   Upgrade(
@@ -123,7 +125,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_04.name',
       descriptionKey: 'content.tech_04.description',
       baseCost: BigInt.from(67000000),
-      base20: BigInt.from(134000000),
+      base20: BigInt.from(100000000),
       isTechnique: true,
       requiredTotal: BigInt.from(1000000000)),
   Upgrade(
@@ -131,7 +133,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_05.name',
       descriptionKey: 'content.tech_05.description',
       baseCost: BigInt.from(67000000000),
-      base20: BigInt.from(134000000000),
+      base20: BigInt.from(100000000000),
       isTechnique: true,
       requiredTotal: BigInt.from(1000000000000)),
   Upgrade(
@@ -139,7 +141,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_06.name',
       descriptionKey: 'content.tech_06.description',
       baseCost: BigInt.from(67000000000000),
-      base20: BigInt.from(134000000000000),
+      base20: BigInt.from(100000000000000),
       isTechnique: true,
       requiredTotal: BigInt.from(_ascensionThreshold)),
   ..._branch('A', 'item_a', 270, 15),
@@ -229,6 +231,7 @@ class GameController extends ChangeNotifier {
       }
     }
     final controller = GameController._(prefs, data);
+    controller._migrateBalanceState();
     controller._lastTick = controller._foregroundClock.elapsedMilliseconds;
     // Process a persisted background interval before the first frame. The
     // operation is idempotent, so a later platform `resumed` callback cannot
@@ -246,6 +249,59 @@ class GameController extends ChangeNotifier {
   BigInt get journey => _big('journey');
   BigInt get remainder => _big('remainder');
   BigInt get multiplier => _big('multiplier', '100');
+  BigInt get ascensionAura => _big('ascensionAura');
+
+  void _migrateBalanceState() {
+    if (_int('ascensions') < 0) {
+      _data['ascensions'] = 0;
+    }
+    final ascensions = _int('ascensions');
+    final storedAscensionAura =
+        BigInt.tryParse('${_data['ascensionAura'] ?? ''}');
+    var migratedAscensionAura =
+        storedAscensionAura != null && storedAscensionAura >= BigInt.zero
+            ? storedAscensionAura
+            : _data['balanceVersion'] == balanceVersion
+                ? _ascensionAuraForMultiplier(multiplier)
+                : _legacyAscensionAura();
+    final minimum = BigInt.from(ascensions) * BigInt.from(_ascensionThreshold);
+    if (migratedAscensionAura < minimum) {
+      migratedAscensionAura = minimum;
+    }
+    _setBig('ascensionAura', migratedAscensionAura);
+    _setBig('multiplier', _multiplierForAscensionAura(migratedAscensionAura));
+    _data['balanceVersion'] = balanceVersion;
+  }
+
+  BigInt _legacyAscensionAura() {
+    final bonus = multiplier > BigInt.from(100)
+        ? multiplier - BigInt.from(100)
+        : BigInt.zero;
+    final ascensions = _int('ascensions');
+    final estimate = ascensions > 0
+        ? bonus *
+            bonus *
+            BigInt.from(_ascensionScale) ~/
+            BigInt.from(ascensions)
+        : bonus * bonus * BigInt.from(_ascensionScale);
+    final minimum = BigInt.from(ascensions) * BigInt.from(_ascensionThreshold);
+    return estimate > minimum ? estimate : minimum;
+  }
+
+  BigInt _ascensionAuraForMultiplier(BigInt value) {
+    final bonus =
+        value > BigInt.from(100) ? value - BigInt.from(100) : BigInt.zero;
+    return bonus * bonus * BigInt.from(_ascensionScale);
+  }
+
+  BigInt _multiplierForAscensionAura(BigInt aura) {
+    if (aura <= BigInt.zero) {
+      return BigInt.from(100);
+    }
+    return BigInt.from(100) +
+        _integerSqrt(aura ~/ BigInt.from(_ascensionScale));
+  }
+
   int get cycles => _int('cycles');
   CyclePhase get phase =>
       _data['phase'] == 'seven' ? CyclePhase.seven : CyclePhase.six;
@@ -290,8 +346,11 @@ class GameController extends ChangeNotifier {
 
   BigInt _big(String key, [String fallback = '0']) =>
       BigInt.tryParse('${_data[key] ?? fallback}') ?? BigInt.zero;
-  int _int(String key, [int fallback = 0]) =>
-      (_data[key] as num?)?.toInt() ?? fallback;
+  int _int(String key, [int fallback = 0]) {
+    final value = _data[key];
+    return value is num ? value.toInt() : fallback;
+  }
+
   int level(String id) => levels[id] ?? 0;
   void _setBig(String key, BigInt value) => _data[key] = value.toString();
 
@@ -711,15 +770,22 @@ class GameController extends ChangeNotifier {
       ...portable,
       'saveVersion': 1,
       'arithVersion': 'arith-v1',
+      'balanceVersion': balanceVersion,
+      'ascensionAura': ascensionAura.toString(),
       'exportedAt': DateTime.now().toUtc().toIso8601String()
     });
   }
 
   Future<bool> restoreState(String body) async {
+    final previous = Map<String, dynamic>.from(_data);
     try {
       final candidate = (jsonDecode(body) as Map).cast<String, dynamic>();
+      final importedBalance = candidate['balanceVersion'];
       if (candidate['saveVersion'] != 1 ||
-          candidate['arithVersion'] != 'arith-v1') {
+          candidate['arithVersion'] != 'arith-v1' ||
+          (importedBalance != null &&
+              importedBalance != 'balance-v0.1' &&
+              importedBalance != balanceVersion)) {
         return false;
       }
       for (final key in ['available', 'total', 'journey', 'remainder']) {
@@ -732,12 +798,36 @@ class GameController extends ChangeNotifier {
       final candidateTotal = BigInt.tryParse('${candidate['total'] ?? '0'}')!;
       final candidateRemainder =
           BigInt.tryParse('${candidate['remainder'] ?? '0'}')!;
+      final candidateAscensionAura = candidate['ascensionAura'] == null
+          ? null
+          : BigInt.tryParse('${candidate['ascensionAura']}');
+      final candidateMultiplier =
+          BigInt.tryParse('${candidate['multiplier'] ?? '100'}');
+      final candidateAscensions = candidate['ascensions'] ?? 0;
       if (candidateAvailable < BigInt.zero ||
           candidateJourney < candidateAvailable ||
           candidateTotal < candidateJourney ||
           candidateRemainder < BigInt.zero ||
-          candidateRemainder >= BigInt.from(_quanta)) {
+          candidateRemainder >= BigInt.from(_quanta) ||
+          candidateMultiplier == null ||
+          candidateMultiplier < BigInt.from(100) ||
+          candidateAscensions is! int ||
+          candidateAscensions < 0 ||
+          (candidate['ascensionAura'] != null &&
+              (candidateAscensionAura == null ||
+                  candidateAscensionAura < BigInt.zero))) {
         return false;
+      }
+      if (importedBalance == balanceVersion) {
+        if (candidateAscensionAura == null ||
+            candidateAscensionAura + candidateJourney > candidateTotal ||
+            candidateAscensionAura <
+                BigInt.from(candidateAscensions) *
+                    BigInt.from(_ascensionThreshold) ||
+            _multiplierForAscensionAura(candidateAscensionAura) !=
+                candidateMultiplier) {
+          return false;
+        }
       }
       if (candidate['levels'] != null && candidate['levels'] is! Map) {
         return false;
@@ -761,6 +851,7 @@ class GameController extends ChangeNotifier {
         ..addAll(candidate)
         ..remove('exportedAt')
         ..addAll(analyticsDevicePreference);
+      _migrateBalanceState();
       _foregroundClock
         ..reset()
         ..start();
@@ -768,17 +859,29 @@ class GameController extends ChangeNotifier {
       await _persist(notify: true);
       return true;
     } catch (_) {
+      _data
+        ..clear()
+        ..addAll(previous);
       return false;
     }
   }
 
   bool get canAscend =>
       !returnBonusAvailable && journey >= BigInt.from(_ascensionThreshold);
-  BigInt ascensionGain() => _integerSqrt(journey ~/ BigInt.from(100000000000));
+  BigInt ascensionGain() {
+    final projectedMultiplier =
+        _multiplierForAscensionAura(ascensionAura + journey);
+    return projectedMultiplier > multiplier
+        ? projectedMultiplier - multiplier
+        : BigInt.zero;
+  }
+
   void ascend() {
     integrate();
     if (!canAscend) return;
-    _setBig('multiplier', multiplier + ascensionGain());
+    final nextAscensionAura = ascensionAura + journey;
+    _setBig('multiplier', _multiplierForAscensionAura(nextAscensionAura));
+    _setBig('ascensionAura', nextAscensionAura);
     _data['ascensions'] = _int('ascensions') + 1;
     _setBig('available', BigInt.zero);
     _setBig('journey', BigInt.zero);

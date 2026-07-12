@@ -39,7 +39,7 @@ Usar uma única base capaz de entregar rapidamente o jogo no Android, preservar 
 
 - Área de Aura;
 - Mascote e mãos em camadas;
-- entrada multitouch e limite de eventos;
+- entrada de contato único e limite de eventos em janela móvel;
 - animações Six e Seven;
 - partículas, rastros e fundos;
 - Transformações de Aura;
@@ -93,7 +93,7 @@ Uma única camada pura de apresentação implementa `number-format-v1` para toda
 Antes da produção extensa de conteúdo, o milestone de fatia vertical deverá validar:
 
 1. Mascote em camadas e movimento Six-Seven;
-2. dois dedos e até 20 toques/s;
+2. um contato físico por vez e até oito toques por janela móvel de um segundo;
 3. partículas e redução de movimento;
 4. árabe RTL e escala textual;
 5. áudio base, groove e hype;

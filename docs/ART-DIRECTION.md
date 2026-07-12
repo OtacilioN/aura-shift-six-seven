@@ -210,4 +210,4 @@ Cada asset final passa por:
 
 `art-v1` fecha linguagem, paleta de arte, Mascote, mãos, territórios Poise/Motion/Signal, cinco Transformações, Aura, fundos, Selos, slots e contrato de exportação. Os conceitos das 18 Aparências vêm de `CONTENT-CATALOG.md` e respeitam os envelopes deste documento.
 
-Riscos residuais a validar na fatia vertical: sobreposição de combinações extremas de skins, legibilidade do pseudo-rig a 20 contatos/s, custo de partículas em aparelhos modestos e contraste conjunto entre arte e UI final.
+Riscos residuais a validar na fatia vertical: sobreposição de combinações extremas de skins, legibilidade do pseudo-rig a oito contatos por janela móvel de um segundo, custo de partículas em aparelhos modestos e contraste conjunto entre arte e UI final.

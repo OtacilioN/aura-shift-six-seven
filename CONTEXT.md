@@ -141,11 +141,11 @@ Reinício voluntário disponibilizado pela primeira vez em `1Qa` de Aura Total, 
 _Evitar_: reset obrigatório, apagar progresso, prestígio
 
 **Multiplicador de Ascensão**:
-Benefício permanente obtido por Ascensões de Aura e aplicado à produção das jornadas seguintes. Sua base é `1×`; cada jornada com ao menos `1Qa` concede `floor(100 × √(Aura da Jornada ÷ 1Qa))` centésimos adicionais, somados sem composição.
+Benefício permanente derivado de toda Aura sacrificada em Ascensões e aplicado à produção das jornadas seguintes. Sua base é `1×`; para Aura sacrificada acumulada `L`, o total em centésimos é `100 + floor(√(L ÷ 10¹¹))`. A mesma Aura acumulada produz o mesmo total independentemente de quantas Ascensões a dividiram.
 _Evitar_: bônus temporário, multiplicador de anúncio
 
 **Aura da Jornada**:
-Aura produzida desde o início do jogo ou desde a Ascensão de Aura mais recente, usada para calcular a recompensa da próxima Ascensão. É necessário acumular ao menos `1Qa` em cada jornada para Ascender novamente.
+Aura produzida desde o início do jogo ou desde a Ascensão de Aura mais recente. Ao Ascender, ela é acrescentada ao acumulado permanente usado para derivar o Multiplicador. É necessário acumular ao menos `1Qa` em cada jornada para Ascender novamente.
 _Evitar_: Aura Total, Aura Disponível
 
 **Complemento de Aura**:

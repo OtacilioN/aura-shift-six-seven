@@ -47,9 +47,9 @@ Acessibilidade é parte do lançamento. Preferências de redução de movimento 
 
 A velocidade dos toques não altera a Potência de Ciclo e não cria combo econômico. Sequências rápidas aumentam apenas a intensidade audiovisual — música, partículas, rastros e animação — que diminui suavemente quando o jogador para. Não existem erro de ritmo, barra de energia ou punição por lentidão.
 
-Cada novo contato na Área de Aura avança uma fase uma única vez. Até dois dedos são aceitos; contatos simultâneos são ordenados como Fase Six e Fase Seven. Manter ou arrastar um dedo não gera novos toques, e contatos simultâneos além do segundo são ignorados.
+Cada novo contato válido na Área de Aura avança uma fase uma única vez. Somente um contato físico é aceito por vez; enquanto qualquer dedo estiver pressionado, contatos adicionais são ignorados. Manter ou arrastar um dedo não gera novos toques. O Ciclo continua exigindo dois toques sequenciais, nunca um gesto simultâneo com dois dedos.
 
-O cliente aceita até 20 novos contatos válidos por segundo e ignora somente o excedente para proteger desempenho e animação. Não existem detecção de bot, acusação ou banimento; autoclickers dentro desse limite não são combatidos em uma experiência offline e individual.
+O cliente aceita até oito novos contatos válidos em qualquer janela móvel de um segundo e ignora somente o excedente para proteger desempenho, animação e o ritmo econômico. Não existem detecção de bot, acusação ou banimento; automações dentro desse limite não são combatidas em uma experiência offline e individual.
 
 ## Primeira sessão
 
@@ -186,7 +186,7 @@ Cada ramo possui cinco nós. Os itens posteriores ao Item-raiz exigem o predeces
 
 As Convergências custam `6.700`, `26,8M` e `670T Aura` e produzem `7,5`, `3.350` e `13,4B Aura/s` por nível. No primeiro nível, cada uma acrescenta exatamente `1/6` da produção somada dos três nós diretamente exigidos. O preço adicional permanece material, e a terceira Convergência funciona como objetivo opcional para uma jornada prolongada depois de `1Qa`, em vez de atrasar obrigatoriamente a Ascensão.
 
-No conjunto inicial `balance-v0.1`, os custos-base espelhados das cinco profundidades são `270`, `2.350`, `67.000`, `67.000` e `67 bilhões de Aura`. A repetição de `67.000` é intencional: exigir nível `100` em vez de `50` já transforma centenas de milhões em centenas de bilhões de investimento. Esses números são uma hipótese controlada para simulação, não motivo para permitir compras antes do Patamar correspondente.
+No conjunto atual `balance-v0.2`, os custos-base espelhados das cinco profundidades são `270`, `2.350`, `67.000`, `67.000` e `67 bilhões de Aura`. A repetição de `67.000` é intencional: exigir nível `100` em vez de `50` já transforma centenas de milhões em centenas de bilhões de investimento. Esses números são uma hipótese controlada para simulação, não motivo para permitir compras antes do Patamar correspondente.
 
 As contribuições-base passivas dessas profundidades, expressas em `Aura/s por nível`, são `0,75`, `6,7`, `67`, `6.700` e `67.000.000` antes dos Marcos. A escada não usa um multiplicador uniforme: ela acompanha os diferentes gates e preserva espaço entre `1K`, `1M`, `1B`, `1T` e `1Qa`. O último salto é deliberadamente tratado como o ponto mais sensível da simulação.
 
@@ -194,7 +194,7 @@ Os Patamares permanentes seguem `1K`, `1M`, `1B`, `1T` e `1Qa` de Aura Total. Ca
 
 O catálogo fechado do MVP possui exatamente 18 Itens de Aura: cinco itens próprios em cada um dos três Ramos de Aura e três Itens de Convergência que exigem progresso em mais de um ramo. Uma progressão separada contém exatamente seis Técnicas Six-Seven, e a Aura Total desbloqueia exatamente cinco Transformações de Aura. Conteúdo excedente não entra na primeira publicação.
 
-`TECH-01` começa disponível; `TECH-02` a `TECH-06` são liberadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa`. Seus custos-base são `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`; suas Contribuições-base são `1`, `6,7`, `6,7K`, `6,7M`, `6,7B` e `6,7T Aura/ciclo por nível`. Depois da primeira Técnica, cada custo corresponde a `6,7%` do Patamar associado e custo e ganho crescem juntos em `1.000×`. Elas não exigem níveis umas das outras. Ascensão reinicia seus níveis, mas a Aura Total preservada mantém a trilha inteira já descoberta.
+`TECH-01` começa disponível; `TECH-02` a `TECH-06` são liberadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa`. Seus custos-base são `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`; suas Contribuições-base em `balance-v0.2` são `1`, `5`, `5K`, `5M`, `5B` e `5T Aura/ciclo por nível`. Depois da primeira Técnica, cada custo corresponde a `6,7%` do Patamar associado e custo e ganho crescem separadamente na mesma escala de `1.000×`. Elas não exigem níveis umas das outras. Ascensão reinicia seus níveis, mas a Aura Total preservada mantém a trilha inteira já descoberta.
 
 ## Progressão de longo prazo
 
@@ -206,8 +206,8 @@ A Coleção Visual e a personalização equipada também são preservadas. Somen
 
 Antes da confirmação, a interface deve informar exatamente o que será reiniciado, preservado e recebido. A Ascensão nunca é obrigatória e não exige anúncio ou pagamento. **Aura Ascension** é o nome-fonte final; `Ascensão de Aura` permanece o termo canônico em português.
 
-O ganho de cada Ascensão é calculado pela **Aura da Jornada**, que contabiliza o progresso produzido desde o início da jornada atual. Cada Ascensão exige ao menos `1Qa` nessa jornada. A parcela segue `floor(100 × √(Aura da Jornada ÷ 1Qa)) ÷ 100`, de modo que `1Qa`, `2Qa`, `4Qa` e `9Qa` concedem `+1,00×`, `+1,41×`, `+2,00×` e `+3,00×`. O contador volta a zero após a Ascensão sem reduzir a Aura Total.
+O ganho de cada Ascensão é calculado acrescentando a **Aura da Jornada** ao acumulado permanente `L` de Aura sacrificada. Cada Ascensão exige ao menos `1Qa` nessa jornada. O multiplicador em centésimos segue `A(L)=100+floor(√(L÷10¹¹))`, de modo que acumulados de `1Qa`, `2Qa`, `4Qa` e `9Qa` resultam em `2,00×`, `2,41×`, `3,00×` e `4,00×`. A Aura da Jornada volta a zero após a Ascensão sem reduzir Aura Total nem `L`.
 
 O Multiplicador de Ascensão é global: ele amplia tanto a Potência de Ciclo quanto a Produção Passiva. A Produção Offline utiliza a taxa passiva já multiplicada. O Bônus de Retorno acrescenta 20% à recompensa offline resultante, sem uma segunda aplicação exclusiva do Multiplicador de Ascensão.
 
-Ganhos de Ascensões diferentes são aditivos sobre uma base de `1×`. Por exemplo, bônus de `+0,5×` e `+0,8×` resultam em `2,3×`; eles não são compostos como `1,5 × 1,8`. O total é aplicado uma única vez às fontes ativa e passiva.
+Ganhos de Ascensões diferentes não são compostos nem somados como parcelas fixas: o total é sempre derivado da Aura sacrificada acumulada. Quatro Ascensões de `1Qa` e uma de `4Qa` resultam igualmente em `3×`. O total é aplicado uma única vez às fontes ativa e passiva.

@@ -183,6 +183,6 @@ O planejamento criativo e de experiência está pronto quando:
 1. Iniciar desenvolvimento usando contratos e inventários estáveis.
 2. Arte e áudio avançam de especificação para produção; nenhum arquivo recebe status final sem proveniência, QA e aprovação.
 3. A build comprova reflow, RTL, TalkBack, contraste, performance, áudio/haptics e os oito idiomas em tela.
-4. `balance-v0.1` continua separado e só é aprovado depois de passar por `balance-gate-v1`.
+4. `balance-v0.2` substitui o baseline inicial, continua separado e só é aprovado como balanceamento final depois de passar por `balance-gate-v1`.
 
 O roadmap não considera stubs, placeholders ou afirmações sem evidência como conclusão de asset, master, revisão nativa, clearance jurídico ou QA de build.

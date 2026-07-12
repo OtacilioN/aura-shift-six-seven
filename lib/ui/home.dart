@@ -382,37 +382,50 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           builder: (sheet) {
             final c = widget.controller;
             final s = widget.strings;
-            return _Sheet(
-                title: s('ascension_title'),
-                body: '${s('ascension_journey_used', {
-                      'amount': AuraFormat.integer(c.journey, locale: s.locale)
-                    })}\n${s('ascension_gain', {
-                      'multiplier':
-                          '${AuraFormat.multiplier(c.ascensionGain())}×'
-                    })}',
-                artwork: _eventArtwork(
-                  AuraEventArtwork.ascension,
-                  s('ascension_title'),
-                  fallback: Icons.upgrade,
-                ),
-                child: FilledButton(
-                    onPressed: c.canAscend
-                        ? () {
-                            widget.audio.prepareAscension();
-                            c.ascend();
-                            unawaited(widget.audio.playAscension());
-                            _enqueueVisualFeedback(
-                              AuraEventArtwork.ascension,
-                              s('ascension_title'),
-                              s('ascension_complete', {
-                                'multiplier':
-                                    '${AuraFormat.multiplier(c.multiplier)}×',
-                              }),
-                            );
-                            Navigator.pop(sheet);
-                          }
-                        : null,
-                    child: Text(s('ascension_confirm_action'))));
+            return AnimatedBuilder(
+              animation: c,
+              builder: (context, _) {
+                final gain = c.ascensionGain();
+                final resultingMultiplier = c.multiplier + gain;
+                return _Sheet(
+                    title: s('ascension_title'),
+                    body: '${s('ascension_journey_used', {
+                          'amount':
+                              AuraFormat.integer(c.journey, locale: s.locale)
+                        })}\n${s('ascension_gain', {
+                          'multiplier': '${AuraFormat.multiplier(gain)}×'
+                        })}\n${s('ascension_multiplier_now', {
+                          'multiplier':
+                              '${AuraFormat.multiplier(c.multiplier)}×'
+                        })}\n${s('ascension_multiplier_after', {
+                          'multiplier':
+                              '${AuraFormat.multiplier(resultingMultiplier)}×'
+                        })}',
+                    artwork: _eventArtwork(
+                      AuraEventArtwork.ascension,
+                      s('ascension_title'),
+                      fallback: Icons.upgrade,
+                    ),
+                    child: FilledButton(
+                        onPressed: c.canAscend
+                            ? () {
+                                widget.audio.prepareAscension();
+                                c.ascend();
+                                unawaited(widget.audio.playAscension());
+                                _enqueueVisualFeedback(
+                                  AuraEventArtwork.ascension,
+                                  s('ascension_title'),
+                                  s('ascension_complete', {
+                                    'multiplier':
+                                        '${AuraFormat.multiplier(c.multiplier)}×',
+                                  }),
+                                );
+                                Navigator.pop(sheet);
+                              }
+                            : null,
+                        child: Text(s('ascension_confirm_action'))));
+              },
+            );
           }));
 
   Future<void> _returnRewardDialog() =>
@@ -874,7 +887,13 @@ class _AuraArena extends StatelessWidget {
             : strings('tutorial_second_touch'),
         child: ValueListenableBuilder<double>(
           valueListenable: scene.charge,
-          child: GameWidget(game: scene),
+          child: Listener(
+            behavior: HitTestBehavior.opaque,
+            onPointerDown: (event) => scene.contactDown(event.pointer),
+            onPointerUp: (event) => scene.contactEnded(event.pointer),
+            onPointerCancel: (event) => scene.contactEnded(event.pointer),
+            child: GameWidget(game: scene),
+          ),
           builder: (context, charge, child) {
             final glow = Color.lerp(
               const Color(0xFF8B7CFF),
@@ -1143,9 +1162,13 @@ class _UpgradeCard extends StatelessWidget {
         quantity: controller.purchaseQuote(upgrade, quantity),
     };
     final level = controller.level(upgrade.id);
-    final nextEffect = upgrade.base20 *
+    final currentEffect = upgrade.base20 *
+        BigInt.from(level * controller.milestoneFactor(level)) *
+        controller.multiplier;
+    final nextTotalEffect = upgrade.base20 *
         BigInt.from((level + 1) * controller.milestoneFactor(level + 1)) *
         controller.multiplier;
+    final nextEffect = nextTotalEffect - currentEffect;
     final title = strings(upgrade.nameKey);
     return Card(
         margin: const EdgeInsets.symmetric(vertical: 5),
@@ -1599,7 +1622,7 @@ class _Settings extends StatelessWidget {
             ListTile(
                 title: Text(strings('settings_version', {'version': '0.1.0'})),
                 subtitle:
-                    const Text('Development build · arith-v1 · balance-v0.1'))
+                    const Text('Development build · arith-v1 · balance-v0.2'))
           ]);
   Future<void> _backup(BuildContext context) async {
     unawaited(audio.playUiOpen());

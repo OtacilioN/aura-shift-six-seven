@@ -131,11 +131,11 @@ Não existe combo econômico, erro de ritmo, barra de energia ou punição por l
 
 ## Semântica de toque
 
-Cada novo contato válido avança uma fase exatamente uma vez. Até dois dedos são aceitos. Quando dois contatos começam simultaneamente, eles são ordenados como Fase Six e Fase Seven e concluem um ciclo.
+Cada novo contato válido avança uma fase exatamente uma vez. Somente um contato físico é aceito por vez. Enquanto qualquer dedo estiver pressionado, contatos adicionais são ignorados; Six e Seven exigem dois toques sequenciais.
 
-Manter um dedo pressionado ou arrastá-lo não repete fases. Contatos simultâneos além do segundo são ignorados. O MVP não detecta, acusa nem pune autoclickers; sua única limitação de entrada é o teto técnico abaixo, que não pode justificar perda perceptível de toques humanos legítimos.
+Manter um dedo pressionado ou arrastá-lo não repete fases. Contatos simultâneos ignorados não emitem crédito, marcador, áudio ou vibração. O MVP não detecta, acusa nem pune autoclickers; sua única limitação de entrada é o teto técnico abaixo, que não pode justificar perda perceptível de toques humanos legítimos.
 
-O jogo processa até 20 novos contatos válidos por segundo. Somente o excedente pode ser descartado, sem mensagem de trapaça, punição ou perda do estado anterior. A regra existe para estabilidade, não para policiar autoclickers.
+O jogo processa até oito novos contatos válidos em qualquer janela móvel de `1.000ms`. Somente o excedente pode ser descartado, sem mensagem de trapaça, punição ou perda do estado anterior. A regra limita a entrada a no máximo quatro Ciclos/s e vale também para a ação semântica da Área de Aura.
 
 ## Acessibilidade
 
@@ -156,7 +156,7 @@ Se existir uma Recompensa de Retorno pendente, sua base é garantida primeiro. A
 Quando elegível, a prévia apresenta:
 
 - Aura da Jornada usada no cálculo;
-- parcela permanente projetada, com precisão de `0,01×`;
+- ganho permanente projetado a partir do acumulado de Aura sacrificada, com precisão de `0,01×`;
 - Multiplicador de Ascensão atual e resultante;
 - Aura Disponível, Aura da Jornada, Técnicas, Itens, níveis e efeitos que serão reiniciados;
 - Aura Total, Patamares, Transformações, Conquistas e Coleção Visual preservados.

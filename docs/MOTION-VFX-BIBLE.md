@@ -34,7 +34,7 @@ A fase canônica troca imediatamente no domínio de entrada. O pseudo-rig observ
 3. mantém a fase e o crédito definidos pelo domínio;
 4. resume feedback numérico de Seven, ainda que efeitos decorativos sejam agrupados.
 
-Até 20 contatos válidos/s podem chegar. Acima da capacidade de renderização, rastros decorativos são agrupados em janelas de 50 ms; poses e créditos não são inventados nem reordenados.
+Até oito contatos válidos podem chegar em qualquer janela móvel de um segundo. Acima da capacidade de renderização, rastros decorativos são agrupados em janelas de 50 ms; poses e créditos não são inventados nem reordenados.
 
 ## Storyboard — Fase Six
 
@@ -70,7 +70,7 @@ Six nunca usa número de ganho, explosão radial, som resolutivo ou padrão tát
 - duração: `180 ms` normal, `120 ms` reduzido;
 - respeita a coordenada do toque, mas não cria alvo persistente;
 - toques sobre controles não emitem feedback de ciclo;
-- dois contatos simultâneos recebem marcadores Six e Seven em ordem canônica, sem exigir lados.
+- somente o primeiro contato físico ativo recebe marcador; contatos simultâneos adicionais não geram feedback.
 
 ## Curva de intensidade audiovisual
 
@@ -215,7 +215,7 @@ Limita partículas vivas a 12 e sua opacidade a `0,35`, remove emissor contínuo
 
 - contato reconhecido em até 50 ms no aparelho-alvo;
 - Six não credita nem aparenta creditar Aura; Seven mostra o valor canônico;
-- 20 contatos/s não corrompem fase nem bloqueiam UI;
+- oito contatos por janela móvel de um segundo não corrompem fase nem bloqueiam UI;
 - novo toque interrompe e retargeta sem salto de mais de 20% do palco;
 - cadência audiovisual sobe e desce sem medidor ou mudança econômica;
 - cada evento possui entrada, duração, saída e versão reduzida executável;

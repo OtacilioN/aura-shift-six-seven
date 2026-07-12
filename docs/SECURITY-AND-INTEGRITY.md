@@ -55,7 +55,7 @@ Em um cliente modificado, cotas ou recompensas locais podem ser falsificadas. Va
 - gravações recuperáveis que preservem o último estado válido;
 - tratamento moderado de mudanças de relógio;
 - separação futura entre estado local e qualquer dado competitivo autoritativo.
-- descarte técnico de entradas acima de 20 toques/s, sem punição ou alegação de fraude.
+- descarte técnico do nono toque em qualquer janela móvel de um segundo, sem punição ou alegação de fraude.
 
 ## Gatilhos para reavaliar a arquitetura
 
