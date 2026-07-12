@@ -2,8 +2,8 @@
   "androidBrandFiles": 8,
   "androidBrandTransformed": 1,
   "apk": "build/app/outputs/bundle/release/app-release.aab",
-  "apkBytes": 77826747,
-  "apkSha256": "8c183daf7bf6b40195d2c9c7d4f06b6c9f8ad83cf9f16249ffabdda492d66bfa",
+  "apkBytes": 78078025,
+  "apkSha256": "634edd13e27854245bfebe63977946b403a892a95e7b3e9924ec0d74bd60cfc2",
   "approvalStatus": {
     "art": "approved",
     "audio": "approved"

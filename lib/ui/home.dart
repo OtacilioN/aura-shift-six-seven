@@ -1620,7 +1620,7 @@ class _Settings extends StatelessWidget {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => _backup(context))),
             ListTile(
-                title: Text(strings('settings_version', {'version': '0.1.0'})),
+                title: Text(strings('settings_version', {'version': '0.1.2'})),
                 subtitle:
                     const Text('Development build · arith-v1 · balance-v0.2'))
           ]);
