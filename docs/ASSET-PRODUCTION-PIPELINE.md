@@ -11,8 +11,8 @@ Produzir, revisar, integrar e rastrear toda a superfície de assets do MVP:
 - arte modular da cena Flame, Aparências, Formas, fundos, Ramos, VFX, Selos,
   eventos e Conquistas;
 - ícones funcionais, fontes, marca, launcher, splash e materiais-base de loja;
-- cinco peças musicais, doze sons Six/Seven, treze sons de UI/Loja/Coleção,
-  dez sons de evento e quatro mixes condicionais contra drift;
+- sete faixas musicais selecionadas, doze sons Six/Seven, treze sons de
+  UI/Loja/Coleção e dez sons de evento;
 - manifestos, hashes, fontes editáveis, proveniência e relatórios de QA.
 
 Haptics continuam código/configuração e não arquivos. Screenshots finais da
@@ -29,6 +29,7 @@ Cada lote usa papéis separados. Um agente não aprova o próprio trabalho.
 | Inventarista | código + contratos | inventário fechado e gaps | nada; somente leitura |
 | Diretor de Arte | `art-v1`, catálogo e UI | style seed, paleta, envelopes e prompts sanitizados | relatório/direção do lote |
 | Compositor Isolado | apenas briefing sanitizado | score procedural e stems candidatos | `sources/audio/procedural`, masters e runtime |
+| Importador da Trilha | sete WAVs selecionados + hashes esperados | fontes preservadas, masters normalizados e Ogg v2 | `sources/audio/imported`, masters/runtime v2 |
 | Designer de SFX | funções/durações, sem referência externa | famílias Six/Seven, UI e eventos | fontes/masters/runtime de SFX |
 | Curador de Fontes | famílias exigidas e fontes oficiais | binários pinados, licenças e hashes | `assets/fonts`, manifesto de fontes |
 | Criador Visual | style seed + IDs/pivôs | SVGs editáveis e WebP/PNG derivados | `sources/art`, `assets/art` |
@@ -79,6 +80,10 @@ arte e áudio mais `production-assets-v1.json`. A incorporação ao código prom
 o lote para `integrated`; validações físicas continuam como pendências explícitas
 e não alteram os hashes aprovados.
 
+A substituição musical possui decisão própria, datada de 12 de julho de 2026,
+em `assets/manifests/music-selection-approval-v1.json`. Ela deriva
+`audio-manifest-v2.json` sem alterar o snapshot procedural v1.
+
 ## Lotes e gates
 
 ### Lote A — style seed
@@ -86,7 +91,8 @@ e não alteram os hashes aprovados.
 - Mascote base, mãos Six/Seven e cinco expressões;
 - um item Poise, Motion e Signal;
 - fundo base, `FORM-01`, `FORM-05`, VFX essenciais e Selo 67;
-- Base/Groove/Hype, duas variações Six/Seven, três UI e um stinger;
+- `Boss Shift`, uma faixa sucessora para provar crossfade, duas variações
+  Six/Seven, três UI e um stinger;
 - app icon, splash e fontes.
 
 Gate: silhueta a 10%, monocromia, pivôs, loop, mono, picos e identidade das
@@ -95,7 +101,7 @@ três famílias. O lote integral só usa regras consolidadas por esse seed.
 ### Lote B — produção integral
 
 - todas as variantes físicas previstas no `art-manifest-v1`;
-- 40 masters obrigatórios e quatro mixes condicionais;
+- 42 masters obrigatórios: sete músicas e 35 SFX, sem condicionais;
 - 13 badges de Conquista e ícones funcionais;
 - proveniência e relatórios por arquivo.
 
@@ -105,7 +111,7 @@ por arquivo, ausência de duplicatas acidentais e revisão independente.
 ### Lote C — integração
 
 - `pubspec.yaml`, fontes por locale e carregadores;
-- cena Flame com fundo, rig, skin equipada, Forma e VFX reais;
+- cena Flame com fundo, rig, todas as skins ativas, Forma e VFX reais;
 - áudio governado por eventos de domínio, nunca pelo timing econômico;
 - launcher/splash e inventário incluído no AAB.
 
@@ -114,7 +120,7 @@ Gate: `flutter analyze`, testes, build e inspeção do pacote.
 ### Lote D — aparelho e publicação
 
 - máscara do adaptive icon e splash em aparelhos reais;
-- latência, drift de stems, foco/retomada e fadiga;
+- latência, playlist/crossfade, foco/retomada e fadiga;
 - capturas localizadas reais e materiais da Google Play;
 - escuta humana, auditoria de similaridade e aceite final.
 
@@ -133,11 +139,13 @@ python3 tools/assets/fetch_fonts.py
 .asset-venv/bin/python tools/assets/generate_brand_assets.py
 python3 tools/assets/generate_art_assets.py
 python3 tools/assets/validate_art_assets.py --determinism
-.asset-venv/bin/python tools/assets/generate_audio_assets.py
-.asset-venv/bin/python tools/assets/review_audio_assets.py
+.asset-venv/bin/python tools/assets/generate_audio_assets.py  # snapshot procedural v1
+.asset-venv/bin/python tools/assets/review_audio_assets.py    # snapshot procedural v1
+.asset-venv/bin/python tools/assets/import_selected_music.py
+# --source-dir só é necessário para reimportar outro diretório verificado
 .asset-venv/bin/python tools/assets/build_audio_listening_sheet.py
 .asset-venv/bin/python tools/assets/review_brand_and_fonts.py
-python3 tools/assets/build_production_index.py
+python3 tools/assets/build_production_index.py  # snapshot integrado v1
 
 flutter clean
 flutter pub get
@@ -173,14 +181,14 @@ unzip -l build/app/outputs/bundle/release/app-release.aab \
 
 - masters WAV PCM 48 kHz/24-bit, música runtime Ogg 48 kHz e SFX runtime WAV
   PCM16 48 kHz;
-- stems de gameplay com `4.404.706` samples e menus com `2.202.353`;
+- sete músicas completas `non-loop`, `Boss Shift` primeiro e frame count preservado no Ogg;
 - arquivos finitos, sem clipping/DC bloqueador e com hashes válidos;
 - música próxima de `-16 LUFS-I`; stingers entre `-18` e `-14`; SFX com
   sample peak até `-3 dBFS`;
 - Six prepara e Seven resolve; seis variações sem repetição imediata;
-- zero voz, sample pack, gravação externa, moeda/jackpot ou referência nominal;
-- loops avaliados no master e após decode do runtime;
-- drift, latência, fadiga e semelhança ficam pendentes até teste humano/aparelho.
+- fonte externa/IA declarada com hash e cadeia de conversão, sem inventar prompt ou licença;
+- posição, conclusão, crossfade e callbacks antigos avaliados no runtime;
+- termos, latência, fadiga e semelhança ficam pendentes até teste humano/aparelho.
 
 ### Marca e fontes
 

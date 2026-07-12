@@ -378,7 +378,7 @@ abstract final class AuraArtSelection {
 
   /// All appearance layers that can be selected at runtime. Keeping this list
   /// separate from [sceneRuntimeIds] lets the playable scene lazily decode only
-  /// the currently equipped skin instead of every approved art asset.
+  /// the current variants of active skins instead of every approved art asset.
   static Set<String> get appearanceRuntimeIds {
     final ids = <String>{};
     for (final contentId in _appearanceContentIds) {

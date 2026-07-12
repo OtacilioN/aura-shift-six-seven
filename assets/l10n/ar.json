@@ -59,6 +59,8 @@
   "collection_effect_persists": "تبقى تأثيرات العناصر نشطة مع أي مظهر.",
   "collection_equip": "استخدام المظهر",
   "collection_equipped": "قيد الاستخدام",
+  "collection_hidden": "المظهر مخفي",
+  "collection_hide": "إخفاء المظهر",
   "collection_locked": "مقفل",
   "collection_seal_unlocked": "بلغت محطة 67: {amount} من إجمالي الهالة",
   "collection_seals": "أختام 67",

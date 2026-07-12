@@ -1,0 +1,352 @@
+{
+  "contract": "six-seven-audio-proposal-production-v1",
+  "schemaVersion": 1,
+  "status": "produced-refined-validated",
+  "generatedAtUtc": "2026-07-12T14:41:30.892477+00:00",
+  "track": {
+    "id": "DEMO-BREGA-GUICHE-0367",
+    "title": "Guichê das 03:67",
+    "style": "brega funk futurista, abstrato e respeitoso",
+    "bpm": 136.0,
+    "meter": "4/4",
+    "tonalCenter": "A / Lá; rubber pluck fixed at A1 or A2",
+    "bars": 52,
+    "frames": 4404706,
+    "macroStructure": "4 x 13 bars; each 13 = 6 impulse + 7 response",
+    "identity": "short kick, fixed-pitch rubber pluck, noise clap, synthesized plastic clicks, and muted synthetic brass call-response",
+    "prohibitions": [
+      "cowbell",
+      "body percussion",
+      "external audio or foley",
+      "voice",
+      "literal office sounds",
+      "regional caricature",
+      "recognizable artist, beat, or dance imitation",
+      "glissando or spring-tone bass"
+    ],
+    "externalAudioUsed": false
+  },
+  "seed": "six-seven-guiche-das-03-67-2026-07-12-v2",
+  "paths": {
+    "source": "sources/audio/proposals/guiche_das_03_67.py",
+    "master": "masters/audio/proposals/guiche_das_03_67.wav",
+    "runtime": "assets/audio/proposals/guiche_das_03_67.ogg",
+    "report": "reports/audio-proposals/guiche_das_03_67.json"
+  },
+  "provenance": {
+    "method": "100% deterministic procedural synthesis from oscillators and seeded noise",
+    "externalAudioRead": false,
+    "generativeModelUsed": false,
+    "sourceSha256": "b0a27e889d79063c64f86e16ed24d19ac11652ac8480369596d809afe3c62b44",
+    "audioCommonSha256": "92a3ac9a08252be90674c080f9f34318a2b9740800650a38652c7779fc6424d1"
+  },
+  "refinementHistory": [
+    {
+      "pass": "v1",
+      "rendered": true,
+      "float32Sha256": "17c67ca3de0840153272fa25294dd45d4ed35d8b8a82ce90c655f81e0b7a3e22",
+      "observations": [
+        "one repeated kick/clap/click cell made the four macrophrases too similar",
+        "a rubber pluck on every kick produced excess low-mid occupancy",
+        "bright frequent brass and continuous hats competed with the comic pauses"
+      ],
+      "diagnostics": {
+        "pass": "v1",
+        "config": {
+          "refined": false,
+          "pluckDuration": 0.235,
+          "pluckEveryKick": true,
+          "hatDensity": 1.0,
+          "brassCutoff": 2850.0,
+          "brassGain": 0.62,
+          "clickGain": 0.54,
+          "panWidth": 0.28,
+          "masterDrive": 1.1
+        },
+        "eventCounts": {
+          "kick": 104,
+          "rubberPluck": 104,
+          "noiseClap": 104,
+          "plasticClick": 156,
+          "hat": 176,
+          "mutedBrass": 32
+        },
+        "eventCountsByMacrophrase": [
+          {
+            "kick": 26,
+            "rubberPluck": 26,
+            "noiseClap": 26,
+            "plasticClick": 39,
+            "hat": 44,
+            "mutedBrass": 8
+          },
+          {
+            "kick": 26,
+            "rubberPluck": 26,
+            "noiseClap": 26,
+            "plasticClick": 39,
+            "hat": 44,
+            "mutedBrass": 8
+          },
+          {
+            "kick": 26,
+            "rubberPluck": 26,
+            "noiseClap": 26,
+            "plasticClick": 39,
+            "hat": 44,
+            "mutedBrass": 8
+          },
+          {
+            "kick": 26,
+            "rubberPluck": 26,
+            "noiseClap": 26,
+            "plasticClick": 39,
+            "hat": 44,
+            "mutedBrass": 8
+          }
+        ],
+        "density": {
+          "activeFrameRatioAboveMinus45Dbfs": 0.342325,
+          "quietFrameRatioBelowMinus60Dbfs": 0.559814,
+          "activeRatiosByMacrophrase": [
+            0.342072,
+            0.341939,
+            0.342484,
+            0.342807
+          ]
+        },
+        "spectrum": {
+          "relativePowerDb": {
+            "sub_25_90_hz": -2.3995,
+            "low_90_250_hz": -3.9495,
+            "mid_250_2000_hz": -17.3494,
+            "presence_2000_8000_hz": -25.9379,
+            "air_8000_20000_hz": -31.1087
+          },
+          "fftBlocks": 24,
+          "fftSize": 65536
+        },
+        "monoCompatibility": {
+          "leftRightCorrelation": 0.998828,
+          "sideToMidDb": -32.3169,
+          "monoPeakDbfs": -1.8543,
+          "monoRmsDbfs": -18.9999,
+          "passed": true
+        },
+        "floatMetrics": {
+          "frames": 4404706,
+          "channels": 2,
+          "durationSeconds": 91.764708333,
+          "samplePeakDbfs": -1.8543,
+          "rmsDbfs": -18.9974,
+          "dcOffset": [
+            0.0,
+            -0.0
+          ],
+          "integratedLufs": -16.0813,
+          "truePeakDbtp": -1.8488
+        }
+      }
+    },
+    {
+      "pass": "v2-final",
+      "rendered": true,
+      "changesApplied": [
+        "composition: replaced the repeated cell with four distinct kick, clap, click, and brass call-response families",
+        "negative space: inserted a different near-empty response bar per macrophrase plus stripped sixth/thirteenth-bar landings",
+        "low-end mix: shortened the fixed-pitch rubber pluck from 235 ms to 158 ms and retained it only on anchor kicks",
+        "anti-fatigue mix: reduced hats, darkened brass from 2850 Hz to 1650 Hz, lowered click/brass levels, and narrowed panning",
+        "technical mix: canceled finite-tail channel bias with a zero-at-both-ends correction, preserving the 1024-frame loop taper"
+      ],
+      "diagnostics": {
+        "pass": "v2-final",
+        "config": {
+          "refined": true,
+          "pluckDuration": 0.158,
+          "pluckEveryKick": false,
+          "hatDensity": 0.54,
+          "brassCutoff": 1650.0,
+          "brassGain": 0.47,
+          "clickGain": 0.43,
+          "panWidth": 0.16,
+          "masterDrive": 1.2
+        },
+        "eventCounts": {
+          "kick": 107,
+          "rubberPluck": 50,
+          "noiseClap": 87,
+          "plasticClick": 87,
+          "hat": 63,
+          "mutedBrass": 16
+        },
+        "eventCountsByMacrophrase": [
+          {
+            "kick": 27,
+            "rubberPluck": 13,
+            "noiseClap": 22,
+            "plasticClick": 21,
+            "hat": 22,
+            "mutedBrass": 4
+          },
+          {
+            "kick": 27,
+            "rubberPluck": 13,
+            "noiseClap": 23,
+            "plasticClick": 22,
+            "hat": 10,
+            "mutedBrass": 4
+          },
+          {
+            "kick": 26,
+            "rubberPluck": 12,
+            "noiseClap": 23,
+            "plasticClick": 23,
+            "hat": 9,
+            "mutedBrass": 4
+          },
+          {
+            "kick": 27,
+            "rubberPluck": 12,
+            "noiseClap": 19,
+            "plasticClick": 21,
+            "hat": 22,
+            "mutedBrass": 4
+          }
+        ],
+        "density": {
+          "activeFrameRatioAboveMinus45Dbfs": 0.238396,
+          "quietFrameRatioBelowMinus60Dbfs": 0.698328,
+          "activeRatiosByMacrophrase": [
+            0.237284,
+            0.243578,
+            0.230841,
+            0.241881
+          ]
+        },
+        "spectrum": {
+          "relativePowerDb": {
+            "sub_25_90_hz": -2.1887,
+            "low_90_250_hz": -4.203,
+            "mid_250_2000_hz": -18.7608,
+            "presence_2000_8000_hz": -26.6009,
+            "air_8000_20000_hz": -33.3548
+          },
+          "fftBlocks": 24,
+          "fftSize": 65536
+        },
+        "monoCompatibility": {
+          "leftRightCorrelation": 0.999809,
+          "sideToMidDb": -40.1903,
+          "monoPeakDbfs": -2.0125,
+          "monoRmsDbfs": -19.2385,
+          "passed": true
+        },
+        "floatMetrics": {
+          "frames": 4404706,
+          "channels": 2,
+          "durationSeconds": 91.764708333,
+          "samplePeakDbfs": -2.0125,
+          "rmsDbfs": -19.2381,
+          "dcOffset": [
+            -0.0,
+            -0.0
+          ],
+          "integratedLufs": -16.0813,
+          "truePeakDbtp": -2.007
+        }
+      }
+    }
+  ],
+  "arrangement": {
+    "phrase1": "senha impossível: grounded call, clipped answer, and a one-kick pause",
+    "phrase2": "guichê deslizante: denser impulse, delayed response, and a beat-2.5 restart",
+    "phrase3": "fila reversa: quarter-beat entrances, inverted clap answers, and one kickless bar",
+    "phrase4": "fecha e reabre: half-time opening, compressed double-time middle, and a clap-only absurd pause"
+  },
+  "master": {
+    "frames": 4404706,
+    "channels": 2,
+    "durationSeconds": 91.764708333,
+    "samplePeakDbfs": -2.0125,
+    "rmsDbfs": -19.2381,
+    "dcOffset": [
+      -2.71e-08,
+      -3.67e-08
+    ],
+    "integratedLufs": -16.0813,
+    "truePeakDbtp": -2.007,
+    "sampleRate": 48000,
+    "format": "WAV",
+    "subtype": "PCM_24",
+    "sha256": "369c4f16f4e89f18e8706f43f080a04bc204b137496f4eec70c56585c8392c5c",
+    "bytes": 26428280
+  },
+  "runtime": {
+    "frames": 4404706,
+    "channels": 2,
+    "durationSeconds": 91.764708333,
+    "samplePeakDbfs": -1.8151,
+    "rmsDbfs": -19.2165,
+    "dcOffset": [
+      3.88566e-05,
+      3.64368e-05
+    ],
+    "integratedLufs": -16.0604,
+    "truePeakDbtp": -1.8095,
+    "sampleRate": 48000,
+    "format": "OGG",
+    "subtype": "VORBIS",
+    "sha256": "91ee65230f9fdf1b07bcccfd9f3e86746dc8353f3e6470ceef22ed009bbefe0a",
+    "bytes": 385506
+  },
+  "loopBoundary": {
+    "master": {
+      "taperFrames": 1024,
+      "firstFrameAbsMax": 0.0,
+      "lastFrameAbsMax": 0.0,
+      "decodedSeamDeltaDbfs": -240.0,
+      "first1024PeakDbfs": -2.6133,
+      "last1024PeakDbfs": -240.0
+    },
+    "runtime": {
+      "taperFrames": 1024,
+      "firstFrameAbsMax": 4.189e-06,
+      "lastFrameAbsMax": 0.0,
+      "decodedSeamDeltaDbfs": -107.5578,
+      "first1024PeakDbfs": -2.5738,
+      "last1024PeakDbfs": -240.0
+    }
+  },
+  "determinism": {
+    "secondFreshRenderPerformed": true,
+    "float32RenderSha256First": "a34bae8a84a8d948c77bd39e07a0ed9f834fceb66412d5e1663d2bbe36e3482a",
+    "float32RenderSha256Second": "a34bae8a84a8d948c77bd39e07a0ed9f834fceb66412d5e1663d2bbe36e3482a",
+    "float32Match": true,
+    "masterSha256First": "369c4f16f4e89f18e8706f43f080a04bc204b137496f4eec70c56585c8392c5c",
+    "masterSha256Second": "369c4f16f4e89f18e8706f43f080a04bc204b137496f4eec70c56585c8392c5c",
+    "masterMatch": true,
+    "runtimeSha256First": "91ee65230f9fdf1b07bcccfd9f3e86746dc8353f3e6470ceef22ed009bbefe0a",
+    "runtimeSha256Second": "91ee65230f9fdf1b07bcccfd9f3e86746dc8353f3e6470ceef22ed009bbefe0a",
+    "runtimeMatch": true
+  },
+  "gates": {
+    "targetLufs": -16.0,
+    "toleranceLufs": 0.35,
+    "truePeakCeilingDbtp": -1.0,
+    "dcAbsMaximum": 0.0001,
+    "requiredFrames": 4404706,
+    "requiredChannels": 2,
+    "requiredSampleRate": 48000,
+    "requiredMasterEncoding": "WAV PCM_24",
+    "requiredRuntimeEncoding": "Ogg Vorbis",
+    "requiredTaperFrames": 1024,
+    "failures": [],
+    "passed": true
+  },
+  "environment": {
+    "python": "3.13.3",
+    "numpy": "2.5.1",
+    "soundfile": "0.14.0",
+    "libsndfile": "1.2.2"
+  }
+}

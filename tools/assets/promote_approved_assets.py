@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Promote immutable reviewed candidates after an explicit human decision.
+"""Promote immutable reviewed candidates after explicit human decisions.
 
 The technical manifests remain untouched so generation and review stay
 reproducible. This script creates the reserved approved audio manifest and one
@@ -19,8 +19,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 APPROVAL_PATH = ROOT / "assets/manifests/asset-approval-v1.json"
 ART_APPROVED_PATH = ROOT / "assets/manifests/art-approved-manifest-v1.json"
-AUDIO_CANDIDATE_PATH = ROOT / "assets/audio/audio-candidate-manifest-v1.json"
-AUDIO_APPROVED_PATH = ROOT / "assets/audio/audio-manifest-v1.json"
+MUSIC_APPROVAL_PATH = ROOT / "assets/manifests/music-selection-approval-v1.json"
+AUDIO_CANDIDATE_PATH = ROOT / "assets/audio/audio-candidate-manifest-v2.json"
+AUDIO_APPROVED_PATH = ROOT / "assets/audio/audio-manifest-v2.json"
 PRODUCTION_PATH = ROOT / "assets/manifests/production-assets-v1.json"
 
 
@@ -54,6 +55,7 @@ def write_json(path: Path, value: dict) -> None:
 
 def main() -> None:
     approval = read_json(APPROVAL_PATH)
+    music_approval = read_json(MUSIC_APPROVAL_PATH)
     art_path = ROOT / "assets/manifests/art-manifest-v1.json"
     brand_path = ROOT / "assets/manifests/brand-manifest-v1.json"
     fonts_path = ROOT / "assets/manifests/font-manifest-v1.json"
@@ -72,9 +74,19 @@ def main() -> None:
         required_scope.issubset(set(approval.get("scope", []))),
         "approval decision does not cover the complete asset scope",
     )
+    require(
+        music_approval.get("status") == "approved"
+        and music_approval.get("decisionSource") == "human-user",
+        "selected soundtrack requires an explicit human-user decision",
+    )
+    require(
+        music_approval.get("primaryTrack") == "MUS-BOSS-SHIFT"
+        and len(music_approval.get("playlist", [])) == 7,
+        "selected soundtrack approval is incomplete",
+    )
     for name, manifest, revision in (
         ("art", art, 3),
-        ("audio", audio_candidate, 3),
+        ("audio", audio_candidate, 1),
         ("brand", brand, 2),
         ("fonts", fonts, 1),
     ):
@@ -108,16 +120,17 @@ def main() -> None:
     write_json(ART_APPROVED_PATH, art_approved)
 
     audio_approved = deepcopy(audio_candidate)
-    audio_approved["contract"] = "audio-manifest-v1"
+    audio_approved["contract"] = "audio-manifest-v2"
     audio_approved["status"] = "approved"
     audio_approved["humanReview"] = "approved-by-user"
-    audio_approved["similarityReview"] = "accepted-by-user"
+    audio_approved["similarityReview"] = "independent-review-pending"
+    audio_approved["rightsReview"] = "commercial-terms-pending"
     audio_approved["promotion"] = {
-        "approvalDecision": APPROVAL_PATH.relative_to(ROOT).as_posix(),
-        "approvalDecisionSha256": sha256(APPROVAL_PATH),
+        "approvalDecision": MUSIC_APPROVAL_PATH.relative_to(ROOT).as_posix(),
+        "approvalDecisionSha256": sha256(MUSIC_APPROVAL_PATH),
         "candidateManifest": AUDIO_CANDIDATE_PATH.relative_to(ROOT).as_posix(),
         "candidateManifestSha256": sha256(AUDIO_CANDIDATE_PATH),
-        "decisionDate": approval["decisionDate"],
+        "decisionDate": music_approval["decisionDate"],
         "integrationStatus": "integrated-in-build",
     }
     for entry in audio_approved.get("assets", []):
@@ -135,6 +148,10 @@ def main() -> None:
         Path(entry["runtimePath"]).suffix.lstrip(".").lower()
         for entry in audio_approved["assets"]
     )
+    audio_groups = Counter(entry["group"] for entry in audio_approved["assets"])
+    music_entries = [
+        entry for entry in audio_approved["assets"] if entry["group"] == "music"
+    ]
     components = {
         "art": {
             "approvalStatus": "approved",
@@ -163,12 +180,16 @@ def main() -> None:
             "runtimeEntries": len(audio_approved["assets"]),
             "runtimeFormats": dict(sorted(runtime_formats.items())),
             "runtimeConsumers": {
-                "musicRequired": 5,
-                "musicFallback": 4,
-                "cycle": 12,
-                "ui": 13,
-                "event": 10,
-                "total": 44,
+                "musicMain": sum(
+                    bool(entry.get("primary")) for entry in music_entries
+                ),
+                "musicPlaylist": sum(
+                    not bool(entry.get("primary")) for entry in music_entries
+                ),
+                "cycle": audio_groups["cycle"],
+                "ui": audio_groups["ui"],
+                "event": audio_groups["event"],
+                "total": len(audio_approved["assets"]),
             },
         },
         "brand": {
@@ -190,7 +211,7 @@ def main() -> None:
     }
     production = {
         "schema": "production-assets-v1",
-        "revision": 1,
+        "revision": 2,
         "status": "integrated",
         "approval": {
             "decision": APPROVAL_PATH.relative_to(ROOT).as_posix(),
@@ -199,6 +220,13 @@ def main() -> None:
             "decisionSource": approval["decisionSource"],
             "statement": approval["statement"],
         },
+        "musicSelection": {
+            "decision": MUSIC_APPROVAL_PATH.relative_to(ROOT).as_posix(),
+            "decisionSha256": sha256(MUSIC_APPROVAL_PATH),
+            "decisionDate": music_approval["decisionDate"],
+            "decisionSource": music_approval["decisionSource"],
+            "primaryTrack": music_approval["primaryTrack"],
+        },
         "components": components,
         "runtimeIntegration": {
             "visualSceneRuntime": "integrated",
@@ -206,7 +234,13 @@ def main() -> None:
             "audioRuntime": "integrated",
             "audioEventPlayback": "integrated",
         },
-        "remainingDeviceValidation": approval["remainingDeviceValidation"],
+        "remainingDeviceValidation": sorted(
+            (
+                set(approval["remainingDeviceValidation"])
+                - {"android-loop-latency-focus-and-resume-test"}
+            )
+            | set(music_approval["remainingReleaseValidation"])
+        ),
     }
     write_json(PRODUCTION_PATH, production)
     print(

@@ -2,18 +2,26 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-/// Stable IDs from the promoted `audio-manifest-v1.json`.
+/// Stable IDs from the promoted `audio-manifest-v2.json`.
 abstract final class AudioIds {
-  static const gameBase = 'MUS-GAME-BASE';
-  static const gameGroove = 'MUS-GAME-GROOVE';
-  static const gameHype = 'MUS-GAME-HYPE';
-  static const menu = 'MUS-MENU';
-  static const shop = 'MUS-SHOP';
-  static const gameMixes = <String>[
-    'MUS-GAME-I0-MIX',
-    'MUS-GAME-I1-MIX',
-    'MUS-GAME-I2-MIX',
-    'MUS-GAME-I3-MIX',
+  static const bossShift = 'MUS-BOSS-SHIFT';
+  static const neonDrift67 = 'MUS-NEON-DRIFT-67';
+  static const auraNoRetrovisor = 'MUS-AURA-NO-RETROVISOR';
+  static const passinhoDeAura = 'MUS-PASSINHO-DE-AURA';
+  static const sixSevenNoFluxo = 'MUS-SIXSEVEN-NO-FLUXO';
+  static const phaseBloom = 'MUS-PHASE-BLOOM';
+  static const ritual67 = 'MUS-RITUAL-6-7';
+
+  /// Boss Shift is intentionally first: it is the main theme on every cold
+  /// start and again when the complete soundtrack cycle wraps.
+  static const soundtrack = <String>[
+    bossShift,
+    neonDrift67,
+    auraNoRetrovisor,
+    passinhoDeAura,
+    sixSevenNoFluxo,
+    phaseBloom,
+    ritual67,
   ];
   static const six = <String>[
     'SFX-SIX-01',
@@ -103,7 +111,7 @@ class AudioAssetRecord {
     if (duration <= Duration.zero) {
       throw FormatException('Audio asset $id has no positive duration.');
     }
-    if (loop != (group == 'music')) {
+    if (loop) {
       throw FormatException('Audio asset $id has an invalid loop flag.');
     }
     return AudioAssetRecord(
@@ -154,15 +162,10 @@ class AudioAssetCatalog {
     return indexed;
   }
 
-  static const manifestPath = 'assets/audio/audio-manifest-v1.json';
+  static const manifestPath = 'assets/audio/audio-manifest-v2.json';
 
   static final Set<String> requiredIds = <String>{
-    AudioIds.gameBase,
-    AudioIds.gameGroove,
-    AudioIds.gameHype,
-    AudioIds.menu,
-    AudioIds.shop,
-    ...AudioIds.gameMixes,
+    ...AudioIds.soundtrack,
     ...AudioIds.six,
     ...AudioIds.seven,
     AudioIds.uiTab,
@@ -196,10 +199,10 @@ class AudioAssetCatalog {
   }
 
   static AudioAssetCatalog fromJson(Map<String, dynamic> decoded) {
-    if (decoded['contract'] != 'audio-manifest-v1' ||
+    if (decoded['contract'] != 'audio-manifest-v2' ||
         decoded['status'] != 'approved') {
       throw const FormatException(
-        'Runtime audio requires the approved audio-manifest-v1 contract.',
+        'Runtime audio requires the approved audio-manifest-v2 contract.',
       );
     }
     final rawAssets = decoded['assets'];
@@ -207,8 +210,18 @@ class AudioAssetCatalog {
       throw const FormatException('Audio manifest assets must be a list.');
     }
     final total = ((decoded['counts'] as Map?)?['total'] as num?)?.toInt();
-    if (total != requiredIds.length || rawAssets.length != total) {
-      throw const FormatException('Audio manifest count is not exactly 44.');
+    final required =
+        ((decoded['counts'] as Map?)?['required'] as num?)?.toInt();
+    final conditional =
+        ((decoded['counts'] as Map?)?['conditional'] as num?)?.toInt();
+    if (total != requiredIds.length ||
+        required != requiredIds.length ||
+        conditional != 0 ||
+        rawAssets.length != total) {
+      throw FormatException(
+        'Audio manifest must contain exactly ${requiredIds.length} required '
+        'runtime assets and no conditional assets.',
+      );
     }
     return AudioAssetCatalog(rawAssets.map((item) =>
         AudioAssetRecord.fromJson((item as Map).cast<String, dynamic>())));

@@ -164,7 +164,7 @@ O Selo não usa cor de raridade nem brilho de moeda. A miniatura funciona em `48
 
 ## Aparências de Item e slots
 
-As 18 Aparências usam 12 dos 16 slots compatíveis do catálogo. Um item declara um único slot primário; conflitos dentro do mesmo slot são resolvidos pela escolha do jogador, nunca pelo Efeito de Item. `AURA_BACK` é reservado às Convergências e pode coexistir com um item em cada outro slot. Slots vestíveis acompanham bob, lean e rotação; props de chão e molduras permanecem world-space.
+As 18 Aparências usam 12 dos 16 slots compatíveis do catálogo. Um item declara um único slot primário, mas todos os itens possuídos podem ser exibidos ao mesmo tempo. Conflitos de território são resolvidos pelo compositor com subposições e escalas estáveis, nunca pelo Efeito de Item nem pela remoção automática de outra Aparência. `AURA_BACK` é reservado às Convergências, que formam uma composição tripla quando coexistem. Slots vestíveis acompanham bob, lean e rotação; props de chão e molduras permanecem world-space.
 
 | Slot | Camada | Envelope máximo no rig | Regra |
 | --- | --- | --- | --- |

@@ -59,9 +59,18 @@ Rive não será avaliado nem integrado durante o MVP. O pseudo-rig precisa cumpr
 
 ## Áudio
 
-O candidato inicial é `flame_audio`, com efeitos pré-carregados e três camadas musicais de mesma duração. A validação deve procurar latência, drift e falhas de retomada. Se as camadas não permanecerem aceitavelmente alinhadas, o plano alternativo usa mixes pré-renderizados e crossfade, sem alterar a direção musical.
+O runtime usa `flame_audio`, com efeitos de ciclo pré-carregados e uma playlist
+de sete mixes completos `non-loop`. `Boss Shift` é o tema principal e abre toda
+sessão; as demais faixas avançam em ordem fixa. Uma voz musical permanece ativa
+normalmente e duas coexistem somente no crossfade equal-power de `1 s`. A
+posição do player antecipa a troca e a conclusão funciona como fallback
+idempotente; navegar entre abas não reinicia a trilha.
 
-O pacote de integração segue `audio-v1` e `audio-inventory-v1`: masters arquiváveis em WAV `48 kHz/24-bit`, música runtime em Ogg e SFX curto em Ogg ou WAV conforme o teste de latência. Somente IDs com master, hash, licença, proveniência e revisão de similaridade aprovados entram no build candidato; arquivos silenciosos de desenvolvimento nunca são promovidos como assets.
+O pacote de integração segue `audio-manifest-v2`: fontes musicais preservadas em
+WAV `44,1 kHz/24-bit`, masters em WAV `48 kHz/24-bit`, música runtime em Ogg e
+35 SFX curtos em WAV. Somente IDs com fonte, master, hashes, proveniência e
+decisão humana entram no build. Termos comerciais, similaridade/fadiga e
+playback Android continuam gates de publicação explícitos.
 
 ## Android
 

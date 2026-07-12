@@ -59,6 +59,8 @@
   "collection_effect_persists": "Les effets des objets restent actifs quelle que soit l’apparence.",
   "collection_equip": "Utiliser l’apparence",
   "collection_equipped": "Utilisée",
+  "collection_hidden": "Apparence masquée",
+  "collection_hide": "Masquer l’apparence",
   "collection_locked": "Verrouillé",
   "collection_seal_unlocked": "Jalon 67 atteint : {amount} d’Aura totale",
   "collection_seals": "Sceaux 67",

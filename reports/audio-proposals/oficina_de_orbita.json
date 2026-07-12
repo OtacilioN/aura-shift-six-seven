@@ -1,0 +1,541 @@
+{
+  "schemaVersion": 1,
+  "id": "MUS-PROPOSAL-OFICINA-DE-ORBITA",
+  "title": "Oficina de Órbita",
+  "status": "demo-produced-refined-and-validated",
+  "generatedAt": "2026-07-12T14:42:02.350900+00:00",
+  "briefing": "60% phonk and 40% brega funk, 136 BPM, 4/4, G center, 52 bars as four 13-bar 6+7 macrophrases; dry kick/sub, friendly scraped FM bass, drift microcuts, synthetic Trinca Orbital and alternating halftime/doubletime perception.",
+  "constraints": {
+    "voice": false,
+    "cowbell": false,
+    "bodyPercussion": false,
+    "springOrBoingTom": false,
+    "externalAudioOrSamples": false,
+    "artistImitation": false,
+    "recognizableTimbreOrMelody": false,
+    "mood": [
+      "brincalhao",
+      "seco",
+      "espacial",
+      "amigavel"
+    ]
+  },
+  "structure": {
+    "bpm": 136.0,
+    "meter": "4/4",
+    "bars": 52,
+    "frames": 4404706,
+    "macrophrases": [
+      "montagem em halftime",
+      "calibracao em doubletime",
+      "teste alternado de gravidade",
+      "encaixe orbital combinado"
+    ],
+    "shapePerMacrophrase": "6 impulse + 7 response",
+    "tonalCenter": "G1 / 49 Hz",
+    "perceivedTempoPlan": [
+      "halftime",
+      "doubletime",
+      "alternating halftime/doubletime",
+      "combined with response landing"
+    ],
+    "trincaOrbital": {
+      "attacksPerCell": 3,
+      "source": "synthetic fixed-pitch sine/noise snare-tom attacks",
+      "responseSource": "G-centered FM synthesizer",
+      "finalResponseDurationsMs": [
+        64,
+        76,
+        88
+      ]
+    }
+  },
+  "provenance": {
+    "method": "deterministic synthesis from oscillators and seeded noise",
+    "seed": "six-seven-oficina-de-orbita-phonk-brega-v2-2026-07-12",
+    "externalAudioSources": [],
+    "source": "sources/audio/proposals/oficina_de_orbita.py",
+    "sourceSha256": "b87a021167462e20c4386b3b72b6dbadfd90edb54274481c289e219b412fca39",
+    "environment": {
+      "python": "3.13.3",
+      "numpy": "2.5.1",
+      "soundfile": "0.14.0"
+    }
+  },
+  "paths": {
+    "source": "sources/audio/proposals/oficina_de_orbita.py",
+    "master": "masters/audio/proposals/oficina_de_orbita.wav",
+    "runtime": "assets/audio/proposals/oficina_de_orbita.ogg",
+    "report": "reports/audio-proposals/oficina_de_orbita.json"
+  },
+  "refinementHistory": [
+    {
+      "pass": "v1",
+      "status": "rendered-exported-decoded-and-analyzed",
+      "findings": [
+        "310 ms subs and 285 ms FM basses overfilled syncopated gaps",
+        "uniform eighth-note hats blurred the intended halftime/doubletime contrast",
+        "105-128 ms synth answers obscured separation inside the Trinca Orbital",
+        "wide synthetic hits and a longer drift layer weakened the dry centered architecture"
+      ],
+      "masterMetrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.6572,
+        "rmsDbfs": -17.1312,
+        "dcOffset": [
+          -1.25e-07,
+          -1.161e-07
+        ],
+        "integratedLufs": -16.05,
+        "truePeakDbtp": -1.6516,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "03e412a77c7693b4a28e8a142f00511c7c5e6475f60442e0cf94afd556252ab0",
+        "bytes": 26428280
+      },
+      "runtimeMetrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.331,
+        "rmsDbfs": -17.1057,
+        "dcOffset": [
+          -1.33242e-05,
+          -2.18002e-05
+        ],
+        "integratedLufs": -16.02,
+        "truePeakDbtp": -1.3255,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "7b27c0a199d94082625fee7057b216b9dcdf0c60d2ace5c18ee070af350309c8",
+        "bytes": 643811
+      },
+      "runtimeCodecDcCompensation": {
+        "method": "iterative tapered pre-compensation of codec-added DC; archive master unchanged",
+        "rounds": [
+          {
+            "round": 0,
+            "decodedDcBeforeCorrection": [
+              -0.0001524469,
+              -0.0001566672
+            ]
+          },
+          {
+            "round": 1,
+            "decodedDcBeforeCorrection": [
+              -1.33335e-05,
+              -2.18085e-05
+            ]
+          }
+        ],
+        "finalDecodedDc": [
+          -1.33335e-05,
+          -2.18085e-05
+        ],
+        "roundCount": 2
+      },
+      "analysis": {
+        "pass": "v1",
+        "config": {
+          "kickDuration": 0.19,
+          "subDuration": 0.31,
+          "fmBassDuration": 0.285,
+          "trincaResponseMs": [
+            105,
+            118,
+            128
+          ],
+          "trincaWidth": 0.28,
+          "driftGain": 0.43,
+          "driftDuration": 0.43,
+          "masterDrive": 1.1
+        },
+        "eventCounts": {
+          "kick": 154,
+          "sub": 104,
+          "fmBass": 136,
+          "snare": 76,
+          "hat": 396,
+          "trincaHit": 69,
+          "trincaResponse": 69,
+          "driftCut": 7
+        },
+        "eventCountsByMacrophrase": {
+          "montagem em halftime": {
+            "kick": 26,
+            "sub": 26,
+            "fmBass": 26,
+            "snare": 13,
+            "hat": 99,
+            "trincaHit": 12,
+            "trincaResponse": 12,
+            "driftCut": 1
+          },
+          "calibracao em doubletime": {
+            "kick": 45,
+            "sub": 26,
+            "fmBass": 39,
+            "snare": 25,
+            "hat": 99,
+            "trincaHit": 18,
+            "trincaResponse": 18,
+            "driftCut": 2
+          },
+          "teste alternado de gravidade": {
+            "kick": 38,
+            "sub": 26,
+            "fmBass": 32,
+            "snare": 19,
+            "hat": 99,
+            "trincaHit": 18,
+            "trincaResponse": 18,
+            "driftCut": 2
+          },
+          "encaixe orbital combinado": {
+            "kick": 45,
+            "sub": 26,
+            "fmBass": 39,
+            "snare": 19,
+            "hat": 99,
+            "trincaHit": 21,
+            "trincaResponse": 21,
+            "driftCut": 2
+          }
+        },
+        "activeFrameRatioAboveMinus45Dbfs": 0.584391,
+        "quietFrameRatioBelowMinus60Dbfs": 0.339917,
+        "metricsFloat": {
+          "frames": 4404706,
+          "channels": 2,
+          "durationSeconds": 91.764708333,
+          "samplePeakDbfs": -1.6572,
+          "rmsDbfs": -17.1312,
+          "dcOffset": [
+            -6e-10,
+            -0.0
+          ],
+          "integratedLufs": -16.05,
+          "truePeakDbtp": -1.6516
+        },
+        "mono": {
+          "leftRightCorrelation": 0.998588,
+          "sideToMidDb": -31.5091,
+          "monoSamplePeakDbfs": -1.6583,
+          "monoRmsDbfs": -17.1343,
+          "interpretation": "centered kick/sub and narrow synthetic percussion remain mono-compatible"
+        },
+        "bands": {
+          "relativePowerDb": {
+            "sub_25_90_hz": -2.2874,
+            "bass_90_250_hz": -4.0464,
+            "mid_250_2000_hz": -18.3035,
+            "presence_2000_8000_hz": -31.6149,
+            "air_8000_20000_hz": -39.8075
+          },
+          "spectralCentroidHz": 92.416,
+          "fftBlocks": 24,
+          "fftSize": 65536
+        },
+        "antiFatigue": {
+          "median10msRmsDbfs": -32.8709,
+          "quiet10msBlockRatioBelowMinus55Dbfs": 0.315245,
+          "active10msBlockRatioAboveMinus42Dbfs": 0.625259,
+          "brightEventsPerBar": 9.0769,
+          "allEventsPerBar": 19.4423,
+          "interpretation": "short envelopes, recurring exhale bars, controlled top end, and macro-level density changes reduce repetition fatigue"
+        }
+      }
+    },
+    {
+      "pass": "v2-final",
+      "status": "rendered-exported-decoded-and-validated",
+      "changes": [
+        "shortened kick 190 to 148 ms, sub 310 to 225 ms, and scraped FM bass 285 to 178 ms",
+        "recomposed hats per macrophrase so halftime, doubletime, alternating, and combined sections read without changing 136 BPM",
+        "shortened all Trinca Orbital synth answers to distinct compliant 64, 76, and 88 ms durations",
+        "narrowed Trinca panning from 0.28 to 0.14 and kept all kick, sub, and FM bass strictly centered",
+        "reduced drift duration/gain and changed one long interruption into three deliberate click-safe microcuts",
+        "removed secondary subs, thinned transition bars, and reserved the second half of every bar 13 as a landing silence",
+        "softened the top end to 16.2 kHz and used crest control for headroom without loudness escalation"
+      ],
+      "masterMetrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.1106,
+        "rmsDbfs": -17.3676,
+        "dcOffset": [
+          -1.95e-08,
+          -1.738e-07
+        ],
+        "integratedLufs": -16.05,
+        "truePeakDbtp": -2.105,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "755e36ba288e13ed72f2d1e834ea3a53fe4fb4e7926f7ee944a15a1101c13323",
+        "bytes": 26428280
+      },
+      "runtimeMetrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.7668,
+        "rmsDbfs": -17.3425,
+        "dcOffset": [
+          1.02751e-05,
+          -7.5029e-06
+        ],
+        "integratedLufs": -16.027,
+        "truePeakDbtp": -1.7612,
+        "sampleRate": 48000,
+        "format": "OGG",
+        "subtype": "VORBIS",
+        "sha256": "1e6056a0ded582c2c7d1c1202bddc805da461866da153aa1baf9c4331b0d0ccc",
+        "bytes": 548177
+      },
+      "runtimeCodecDcCompensation": {
+        "method": "iterative tapered pre-compensation of codec-added DC; archive master unchanged",
+        "rounds": [
+          {
+            "round": 0,
+            "decodedDcBeforeCorrection": [
+              -0.0001609031,
+              -0.0001568087
+            ]
+          },
+          {
+            "round": 1,
+            "decodedDcBeforeCorrection": [
+              1.0283e-05,
+              -7.5005e-06
+            ]
+          }
+        ],
+        "finalDecodedDc": [
+          1.0283e-05,
+          -7.5005e-06
+        ],
+        "roundCount": 2
+      },
+      "analysis": {
+        "pass": "v2-final",
+        "config": {
+          "kickDuration": 0.148,
+          "subDuration": 0.225,
+          "fmBassDuration": 0.178,
+          "trincaResponseMs": [
+            64,
+            76,
+            88
+          ],
+          "trincaWidth": 0.14,
+          "driftGain": 0.28,
+          "driftDuration": 0.285,
+          "masterDrive": 1.22
+        },
+        "eventCounts": {
+          "kick": 146,
+          "sub": 52,
+          "fmBass": 74,
+          "snare": 72,
+          "hat": 262,
+          "trincaHit": 69,
+          "trincaResponse": 69,
+          "driftCut": 6
+        },
+        "eventCountsByMacrophrase": {
+          "montagem em halftime": {
+            "kick": 26,
+            "sub": 13,
+            "fmBass": 13,
+            "snare": 12,
+            "hat": 38,
+            "trincaHit": 12,
+            "trincaResponse": 12,
+            "driftCut": 1
+          },
+          "calibracao em doubletime": {
+            "kick": 42,
+            "sub": 13,
+            "fmBass": 24,
+            "snare": 24,
+            "hat": 94,
+            "trincaHit": 18,
+            "trincaResponse": 18,
+            "driftCut": 2
+          },
+          "teste alternado de gravidade": {
+            "kick": 36,
+            "sub": 13,
+            "fmBass": 13,
+            "snare": 18,
+            "hat": 68,
+            "trincaHit": 18,
+            "trincaResponse": 18,
+            "driftCut": 1
+          },
+          "encaixe orbital combinado": {
+            "kick": 42,
+            "sub": 13,
+            "fmBass": 24,
+            "snare": 18,
+            "hat": 62,
+            "trincaHit": 21,
+            "trincaResponse": 21,
+            "driftCut": 2
+          }
+        },
+        "activeFrameRatioAboveMinus45Dbfs": 0.410707,
+        "quietFrameRatioBelowMinus60Dbfs": 0.538972,
+        "metricsFloat": {
+          "frames": 4404706,
+          "channels": 2,
+          "durationSeconds": 91.764708333,
+          "samplePeakDbfs": -2.1106,
+          "rmsDbfs": -17.3676,
+          "dcOffset": [
+            5e-10,
+            -0.0
+          ],
+          "integratedLufs": -16.05,
+          "truePeakDbtp": -2.105
+        },
+        "mono": {
+          "leftRightCorrelation": 0.999691,
+          "sideToMidDb": -38.1055,
+          "monoSamplePeakDbfs": -2.1106,
+          "monoRmsDbfs": -17.3683,
+          "interpretation": "centered kick/sub and narrow synthetic percussion remain mono-compatible"
+        },
+        "bands": {
+          "relativePowerDb": {
+            "sub_25_90_hz": -1.9525,
+            "bass_90_250_hz": -4.5598,
+            "mid_250_2000_hz": -19.3765,
+            "presence_2000_8000_hz": -33.0225,
+            "air_8000_20000_hz": -40.0077
+          },
+          "spectralCentroidHz": 88.814,
+          "fftBlocks": 24,
+          "fftSize": 65536
+        },
+        "antiFatigue": {
+          "median10msRmsDbfs": -62.5467,
+          "quiet10msBlockRatioBelowMinus55Dbfs": 0.515964,
+          "active10msBlockRatioAboveMinus42Dbfs": 0.433366,
+          "brightEventsPerBar": 6.4808,
+          "allEventsPerBar": 14.4231,
+          "interpretation": "short envelopes, recurring exhale bars, controlled top end, and macro-level density changes reduce repetition fatigue"
+        }
+      }
+    }
+  ],
+  "metrics": {
+    "master": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -2.1106,
+      "rmsDbfs": -17.3676,
+      "dcOffset": [
+        -1.95e-08,
+        -1.738e-07
+      ],
+      "integratedLufs": -16.05,
+      "truePeakDbtp": -2.105,
+      "sampleRate": 48000,
+      "format": "WAV",
+      "subtype": "PCM_24",
+      "sha256": "755e36ba288e13ed72f2d1e834ea3a53fe4fb4e7926f7ee944a15a1101c13323",
+      "bytes": 26428280
+    },
+    "runtimeDecoded": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -1.7668,
+      "rmsDbfs": -17.3425,
+      "dcOffset": [
+        1.02751e-05,
+        -7.5029e-06
+      ],
+      "integratedLufs": -16.027,
+      "truePeakDbtp": -1.7612,
+      "sampleRate": 48000,
+      "format": "OGG",
+      "subtype": "VORBIS",
+      "sha256": "1e6056a0ded582c2c7d1c1202bddc805da461866da153aa1baf9c4331b0d0ccc",
+      "bytes": 548177
+    },
+    "monoCompatibility": {
+      "leftRightCorrelation": 0.999691,
+      "sideToMidDb": -38.1055,
+      "monoSamplePeakDbfs": -2.1106,
+      "monoRmsDbfs": -17.3683,
+      "interpretation": "centered kick/sub and narrow synthetic percussion remain mono-compatible"
+    },
+    "spectral": {
+      "relativePowerDb": {
+        "sub_25_90_hz": -1.9525,
+        "bass_90_250_hz": -4.5598,
+        "mid_250_2000_hz": -19.3765,
+        "presence_2000_8000_hz": -33.0225,
+        "air_8000_20000_hz": -40.0077
+      },
+      "spectralCentroidHz": 88.814,
+      "fftBlocks": 24,
+      "fftSize": 65536
+    },
+    "densityAndAntiFatigue": {
+      "median10msRmsDbfs": -62.5467,
+      "quiet10msBlockRatioBelowMinus55Dbfs": 0.515964,
+      "active10msBlockRatioAboveMinus42Dbfs": 0.433366,
+      "brightEventsPerBar": 6.4808,
+      "allEventsPerBar": 14.4231,
+      "interpretation": "short envelopes, recurring exhale bars, controlled top end, and macro-level density changes reduce repetition fatigue"
+    },
+    "loopBoundary": {
+      "taperFrames": 1024,
+      "firstFrameAbsMax": 0.0,
+      "lastFrameAbsMax": 0.0,
+      "seamDiscontinuityAbsMax": 0.0,
+      "first1024Peak": 0.78269255,
+      "last1024Peak": 0.00022268
+    }
+  },
+  "determinism": {
+    "independentFinalRenders": 2,
+    "float32RenderSha256First": "e76458f4048441106f2629485dd320b7ac2d175b1b94ef38819ca06577a96599",
+    "float32RenderSha256Second": "e76458f4048441106f2629485dd320b7ac2d175b1b94ef38819ca06577a96599",
+    "float32Match": true,
+    "masterSha256First": "755e36ba288e13ed72f2d1e834ea3a53fe4fb4e7926f7ee944a15a1101c13323",
+    "masterSha256Second": "755e36ba288e13ed72f2d1e834ea3a53fe4fb4e7926f7ee944a15a1101c13323",
+    "masterMatch": true,
+    "runtimeSha256First": "1e6056a0ded582c2c7d1c1202bddc805da461866da153aa1baf9c4331b0d0ccc",
+    "runtimeSha256Second": "1e6056a0ded582c2c7d1c1202bddc805da461866da153aa1baf9c4331b0d0ccc",
+    "runtimeMatch": true,
+    "codecCompensationEvidenceMatch": true
+  },
+  "gates": {
+    "requiredFrames": 4404706,
+    "requiredChannels": 2,
+    "requiredSampleRate": 48000,
+    "masterEncoding": "WAV PCM_24",
+    "runtimeEncoding": "Ogg Vorbis",
+    "targetLufs": -16.0,
+    "toleranceLufs": 0.35,
+    "truePeakCeilingDbtp": -1.0,
+    "dcAbsoluteMaximum": 0.0001,
+    "taperFrames": 1024,
+    "runtimeDecoded": true,
+    "secondRenderByteIdentical": true,
+    "failures": [],
+    "passed": true
+  },
+  "allGatesPassed": true
+}

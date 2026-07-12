@@ -1,7 +1,9 @@
 import 'dart:math' as math;
+import 'dart:ui';
 
 import 'package:aura_shift_six_seven/game/aura_scene.dart';
 import 'package:aura_shift_six_seven/game/item_visual_effects.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 typedef _SpringState = ({double value, double velocity});
@@ -31,7 +33,178 @@ _SpringState _runSpring({
   return state;
 }
 
+Future<Set<int>> _opaqueStagePixels({
+  required Iterable<String> assetPaths,
+  required AuraItemSceneLayout layout,
+}) async {
+  const stageExtent = 1024;
+  const visibleAlphaThreshold = 24;
+  final result = <int>{};
+
+  for (final assetPath in assetPaths) {
+    final encoded = await rootBundle.load(assetPath);
+    final codec = await instantiateImageCodec(
+      encoded.buffer.asUint8List(encoded.offsetInBytes, encoded.lengthInBytes),
+    );
+    final frame = await codec.getNextFrame();
+    final image = frame.image;
+    final rgba = await image.toByteData(format: ImageByteFormat.rawRgba);
+    if (rgba == null) {
+      image.dispose();
+      codec.dispose();
+      fail('Could not decode alpha channel for $assetPath');
+    }
+    final bytes = rgba.buffer.asUint8List(
+      rgba.offsetInBytes,
+      rgba.lengthInBytes,
+    );
+
+    for (var y = 0; y < image.height; y++) {
+      for (var x = 0; x < image.width; x++) {
+        if (bytes[(y * image.width + x) * 4 + 3] <= visibleAlphaThreshold) {
+          continue;
+        }
+        final stagePoint = layout.transformStagePoint(
+          Offset(
+            (x + .5) * stageExtent / image.width,
+            (y + .5) * stageExtent / image.height,
+          ),
+        );
+        final stageX = stagePoint.dx.floor();
+        final stageY = stagePoint.dy.floor();
+        if (stageX >= 0 &&
+            stageX < stageExtent &&
+            stageY >= 0 &&
+            stageY < stageExtent) {
+          result.add(stageY * stageExtent + stageX);
+        }
+      }
+    }
+
+    image.dispose();
+    codec.dispose();
+  }
+
+  return result;
+}
+
+Iterable<String> _animatedAppearancePaths(String snakeCaseId) sync* {
+  for (final variant in const ['base', 'accent', 'glow']) {
+    yield 'assets/art/skins/skin_${snakeCaseId}_$variant.webp';
+  }
+}
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('AuraAppearanceComposition', () {
+    test('orders every appearance deterministically regardless of save order',
+        () {
+      final expected = <String>{
+        for (final branch in const ['A', 'B', 'C'])
+          for (var depth = 1; depth <= 5; depth++) 'ITEM-$branch-0$depth',
+        for (var depth = 1; depth <= 3; depth++) 'ITEM-CONV-0$depth',
+      };
+
+      expect(AuraAppearanceComposition.paintOrder.toSet(), expected);
+      expect(
+        AuraAppearanceComposition.ordered(expected.toList().reversed),
+        AuraAppearanceComposition.paintOrder,
+      );
+    });
+
+    test('moves dense same-territory items into collision-safe regions', () {
+      final active = AuraAppearanceComposition.paintOrder.toSet();
+      final sourceBounds = <String, Rect>{
+        'ITEM-A-01': const Rect.fromLTRB(334, 482, 464, 612),
+        'ITEM-C-01': const Rect.fromLTRB(312, 446, 456, 628),
+        'ITEM-A-02': const Rect.fromLTRB(560, 536, 788, 770),
+        'ITEM-C-02': const Rect.fromLTRB(606, 616, 846, 764),
+        'ITEM-B-01': const Rect.fromLTRB(596, 608, 982, 958),
+        'ITEM-C-04': const Rect.fromLTRB(594, 516, 984, 938),
+        'ITEM-B-05': const Rect.fromLTRB(686, 126, 1000, 768),
+        'ITEM-CONV-01': const Rect.fromLTRB(72, 182, 950, 958),
+        'ITEM-CONV-02': const Rect.fromLTRB(64, 252, 958, 888),
+        'ITEM-CONV-03': const Rect.fromLTRB(638, 82, 1002, 940),
+      };
+      final placed = <String, Rect>{
+        for (final entry in sourceBounds.entries)
+          entry.key: AuraAppearanceComposition.layoutFor(entry.key, active)
+              .transformStageRect(entry.value),
+      };
+
+      for (final pair in const [
+        ('ITEM-A-01', 'ITEM-C-01'),
+        ('ITEM-A-02', 'ITEM-C-02'),
+        ('ITEM-B-01', 'ITEM-C-04'),
+        ('ITEM-CONV-01', 'ITEM-CONV-02'),
+        ('ITEM-CONV-01', 'ITEM-CONV-03'),
+        ('ITEM-CONV-02', 'ITEM-CONV-03'),
+        ('ITEM-CONV-03', 'ITEM-C-04'),
+      ]) {
+        expect(
+          placed[pair.$1]!.overlaps(placed[pair.$2]!),
+          isFalse,
+          reason: '${pair.$1} overlaps ${pair.$2}',
+        );
+      }
+
+      const stage = Rect.fromLTWH(0, 0, 1024, 1024);
+      const mascotCore = Rect.fromLTRB(300, 200, 724, 960);
+      // Alpha-scanned clear pocket inside ITEM-C-05's hollow scene frame.
+      const frameLeftClearRegion = Rect.fromLTRB(150, 310, 290, 570);
+      final statement = placed['ITEM-B-05']!;
+      expect(stage.contains(statement.topLeft), isTrue);
+      expect(stage.contains(statement.bottomRight), isTrue);
+      expect(statement.overlaps(mascotCore), isFalse);
+      expect(frameLeftClearRegion.contains(statement.topLeft), isTrue);
+      expect(frameLeftClearRegion.contains(statement.bottomRight), isTrue);
+
+      for (final id in const [
+        'ITEM-CONV-01',
+        'ITEM-CONV-02',
+        'ITEM-CONV-03',
+      ]) {
+        expect(stage.contains(placed[id]!.topLeft), isTrue);
+        expect(stage.contains(placed[id]!.bottomRight), isTrue);
+      }
+    });
+
+    test('keeps the statement prop inside transparent scene pockets', () async {
+      final active = AuraAppearanceComposition.paintOrder.toSet();
+      final statement = await _opaqueStagePixels(
+        assetPaths: _animatedAppearancePaths('item_b_05'),
+        layout: AuraAppearanceComposition.layoutFor('ITEM-B-05', active),
+      );
+
+      for (final item in const [
+        ('ITEM-C-05', 'item_c_05'),
+        ('ITEM-CONV-01', 'item_conv_01'),
+        ('ITEM-CONV-02', 'item_conv_02'),
+        ('ITEM-CONV-03', 'item_conv_03'),
+      ]) {
+        final sceneProp = await _opaqueStagePixels(
+          assetPaths: _animatedAppearancePaths(item.$2),
+          layout: AuraAppearanceComposition.layoutFor(item.$1, active),
+        );
+        expect(
+          statement.intersection(sceneProp),
+          isEmpty,
+          reason: 'ITEM-B-05 has visible pixels over ${item.$1}',
+        );
+      }
+    });
+
+    test('keeps authored placement when no conflicting item is active', () {
+      for (final id in AuraAppearanceComposition.paintOrder) {
+        expect(
+          AuraAppearanceComposition.layoutFor(id, {id}),
+          same(AuraItemSceneLayout.identity),
+        );
+      }
+    });
+  });
+
   group('AuraItemVisualEffects', () {
     test('defines one distinct effect profile for every appearance', () {
       final expected = <String>{

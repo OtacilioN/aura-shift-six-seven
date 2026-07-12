@@ -27,9 +27,9 @@ O jogador é representado por um único Mascote original, com silhueta simples e
 
 O Mascote evolui visualmente conforme a Aura Total aumenta. Itens e futuras variações podem personalizar sua aparência sem exigir diferentes personagens-base nem alterar a leitura do Ciclo Six-Seven.
 
-Efeito econômico e aparência são independentes. Todo Item de Aura adquirido mantém seu Efeito de Item sobre a Produção Passiva, mesmo quando não está visível. A aquisição também desbloqueia uma Aparência de Item, que pode ser exibida, trocada ou escondida sem qualquer perda de produção. Marcos de evolução podem liberar variações visuais adicionais.
+Efeito econômico e aparência são independentes. Todo Item de Aura adquirido mantém seu Efeito de Item sobre a Produção Passiva, mesmo quando não está visível. A aquisição também desbloqueia uma Aparência de Item, que pode ser exibida ou escondida de forma independente; todas as Aparências possuídas podem permanecer ativas simultaneamente, sem qualquer perda de produção. Marcos de evolução podem liberar variações visuais adicionais.
 
-A Coleção Visual é permanente. Após uma Ascensão, Aparências e variações continuam disponíveis e o visual equipado pode permanecer, embora aquisição, nível e Efeito de Item tenham sido reiniciados. A interface diferencia claramente aparência preservada de efeito econômico inativo; readquirir o item reativa seu efeito sem duplicar o visual.
+A Coleção Visual é permanente. Após uma Ascensão, Aparências e variações continuam disponíveis e o conjunto de visuais ativos permanece, embora aquisição, nível e Efeito de Item tenham sido reiniciados. A interface diferencia claramente aparência preservada de efeito econômico inativo; readquirir o item reativa seu efeito sem duplicar o visual.
 
 ### Direção visual inicial
 

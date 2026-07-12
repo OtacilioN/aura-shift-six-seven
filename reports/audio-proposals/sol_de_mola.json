@@ -1,0 +1,378 @@
+{
+  "contract": "six-seven-audio-proposal-production-v1",
+  "status": "produced-refined-validated",
+  "id": "SOL-DE-MOLA",
+  "title": "Sol de Mola",
+  "style": "brega funk abstrato",
+  "generatedAtUtc": "2026-07-12T14:41:17.173258+00:00",
+  "creativeBrief": {
+    "bpm": 136.0,
+    "meter": "4/4",
+    "sampleRate": 48000,
+    "bars": 52,
+    "frames": 4404706,
+    "macroStructure": "4 x 13 bars; each 13 = 6 impulse + 7 response",
+    "tonalCenter": "A1 / 55 Hz",
+    "allowedStabFundamentals": {
+      "A": 220.0,
+      "C": 261.625565,
+      "Eb": 311.126984
+    },
+    "identity": "synthetic body percussion plus a sub/tom pitch dip-and-rebound spring",
+    "negativeSpace": "bar 6 reserves beat 4; bar 13 reserves the final 1.25 beats in every macrophrase",
+    "prohibitions": [
+      "voice",
+      "external samples or foley",
+      "cowbell",
+      "copied beat/passinho",
+      "regional caricature",
+      "protagonist melody"
+    ]
+  },
+  "provenance": {
+    "method": "100% deterministic procedural synthesis from oscillators and seeded noise",
+    "externalAudioRead": false,
+    "generativeModelUsed": false,
+    "masterSeed": "six-seven-sol-de-mola-production-v2",
+    "source": "sources/audio/proposals/sol_de_mola.py",
+    "sourceSha256": "72cad8bef47a24bb30d70733a255ba6370da1882cbb508e36113ccc721ea6dd4",
+    "dependency": "tools/assets/audio_common.py",
+    "dependencySha256": "92a3ac9a08252be90674c080f9f34318a2b9740800650a38652c7779fc6424d1"
+  },
+  "toolchain": {
+    "python": "3.13.3",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "soundfile": "0.14.0",
+    "pyloudnorm": "0.2.0",
+    "runtimeEncoder": "1.2.2"
+  },
+  "iterationHistory": [
+    {
+      "pass": 1,
+      "label": "v1 initial",
+      "artifactRetention": "temporary PCM24 measured and removed after analysis",
+      "observations": [
+        "the same body-percussion cell repeats across all four macrophrases",
+        "continuous bright hats make long-loop fatigue more likely",
+        "stabs and late-bar events leave insufficient room for Six/Seven game cues"
+      ],
+      "analysis": {
+        "floatBufferSha256": "ba5e219a4598a0c7570da6b751e1fd5a6807b507b4edcd6a0563a6424703199a",
+        "metrics": {
+          "frames": 4404706,
+          "channels": 2,
+          "durationSeconds": 91.764708333,
+          "samplePeakDbfs": -2.1359,
+          "rmsDbfs": -17.7933,
+          "dcOffset": [
+            1.8e-09,
+            1.4e-09
+          ],
+          "integratedLufs": -16.0,
+          "truePeakDbtp": -2.1303
+        },
+        "density": {
+          "windowFrames": 1024,
+          "activeWindowShareAboveMinus40Db": 0.574285,
+          "activeWindowShareAboveMinus28Db": 0.381074,
+          "silentWindowShareBelowMinus50Db": 0.285748,
+          "transientEstimatePerMinute": 374.654,
+          "phraseProfiles": [
+            {
+              "phrase": 1,
+              "bars": "1-13",
+              "rmsDbfs": -17.8188,
+              "impulse6BarsRmsDbfs": -17.8438,
+              "response7BarsRmsDbfs": -17.7975
+            },
+            {
+              "phrase": 2,
+              "bars": "14-26",
+              "rmsDbfs": -17.784,
+              "impulse6BarsRmsDbfs": -17.7871,
+              "response7BarsRmsDbfs": -17.7814
+            },
+            {
+              "phrase": 3,
+              "bars": "27-39",
+              "rmsDbfs": -17.7851,
+              "impulse6BarsRmsDbfs": -17.7871,
+              "response7BarsRmsDbfs": -17.7834
+            },
+            {
+              "phrase": 4,
+              "bars": "40-52",
+              "rmsDbfs": -17.7932,
+              "impulse6BarsRmsDbfs": -17.7871,
+              "response7BarsRmsDbfs": -17.7986
+            }
+          ]
+        },
+        "seam": {
+          "taperFrames": 1024,
+          "firstFrameAbsMax": 0.0,
+          "lastFrameAbsMax": 0.0,
+          "boundaryDiscontinuityAbsMax": 0.0,
+          "firstTaperPeakDbfs": -3.5744,
+          "lastTaperPeakDbfs": -89.5455,
+          "assessment": "pass"
+        },
+        "spectral": {
+          "method": "Welch PSD after deterministic 2x polyphase decimation",
+          "spectralCentroidHz": 80.416,
+          "spectralRolloff95Hz": 140.625,
+          "energyPercent": {
+            "sub20To90Hz": 75.9354,
+            "bass90To250Hz": 23.3986,
+            "lowMid250To800Hz": 0.5057,
+            "presence800To4000Hz": 0.1034,
+            "air4000To12000Hz": 0.0499
+          }
+        },
+        "monoCompatibility": {
+          "leftRightCorrelation": 0.999116,
+          "sideToMidDb": -33.5445,
+          "monoIntegratedLufs": -19.0056,
+          "monoTruePeakDbtp": -2.1303,
+          "assessment": "pass"
+        },
+        "ephemeralPcm24Sha256": "3eeb732687eae60a1af657c4659a84d2f8c489c6e07bd717b20e8eac57c68ce1"
+      }
+    },
+    {
+      "pass": 2,
+      "label": "v2 final",
+      "changesApplied": [
+        "groove: four phrase-specific kick/body-percussion families replace the repeated v1 cell",
+        "anti-fatigue/spectrum: hats are sparser, darker, and absent in selected response bars; stabs are shorter and lower-passed",
+        "Six/Seven space: beat 4 of every sixth bar and the final 1.25 beats of every thirteenth bar are protected from new events",
+        "mono mix: short percussion pan width reduced from 0.26 to 0.15 while kick and spring sub remain centered"
+      ],
+      "analysis": {
+        "floatBufferSha256": "445e33bc3d96894974b1b2f8103c160da620c14b47c0430ee3856c6554163166",
+        "metrics": {
+          "frames": 4404706,
+          "channels": 2,
+          "durationSeconds": 91.764708333,
+          "samplePeakDbfs": -2.2658,
+          "rmsDbfs": -16.5831,
+          "dcOffset": [
+            3.5e-08,
+            1.12e-08
+          ],
+          "integratedLufs": -16.0,
+          "truePeakDbtp": -2.2603
+        },
+        "density": {
+          "windowFrames": 1024,
+          "activeWindowShareAboveMinus40Db": 0.587305,
+          "activeWindowShareAboveMinus28Db": 0.467101,
+          "silentWindowShareBelowMinus50Db": 0.358754,
+          "transientEstimatePerMinute": 354.385,
+          "phraseProfiles": [
+            {
+              "phrase": 1,
+              "bars": "1-13",
+              "rmsDbfs": -16.6117,
+              "impulse6BarsRmsDbfs": -16.4997,
+              "response7BarsRmsDbfs": -16.71
+            },
+            {
+              "phrase": 2,
+              "bars": "14-26",
+              "rmsDbfs": -16.3746,
+              "impulse6BarsRmsDbfs": -16.0263,
+              "response7BarsRmsDbfs": -16.6972
+            },
+            {
+              "phrase": 3,
+              "bars": "27-39",
+              "rmsDbfs": -16.5901,
+              "impulse6BarsRmsDbfs": -16.4883,
+              "response7BarsRmsDbfs": -16.6793
+            },
+            {
+              "phrase": 4,
+              "bars": "40-52",
+              "rmsDbfs": -16.7733,
+              "impulse6BarsRmsDbfs": -16.4436,
+              "response7BarsRmsDbfs": -17.0772
+            }
+          ]
+        },
+        "seam": {
+          "taperFrames": 1024,
+          "firstFrameAbsMax": 0.0,
+          "lastFrameAbsMax": 0.0,
+          "boundaryDiscontinuityAbsMax": 0.0,
+          "firstTaperPeakDbfs": -3.1083,
+          "lastTaperPeakDbfs": -75.246,
+          "assessment": "pass"
+        },
+        "spectral": {
+          "method": "Welch PSD after deterministic 2x polyphase decimation",
+          "spectralCentroidHz": 95.598,
+          "spectralRolloff95Hz": 169.922,
+          "energyPercent": {
+            "sub20To90Hz": 72.0248,
+            "bass90To250Hz": 26.0826,
+            "lowMid250To800Hz": 1.3494,
+            "presence800To4000Hz": 0.4044,
+            "air4000To12000Hz": 0.1181
+          }
+        },
+        "monoCompatibility": {
+          "leftRightCorrelation": 0.999083,
+          "sideToMidDb": -33.3824,
+          "monoIntegratedLufs": -18.9892,
+          "monoTruePeakDbtp": -2.2603,
+          "assessment": "pass"
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "master": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -2.2658,
+      "rmsDbfs": -16.5831,
+      "dcOffset": [
+        -1.98e-08,
+        -4.51e-08
+      ],
+      "integratedLufs": -16.0,
+      "truePeakDbtp": -2.2603,
+      "sampleRate": 48000,
+      "format": "WAV",
+      "subtype": "PCM_24",
+      "sha256": "6cbfa92cbc91f3acca0b519acedb9f3e44c3be49ec3009ed09a9f58eaa9309c5",
+      "bytes": 26428280,
+      "gateStatus": "pass",
+      "gateFailures": []
+    },
+    "runtime": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -2.0039,
+      "rmsDbfs": -16.5595,
+      "dcOffset": [
+        -5.34419e-05,
+        -4.9622e-05
+      ],
+      "integratedLufs": -15.943,
+      "truePeakDbtp": -1.9982,
+      "sampleRate": 48000,
+      "format": "OGG",
+      "subtype": "VORBIS",
+      "sha256": "0f9ef76ae12553d97c306151631d2fa6eef14537f63597fc3a37c07556141e89",
+      "bytes": 522589,
+      "gateStatus": "pass",
+      "gateFailures": []
+    }
+  },
+  "finalDecodedMasterAnalysis": {
+    "spectral": {
+      "method": "Welch PSD after deterministic 2x polyphase decimation",
+      "spectralCentroidHz": 95.598,
+      "spectralRolloff95Hz": 169.922,
+      "energyPercent": {
+        "sub20To90Hz": 72.0248,
+        "bass90To250Hz": 26.0826,
+        "lowMid250To800Hz": 1.3494,
+        "presence800To4000Hz": 0.4044,
+        "air4000To12000Hz": 0.1181
+      }
+    },
+    "monoCompatibility": {
+      "leftRightCorrelation": 0.999083,
+      "sideToMidDb": -33.3824,
+      "monoIntegratedLufs": -18.9892,
+      "monoTruePeakDbtp": -2.2603,
+      "assessment": "pass"
+    },
+    "density": {
+      "windowFrames": 1024,
+      "activeWindowShareAboveMinus40Db": 0.587305,
+      "activeWindowShareAboveMinus28Db": 0.467101,
+      "silentWindowShareBelowMinus50Db": 0.358754,
+      "transientEstimatePerMinute": 354.385,
+      "phraseProfiles": [
+        {
+          "phrase": 1,
+          "bars": "1-13",
+          "rmsDbfs": -16.6117,
+          "impulse6BarsRmsDbfs": -16.4997,
+          "response7BarsRmsDbfs": -16.71
+        },
+        {
+          "phrase": 2,
+          "bars": "14-26",
+          "rmsDbfs": -16.3746,
+          "impulse6BarsRmsDbfs": -16.0263,
+          "response7BarsRmsDbfs": -16.6972
+        },
+        {
+          "phrase": 3,
+          "bars": "27-39",
+          "rmsDbfs": -16.5901,
+          "impulse6BarsRmsDbfs": -16.4883,
+          "response7BarsRmsDbfs": -16.6793
+        },
+        {
+          "phrase": 4,
+          "bars": "40-52",
+          "rmsDbfs": -16.7733,
+          "impulse6BarsRmsDbfs": -16.4436,
+          "response7BarsRmsDbfs": -17.0772
+        }
+      ]
+    },
+    "seam": {
+      "taperFrames": 1024,
+      "firstFrameAbsMax": 0.0,
+      "lastFrameAbsMax": 0.0,
+      "boundaryDiscontinuityAbsMax": 0.0,
+      "firstTaperPeakDbfs": -3.1083,
+      "lastTaperPeakDbfs": -75.2464,
+      "assessment": "pass"
+    }
+  },
+  "determinism": {
+    "status": "pass",
+    "method": "full second pass-2 synthesis and independent PCM24/Vorbis export",
+    "firstRender": {
+      "floatBufferSha256": "445e33bc3d96894974b1b2f8103c160da620c14b47c0430ee3856c6554163166",
+      "masterSha256": "6cbfa92cbc91f3acca0b519acedb9f3e44c3be49ec3009ed09a9f58eaa9309c5",
+      "runtimeSha256": "0f9ef76ae12553d97c306151631d2fa6eef14537f63597fc3a37c07556141e89"
+    },
+    "secondRender": {
+      "floatBufferSha256": "445e33bc3d96894974b1b2f8103c160da620c14b47c0430ee3856c6554163166",
+      "masterSha256": "6cbfa92cbc91f3acca0b519acedb9f3e44c3be49ec3009ed09a9f58eaa9309c5",
+      "runtimeSha256": "0f9ef76ae12553d97c306151631d2fa6eef14537f63597fc3a37c07556141e89"
+    },
+    "byteIdenticalMaster": true,
+    "byteIdenticalRuntime": true
+  },
+  "gates": {
+    "targetLufs": -16.0,
+    "lufsTolerance": 0.35,
+    "truePeakMaximumDbtp": -1.0,
+    "dcOffsetAbsoluteMaximum": 0.0001,
+    "requiredFrames": 4404706,
+    "requiredChannels": 2,
+    "requiredMasterEncoding": "WAV/PCM_24",
+    "requiredRuntimeEncoding": "OGG/VORBIS",
+    "requiredTaperFrames": 1024,
+    "overall": "pass"
+  },
+  "arrangement": {
+    "phrase1": "compression: grounded A spring with alternating 2-hit and 3-hit rebounds",
+    "phrase2": "ricochet: denser off-grid kick answers and displaced palms",
+    "phrase3": "inverted rebound: quarter-beat entrances and low-sole counterweight",
+    "phrase4": "disassembly: half-time openings, late spring answers, and stripped landing"
+  }
+}

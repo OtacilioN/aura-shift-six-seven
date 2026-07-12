@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "id": "MUS-PROP-CORTE-DE-NEON",
+  "title": "Corte de Neon",
+  "status": "demo-produced-and-validated",
+  "genre": "phonk luminoso e elástico",
+  "generatedAt": "2026-07-12T14:40:54.102900+00:00",
+  "briefing": "Phonk luminoso e elástico, 136 BPM, 4/4, centro em Sol (~49 Hz), 52 compassos em quatro macrofrases 6+7; cowbell FM de altura única como gancho rítmico, grave curto, micro-silêncios e derrapagem controlada.",
+  "constraints": {
+    "noVoice": true,
+    "noExternalSamples": true,
+    "noArtistImitation": true,
+    "noLeadMelody": true,
+    "mood": [
+      "luminoso",
+      "elástico",
+      "brincalhão",
+      "controlado"
+    ]
+  },
+  "structure": {
+    "bpm": 136.0,
+    "timeSignature": "4/4",
+    "bars": 52,
+    "macrophrases": 4,
+    "barsPerMacrophrase": 13,
+    "impulseResponseBars": "6+7",
+    "macrophraseProfiles": [
+      "entrada fluorescente",
+      "derrapagem lateral",
+      "freada de vidro",
+      "retorno ao eixo"
+    ],
+    "rootFrequencyHz": 49.0,
+    "cowbellFrequencyHz": 783.990872,
+    "cowbellPitchCount": 1
+  },
+  "provenance": {
+    "method": "deterministic synthesis from oscillators and seeded noise",
+    "masterSeed": "corte-de-neon-phonk-proposal-v2-2026-07-12",
+    "externalAudioSources": [],
+    "source": "sources/audio/proposals/corte_de_neon.py",
+    "sourceSha256": "88a682f4462fc40c580760fb2ab728f68953b9518b558c811212d045a3caa243",
+    "tools": {
+      "python": "3.13.3",
+      "numpy": "2.5.1",
+      "scipy": "1.18.0",
+      "soundfile": "0.14.0",
+      "pyloudnorm": "0.2.0"
+    }
+  },
+  "deliverables": {
+    "master": "masters/audio/proposals/corte_de_neon.wav",
+    "runtime": "assets/audio/proposals/corte_de_neon.ogg",
+    "report": "reports/audio-proposals/corte_de_neon.json"
+  },
+  "refinementHistory": [
+    {
+      "pass": "v1",
+      "status": "rendered-analyzed-discarded",
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -2.2851,
+        "rmsDbfs": -16.9142,
+        "dcOffset": [
+          -0.0002951691,
+          -0.0002959733
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -2.2796,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "c81f03b3f17b3a54869123ea94dbb7dbd69565be999ae625a26d9c253c1dd6dd",
+        "bytes": 26428280
+      },
+      "analysis": {
+        "density": {
+          "active10msBlockRatioAboveMinus42Dbfs": 0.630707,
+          "quiet10msBlockRatioBelowMinus55Dbfs": 0.286368,
+          "median10msRmsDbfs": -27.585,
+          "eventsPerBar": 14.4615,
+          "eventCounts": {
+            "kick": 136,
+            "sub": 136,
+            "cowbell": 120,
+            "snare": 100,
+            "shaker": 364,
+            "stab": 8,
+            "texture": 16,
+            "brake": 8,
+            "intentionalCowbellSilentBars": 4,
+            "intentionalHalfBarSilences": 4
+          }
+        },
+        "spectral": {
+          "spectralCentroidHz": 170.706,
+          "bandEnergyRatios": {
+            "sub20To90": 0.689742,
+            "bass90To250": 0.239512,
+            "mid250To2500": 0.062432,
+            "presence2500To6000": 0.007186,
+            "air6000To16000": 0.000737
+          },
+          "strongestAverageFrequenciesHz": [
+            46.875,
+            128.906,
+            785.156,
+            1898.438,
+            1160.156,
+            328.125
+          ]
+        },
+        "monoCompatibility": {
+          "leftRightCorrelation": 0.997449,
+          "monoFoldRmsDbfs": -16.9198,
+          "monoFoldDeltaDb": -0.0056,
+          "sideToMidEnergyDb": -28.9253,
+          "monoIntegratedLufs": -19.0231,
+          "monoSamplePeakDbfs": -2.2851
+        },
+        "loopBoundary": {
+          "taperFrames": 1024,
+          "firstFrameAbsMax": 0.0,
+          "lastFrameAbsMax": 0.0,
+          "seamDiscontinuityAbsMax": 0.0,
+          "firstTaperRegionPeakDbfs": -2.4253,
+          "lastTaperRegionPeakDbfs": -240.0
+        }
+      },
+      "findings": [
+        "longer kick/sub tails raised low-frequency occupancy between syncopations",
+        "seven shaker positions per ordinary bar reduced the intended negative space",
+        "wide and longer texture/cowbell tails softened the controlled-brake silhouette",
+        "finite-render DC offset exceeded the 1e-4 master gate"
+      ]
+    },
+    {
+      "pass": "v2",
+      "status": "final",
+      "changes": [
+        "shortened kick, sub, snare, cowbell and texture envelopes",
+        "reduced ordinary shaker density from seven to four positions and to two or one in brake bars",
+        "removed selected late kicks in macrophrase three and preserved a cowbell-free response bar",
+        "narrowed cowbell/texture stereo placement while keeping kick and sub strictly centered",
+        "softened the cowbell top end and raised its fixed G5 definition without creating pitch motion",
+        "made macrophrase shifts 0, +1/8, -1/8 and +1/4 beat, with an explicit final half-bar silence",
+        "applied boundary-preserving DC correction after the final nonlinear bus stage"
+      ],
+      "metrics": {
+        "frames": 4404706,
+        "channels": 2,
+        "durationSeconds": 91.764708333,
+        "samplePeakDbfs": -1.7429,
+        "rmsDbfs": -17.6554,
+        "dcOffset": [
+          -9e-08,
+          -4.39e-08
+        ],
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.7373,
+        "sampleRate": 48000,
+        "format": "WAV",
+        "subtype": "PCM_24",
+        "sha256": "e676ee0e195849457a59b28647ffc8f68c561ce99e8c2889c8ef8d6db47022d9",
+        "bytes": 26428280
+      },
+      "analysis": {
+        "density": {
+          "active10msBlockRatioAboveMinus42Dbfs": 0.508663,
+          "quiet10msBlockRatioBelowMinus55Dbfs": 0.431187,
+          "median10msRmsDbfs": -41.0453,
+          "eventsPerBar": 10.4423,
+          "eventCounts": {
+            "kick": 133,
+            "sub": 133,
+            "cowbell": 117,
+            "snare": 88,
+            "shaker": 176,
+            "stab": 7,
+            "texture": 16,
+            "brake": 6,
+            "intentionalCowbellSilentBars": 4,
+            "intentionalHalfBarSilences": 4
+          }
+        },
+        "spectral": {
+          "spectralCentroidHz": 221.937,
+          "bandEnergyRatios": {
+            "sub20To90": 0.592263,
+            "bass90To250": 0.294537,
+            "mid250To2500": 0.103614,
+            "presence2500To6000": 0.008011,
+            "air6000To16000": 0.000667
+          },
+          "strongestAverageFrequenciesHz": [
+            58.594,
+            785.156,
+            152.344,
+            1898.438,
+            1160.156,
+            328.125
+          ]
+        },
+        "monoCompatibility": {
+          "leftRightCorrelation": 0.998723,
+          "monoFoldRmsDbfs": -17.6582,
+          "monoFoldDeltaDb": -0.0028,
+          "sideToMidEnergyDb": -31.9459,
+          "monoIntegratedLufs": -19.0158,
+          "monoSamplePeakDbfs": -1.7429
+        },
+        "loopBoundary": {
+          "taperFrames": 1024,
+          "firstFrameAbsMax": 0.0,
+          "lastFrameAbsMax": 0.0,
+          "seamDiscontinuityAbsMax": 0.0,
+          "firstTaperRegionPeakDbfs": -1.8099,
+          "lastTaperRegionPeakDbfs": -68.5173
+        }
+      }
+    }
+  ],
+  "metrics": {
+    "master": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -1.7429,
+      "rmsDbfs": -17.6554,
+      "dcOffset": [
+        -9e-08,
+        -4.39e-08
+      ],
+      "integratedLufs": -16.0,
+      "truePeakDbtp": -1.7373,
+      "sampleRate": 48000,
+      "format": "WAV",
+      "subtype": "PCM_24",
+      "sha256": "e676ee0e195849457a59b28647ffc8f68c561ce99e8c2889c8ef8d6db47022d9",
+      "bytes": 26428280
+    },
+    "runtimeDecoded": {
+      "frames": 4404706,
+      "channels": 2,
+      "durationSeconds": 91.764708333,
+      "samplePeakDbfs": -1.2963,
+      "rmsDbfs": -17.6234,
+      "dcOffset": [
+        -6.95881e-05,
+        -7.19506e-05
+      ],
+      "integratedLufs": -15.983,
+      "truePeakDbtp": -1.2908,
+      "sampleRate": 48000,
+      "format": "OGG",
+      "subtype": "VORBIS",
+      "sha256": "9096bb0fd2cbee5be36ae1c7c7d5f8cbe891dff5839b719d2d59c4f941b36bd7",
+      "bytes": 625464
+    },
+    "density": {
+      "active10msBlockRatioAboveMinus42Dbfs": 0.508663,
+      "quiet10msBlockRatioBelowMinus55Dbfs": 0.431187,
+      "median10msRmsDbfs": -41.0453,
+      "eventsPerBar": 10.4423,
+      "eventCounts": {
+        "kick": 133,
+        "sub": 133,
+        "cowbell": 117,
+        "snare": 88,
+        "shaker": 176,
+        "stab": 7,
+        "texture": 16,
+        "brake": 6,
+        "intentionalCowbellSilentBars": 4,
+        "intentionalHalfBarSilences": 4
+      }
+    },
+    "spectral": {
+      "spectralCentroidHz": 221.937,
+      "bandEnergyRatios": {
+        "sub20To90": 0.592263,
+        "bass90To250": 0.294537,
+        "mid250To2500": 0.103614,
+        "presence2500To6000": 0.008011,
+        "air6000To16000": 0.000667
+      },
+      "strongestAverageFrequenciesHz": [
+        58.594,
+        785.156,
+        152.344,
+        1898.438,
+        1160.156,
+        328.125
+      ]
+    },
+    "monoCompatibility": {
+      "leftRightCorrelation": 0.998723,
+      "monoFoldRmsDbfs": -17.6582,
+      "monoFoldDeltaDb": -0.0028,
+      "sideToMidEnergyDb": -31.9459,
+      "monoIntegratedLufs": -19.0158,
+      "monoSamplePeakDbfs": -1.7429
+    },
+    "loopBoundary": {
+      "taperFrames": 1024,
+      "firstFrameAbsMax": 0.0,
+      "lastFrameAbsMax": 0.0,
+      "seamDiscontinuityAbsMax": 0.0,
+      "firstTaperRegionPeakDbfs": -1.8099,
+      "lastTaperRegionPeakDbfs": -68.5173
+    }
+  },
+  "determinism": {
+    "independentFinalRendersCompared": 2,
+    "floatBuffersIdentical": true,
+    "firstRenderSha256": {
+      "master": "e676ee0e195849457a59b28647ffc8f68c561ce99e8c2889c8ef8d6db47022d9",
+      "runtime": "9096bb0fd2cbee5be36ae1c7c7d5f8cbe891dff5839b719d2d59c4f941b36bd7"
+    },
+    "secondRenderSha256": {
+      "master": "e676ee0e195849457a59b28647ffc8f68c561ce99e8c2889c8ef8d6db47022d9",
+      "runtime": "9096bb0fd2cbee5be36ae1c7c7d5f8cbe891dff5839b719d2d59c4f941b36bd7"
+    },
+    "byteIdentical": true
+  },
+  "gates": {
+    "exactMasterFrames": true,
+    "exactRuntimeFrames": true,
+    "stereoMaster": true,
+    "stereoRuntime": true,
+    "sampleRate48k": true,
+    "masterPcm24": true,
+    "runtimeVorbis": true,
+    "loudnessMinus16PlusMinus035": true,
+    "truePeakAtOrBelowMinus1Dbtp": true,
+    "samplePeakNoClipping": true,
+    "dcOffsetBelow1eMinus4": true,
+    "boundaryTaper1024": true,
+    "runtimeDecodable": true,
+    "secondRenderByteIdentical": true
+  },
+  "allGatesPassed": true
+}

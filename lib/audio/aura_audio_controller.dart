@@ -9,16 +9,6 @@ import 'audio_backend.dart';
 import 'audio_catalog.dart';
 import 'audio_selection.dart';
 
-enum GameMusicStrategy {
-  /// Starts Base/Groove/Hype together and changes only their gains by tier.
-  /// Physical-device synchronization remains a release gate.
-  requiredAdaptiveTracks,
-
-  /// Uses the four approved conditional I0-I3 renders when a device/backend
-  /// cannot layer or transition the required gameplay material reliably.
-  preRenderedMixes,
-}
-
 abstract interface class AudioSettingsStore {
   double? readDouble(String key);
   bool? readBool(String key);
@@ -57,7 +47,6 @@ class AuraAudioController extends ChangeNotifier {
     required AudioSettingsStore store,
     required bool available,
     required Random random,
-    required this.gameMusicStrategy,
     int Function()? nowMillis,
   })  : _catalog = catalog,
         _backend = backend,
@@ -77,11 +66,9 @@ class AuraAudioController extends ChangeNotifier {
   static const _musicMutedKey = 'audio.musicMuted';
   static const _effectsMutedKey = 'audio.effectsMuted';
   static const _dialogDuck = .3981071706; // -8 dB
+  static const _soundtrackCrossfade = Duration(seconds: 1);
 
-  static Future<AuraAudioController> create({
-    GameMusicStrategy gameMusicStrategy =
-        GameMusicStrategy.requiredAdaptiveTracks,
-  }) async {
+  static Future<AuraAudioController> create() async {
     final preferences = await SharedPreferences.getInstance();
     final store = SharedPreferencesAudioSettingsStore(preferences);
     AudioAssetCatalog? catalog;
@@ -112,7 +99,6 @@ class AuraAudioController extends ChangeNotifier {
       store: store,
       available: available,
       random: Random(),
-      gameMusicStrategy: gameMusicStrategy,
     );
   }
 
@@ -123,8 +109,6 @@ class AuraAudioController extends ChangeNotifier {
     required AudioSettingsStore store,
     Random? random,
     int Function()? nowMillis,
-    GameMusicStrategy gameMusicStrategy =
-        GameMusicStrategy.requiredAdaptiveTracks,
   }) async {
     await backend.initialize(
       preloadPaths: _preloadIds.map((id) => catalog[id].cachePath),
@@ -136,7 +120,6 @@ class AuraAudioController extends ChangeNotifier {
       available: true,
       random: random ?? Random(67),
       nowMillis: nowMillis,
-      gameMusicStrategy: gameMusicStrategy,
     );
   }
 
@@ -146,17 +129,9 @@ class AuraAudioController extends ChangeNotifier {
     AudioIds.returnOffline,
   };
 
-  /// Registry audited by tests. Conditional mixes and required adaptive tracks
-  /// are both explicit consumers, even though only one strategy is active.
+  /// Registry audited by tests. Every approved runtime ID must have a consumer.
   static final Map<String, Set<String>> consumerAssetIds = {
-    'required-music': {
-      AudioIds.gameBase,
-      AudioIds.gameGroove,
-      AudioIds.gameHype,
-      AudioIds.menu,
-      AudioIds.shop,
-    },
-    'conditional-music-fallback': {...AudioIds.gameMixes},
+    'soundtrack-playlist': {...AudioIds.soundtrack},
     'cycle-shuffle-bags': {...AudioIds.six, ...AudioIds.seven},
     'ui-shop-collection': {
       AudioIds.uiTab,
@@ -193,7 +168,6 @@ class AuraAudioController extends ChangeNotifier {
   final CadenceIntensity _cadence = CadenceIntensity();
   final int Function()? _nowMillisOverride;
   final Stopwatch _audioClock = Stopwatch()..start();
-  final GameMusicStrategy gameMusicStrategy;
   final bool _available;
   bool _disposed = false;
   bool _appActive = true;
@@ -216,6 +190,9 @@ class AuraAudioController extends ChangeNotifier {
   Set<String> _knownSeals = {};
   MusicContext _musicContext = MusicContext.play;
   String? _playingMusicId;
+  StreamSubscription<Duration>? _musicPositionSubscription;
+  int _soundtrackIndex = 0;
+  int _soundtrackPlaybackGeneration = 0;
   int _intensity = 0;
   late double _musicVolume;
   late double _effectsVolume;
@@ -230,6 +207,10 @@ class AuraAudioController extends ChangeNotifier {
   bool get effectsMuted => _effectsMuted;
   MusicContext get musicContext => _musicContext;
   int get musicIntensity => _intensity;
+
+  @visibleForTesting
+  String get currentSoundtrackId => AudioIds.soundtrack[_soundtrackIndex];
+
   int get _currentMillis =>
       _nowMillisOverride?.call() ?? _audioClock.elapsedMilliseconds;
 
@@ -249,14 +230,10 @@ class AuraAudioController extends ChangeNotifier {
     }
   }
 
-  Future<void> setMusicContext(MusicContext context) async {
-    if (_musicContext == context) return;
-    final wasPlay = _musicContext == MusicContext.play;
+  Future<void> setMusicContext(MusicContext context) {
+    if (_musicContext == context) return Future<void>.value();
     _musicContext = context;
-    await _ensureMusic(
-      transition: const Duration(milliseconds: 600),
-      preservePosition: wasPlay && context == MusicContext.play,
-    );
+    return Future<void>.value();
   }
 
   Future<void> changeTab(int tab) async {
@@ -431,7 +408,6 @@ class AuraAudioController extends ChangeNotifier {
       _musicRequest++;
       await _guardBackend(_backend.pauseMusic, 'muting music');
     } else if (_canPlay) {
-      await _ensureMusic(transition: const Duration(milliseconds: 400));
       await _resumePlayback();
     }
   }
@@ -476,11 +452,7 @@ class AuraAudioController extends ChangeNotifier {
       ? 0
       : _musicVolume *
           (_duckDepth > 0 ? _dialogDuck : 1) *
-          _transientDuckFactor *
-          (_musicContext == MusicContext.play &&
-                  gameMusicStrategy == GameMusicStrategy.requiredAdaptiveTracks
-              ? .9332543008 // -0.6 dB shared layered headroom trim
-              : 1);
+          _transientDuckFactor;
 
   double get _transientDuckFactor => _transientDucks.values.fold<double>(
         1,
@@ -507,86 +479,39 @@ class AuraAudioController extends ChangeNotifier {
   void _updateIntensity(int next) {
     if (_intensity == next) return;
     _intensity = next;
-    if (_musicContext == MusicContext.play) {
-      unawaited(_ensureMusic(
-        transition: const Duration(milliseconds: 700),
-        preservePosition: true,
-      ));
-    }
   }
 
-  String get _desiredMusicRoute {
-    return switch (_musicContext) {
-      MusicContext.menu => AudioIds.menu,
-      MusicContext.shop => AudioIds.shop,
-      MusicContext.play => switch (gameMusicStrategy) {
-          GameMusicStrategy.requiredAdaptiveTracks =>
-            'GAME-LAYERS-I$_intensity',
-          GameMusicStrategy.preRenderedMixes => AudioIds.gameMixes[_intensity],
-        },
-    };
-  }
-
-  static Map<String, double> layerGainsForIntensity(int intensity) {
-    if (intensity < 0 || intensity > 3) {
-      throw RangeError.range(intensity, 0, 3, 'intensity');
-    }
-    const gains = <Map<String, double>>[
-      {AudioIds.gameBase: 1, AudioIds.gameGroove: 0, AudioIds.gameHype: 0},
-      {
-        AudioIds.gameBase: 1,
-        AudioIds.gameGroove: .2511886432, // -12 dB
-        AudioIds.gameHype: 0,
-      },
-      {
-        AudioIds.gameBase: 1,
-        AudioIds.gameGroove: .5011872336, // -6 dB
-        AudioIds.gameHype: .1258925412, // -18 dB
-      },
-      {
-        AudioIds.gameBase: 1,
-        AudioIds.gameGroove: 1,
-        AudioIds.gameHype: .5011872336,
-      },
-    ];
-    return gains[intensity];
-  }
-
-  Map<String, double> get _desiredLayerGains =>
-      layerGainsForIntensity(_intensity);
+  String get _desiredMusicRoute => AudioIds.soundtrack[_soundtrackIndex];
 
   Future<void> _ensureMusic({
     required Duration transition,
-    bool preservePosition = false,
+    double? playbackVolume,
   }) {
     if (!_canPlay || _musicMuted || _catalog == null) return Future.value();
     final route = _desiredMusicRoute;
-    if (_playingMusicId == route) return _applyMusicVolume();
+    final requestedVolume = playbackVolume ?? _effectiveMusicVolume;
+    if (_playingMusicId == route) {
+      return playbackVolume == null
+          ? _applyMusicVolume()
+          : _guardBackend(
+              () => _backend.setMusicVolume(requestedVolume),
+              'priming soundtrack volume',
+            );
+    }
     final request = ++_musicRequest;
     _musicQueue = _musicQueue.catchError((_) {}).then((_) async {
       if (request != _musicRequest || !_canPlay || _musicMuted) return;
       try {
-        if (_musicContext == MusicContext.play &&
-            gameMusicStrategy == GameMusicStrategy.requiredAdaptiveTracks) {
-          await _backend.playMusicLayers(
-            {
-              for (final entry in _desiredLayerGains.entries)
-                _catalog[entry.key].cachePath: entry.value,
-            },
-            volume: _effectiveMusicVolume,
-            transition: transition,
-          );
-        } else {
-          final record = _catalog[route];
-          await _backend.playMusic(
-            record.cachePath,
-            volume: _effectiveMusicVolume,
-            transition: transition,
-            preservePosition: preservePosition,
-          );
-        }
+        final record = _catalog[route];
+        final playback = await _backend.playMusic(
+          record.cachePath,
+          volume: requestedVolume,
+          transition: transition,
+          loop: record.loop,
+        );
         if (request == _musicRequest && _canPlay && !_musicMuted) {
           _playingMusicId = route;
+          _bindSoundtrackAdvance(playback, record);
         } else if (!_canPlay || _musicMuted) {
           await _backend.pauseMusic();
         }
@@ -595,6 +520,71 @@ class AuraAudioController extends ChangeNotifier {
       }
     });
     return _musicQueue;
+  }
+
+  void _bindSoundtrackAdvance(
+    MusicPlaybackHandle playback,
+    AudioAssetRecord record,
+  ) {
+    _invalidateSoundtrackPlayback();
+    final generation = _soundtrackPlaybackGeneration;
+    final advanceAt = record.duration > _soundtrackCrossfade
+        ? record.duration - _soundtrackCrossfade
+        : Duration.zero;
+    var advanced = false;
+
+    void advance() {
+      if (advanced ||
+          generation != _soundtrackPlaybackGeneration ||
+          _disposed ||
+          _playingMusicId != record.id) {
+        return;
+      }
+      advanced = true;
+      _advanceSoundtrack(generation);
+    }
+
+    _musicPositionSubscription = playback.position.listen(
+      (position) {
+        if (position >= advanceAt) advance();
+      },
+      onError: (Object error, StackTrace stackTrace) {
+        if (generation == _soundtrackPlaybackGeneration && !_disposed) {
+          _reportAudioError(
+            error,
+            stackTrace,
+            'tracking soundtrack position for ${record.id}',
+          );
+        }
+      },
+    );
+    unawaited(
+      playback.completed.then<void>((_) => advance()).catchError(
+        (Object error, StackTrace stackTrace) {
+          if (generation == _soundtrackPlaybackGeneration && !_disposed) {
+            _reportAudioError(
+              error,
+              stackTrace,
+              'waiting for soundtrack completion for ${record.id}',
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  void _advanceSoundtrack(int generation) {
+    if (generation != _soundtrackPlaybackGeneration || _disposed) return;
+    _invalidateSoundtrackPlayback();
+    _soundtrackIndex = (_soundtrackIndex + 1) % AudioIds.soundtrack.length;
+    unawaited(_ensureMusic(transition: _soundtrackCrossfade));
+  }
+
+  void _invalidateSoundtrackPlayback() {
+    _soundtrackPlaybackGeneration++;
+    final subscription = _musicPositionSubscription;
+    _musicPositionSubscription = null;
+    if (subscription != null) unawaited(subscription.cancel());
   }
 
   Future<void> _applyMusicVolume() async {
@@ -617,10 +607,13 @@ class AuraAudioController extends ChangeNotifier {
 
   Future<void> _resumePlayback() async {
     if (!_canPlay || _musicMuted) return;
-    await _ensureMusic(transition: const Duration(milliseconds: 400));
     final generation = ++_volumeGeneration;
     try {
       await _backend.setMusicVolume(0);
+      await _ensureMusic(
+        transition: const Duration(milliseconds: 400),
+        playbackVolume: 0,
+      );
       await _backend.resumeMusic();
       const steps = 8;
       for (var step = 1; step <= steps; step++) {
@@ -763,6 +756,8 @@ class AuraAudioController extends ChangeNotifier {
     _game?.removeListener(_onGameChanged);
     _game = null;
     _cadenceReleaseTimer?.cancel();
+    _invalidateSoundtrackPlayback();
+    _musicRequest++;
     _audioClock.stop();
     for (final timer in _transientDuckTimers.values) {
       timer.cancel();

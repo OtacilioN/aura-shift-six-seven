@@ -1,10 +1,13 @@
-# Pipeline procedural de áudio
+# Pipelines de áudio
+
+## Snapshot procedural v1
 
 Esta pasta produz candidatos de áudio originais por síntese determinística. A
 pipeline não baixa, lê nem transforma gravações externas; não usa voz, foley,
 sample pack, DAW ou modelo generativo. Os resultados permanecem com o status
 `candidate-reviewed`: revisão automatizada não equivale a aprovação musical,
-jurídica, humana ou em aparelho real.
+jurídica, humana ou em aparelho real. Esse lote permanece preservado como
+snapshot histórico e não é mais a música carregada pelo app.
 
 ## Ambiente isolado
 
@@ -45,17 +48,35 @@ Não renomeie o manifesto candidato para `audio-manifest-v1.json`. O contrato do
 projeto reserva esse nome ao conjunto aprovado, e esta pipeline não realiza a
 escuta humana, a auditoria adversarial de similaridade nem o teste Android.
 
+## Trilha selecionada v2
+
+Os sete WAVs escolhidos pelo usuário entram por um importador separado; não são
+tratados como se tivessem sido gerados pelo pipeline procedural:
+
+```bash
+.asset-venv/bin/python tools/assets/import_selected_music.py
+```
+
+O comando valida os sete hashes esperados, preserva os originais em
+`sources/audio/imported/chatgpt-2026-07-12/`, reamostra para 48 kHz, atenua para
+`-16 LUFS-I`, gera masters PCM24 e runtimes Ogg/Vorbis q6, escreve proveniência
+factual e cria `audio-candidate-manifest-v2.json`. O lote v1 não é alterado.
+Por padrão ele lê as próprias fontes preservadas; `--source-dir` permite repetir
+o primeiro ingresso a partir de outro diretório com os mesmos hashes.
+Prompt, modelo, termos comerciais, similaridade e escuta em aparelho não são
+inferidos nem marcados como concluídos.
+
 ## Promoção após decisão humana
 
-Uma aprovação explícita é registrada em
-`assets/manifests/asset-approval-v1.json`. Depois disso, execute:
+A aprovação geral permanece em `asset-approval-v1.json`; a seleção musical v2
+fica em `music-selection-approval-v1.json`. Depois disso, execute:
 
 ```bash
 python3 tools/assets/promote_approved_assets.py
 ```
 
 O comando não altera os candidatos técnicos. Ele verifica escopo, estados e
-revisões; deriva `assets/audio/audio-manifest-v1.json` e
+revisões; deriva `assets/audio/audio-manifest-v2.json` e
 `assets/manifests/art-approved-manifest-v1.json`; e cria
 `assets/manifests/production-assets-v1.json`, ligando a decisão humana aos
 hashes imutáveis e ao estado de integração. Testes físicos ainda pendentes

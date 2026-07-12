@@ -59,6 +59,8 @@
   "collection_effect_persists": "Os efeitos dos itens continuam ativos com qualquer aparência.",
   "collection_equip": "Usar aparência",
   "collection_equipped": "Em uso",
+  "collection_hidden": "Aparência oculta",
+  "collection_hide": "Ocultar aparência",
   "collection_locked": "Bloqueado",
   "collection_seal_unlocked": "Marco 67 alcançado: {amount} de Aura Total",
   "collection_seals": "Selos 67",

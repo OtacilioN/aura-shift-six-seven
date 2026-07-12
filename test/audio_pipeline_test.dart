@@ -21,16 +21,18 @@ void main() {
     catalog = await AudioAssetCatalog.load();
   });
 
-  test('approved catalog is exact and every one of its 44 IDs has a consumer',
+  test('approved catalog is exact and every one of its 42 IDs has a consumer',
       () {
     final catalogIds = catalog.all.map((record) => record.id).toSet();
     final consumerIds = AuraAudioController.consumerAssetIds.values
         .expand((ids) => ids)
         .toSet();
-    expect(catalogIds, hasLength(44));
+    expect(catalogIds, hasLength(42));
     expect(consumerIds, catalogIds);
-    expect(catalog.music, hasLength(9));
+    expect(catalog.music, hasLength(7));
     expect(catalog.soundEffects, hasLength(35));
+    expect(AudioIds.soundtrack.first, AudioIds.bossShift);
+    expect(catalog[AudioIds.bossShift].loop, isFalse);
   });
 
   test('catalog fails closed on unapproved, escaping, and duplicate records',
@@ -126,7 +128,7 @@ void main() {
     expect(cadence.at(3400), 0);
   });
 
-  test('runtime preloads only cycle pools and routes layered, shop, and menu',
+  test('Boss Shift opens one-voice playlist and all seven tracks cycle once',
       () async {
     SharedPreferences.setMockInitialValues({});
     final game = await GameController.load();
@@ -145,97 +147,39 @@ void main() {
     );
     expect(
         backend.preloaded, contains(catalog[AudioIds.returnOffline].cachePath));
-    expect(backend.layerCalls, hasLength(1));
-    expect(backend.layerCalls.single.keys.toSet(), {
-      catalog[AudioIds.gameBase].cachePath,
-      catalog[AudioIds.gameGroove].cachePath,
-      catalog[AudioIds.gameHype].cachePath,
-    });
-    expect(backend.layerCalls.single[catalog[AudioIds.gameBase].cachePath], 1);
-    expect(
-        backend.layerCalls.single[catalog[AudioIds.gameGroove].cachePath], 0);
-
-    await audio.changeTab(1);
-    expect(backend.musicCalls.last, catalog[AudioIds.shop].cachePath);
-    final musicCallCount = backend.musicCalls.length;
-    await audio.changeTab(1);
-    expect(backend.musicCalls, hasLength(musicCallCount));
-    await audio.changeTab(2);
-    expect(backend.musicCalls.last, catalog[AudioIds.menu].cachePath);
-
-    audio.dispose();
-    game.dispose();
-  });
-
-  test('conditional mixes remain an executable fallback strategy', () async {
-    SharedPreferences.setMockInitialValues({});
-    final game = await GameController.load();
-    final backend = _FakeAudioBackend();
-    final audio = await AuraAudioController.createForTesting(
-      catalog: catalog,
-      backend: backend,
-      store: _MemoryAudioSettingsStore(),
-      gameMusicStrategy: GameMusicStrategy.preRenderedMixes,
-    );
-    await audio.start(game);
     expect(backend.layerCalls, isEmpty);
-    for (var millis = 0; millis <= 1600; millis += 200) {
-      audio.recordCycle(CycleFamily.seven, nowMillis: millis);
-      await Future<void>.delayed(Duration.zero);
+    expect(backend.musicCalls, [catalog[AudioIds.bossShift].cachePath]);
+    expect(backend.musicLoops, [false]);
+    expect(audio.currentSoundtrackId, AudioIds.bossShift);
+
+    await audio.changeTab(1);
+    await audio.changeTab(2);
+    expect(backend.musicCalls, hasLength(1));
+
+    final firstHandle = backend.musicHandles.single;
+    firstHandle.emitPosition(catalog[AudioIds.bossShift].duration);
+    await _waitUntil(() => backend.musicCalls.length == 2);
+    expect(audio.currentSoundtrackId, AudioIds.neonDrift67);
+
+    firstHandle.complete();
+    await Future<void>.delayed(Duration.zero);
+    expect(backend.musicCalls, hasLength(2));
+
+    while (backend.musicCalls.length < AudioIds.soundtrack.length + 1) {
+      final expectedLength = backend.musicCalls.length + 1;
+      backend.musicHandles.last.complete();
+      await _waitUntil(() => backend.musicCalls.length == expectedLength);
     }
-    await Future<void>.delayed(const Duration(milliseconds: 10));
     expect(
       backend.musicCalls,
-      AudioIds.gameMixes.map((id) => catalog[id].cachePath).toList(),
+      [
+        ...AudioIds.soundtrack.map((id) => catalog[id].cachePath),
+        catalog[AudioIds.bossShift].cachePath,
+      ],
     );
-    audio.dispose();
-    game.dispose();
-  });
+    expect(audio.currentSoundtrackId, AudioIds.bossShift);
+    expect(backend.musicLoops, everyElement(isFalse));
 
-  test('I0-I3 emit the approved layered gains without stale-request pauses',
-      () async {
-    SharedPreferences.setMockInitialValues({});
-    final game = await GameController.load();
-    final backend = _FakeAudioBackend();
-    final audio = await AuraAudioController.createForTesting(
-      catalog: catalog,
-      backend: backend,
-      store: _MemoryAudioSettingsStore(),
-    );
-    await audio.start(game);
-    for (var millis = 0; millis <= 400; millis += 200) {
-      audio.recordCycle(CycleFamily.seven, nowMillis: millis);
-    }
-    await _waitUntil(() => backend.layerCalls.length == 2);
-    backend.layerGate = Completer<void>();
-    for (var millis = 600; millis <= 1000; millis += 200) {
-      audio.recordCycle(CycleFamily.seven, nowMillis: millis);
-      await Future<void>.delayed(Duration.zero);
-    }
-    await _waitUntil(() => backend.layerCalls.length == 3);
-    for (var millis = 1200; millis <= 1600; millis += 200) {
-      audio.recordCycle(CycleFamily.seven, nowMillis: millis);
-    }
-    backend.layerGate!.complete();
-    await _waitUntil(() => backend.layerCalls.length == 4);
-
-    final base = catalog[AudioIds.gameBase].cachePath;
-    final groove = catalog[AudioIds.gameGroove].cachePath;
-    final hype = catalog[AudioIds.gameHype].cachePath;
-    expect(backend.layerCalls.map((call) => call[base]), [1, 1, 1, 1]);
-    expect(backend.layerCalls.map((call) => call[groove]), [
-      0,
-      closeTo(.2511886432, 1e-10),
-      closeTo(.5011872336, 1e-10),
-      1,
-    ]);
-    expect(backend.layerCalls.map((call) => call[hype]), [
-      0,
-      0,
-      closeTo(.1258925412, 1e-10),
-      closeTo(.5011872336, 1e-10),
-    ]);
-    expect(backend.pauseCount, 0);
     audio.dispose();
     game.dispose();
   });
@@ -256,6 +200,7 @@ void main() {
     await audio.start(game);
     expect(audio.musicVolume, .6);
     expect(audio.effectsVolume, .4);
+    expect(backend.musicCalls, hasLength(1));
 
     await audio.setMusicVolume(.25);
     await audio.setEffectsVolume(.35);
@@ -278,6 +223,32 @@ void main() {
     backend.pauseGate!.complete();
     await Future.wait([inactive, resumed]);
     expect(backend.resumeCount, greaterThanOrEqualTo(2));
+    expect(backend.musicCalls, hasLength(1));
+
+    audio.dispose();
+    game.dispose();
+  });
+
+  test('cold muted start primes Boss Shift silently before fade-in', () async {
+    SharedPreferences.setMockInitialValues({});
+    final game = await GameController.load();
+    final backend = _FakeAudioBackend();
+    final audio = await AuraAudioController.createForTesting(
+      catalog: catalog,
+      backend: backend,
+      store: _MemoryAudioSettingsStore({
+        'audio.musicMuted': true,
+      }),
+    );
+
+    await audio.start(game);
+    expect(backend.musicCalls, isEmpty);
+
+    await audio.setMusicMuted(false);
+    expect(backend.musicCalls, [catalog[AudioIds.bossShift].cachePath]);
+    expect(backend.musicStartVolumes, [0]);
+    expect(backend.resumeCount, 1);
+    expect(backend.volumeCalls.last, closeTo(.72, 1e-10));
 
     audio.dispose();
     game.dispose();
@@ -366,6 +337,9 @@ class _MemoryAudioSettingsStore implements AudioSettingsStore {
 class _FakeAudioBackend implements AudioBackend {
   final List<String> preloaded = [];
   final List<String> musicCalls = [];
+  final List<bool> musicLoops = [];
+  final List<double> musicStartVolumes = [];
+  final List<_FakeMusicPlaybackHandle> musicHandles = [];
   final List<Map<String, double>> layerCalls = [];
   final List<String> soundCalls = [];
   final List<double> volumeCalls = [];
@@ -386,14 +360,20 @@ class _FakeAudioBackend implements AudioBackend {
   }
 
   @override
-  Future<void> playMusic(
+  Future<MusicPlaybackHandle> playMusic(
     String cachePath, {
     required double volume,
     required Duration transition,
+    required bool loop,
     bool preservePosition = false,
   }) async {
     musicCalls.add(cachePath);
+    musicLoops.add(loop);
+    musicStartVolumes.add(volume);
     volumeCalls.add(volume);
+    final handle = _FakeMusicPlaybackHandle();
+    musicHandles.add(handle);
+    return handle;
   }
 
   @override
@@ -448,6 +428,30 @@ class _FakeAudioBackend implements AudioBackend {
   Future<void> dispose() async {
     disposed = true;
     await stopSounds();
+    await Future.wait(musicHandles.map((handle) => handle.dispose()));
+  }
+}
+
+class _FakeMusicPlaybackHandle implements MusicPlaybackHandle {
+  final StreamController<Duration> _positions =
+      StreamController<Duration>.broadcast(sync: true);
+  final Completer<void> _completed = Completer<void>();
+
+  @override
+  Stream<Duration> get position => _positions.stream;
+
+  @override
+  Future<void> get completed => _completed.future;
+
+  void emitPosition(Duration position) => _positions.add(position);
+
+  void complete() {
+    if (!_completed.isCompleted) _completed.complete();
+  }
+
+  Future<void> dispose() async {
+    complete();
+    await _positions.close();
   }
 }
 

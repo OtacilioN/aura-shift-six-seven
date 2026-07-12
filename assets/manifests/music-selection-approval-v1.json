@@ -1,0 +1,33 @@
+{
+  "schema": "music-selection-approval-v1",
+  "revision": 1,
+  "status": "approved",
+  "decisionSource": "human-user",
+  "decisionDate": "2026-07-12",
+  "statement": "Pedi para um sound designer (o chatgpt) gerar músicas para o jogo, e selecionei essas. Implemente essas músicas para o jogo substituindo as músicas atuais, utilize a música 9 \"boss shift\" como música principal do jogo",
+  "sourceToolDeclaredByUser": "ChatGPT",
+  "primaryTrack": "MUS-BOSS-SHIFT",
+  "playlist": [
+    "MUS-BOSS-SHIFT",
+    "MUS-NEON-DRIFT-67",
+    "MUS-AURA-NO-RETROVISOR",
+    "MUS-PASSINHO-DE-AURA",
+    "MUS-SIXSEVEN-NO-FLUXO",
+    "MUS-PHASE-BLOOM",
+    "MUS-RITUAL-6-7"
+  ],
+  "scope": [
+    "runtime-music",
+    "music-masters",
+    "music-provenance",
+    "audio-manifests"
+  ],
+  "supersedesRuntimeMusicFrom": "assets/audio/audio-manifest-v1.json",
+  "promotionPolicy": "Preserve the legacy v1 candidate and approval as historical evidence; promote the selected soundtrack through versioned v2 manifests.",
+  "remainingReleaseValidation": [
+    "chatgpt-commercial-terms-record",
+    "independent-music-similarity-review",
+    "android-playlist-crossfade-focus-and-resume-test",
+    "music-fatigue-listening-test"
+  ]
+}

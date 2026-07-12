@@ -143,6 +143,8 @@
 | `collection_seals` | 67 Seals | Coleção separada |
 | `collection_equip` | Use appearance | Ação cosmética |
 | `collection_equipped` | In use | Estado |
+| `collection_hide` | Hide appearance | Ação cosmética independente |
+| `collection_hidden` | Appearance hidden | Estado cosmético; não descreve o Efeito de Item |
 | `collection_effect_persists` | Item effects stay active with any appearance. | Garantia explícita quando o Efeito de Item está ativo; não usar após reset econômico |
 | `collection_secret` | Secret achievement | Estado pré-desbloqueio |
 | `collection_locked` | Locked | Conquista secreta ou linha nomeada “Item effect” após reset; o contexto acessível identifica o sistema bloqueado |

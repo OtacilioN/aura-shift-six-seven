@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -281,6 +282,119 @@ abstract final class AuraAppearancePlacement {
       };
 }
 
+/// One collision-safe affine transform in the authored 1024x1024 stage.
+///
+/// Most appearances keep their authored position. A transform is applied only
+/// when another active appearance occupies the same visual territory, keeping
+/// every collected item readable without changing the character rig itself.
+class AuraItemSceneLayout {
+  const AuraItemSceneLayout({
+    this.offsetStage = Offset.zero,
+    this.scale = 1,
+    this.pivotStage = const Offset(512, 512),
+  });
+
+  static const identity = AuraItemSceneLayout();
+
+  final Offset offsetStage;
+  final double scale;
+  final Offset pivotStage;
+
+  Offset transformStagePoint(Offset point) =>
+      pivotStage + offsetStage + (point - pivotStage) * scale;
+
+  Rect transformStageRect(Rect rect) {
+    final topLeft = transformStagePoint(rect.topLeft);
+    final bottomRight = transformStagePoint(rect.bottomRight);
+    return Rect.fromLTRB(
+      min(topLeft.dx, bottomRight.dx),
+      min(topLeft.dy, bottomRight.dy),
+      max(topLeft.dx, bottomRight.dx),
+      max(topLeft.dy, bottomRight.dy),
+    );
+  }
+}
+
+/// Deterministic z-order and dense-loadout layout for all 18 appearances.
+abstract final class AuraAppearanceComposition {
+  static const paintOrder = <String>[
+    // Scene/world layers.
+    'ITEM-C-05',
+    'ITEM-B-05',
+    'ITEM-CONV-01',
+    'ITEM-CONV-02',
+    'ITEM-CONV-03',
+    'ITEM-B-01',
+    'ITEM-C-04',
+    'ITEM-C-03',
+    // Character layers, from broad clothing to small readable details.
+    'ITEM-A-04',
+    'ITEM-B-02',
+    'ITEM-A-02',
+    'ITEM-C-02',
+    'ITEM-A-01',
+    'ITEM-C-01',
+    'ITEM-A-03',
+    'ITEM-A-05',
+    // Articulated hand overlays.
+    'ITEM-B-04',
+    'ITEM-B-03',
+  ];
+
+  static const _collisionGroups = <Set<String>>[
+    {'ITEM-A-01', 'ITEM-C-01'},
+    {'ITEM-A-02', 'ITEM-C-02'},
+    {'ITEM-B-01', 'ITEM-C-04'},
+    {'ITEM-B-05', 'ITEM-C-05'},
+    {'ITEM-CONV-01', 'ITEM-CONV-02', 'ITEM-CONV-03'},
+  ];
+
+  static const _denseLayouts = <String, AuraItemSceneLayout>{
+    'ITEM-A-01': AuraItemSceneLayout(offsetStage: Offset(140, 0)),
+    'ITEM-A-02': AuraItemSceneLayout(offsetStage: Offset(-190, 0)),
+    'ITEM-B-01': AuraItemSceneLayout(offsetStage: Offset(-440, 0)),
+    'ITEM-B-05': AuraItemSceneLayout(
+      offsetStage: Offset(-625, 37),
+      scale: .37,
+      pivotStage: Offset(846, 382),
+    ),
+    'ITEM-CONV-01': AuraItemSceneLayout(
+      offsetStage: Offset(-385, -155),
+      scale: .22,
+      pivotStage: Offset(512, 500),
+    ),
+    'ITEM-CONV-02': AuraItemSceneLayout(
+      offsetStage: Offset(207, -405),
+      scale: .22,
+      pivotStage: Offset(512, 500),
+    ),
+    'ITEM-CONV-03': AuraItemSceneLayout(
+      offsetStage: Offset(53, -14),
+      scale: .35,
+      pivotStage: Offset(800, 300),
+    ),
+  };
+
+  static List<String> ordered(Iterable<String> ids) {
+    final requested = ids.toSet();
+    return paintOrder.where(requested.contains).toList(growable: false);
+  }
+
+  static AuraItemSceneLayout layoutFor(
+    String contentId,
+    Set<String> activeIds,
+  ) {
+    for (final group in _collisionGroups) {
+      if (!group.contains(contentId)) continue;
+      if (group.where(activeIds.contains).length < 2) {
+        return AuraItemSceneLayout.identity;
+      }
+      return _denseLayouts[contentId] ?? AuraItemSceneLayout.identity;
+    }
+    return AuraItemSceneLayout.identity;
+  }
+}
+
 enum _AuraAppearanceLayer { behindMascot, underHands, overHands }
 
 /// Pure retargetable spring shared by runtime motion and frame-rate tests.
@@ -333,6 +447,7 @@ class AuraScene extends FlameGame {
             : 0.0;
     _swing = restoredPose;
     _swingTarget = restoredPose;
+    _syncAppearanceComposition();
   }
 
   final GameController controller;
@@ -342,8 +457,10 @@ class AuraScene extends FlameGame {
   final AuraInputGate _inputGate = AuraInputGate();
   ArtCatalog? _artCatalog;
   final Map<String, ui.Image> _appearanceImages = <String, ui.Image>{};
-  String? _requestedAppearanceId;
-  String? _loadedAppearanceId;
+  Set<String> _requestedAppearanceLayerIds = const <String>{};
+  List<String> _activeAppearanceIds = const <String>[];
+  Map<String, AuraItemSceneLayout> _appearanceLayouts =
+      const <String, AuraItemSceneLayout>{};
   int _appearanceLoadEpoch = 0;
   bool _listeningForAppearance = false;
   bool _removed = false;
@@ -388,15 +505,26 @@ class AuraScene extends FlameGame {
   static const _cyan = Color(0xFF43E6FF);
   static const _canvas = Color(0xFF090B1A);
 
+  @visibleForTesting
+  int get debugActiveAppearanceCount => _activeAppearanceIds.length;
+
+  @visibleForTesting
+  int get debugRequestedAppearanceLayerCount =>
+      _requestedAppearanceLayerIds.length;
+
+  @visibleForTesting
+  int get debugLoadedAppearanceLayerCount => _appearanceImages.length;
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
     try {
       _artCatalog = await ArtCatalog.load(rootBundle);
       if (_removed) return;
+      _syncAppearanceComposition();
       controller.addListener(_appearanceMayHaveChanged);
       _listeningForAppearance = true;
-      await _loadEquippedAppearance();
+      await _loadEquippedAppearances();
     } catch (error, stack) {
       FlutterError.reportError(FlutterErrorDetails(
         exception: error,
@@ -408,38 +536,50 @@ class AuraScene extends FlameGame {
   }
 
   void _appearanceMayHaveChanged() {
-    if (_removed || controller.equippedAppearance == _requestedAppearanceId) {
-      return;
-    }
-    unawaited(_loadEquippedAppearance());
+    _syncAppearanceComposition();
+    final target = _currentAppearanceLayerIds();
+    if (_removed || setEquals(target, _requestedAppearanceLayerIds)) return;
+    unawaited(_loadEquippedAppearances(target));
   }
 
-  Future<void> _loadEquippedAppearance() async {
+  void _syncAppearanceComposition() {
+    final ids = AuraAppearanceComposition.ordered(
+      controller.equippedAppearances,
+    );
+    if (listEquals(ids, _activeAppearanceIds)) return;
+    final active = ids.toSet();
+    _activeAppearanceIds = List<String>.unmodifiable(ids);
+    _appearanceLayouts = Map<String, AuraItemSceneLayout>.unmodifiable({
+      for (final id in ids) id: AuraAppearanceComposition.layoutFor(id, active),
+    });
+  }
+
+  Set<String> _currentAppearanceLayerIds() => <String>{
+        for (final contentId in _activeAppearanceIds)
+          if (contentId != 'ITEM-B-04')
+            ...AuraArtSelection.skinLayerIds(
+              contentId,
+              level: controller.level(contentId),
+              reduceMotion: controller.reduceMotion,
+            ),
+      };
+
+  Future<void> _loadEquippedAppearances([Set<String>? requested]) async {
     final catalog = _artCatalog;
-    final contentId = controller.equippedAppearance;
-    _requestedAppearanceId = contentId;
+    final layerIds = requested ?? _currentAppearanceLayerIds();
+    _requestedAppearanceLayerIds = Set<String>.unmodifiable(layerIds);
     final epoch = ++_appearanceLoadEpoch;
-    if (catalog == null || contentId == null) {
+    _disposeAppearanceImagesExcept(layerIds);
+    if (catalog == null || layerIds.isEmpty) {
       _disposeAppearanceImages();
-      _loadedAppearanceId = null;
       return;
     }
 
-    final layerIds = <String>{
-      ...AuraArtSelection.skinLayerIds(
-        contentId,
-        level: 25,
-        reduceMotion: false,
-      ),
-      ...AuraArtSelection.skinLayerIds(
-        contentId,
-        level: 25,
-        reduceMotion: true,
-      ),
-    };
     final decoded = <String, ui.Image>{};
     try {
-      for (final id in layerIds) {
+      for (final id in layerIds.where(
+        (id) => !_appearanceImages.containsKey(id),
+      )) {
         final record = catalog[id];
         if (record == null) continue;
         final bytes = await rootBundle.load(record.runtimePath);
@@ -462,7 +602,7 @@ class AuraScene extends FlameGame {
           stack: stack,
           library: 'Aura Shift appearance renderer',
           context: ErrorDescription(
-            'while decoding appearance art for $contentId',
+            'while decoding active appearance art',
           ),
         ));
       }
@@ -471,15 +611,22 @@ class AuraScene extends FlameGame {
 
     if (_removed ||
         epoch != _appearanceLoadEpoch ||
-        controller.equippedAppearance != contentId) {
+        !setEquals(_requestedAppearanceLayerIds, layerIds)) {
       for (final image in decoded.values) {
         image.dispose();
       }
       return;
     }
-    _disposeAppearanceImages();
     _appearanceImages.addAll(decoded);
-    _loadedAppearanceId = contentId;
+  }
+
+  void _disposeAppearanceImagesExcept(Set<String> retainedIds) {
+    final removed = _appearanceImages.keys
+        .where((id) => !retainedIds.contains(id))
+        .toList(growable: false);
+    for (final id in removed) {
+      _appearanceImages.remove(id)?.dispose();
+    }
   }
 
   void _disposeAppearanceImages() {
@@ -2114,47 +2261,53 @@ class AuraScene extends FlameGame {
     Rect stage, {
     required bool behindMascot,
   }) {
-    final contentId = controller.equippedAppearance;
-    final profile = AuraItemVisualEffects.profiles[contentId];
-    if (contentId == null ||
-        profile == null ||
-        (profile.layer == AuraItemEffectLayer.behind) != behindMascot) {
-      return;
-    }
-
     final rig = AuraCharacterRigPose.forSwing(
       _swing,
       rootShiftX: _characterLean * 0.35,
     );
-    final frame = AuraItemEffectFrame(
-      elapsed: _elapsed,
-      energy: _energy,
-      level: controller.level(contentId),
-      reduceMotion: controller.reduceMotion,
-      swing: _swing,
-      leftHand: rig.leftHand.center,
-      rightHand: rig.rightHand.center,
-      leftWrist: rig.leftHand.wrist,
-      rightWrist: rig.rightHand.wrist,
-    );
 
-    canvas.save();
-    if (profile.followsCharacter) {
-      final authoredToBody =
-          profile.anchorMode == AuraItemEffectAnchor.authored ? 1.0 : 0.0;
-      canvas.translate(
-        _s(stage, _characterLean * authoredToBody * profile.leanFactor),
-        _s(stage, _characterBob),
-      );
-      if (!controller.reduceMotion) {
-        final pivot = _p(stage, 512, 820);
-        canvas.translate(pivot.dx, pivot.dy);
-        canvas.rotate(_characterTiltDegrees * pi / 180);
-        canvas.translate(-pivot.dx, -pivot.dy);
+    for (final contentId in _activeAppearanceIds) {
+      final profile = AuraItemVisualEffects.profiles[contentId];
+      if (profile == null ||
+          (profile.layer == AuraItemEffectLayer.behind) != behindMascot ||
+          !_appearanceIsReady(contentId)) {
+        continue;
       }
+      final frame = AuraItemEffectFrame(
+        elapsed: _elapsed,
+        energy: _energy,
+        level: controller.level(contentId),
+        reduceMotion: controller.reduceMotion,
+        swing: _swing,
+        leftHand: rig.leftHand.center,
+        rightHand: rig.rightHand.center,
+        leftWrist: rig.leftHand.wrist,
+        rightWrist: rig.rightHand.wrist,
+      );
+
+      canvas.save();
+      if (profile.followsCharacter) {
+        final authoredToBody =
+            profile.anchorMode == AuraItemEffectAnchor.authored ? 1.0 : 0.0;
+        canvas.translate(
+          _s(stage, _characterLean * authoredToBody * profile.leanFactor),
+          _s(stage, _characterBob),
+        );
+        if (!controller.reduceMotion) {
+          final pivot = _p(stage, 512, 820);
+          canvas.translate(pivot.dx, pivot.dy);
+          canvas.rotate(_characterTiltDegrees * pi / 180);
+          canvas.translate(-pivot.dx, -pivot.dy);
+        }
+      }
+      _applyAppearanceLayout(
+        canvas,
+        stage,
+        _appearanceLayouts[contentId] ?? AuraItemSceneLayout.identity,
+      );
+      AuraItemVisualEffects.paint(canvas, stage, profile, frame);
+      canvas.restore();
     }
-    AuraItemVisualEffects.paint(canvas, stage, profile, frame);
-    canvas.restore();
   }
 
   void _drawEquippedAppearance(
@@ -2163,61 +2316,90 @@ class AuraScene extends FlameGame {
     required _AuraAppearanceLayer layer,
     bool characterTransformAlreadyApplied = false,
   }) {
-    final contentId = controller.equippedAppearance;
     final catalog = _artCatalog;
-    if (contentId == null ||
-        contentId != _loadedAppearanceId ||
-        catalog == null) {
-      return;
+    if (catalog == null) return;
+    final paint = Paint()..filterQuality = FilterQuality.medium;
+    for (final contentId in _activeAppearanceIds) {
+      if (!_appearanceIsReady(contentId)) continue;
+      final ids = AuraArtSelection.skinLayerIds(
+        contentId,
+        level: controller.level(contentId),
+        reduceMotion: controller.reduceMotion,
+      );
+      for (final id in ids) {
+        final record = catalog[id];
+        final image = _appearanceImages[id];
+        if (record == null || image == null) continue;
+        final recordLayer = AuraArtSelection.isBackAppearanceSlot(record.slot)
+            ? _AuraAppearanceLayer.behindMascot
+            : AuraArtSelection.isHandOverlayAppearanceSlot(record.slot)
+                ? _AuraAppearanceLayer.overHands
+                : _AuraAppearanceLayer.underHands;
+        if (recordLayer != layer) continue;
+        // The collection thumbnail for the two-touch union is authored as a
+        // neutral-pose pair. In the live scene the equivalent buttons and link
+        // are painted from the articulated hand anchors so they never float
+        // away from a fast Six/Seven pose.
+        if (contentId == 'ITEM-B-04' && record.slot == 'HANDS_WEAR') continue;
+
+        canvas.save();
+        if (AuraAppearancePlacement.followsCharacter(record.slot)) {
+          final lean =
+              _characterLean * AuraAppearancePlacement.leanFactor(record.slot);
+          canvas.translate(
+            _s(stage, lean),
+            characterTransformAlreadyApplied ? 0 : _s(stage, _characterBob),
+          );
+          if (!controller.reduceMotion && !characterTransformAlreadyApplied) {
+            final pivot = _p(stage, 512, 820);
+            canvas.translate(pivot.dx, pivot.dy);
+            canvas.rotate(_characterTiltDegrees * pi / 180);
+            canvas.translate(-pivot.dx, -pivot.dy);
+          }
+        }
+        _applyAppearanceLayout(
+          canvas,
+          stage,
+          _appearanceLayouts[contentId] ?? AuraItemSceneLayout.identity,
+        );
+        canvas.drawImageRect(
+          image,
+          Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+          stage,
+          paint,
+        );
+        canvas.restore();
+      }
     }
+  }
+
+  bool _appearanceIsReady(String contentId) {
+    if (contentId == 'ITEM-B-04') return true;
     final ids = AuraArtSelection.skinLayerIds(
       contentId,
       level: controller.level(contentId),
       reduceMotion: controller.reduceMotion,
     );
-    final paint = Paint()..filterQuality = FilterQuality.medium;
-    for (final id in ids) {
-      final record = catalog[id];
-      final image = _appearanceImages[id];
-      if (record == null || image == null) continue;
-      final recordLayer = AuraArtSelection.isBackAppearanceSlot(record.slot)
-          ? _AuraAppearanceLayer.behindMascot
-          : AuraArtSelection.isHandOverlayAppearanceSlot(record.slot)
-              ? _AuraAppearanceLayer.overHands
-              : _AuraAppearanceLayer.underHands;
-      if (recordLayer != layer) {
-        continue;
-      }
-      // The collection thumbnail for the two-touch union is authored as a
-      // neutral-pose pair. In the live scene the equivalent buttons and link
-      // are painted from the articulated hand anchors so they never float away
-      // from a fast Six/Seven pose.
-      if (contentId == 'ITEM-B-04' && record.slot == 'HANDS_WEAR') {
-        continue;
-      }
-      canvas.save();
-      if (AuraAppearancePlacement.followsCharacter(record.slot)) {
-        final lean =
-            _characterLean * AuraAppearancePlacement.leanFactor(record.slot);
-        canvas.translate(
-          _s(stage, lean),
-          characterTransformAlreadyApplied ? 0 : _s(stage, _characterBob),
-        );
-        if (!controller.reduceMotion && !characterTransformAlreadyApplied) {
-          final pivot = _p(stage, 512, 820);
-          canvas.translate(pivot.dx, pivot.dy);
-          canvas.rotate(_characterTiltDegrees * pi / 180);
-          canvas.translate(-pivot.dx, -pivot.dy);
-        }
-      }
-      canvas.drawImageRect(
-        image,
-        Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-        stage,
-        paint,
-      );
-      canvas.restore();
-    }
+    return ids.isNotEmpty && ids.every(_appearanceImages.containsKey);
+  }
+
+  void _applyAppearanceLayout(
+    Canvas canvas,
+    Rect stage,
+    AuraItemSceneLayout layout,
+  ) {
+    if (layout == AuraItemSceneLayout.identity) return;
+    final pivot = _p(
+      stage,
+      layout.pivotStage.dx,
+      layout.pivotStage.dy,
+    );
+    canvas.translate(
+      pivot.dx + _s(stage, layout.offsetStage.dx),
+      pivot.dy + _s(stage, layout.offsetStage.dy),
+    );
+    canvas.scale(layout.scale, layout.scale);
+    canvas.translate(-pivot.dx, -pivot.dy);
   }
 
   @override

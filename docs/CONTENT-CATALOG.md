@@ -112,7 +112,7 @@ O evento não credita Aura, não multiplica produção e não se repete para a m
 
 ## Inventário e slots visuais
 
-Slots compatíveis: `chest`, `shoulder`, `face-wear`, `body-wear`, `head-wear`, `hip`, `ankles`, `hand-prop`, `hands-wear`, `body-back`, `ground-back`, `ground-prop` e `scene-frame`. Os slots `*-wear` acompanham o bob, a inclinação e o lean do Mascote; `ground-prop`, `scene-frame` e `aura-back` permanecem fixos no mundo. Itens que dividem slot podem ser selecionados individualmente; efeitos econômicos continuam ativos. Convergências usam `aura-back` e podem coexistir com um item por slot. QA deve testar as 18 Aparências com as cinco Transformações, RTL e movimento reduzido.
+Slots compatíveis: `chest`, `shoulder`, `face-wear`, `body-wear`, `head-wear`, `hip`, `ankles`, `hand-prop`, `hands-wear`, `body-back`, `ground-back`, `ground-prop` e `scene-frame`. Os slots `*-wear` acompanham o bob, a inclinação e o lean do Mascote; `ground-prop`, `scene-frame` e `aura-back` permanecem fixos no mundo. Todas as Aparências possuídas podem ficar ativas simultaneamente. Quando itens compartilham o mesmo território autoral, o compositor aplica subposições e escalas determinísticas para preservar a leitura de cada um; ocultar um item não altera os demais nem seus efeitos econômicos. QA deve testar as 18 Aparências juntas com as cinco Transformações, RTL e movimento reduzido.
 
 ## Dependências de produção
 

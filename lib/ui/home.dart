@@ -1339,6 +1339,7 @@ class _Collection extends StatelessWidget {
           const SizedBox(height: 6),
           ...upgrades.where((u) => !u.isTechnique).map((u) {
             final owns = controller.appearances.contains(u.id);
+            final equipped = controller.equippedAppearances.contains(u.id);
             final title = strings(u.nameKey);
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1355,19 +1356,24 @@ class _Collection extends StatelessWidget {
                 ),
                 title: Text(strings(u.nameKey)),
                 subtitle: Text(owns
-                    ? (controller.equippedAppearance == u.id
+                    ? (equipped
                         ? strings('collection_equipped')
-                        : strings('collection_effect_persists'))
+                        : strings('collection_hidden'))
                     : strings('collection_locked')),
                 trailing: owns
                     ? OutlinedButton(
+                        key: ValueKey('appearance-toggle-${u.id}'),
                         onPressed: () {
-                          final hidden = controller.equippedAppearance == u.id;
-                          controller.equip(hidden ? null : u.id);
-                          unawaited(audio.playCollectionChange(hidden: hidden));
+                          controller.setAppearanceEquipped(
+                            u.id,
+                            equipped: !equipped,
+                          );
+                          unawaited(
+                            audio.playCollectionChange(hidden: equipped),
+                          );
                         },
-                        child: Text(controller.equippedAppearance == u.id
-                            ? strings('settings_off')
+                        child: Text(equipped
+                            ? strings('collection_hide')
                             : strings('collection_equip')))
                     : AuraAssetIcon(
                         catalog: art,

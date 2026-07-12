@@ -1,10 +1,10 @@
 # Aura Shift: Six Seven — Direção de Áudio
 
-> Status: direção `audio-v1` fechada. Os 40 masters obrigatórios e quatro
-> mixes condicionais possuem candidatos produzidos e auditados tecnicamente.
-> A decisão humana de 10 de julho de 2026 promoveu derivados para `approved`
-> sem alterar esses candidatos; os testes em aparelho descritos em
-> `AUDIO-INVENTORY.md` continuam obrigatórios antes da publicação.
+> Status: direção de runtime `audio-v2`. Em 12 de julho de 2026, a decisão
+> humana substituiu as nove renderizações musicais procedurais por sete faixas
+> completas geradas via ChatGPT e selecionadas pelo usuário. `Boss Shift` é o
+> tema principal. Os 35 SFX anteriores permanecem. Termos comerciais,
+> similaridade/fadiga e teste Android continuam gates antes da publicação.
 
 ## Objetivos
 
@@ -22,6 +22,10 @@ Este é o único briefing musical que o compositor recebe:
 > Criar uma peça eletrônica instrumental original, corporal e elástica, a `136 BPM`, `4/4`, com frase macro própria de 13 compassos organizada como seis compassos de impulso e sete de resposta. O groove deve funcionar em alto-falante pequeno, aceitar três camadas perfeitamente alinhadas e evitar protagonista melódico reconhecível. A energia nasce de síncopes percussivas, silêncio, sub grave curto, texturas granuladas e stabs harmônicos mínimos. O resultado precisa soar contemporâneo e brincalhão, não agressivo, sombrio, nostálgico ou épico. Não usar voz, contagem falada, sample identificável, progressão ou timbre-assinatura de qualquer obra, artista ou cena específica.
 
 O briefing não contém letra, melodia, harmonia, arranjo, sample, descrição de timbre exclusivo ou sequência da obra associada ao meme. A divisão 6+7 é uma regra estrutural original do jogo, não uma transcrição.
+
+Este briefing documenta o lote procedural v1 preservado. Os prompts, modelo e
+sessão que originaram as sete faixas selecionadas não acompanharam os WAVs e
+não são inferidos aqui; a proveniência v2 registra essa ausência explicitamente.
 
 ## Influências abstratas e limites
 
@@ -72,33 +76,34 @@ As identidades de P04 são tratamentos autorais, não referências de gênero ne
 | Signal | tick digital, ruído tonal, chamada estéreo moderada | texturas e resposta filtrada ao equipar Signal | sem imitar notificação, interface ou marca existente |
 | Spectrum | um gesto de cada território em equilíbrio | Convergências e culminação de `FORM-05` | mesma duração/loudness; nunca comunica ramo superior |
 
-Loja e Coleção aplicam esses tratamentos como presets determinísticos sobre os masters neutros já inventariados. O equivalente mono e visual permanece completo; direção estéreo nunca é portadora de estado. Presets não são arquivos nem ampliam os 40 masters obrigatórios.
+Loja e Coleção aplicam esses tratamentos como presets determinísticos sobre os
+assets neutros já inventariados. O equivalente mono e visual permanece
+completo; direção estéreo nunca é portadora de estado. Presets não são arquivos
+nem ampliam os 42 assets obrigatórios do contrato v2.
 
-## Loop principal em camadas
+## Trilha principal e playlist
 
-O loop tem `52 compassos` a `136 BPM`, aproximadamente `91,76 s`, formado por quatro frases próprias de 13 compassos. Os stems começam no mesmo sample, têm o mesmo comprimento renderizado e terminam em zero crossing ou cauda preparada para loop.
+As sete músicas são mixes completos independentes e nunca são sobrepostas como
+stems. A playlist canônica é:
 
-### `MUS-GAME-BASE`
+1. `Boss Shift` — tema principal e primeira faixa de toda sessão;
+2. `Neon Drift 67`;
+3. `Aura no Retrovisor`;
+4. `Passinho de Aura`;
+5. `SixSeven no Fluxo`;
+6. `Phase Bloom`;
+7. `Ritual 6/7`.
 
-Kick espaçado, sub curto, pulso textural e stab mínimo. Precisa sustentar sozinho todo o jogo sem parecer trecho incompleto.
+Após `Ritual 6/7`, o ciclo volta para `Boss Shift`. Uma única voz musical fica
+ativa em condições normais; duas vozes coexistem somente durante o crossfade
+equal-power de `1 s`. O avanço usa a posição real do player aproximadamente um
+segundo antes do fim e a conclusão da faixa como fallback idempotente. Callback
+atrasado de uma faixa antiga não pode avançar a playlist duas vezes.
 
-### `MUS-GAME-GROOVE`
-
-Adiciona caixas, hats e percussão orgânica. Não duplica kick/sub de Base nem altera harmonia. Entra a partir da cadência audiovisual `I1` com ganho suavizado.
-
-### `MUS-GAME-HYPE`
-
-Adiciona contratempos, textura de Aura e respostas harmônicas curtas. Não contém riser permanente, nova melodia ou aumento de loudness. Entra em `I2/I3` e sai em release lento.
-
-Crossfades duram `500–900 ms` e preservam fase. Se a prova técnica revelar drift, o fallback usa quatro mixes pré-renderizados (`I0–I3`) do mesmo master e faz crossfade nos limites de frase ou em no máximo 900 ms.
-
-## Menu e Loja
-
-- **Menu/Coleção/Ajustes:** loop de `26 compassos`, aproximadamente `45,88 s`, derivado dos elementos autorais de Base, sem kick contínuo e com low-pass suave. É uma renderização própria, não o stem do gameplay tocando fora de fase.
-- **Loja:** mix de `26 compassos` com percussão leve e espaço para SFX de compra. Não muda por preço ou poder do item.
-- transição Jogar ↔ menu/Loja: crossfade `600 ms`; retomar Jogar reinicia em início de frase se sincronismo comum não for garantido;
-- diálogos e consentimentos atenuam música em `-8 dB`, não reiniciam o loop;
-- anúncio pausa os buses do jogo; retorno faz fade-in de `400 ms` sem recuperar SFX perdidos.
+As faixas não usam `ReleaseMode.loop`. Navegar entre Jogar, Loja, Coleção e
+Ajustes mantém música e posição; cadência I0–I3 não troca faixa. Diálogos e
+consentimentos atenuam música em `-8 dB`; anúncio/background pausam os buses e o
+retorno faz fade-in de `400 ms`, sem reiniciar nem pular a faixa corrente.
 
 ## Six e Seven
 
@@ -180,10 +185,10 @@ Som nunca determina timing econômico. Se um arquivo não carregar ou o app esti
 
 | Entrega | Formato | Sample rate/bit depth | Canais | Observação |
 | --- | --- | --- | --- | --- |
-| master arquivável | WAV PCM | `48 kHz / 24-bit` | estéreo; mono quando fonte mono | sem normalização no export |
-| stems musicais | WAV PCM | `48 kHz / 24-bit` | estéreo | mesmo início e número de samples |
+| fonte musical preservada | WAV PCM | `44,1 kHz / 24-bit` | estéreo | cópia byte a byte do arquivo selecionado |
+| master musical derivado | WAV PCM | `48 kHz / 24-bit` | estéreo | resample 160/147 e atenuação para `-16 LUFS-I` |
 | SFX master | WAV PCM | `48 kHz / 24-bit` | mono preferencial | cauda completa |
-| runtime música | Ogg Vorbis | `48 kHz`, qualidade alvo `q6` | estéreo | loop metadata validado |
+| runtime música | Ogg Vorbis | `48 kHz`, qualidade alvo `q6` | estéreo | faixa completa `non-loop` |
 | runtime SFX | Ogg Vorbis ou WAV | `48 kHz` | mono preferencial | escolher por latência/tamanho na prova |
 
 Não usar MP3 em loops por padding. O codec final de SFX é decidido por teste de latência no Android, sem mudar IDs.
@@ -196,7 +201,7 @@ Pipeline padrão previsto:
 - **processamento:** plugins nativos ReaPlugs/JSFX e síntese construída no projeto;
 - **edição/QA:** ferramentas open source podem analisar loudness, fase, hash e loops, com versão registrada;
 - **fontes:** síntese original e foley gravado pelo responsável humano da produção; agentes apoiam briefing, documentação e QA, mas não fingem captura física; sample packs externos são proibidos no baseline para simplificar direitos;
-- **IA generativa:** não necessária e desabilitada no baseline. Se for excepcionalmente proposta, exige aprovação, licença comercial verificável, registro integral e nova auditoria; nomes de artistas/referências continuam proibidos.
+- **IA generativa musical:** usada nas sete faixas selecionadas, conforme declaração do usuário (`ChatGPT`). Os arquivos não contêm prompt, modelo, sessão ou licença embutidos; esses registros e a elegibilidade comercial continuam pendentes. A decisão humana aprova a seleção e integração, não substitui clearance ou auditoria de similaridade.
 
 Este documento não afirma que uma licença já foi comprada. O recibo, versão dos termos e elegibilidade ficam no dossiê de proveniência antes que qualquer master receba status `approved`.
 
@@ -206,10 +211,10 @@ Para cada master e candidato, preservar:
 
 - ID, versão, data, autor/editor e responsáveis pela aprovação;
 - briefing recebido e declaração de isolamento da referência;
-- arquivo `.rpp`, presets próprios, gravações brutas e cadeia de processamento;
+- fonte original, prompt/sessão quando disponíveis e cadeia de processamento;
 - ferramenta, versão, licença, recibo/termos e origem de qualquer material;
 - render WAV, export runtime e hashes SHA-256;
-- relatório de loudness, pico, mono, loop e fadiga;
+- relatório de loudness, pico, mono, playback/crossfade e fadiga;
 - comparação adversarial com referência e decisão `reject/revise/approve`;
 - histórico de alterações posterior.
 
@@ -217,14 +222,19 @@ A auditoria compara impressão global, ritmo, motivo, harmonia, arranjo, timbre 
 
 ## Inventário e gate
 
-`AUDIO-INVENTORY.md` lista todos os IDs, masters previstos, exports, loops, variações e registros. Planejamento fechado não equivale a pacote produzido. O gate de integração exige arquivo real, fonte, hash, licença e aprovação de similaridade para cada item obrigatório.
+`AUDIO-INVENTORY.md` lista todos os IDs, masters, exports, ordem da playlist,
+variações e registros. Planejamento fechado não equivale a pacote produzido. O
+gate de integração exige arquivo real, fonte, hash e decisão humana; licença,
+similaridade e aparelho continuam gates de publicação separados.
 
 ## Riscos residuais
 
-- drift entre três stems no backend real de `flame_audio`;
+- atraso ou duplicação de callbacks entre posição, conclusão e crossfade;
 - latência de SFX Ogg em aparelhos modestos;
 - inconsistência de loudness entre alto-falantes fabricantes;
 - fadiga de Six/Seven em cadências extremas;
-- disponibilidade e termos da ferramenta na data de produção.
+- disponibilidade, termos comerciais e metadados ausentes do gerador.
 
-A fatia vertical testa esses riscos. Se stems falharem, usa mixes pré-renderizados; se Ogg atrasar, SFX curtos migram para WAV; nenhuma contingência altera identidade ou economia.
+A fatia vertical testa esses riscos. Se Ogg falhar no Android, a música pode
+migrar para outro codec sem mudar IDs/ordem; se Ogg atrasar em SFX, sons curtos
+continuam em WAV. Nenhuma contingência altera identidade ou economia.

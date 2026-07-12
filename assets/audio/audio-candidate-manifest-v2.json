@@ -1,0 +1,5193 @@
+{
+  "androidDeviceReview": "playlist-crossfade-focus-resume-pending",
+  "assets": [
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "bytes": 7007378,
+        "channels": 2,
+        "dcOffset": [
+          -7.57875e-05,
+          -6.00298e-05
+        ],
+        "durationSeconds": 26.482743764,
+        "format": "WAV",
+        "frames": 1167889,
+        "integratedLufs": -10.3198,
+        "rmsDbfs": -10.2591,
+        "samplePeakDbfs": -0.7242,
+        "sampleRate": 44100,
+        "sha256": "2e580e738faab248b451f59e1a342e8f20be7e2a65e109cfb4b1618f1c1011d5",
+        "subtype": "PCM_24",
+        "truePeakDbtp": -0.262
+      },
+      "group": "music",
+      "humanSelection": "approved-by-user-2026-07-12",
+      "id": "MUS-BOSS-SHIFT",
+      "kind": "soundtrack_primary",
+      "licenseRecord": "provenance/audio/mus-boss-shift.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/mus_boss_shift.wav",
+      "masterSha256": "fc02e0b1a52eb7e44ebe8599f0aaf44d6f6de729f973071179affb002fac3279",
+      "playlistOrder": 0,
+      "primary": true,
+      "required": true,
+      "reviewedMetrics": {
+        "decoder": {
+          "decodedFrames": 1271172,
+          "expectedFrames": 1271172,
+          "nonLoop": true,
+          "result": "frame-count-exact-libsndfile"
+        },
+        "master": {
+          "bytes": 7627076,
+          "channels": 2,
+          "dcOffset": [
+            -3.94635e-05,
+            -3.12699e-05
+          ],
+          "durationSeconds": 26.48275,
+          "format": "WAV",
+          "frames": 1271172,
+          "integratedLufs": -16.0,
+          "rmsDbfs": -15.9379,
+          "samplePeakDbfs": -6.1022,
+          "sampleRate": 48000,
+          "sha256": "fc02e0b1a52eb7e44ebe8599f0aaf44d6f6de729f973071179affb002fac3279",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.8491
+        },
+        "mono": {
+          "leftRightCorrelation": 0.98202,
+          "monoToStereoRmsDb": -0.0392
+        },
+        "processing": {
+          "algorithm": "scipy.signal.resample_poly",
+          "appliedGainDb": -5.6787,
+          "compressionOrLimiting": false,
+          "ratio": "160/147",
+          "sourceSampleRate": 44100,
+          "targetIntegratedLufs": -16.0,
+          "targetSampleRate": 48000,
+          "truePeakCeilingDbtp": -1.0
+        },
+        "runtime": {
+          "bytes": 622131,
+          "channels": 2,
+          "dcOffset": [
+            -4.14167e-05,
+            -3.91141e-05
+          ],
+          "durationSeconds": 26.48275,
+          "format": "OGG",
+          "frames": 1271172,
+          "integratedLufs": -16.0149,
+          "rmsDbfs": -15.8972,
+          "samplePeakDbfs": -5.5914,
+          "sampleRate": 48000,
+          "sha256": "5ba1367329b5c2daa1ec92f164f6f97d9d99b589b51d7c9c002814c406c50f77",
+          "subtype": "VORBIS",
+          "truePeakDbtp": -5.5858
+        },
+        "source": {
+          "bytes": 7007378,
+          "channels": 2,
+          "dcOffset": [
+            -7.57875e-05,
+            -6.00298e-05
+          ],
+          "durationSeconds": 26.482743764,
+          "format": "WAV",
+          "frames": 1167889,
+          "integratedLufs": -10.3198,
+          "rmsDbfs": -10.2591,
+          "samplePeakDbfs": -0.7242,
+          "sampleRate": 44100,
+          "sha256": "2e580e738faab248b451f59e1a342e8f20be7e2a65e109cfb4b1618f1c1011d5",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -0.262
+        }
+      },
+      "revision": 1,
+      "rightsReview": "commercial-terms-and-similarity-pending",
+      "runtimeDither": null,
+      "runtimePath": "assets/audio/music/mus_boss_shift.ogg",
+      "runtimeSha256": "5ba1367329b5c2daa1ec92f164f6f97d9d99b589b51d7c9c002814c406c50f77",
+      "sampleRate": 48000,
+      "sourceGenerator": "ChatGPT (declared by user)",
+      "sourcePath": "sources/audio/imported/chatgpt-2026-07-12/09_boss_shift.wav",
+      "sourceSha256": "2e580e738faab248b451f59e1a342e8f20be7e2a65e109cfb4b1618f1c1011d5",
+      "status": "candidate-reviewed",
+      "title": "Boss Shift"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "bytes": 6773804,
+        "channels": 2,
+        "dcOffset": [
+          0.0005059405,
+          0.000486403
+        ],
+        "durationSeconds": 25.6,
+        "format": "WAV",
+        "frames": 1128960,
+        "integratedLufs": -9.5162,
+        "rmsDbfs": -9.5538,
+        "samplePeakDbfs": -0.7242,
+        "sampleRate": 44100,
+        "sha256": "cf22770c88ce4c82516026cae5e536262a5169aeb7dd1e4f3b5f3394c3e0f12e",
+        "subtype": "PCM_24",
+        "truePeakDbtp": -0.1078
+      },
+      "group": "music",
+      "humanSelection": "approved-by-user-2026-07-12",
+      "id": "MUS-NEON-DRIFT-67",
+      "kind": "soundtrack",
+      "licenseRecord": "provenance/audio/mus-neon-drift-67.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/mus_neon_drift_67.wav",
+      "masterSha256": "2fd36a8c38d46170259eff234f8adaf04892d9eb59177e7ea443fa7c5955f31f",
+      "playlistOrder": 1,
+      "primary": false,
+      "required": true,
+      "reviewedMetrics": {
+        "decoder": {
+          "decodedFrames": 1228800,
+          "expectedFrames": 1228800,
+          "nonLoop": true,
+          "result": "frame-count-exact-libsndfile"
+        },
+        "master": {
+          "bytes": 7372844,
+          "channels": 2,
+          "dcOffset": [
+            0.0002398424,
+            0.0002305692
+          ],
+          "durationSeconds": 25.6,
+          "format": "WAV",
+          "frames": 1228800,
+          "integratedLufs": -16.0,
+          "rmsDbfs": -16.0366,
+          "samplePeakDbfs": -6.8062,
+          "sampleRate": 48000,
+          "sha256": "2fd36a8c38d46170259eff234f8adaf04892d9eb59177e7ea443fa7c5955f31f",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -6.5194
+        },
+        "mono": {
+          "leftRightCorrelation": 0.995277,
+          "monoToStereoRmsDb": -0.0103
+        },
+        "processing": {
+          "algorithm": "scipy.signal.resample_poly",
+          "appliedGainDb": -6.4828,
+          "compressionOrLimiting": false,
+          "ratio": "160/147",
+          "sourceSampleRate": 44100,
+          "targetIntegratedLufs": -16.0,
+          "targetSampleRate": 48000,
+          "truePeakCeilingDbtp": -1.0
+        },
+        "runtime": {
+          "bytes": 584564,
+          "channels": 2,
+          "dcOffset": [
+            0.0002342919,
+            0.0002265047
+          ],
+          "durationSeconds": 25.6,
+          "format": "OGG",
+          "frames": 1228800,
+          "integratedLufs": -15.9996,
+          "rmsDbfs": -15.9951,
+          "samplePeakDbfs": -6.7449,
+          "sampleRate": 48000,
+          "sha256": "81ca09bce25628a859a60499d2bbb1e6e7f1babf8737f5feef27786450560739",
+          "subtype": "VORBIS",
+          "truePeakDbtp": -6.4665
+        },
+        "source": {
+          "bytes": 6773804,
+          "channels": 2,
+          "dcOffset": [
+            0.0005059405,
+            0.000486403
+          ],
+          "durationSeconds": 25.6,
+          "format": "WAV",
+          "frames": 1128960,
+          "integratedLufs": -9.5162,
+          "rmsDbfs": -9.5538,
+          "samplePeakDbfs": -0.7242,
+          "sampleRate": 44100,
+          "sha256": "cf22770c88ce4c82516026cae5e536262a5169aeb7dd1e4f3b5f3394c3e0f12e",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -0.1078
+        }
+      },
+      "revision": 1,
+      "rightsReview": "commercial-terms-and-similarity-pending",
+      "runtimeDither": null,
+      "runtimePath": "assets/audio/music/mus_neon_drift_67.ogg",
+      "runtimeSha256": "81ca09bce25628a859a60499d2bbb1e6e7f1babf8737f5feef27786450560739",
+      "sampleRate": 48000,
+      "sourceGenerator": "ChatGPT (declared by user)",
+      "sourcePath": "sources/audio/imported/chatgpt-2026-07-12/01_neon_drift_67.wav",
+      "sourceSha256": "cf22770c88ce4c82516026cae5e536262a5169aeb7dd1e4f3b5f3394c3e0f12e",
+      "status": "candidate-reviewed",
+      "title": "Neon Drift 67"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "bytes": 7155422,
+        "channels": 2,
+        "dcOffset": [
+          -3.44423e-05,
+          -4.7777e-05
+        ],
+        "durationSeconds": 27.042244898,
+        "format": "WAV",
+        "frames": 1192563,
+        "integratedLufs": -10.168,
+        "rmsDbfs": -9.0811,
+        "samplePeakDbfs": -0.7242,
+        "sampleRate": 44100,
+        "sha256": "47d68c8e54d912788c5c8beb6dba556024e25a9bc26e0e7e30f99948e40937a0",
+        "subtype": "PCM_24",
+        "truePeakDbtp": -0.4687
+      },
+      "group": "music",
+      "humanSelection": "approved-by-user-2026-07-12",
+      "id": "MUS-AURA-NO-RETROVISOR",
+      "kind": "soundtrack",
+      "licenseRecord": "provenance/audio/mus-aura-no-retrovisor.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/mus_aura_no_retrovisor.wav",
+      "masterSha256": "0b240ad7c0a0296a12f85ce1dd53d2c94b0058376bd825cdf1a22de07a946595",
+      "playlistOrder": 2,
+      "primary": false,
+      "required": true,
+      "reviewedMetrics": {
+        "decoder": {
+          "decodedFrames": 1298028,
+          "expectedFrames": 1298028,
+          "nonLoop": true,
+          "result": "frame-count-exact-libsndfile"
+        },
+        "master": {
+          "bytes": 7788212,
+          "channels": 2,
+          "dcOffset": [
+            -1.76603e-05,
+            -2.4473e-05
+          ],
+          "durationSeconds": 27.04225,
+          "format": "WAV",
+          "frames": 1298028,
+          "integratedLufs": -16.0,
+          "rmsDbfs": -14.9111,
+          "samplePeakDbfs": -6.5144,
+          "sampleRate": 48000,
+          "sha256": "0b240ad7c0a0296a12f85ce1dd53d2c94b0058376bd825cdf1a22de07a946595",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -6.2441
+        },
+        "mono": {
+          "leftRightCorrelation": 0.994977,
+          "monoToStereoRmsDb": -0.0109
+        },
+        "processing": {
+          "algorithm": "scipy.signal.resample_poly",
+          "appliedGainDb": -5.8296,
+          "compressionOrLimiting": false,
+          "ratio": "160/147",
+          "sourceSampleRate": 44100,
+          "targetIntegratedLufs": -16.0,
+          "targetSampleRate": 48000,
+          "truePeakCeilingDbtp": -1.0
+        },
+        "runtime": {
+          "bytes": 567394,
+          "channels": 2,
+          "dcOffset": [
+            -4.287e-05,
+            -2.8618e-05
+          ],
+          "durationSeconds": 27.04225,
+          "format": "OGG",
+          "frames": 1298028,
+          "integratedLufs": -15.9779,
+          "rmsDbfs": -14.8598,
+          "samplePeakDbfs": -6.0501,
+          "sampleRate": 48000,
+          "sha256": "23214631ece76cd5b34dec90c964617fc52213e92eba8418c4531137725270ae",
+          "subtype": "VORBIS",
+          "truePeakDbtp": -6.0446
+        },
+        "source": {
+          "bytes": 7155422,
+          "channels": 2,
+          "dcOffset": [
+            -3.44423e-05,
+            -4.7777e-05
+          ],
+          "durationSeconds": 27.042244898,
+          "format": "WAV",
+          "frames": 1192563,
+          "integratedLufs": -10.168,
+          "rmsDbfs": -9.0811,
+          "samplePeakDbfs": -0.7242,
+          "sampleRate": 44100,
+          "sha256": "47d68c8e54d912788c5c8beb6dba556024e25a9bc26e0e7e30f99948e40937a0",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -0.4687
+        }
+      },
+      "revision": 1,
+      "rightsReview": "commercial-terms-and-similarity-pending",
+      "runtimeDither": null,
+      "runtimePath": "assets/audio/music/mus_aura_no_retrovisor.ogg",
+      "runtimeSha256": "23214631ece76cd5b34dec90c964617fc52213e92eba8418c4531137725270ae",
+      "sampleRate": 48000,
+      "sourceGenerator": "ChatGPT (declared by user)",
+      "sourcePath": "sources/audio/imported/chatgpt-2026-07-12/02_aura_no_retrovisor.wav",
+      "sourceSha256": "47d68c8e54d912788c5c8beb6dba556024e25a9bc26e0e7e30f99948e40937a0",
+      "status": "candidate-reviewed",
+      "title": "Aura no Retrovisor"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "bytes": 6158006,
+        "channels": 2,
+        "dcOffset": [
+          0.0004863414,
+          0.0004514774
+        ],
+        "durationSeconds": 23.272721088,
+        "format": "WAV",
+        "frames": 1026327,
+        "integratedLufs": -9.832,
+        "rmsDbfs": -10.2872,
+        "samplePeakDbfs": -0.7242,
+        "sampleRate": 44100,
+        "sha256": "cb98ccdf99df10ff1309a86ff30d6c366df9372f5994e9c614ba250cd3b7f786",
+        "subtype": "PCM_24",
+        "truePeakDbtp": -0.6215
+      },
+      "group": "music",
+      "humanSelection": "approved-by-user-2026-07-12",
+      "id": "MUS-PASSINHO-DE-AURA",
+      "kind": "soundtrack",
+      "licenseRecord": "provenance/audio/mus-passinho-de-aura.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/mus_passinho_de_aura.wav",
+      "masterSha256": "3d303ff42384264de0d4a47b49c2661cdcc77f7a227db2e231c442fd76b8633f",
+      "playlistOrder": 3,
+      "primary": false,
+      "required": true,
+      "reviewedMetrics": {
+        "decoder": {
+          "decodedFrames": 1117091,
+          "expectedFrames": 1117091,
+          "nonLoop": true,
+          "result": "frame-count-exact-libsndfile"
+        },
+        "master": {
+          "bytes": 6702590,
+          "channels": 2,
+          "dcOffset": [
+            0.0002390466,
+            0.0002219075
+          ],
+          "durationSeconds": 23.272729167,
+          "format": "WAV",
+          "frames": 1117091,
+          "integratedLufs": -16.0,
+          "rmsDbfs": -16.4547,
+          "samplePeakDbfs": -6.8304,
+          "sampleRate": 48000,
+          "sha256": "3d303ff42384264de0d4a47b49c2661cdcc77f7a227db2e231c442fd76b8633f",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -6.7773
+        },
+        "mono": {
+          "leftRightCorrelation": 0.992218,
+          "monoToStereoRmsDb": -0.0169
+        },
+        "processing": {
+          "algorithm": "scipy.signal.resample_poly",
+          "appliedGainDb": -6.1674,
+          "compressionOrLimiting": false,
+          "ratio": "160/147",
+          "sourceSampleRate": 44100,
+          "targetIntegratedLufs": -16.0,
+          "targetSampleRate": 48000,
+          "truePeakCeilingDbtp": -1.0
+        },
+        "runtime": {
+          "bytes": 507082,
+          "channels": 2,
+          "dcOffset": [
+            0.0002722784,
+            0.0002638461
+          ],
+          "durationSeconds": 23.272729167,
+          "format": "OGG",
+          "frames": 1117091,
+          "integratedLufs": -15.9817,
+          "rmsDbfs": -16.4099,
+          "samplePeakDbfs": -6.8293,
+          "sampleRate": 48000,
+          "sha256": "e60dc2ac95ffbffed5083e214ae77e5bb57434e911901d2b1dfb64503fd21572",
+          "subtype": "VORBIS",
+          "truePeakDbtp": -6.7462
+        },
+        "source": {
+          "bytes": 6158006,
+          "channels": 2,
+          "dcOffset": [
+            0.0004863414,
+            0.0004514774
+          ],
+          "durationSeconds": 23.272721088,
+          "format": "WAV",
+          "frames": 1026327,
+          "integratedLufs": -9.832,
+          "rmsDbfs": -10.2872,
+          "samplePeakDbfs": -0.7242,
+          "sampleRate": 44100,
+          "sha256": "cb98ccdf99df10ff1309a86ff30d6c366df9372f5994e9c614ba250cd3b7f786",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -0.6215
+        }
+      },
+      "revision": 1,
+      "rightsReview": "commercial-terms-and-similarity-pending",
+      "runtimeDither": null,
+      "runtimePath": "assets/audio/music/mus_passinho_de_aura.ogg",
+      "runtimeSha256": "e60dc2ac95ffbffed5083e214ae77e5bb57434e911901d2b1dfb64503fd21572",
+      "sampleRate": 48000,
+      "sourceGenerator": "ChatGPT (declared by user)",
+      "sourcePath": "sources/audio/imported/chatgpt-2026-07-12/04_passinho_de_aura.wav",
+      "sourceSha256": "cb98ccdf99df10ff1309a86ff30d6c366df9372f5994e9c614ba250cd3b7f786",
+      "status": "candidate-reviewed",
+      "title": "Passinho de Aura"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "bytes": 6430826,
+        "channels": 2,
+        "dcOffset": [
+          -0.0006380506,
+          -0.0006025308
+        ],
+        "durationSeconds": 24.303786848,
+        "format": "WAV",
+        "frames": 1071797,
+        "integratedLufs": -8.9705,
+        "rmsDbfs": -9.1413,
+        "samplePeakDbfs": -0.7242,
+        "sampleRate": 44100,
+        "sha256": "56f439581f77d64589f1654345b3192bfb5a23214f6d22042611621ed1644692",
+        "subtype": "PCM_24",
+        "truePeakDbtp": -0.6753
+      },
+      "group": "music",
+      "humanSelection": "approved-by-user-2026-07-12",
+      "id": "MUS-SIXSEVEN-NO-FLUXO",
+      "kind": "soundtrack",
+      "licenseRecord": "provenance/audio/mus-sixseven-no-fluxo.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/mus_sixseven_no_fluxo.wav",
+      "masterSha256": "abf62f92eed7b3f3e59e16e120793eb135d8b8e23b32eda73ff2a2fc7fa9354b",
+      "playlistOrder": 4,
+      "primary": false,
+      "required": true,
+      "reviewedMetrics": {
+        "decoder": {
+          "decodedFrames": 1166582,
+          "expectedFrames": 1166582,
+          "nonLoop": true,
+          "result": "frame-count-exact-libsndfile"
+        },
+        "master": {
+          "bytes": 6999536,
+          "channels": 2,
+          "dcOffset": [
+            -0.0002840987,
+            -0.0002682961
+          ],
+          "durationSeconds": 24.303791667,
+          "format": "WAV",
+          "frames": 1166582,
+          "integratedLufs": -16.0,
+          "rmsDbfs": -16.1705,
+          "samplePeakDbfs": -7.7037,
+          "sampleRate": 48000,
+          "sha256": "abf62f92eed7b3f3e59e16e120793eb135d8b8e23b32eda73ff2a2fc7fa9354b",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -7.6982
+        },
+        "mono": {
+          "leftRightCorrelation": 0.992846,
+          "monoToStereoRmsDb": -0.0156
+        },
+        "processing": {
+          "algorithm": "scipy.signal.resample_poly",
+          "appliedGainDb": -7.0291,
+          "compressionOrLimiting": false,
+          "ratio": "160/147",
+          "sourceSampleRate": 44100,
+          "targetIntegratedLufs": -16.0,
+          "targetSampleRate": 48000,
+          "truePeakCeilingDbtp": -1.0
+        },
+        "runtime": {
+          "bytes": 551053,
+          "channels": 2,
+          "dcOffset": [
+            -0.0002900712,
+            -0.000282795
+          ],
+          "durationSeconds": 24.303791667,
+          "format": "OGG",
+          "frames": 1166582,
+          "integratedLufs": -15.9773,
+          "rmsDbfs": -16.122,
+          "samplePeakDbfs": -7.5828,
+          "sampleRate": 48000,
+          "sha256": "a508a94b35cb2e928d10e36a913d353ff423cd319c0aed3dcb65dc819f068fbc",
+          "subtype": "VORBIS",
+          "truePeakDbtp": -7.5736
+        },
+        "source": {
+          "bytes": 6430826,
+          "channels": 2,
+          "dcOffset": [
+            -0.0006380506,
+            -0.0006025308
+          ],
+          "durationSeconds": 24.303786848,
+          "format": "WAV",
+          "frames": 1071797,
+          "integratedLufs": -8.9705,
+          "rmsDbfs": -9.1413,
+          "samplePeakDbfs": -0.7242,
+          "sampleRate": 44100,
+          "sha256": "56f439581f77d64589f1654345b3192bfb5a23214f6d22042611621ed1644692",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -0.6753
+        }
+      },
+      "revision": 1,
+      "rightsReview": "commercial-terms-and-similarity-pending",
+      "runtimeDither": null,
+      "runtimePath": "assets/audio/music/mus_sixseven_no_fluxo.ogg",
+      "runtimeSha256": "a508a94b35cb2e928d10e36a913d353ff423cd319c0aed3dcb65dc819f068fbc",
+      "sampleRate": 48000,
+      "sourceGenerator": "ChatGPT (declared by user)",
+      "sourcePath": "sources/audio/imported/chatgpt-2026-07-12/05_sixseven_no_fluxo.wav",
+      "sourceSha256": "56f439581f77d64589f1654345b3192bfb5a23214f6d22042611621ed1644692",
+      "status": "candidate-reviewed",
+      "title": "SixSeven no Fluxo"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "bytes": 5839490,
+        "channels": 2,
+        "dcOffset": [
+          0.0015215566,
+          0.0015308667
+        ],
+        "durationSeconds": 22.068956916,
+        "format": "WAV",
+        "frames": 973241,
+        "integratedLufs": -11.9463,
+        "rmsDbfs": -12.9391,
+        "samplePeakDbfs": -0.7242,
+        "sampleRate": 44100,
+        "sha256": "85a1108a000f7ecc7ba76030833e571b9d81fd9a60df15bf5a8dcd90d8fdb667",
+        "subtype": "PCM_24",
+        "truePeakDbtp": -0.7187
+      },
+      "group": "music",
+      "humanSelection": "approved-by-user-2026-07-12",
+      "id": "MUS-PHASE-BLOOM",
+      "kind": "soundtrack",
+      "licenseRecord": "provenance/audio/mus-phase-bloom.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/mus_phase_bloom.wav",
+      "masterSha256": "f903efe8906012154dae1283b04ecf88fcfe5831093f885b3dfe4d6c1c089f23",
+      "playlistOrder": 5,
+      "primary": false,
+      "required": true,
+      "reviewedMetrics": {
+        "decoder": {
+          "decodedFrames": 1059310,
+          "expectedFrames": 1059310,
+          "nonLoop": true,
+          "result": "frame-count-exact-libsndfile"
+        },
+        "master": {
+          "bytes": 6355904,
+          "channels": 2,
+          "dcOffset": [
+            0.0009544743,
+            0.0009603183
+          ],
+          "durationSeconds": 22.068958333,
+          "format": "WAV",
+          "frames": 1059310,
+          "integratedLufs": -16.0,
+          "rmsDbfs": -16.99,
+          "samplePeakDbfs": -4.7755,
+          "sampleRate": 48000,
+          "sha256": "f903efe8906012154dae1283b04ecf88fcfe5831093f885b3dfe4d6c1c089f23",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.77
+        },
+        "mono": {
+          "leftRightCorrelation": 0.992164,
+          "monoToStereoRmsDb": -0.017
+        },
+        "processing": {
+          "algorithm": "scipy.signal.resample_poly",
+          "appliedGainDb": -4.0498,
+          "compressionOrLimiting": false,
+          "ratio": "160/147",
+          "sourceSampleRate": 44100,
+          "targetIntegratedLufs": -16.0,
+          "targetSampleRate": 48000,
+          "truePeakCeilingDbtp": -1.0
+        },
+        "runtime": {
+          "bytes": 517795,
+          "channels": 2,
+          "dcOffset": [
+            0.0009160907,
+            0.0009807255
+          ],
+          "durationSeconds": 22.068958333,
+          "format": "OGG",
+          "frames": 1059310,
+          "integratedLufs": -16.1072,
+          "rmsDbfs": -16.9878,
+          "samplePeakDbfs": -4.6708,
+          "sampleRate": 48000,
+          "sha256": "1d22336e1f0940ea28a8ec4c388cf3576f4908bcaa5cdd8ab4a800205f8282b0",
+          "subtype": "VORBIS",
+          "truePeakDbtp": -4.6417
+        },
+        "source": {
+          "bytes": 5839490,
+          "channels": 2,
+          "dcOffset": [
+            0.0015215566,
+            0.0015308667
+          ],
+          "durationSeconds": 22.068956916,
+          "format": "WAV",
+          "frames": 973241,
+          "integratedLufs": -11.9463,
+          "rmsDbfs": -12.9391,
+          "samplePeakDbfs": -0.7242,
+          "sampleRate": 44100,
+          "sha256": "85a1108a000f7ecc7ba76030833e571b9d81fd9a60df15bf5a8dcd90d8fdb667",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -0.7187
+        }
+      },
+      "revision": 1,
+      "rightsReview": "commercial-terms-and-similarity-pending",
+      "runtimeDither": null,
+      "runtimePath": "assets/audio/music/mus_phase_bloom.ogg",
+      "runtimeSha256": "1d22336e1f0940ea28a8ec4c388cf3576f4908bcaa5cdd8ab4a800205f8282b0",
+      "sampleRate": 48000,
+      "sourceGenerator": "ChatGPT (declared by user)",
+      "sourcePath": "sources/audio/imported/chatgpt-2026-07-12/07_phase_bloom.wav",
+      "sourceSha256": "85a1108a000f7ecc7ba76030833e571b9d81fd9a60df15bf5a8dcd90d8fdb667",
+      "status": "candidate-reviewed",
+      "title": "Phase Bloom"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "bytes": 7697498,
+        "channels": 2,
+        "dcOffset": [
+          3.22136e-05,
+          0.0001341781
+        ],
+        "durationSeconds": 29.090907029,
+        "format": "WAV",
+        "frames": 1282909,
+        "integratedLufs": -11.0482,
+        "rmsDbfs": -11.5583,
+        "samplePeakDbfs": -0.7242,
+        "sampleRate": 44100,
+        "sha256": "375987f8425e5de946ab5ddd69aa9e781fb3d7858aab7569273e5f9f9fe6b005",
+        "subtype": "PCM_24",
+        "truePeakDbtp": -0.6918
+      },
+      "group": "music",
+      "humanSelection": "approved-by-user-2026-07-12",
+      "id": "MUS-RITUAL-6-7",
+      "kind": "soundtrack",
+      "licenseRecord": "provenance/audio/mus-ritual-6-7.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/mus_ritual_6_7.wav",
+      "masterSha256": "a27034838d81bbb3a9e3cdaddbe17692dafb6abc355d9470a5e18c0cb50de337",
+      "playlistOrder": 6,
+      "primary": false,
+      "required": true,
+      "reviewedMetrics": {
+        "decoder": {
+          "decodedFrames": 1396364,
+          "expectedFrames": 1396364,
+          "nonLoop": true,
+          "result": "frame-count-exact-libsndfile"
+        },
+        "master": {
+          "bytes": 8378228,
+          "channels": 2,
+          "dcOffset": [
+            1.81646e-05,
+            7.58249e-05
+          ],
+          "durationSeconds": 29.090916667,
+          "format": "WAV",
+          "frames": 1396364,
+          "integratedLufs": -16.0,
+          "rmsDbfs": -16.5098,
+          "samplePeakDbfs": -5.6593,
+          "sampleRate": 48000,
+          "sha256": "a27034838d81bbb3a9e3cdaddbe17692dafb6abc355d9470a5e18c0cb50de337",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.6403
+        },
+        "mono": {
+          "leftRightCorrelation": 0.978819,
+          "monoToStereoRmsDb": -0.0465
+        },
+        "processing": {
+          "algorithm": "scipy.signal.resample_poly",
+          "appliedGainDb": -4.9514,
+          "compressionOrLimiting": false,
+          "ratio": "160/147",
+          "sourceSampleRate": 44100,
+          "targetIntegratedLufs": -16.0,
+          "targetSampleRate": 48000,
+          "truePeakCeilingDbtp": -1.0
+        },
+        "runtime": {
+          "bytes": 637842,
+          "channels": 2,
+          "dcOffset": [
+            -2.89501e-05,
+            -7.2348e-06
+          ],
+          "durationSeconds": 29.090916667,
+          "format": "OGG",
+          "frames": 1396364,
+          "integratedLufs": -15.9567,
+          "rmsDbfs": -16.4584,
+          "samplePeakDbfs": -5.5206,
+          "sampleRate": 48000,
+          "sha256": "b26343658b070071a0a7e98eba43f74734e2a1cd5f26058c33e5c06f50a6ce46",
+          "subtype": "VORBIS",
+          "truePeakDbtp": -5.4759
+        },
+        "source": {
+          "bytes": 7697498,
+          "channels": 2,
+          "dcOffset": [
+            3.22136e-05,
+            0.0001341781
+          ],
+          "durationSeconds": 29.090907029,
+          "format": "WAV",
+          "frames": 1282909,
+          "integratedLufs": -11.0482,
+          "rmsDbfs": -11.5583,
+          "samplePeakDbfs": -0.7242,
+          "sampleRate": 44100,
+          "sha256": "375987f8425e5de946ab5ddd69aa9e781fb3d7858aab7569273e5f9f9fe6b005",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -0.6918
+        }
+      },
+      "revision": 1,
+      "rightsReview": "commercial-terms-and-similarity-pending",
+      "runtimeDither": null,
+      "runtimePath": "assets/audio/music/mus_ritual_6_7.ogg",
+      "runtimeSha256": "b26343658b070071a0a7e98eba43f74734e2a1cd5f26058c33e5c06f50a6ce46",
+      "sampleRate": 48000,
+      "sourceGenerator": "ChatGPT (declared by user)",
+      "sourcePath": "sources/audio/imported/chatgpt-2026-07-12/08_ritual_6_7.wav",
+      "sourceSha256": "375987f8425e5de946ab5ddd69aa9e781fb3d7858aab7569273e5f9f9fe6b005",
+      "status": "candidate-reviewed",
+      "title": "Ritual 6/7"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0033451929
+        ],
+        "durationSeconds": 0.076,
+        "frames": 3648,
+        "integratedLufs": null,
+        "rmsDbfs": -18.1627,
+        "samplePeakDbfs": -6.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+          "observed": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "ea2c8d10250a3e692ef0d2f3ff936bfa42d53a3ea4fb19f28dbe8ca49a911968",
+          "observed": "ea2c8d10250a3e692ef0d2f3ff936bfa42d53a3ea4fb19f28dbe8ca49a911968"
+        }
+      },
+      "id": "SFX-SIX-01",
+      "kind": "six",
+      "licenseRecord": "provenance/audio/sfx-six-01.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_six_01.wav",
+      "masterSha256": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 3648,
+          "deltaFrames": 0,
+          "expectedFrames": 3648,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 10988,
+          "channels": 1,
+          "dcOffset": [
+            0.0033451349
+          ],
+          "durationSeconds": 0.076,
+          "format": "WAV",
+          "frames": 3648,
+          "integratedLufs": null,
+          "rmsDbfs": -18.1627,
+          "samplePeakDbfs": -6.0,
+          "sampleRate": 48000,
+          "sha256": "eda6745ddef98a87d390ff8f0ca85899896417fc5d4b9a1f3c282cc7f823b47e",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1231,
+          "maxAbsoluteQuantizationErrorLsb": 1.4140625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.5057817,
+          "seed": 17353260297010748141,
+          "source": "encoded PCM24 master",
+          "totalSamples": 3648,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 3648,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2297,
+          "signalToCodecErrorDb": 78.067
+        },
+        "runtime": {
+          "bytes": 7340,
+          "channels": 1,
+          "dcOffset": [
+            0.0033446278
+          ],
+          "durationSeconds": 0.076,
+          "format": "WAV",
+          "frames": 3648,
+          "integratedLufs": null,
+          "rmsDbfs": -18.1627,
+          "samplePeakDbfs": -5.9999,
+          "sampleRate": 48000,
+          "sha256": "ea2c8d10250a3e692ef0d2f3ff936bfa42d53a3ea4fb19f28dbe8ca49a911968",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -5.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 17353260297010748141,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_six_01.wav",
+      "runtimeSha256": "ea2c8d10250a3e692ef0d2f3ff936bfa42d53a3ea4fb19f28dbe8ca49a911968",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 3808517291580472241,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0025148862
+        ],
+        "durationSeconds": 0.084,
+        "frames": 4032,
+        "integratedLufs": null,
+        "rmsDbfs": -17.7938,
+        "samplePeakDbfs": -6.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+          "observed": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6",
+          "observed": "e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6"
+        }
+      },
+      "id": "SFX-SIX-02",
+      "kind": "six",
+      "licenseRecord": "provenance/audio/sfx-six-02.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_six_02.wav",
+      "masterSha256": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 4032,
+          "deltaFrames": 0,
+          "expectedFrames": 4032,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 12140,
+          "channels": 1,
+          "dcOffset": [
+            0.0025148292
+          ],
+          "durationSeconds": 0.084,
+          "format": "WAV",
+          "frames": 4032,
+          "integratedLufs": null,
+          "rmsDbfs": -17.7938,
+          "samplePeakDbfs": -6.0,
+          "sampleRate": 48000,
+          "sha256": "a528f68bad7337906d83fd2aa8c1c71d9add202657347d819a493ce5b7ca9289",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.9904
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1304,
+          "maxAbsoluteQuantizationErrorLsb": 1.421875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49031216,
+          "seed": 5646522680568904705,
+          "source": "encoded PCM24 master",
+          "totalSamples": 4032,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 4032,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.4995,
+          "signalToCodecErrorDb": 78.7057
+        },
+        "runtime": {
+          "bytes": 8108,
+          "channels": 1,
+          "dcOffset": [
+            0.0025149377
+          ],
+          "durationSeconds": 0.084,
+          "format": "WAV",
+          "frames": 4032,
+          "integratedLufs": null,
+          "rmsDbfs": -17.7938,
+          "samplePeakDbfs": -5.9999,
+          "sampleRate": 48000,
+          "sha256": "e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -5.9903
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 5646522680568904705,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_six_02.wav",
+      "runtimeSha256": "e6364b4d4997c7b93bd1ca87a01a8b82dcf7d72bb73778939ca14f6cef6e9ec6",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 2183538422045756449,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.002064479
+        ],
+        "durationSeconds": 0.092,
+        "frames": 4416,
+        "integratedLufs": null,
+        "rmsDbfs": -18.1694,
+        "samplePeakDbfs": -6.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+          "observed": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "e8a81e7f0da8e17c920065716323e146248deec04b55c1e6029dde05f4dd56af",
+          "observed": "e8a81e7f0da8e17c920065716323e146248deec04b55c1e6029dde05f4dd56af"
+        }
+      },
+      "id": "SFX-SIX-03",
+      "kind": "six",
+      "licenseRecord": "provenance/audio/sfx-six-03.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_six_03.wav",
+      "masterSha256": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 4416,
+          "deltaFrames": 0,
+          "expectedFrames": 4416,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 13292,
+          "channels": 1,
+          "dcOffset": [
+            0.0020644227
+          ],
+          "durationSeconds": 0.092,
+          "format": "WAV",
+          "frames": 4416,
+          "integratedLufs": null,
+          "rmsDbfs": -18.1694,
+          "samplePeakDbfs": -6.0,
+          "sampleRate": 48000,
+          "sha256": "7a17f6689915cbe3ec89a78af17af377778168ded3e86ad27a4f8a8bc937406e",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.9875
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1459,
+          "maxAbsoluteQuantizationErrorLsb": 1.3984375,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49483312,
+          "seed": 6189183752305137399,
+          "source": "encoded PCM24 master",
+          "totalSamples": 4416,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 4416,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.4198,
+          "signalToCodecErrorDb": 78.2505
+        },
+        "runtime": {
+          "bytes": 8876,
+          "channels": 1,
+          "dcOffset": [
+            0.0020643456
+          ],
+          "durationSeconds": 0.092,
+          "format": "WAV",
+          "frames": 4416,
+          "integratedLufs": null,
+          "rmsDbfs": -18.1694,
+          "samplePeakDbfs": -5.9999,
+          "sampleRate": 48000,
+          "sha256": "e8a81e7f0da8e17c920065716323e146248deec04b55c1e6029dde05f4dd56af",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -5.9877
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 6189183752305137399,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_six_03.wav",
+      "runtimeSha256": "e8a81e7f0da8e17c920065716323e146248deec04b55c1e6029dde05f4dd56af",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 2642038545849594794,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0016169657
+        ],
+        "durationSeconds": 0.1,
+        "frames": 4800,
+        "integratedLufs": null,
+        "rmsDbfs": -17.8358,
+        "samplePeakDbfs": -6.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+          "observed": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "5f75ab6b9efe2cf8d3741664d1ee6887b88c6541e0ac69eed51abdc87a5e6601",
+          "observed": "5f75ab6b9efe2cf8d3741664d1ee6887b88c6541e0ac69eed51abdc87a5e6601"
+        }
+      },
+      "id": "SFX-SIX-04",
+      "kind": "six",
+      "licenseRecord": "provenance/audio/sfx-six-04.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_six_04.wav",
+      "masterSha256": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 4800,
+          "deltaFrames": 0,
+          "expectedFrames": 4800,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 14444,
+          "channels": 1,
+          "dcOffset": [
+            0.0016169089
+          ],
+          "durationSeconds": 0.1,
+          "format": "WAV",
+          "frames": 4800,
+          "integratedLufs": null,
+          "rmsDbfs": -17.8358,
+          "samplePeakDbfs": -6.0,
+          "sampleRate": 48000,
+          "sha256": "70bbe6064f121d0b64e3c1a1439d3f88c95cd0d6d230e2e60e3c6645b46226a5",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1585,
+          "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49763508,
+          "seed": 1957679763414509585,
+          "source": "encoded PCM24 master",
+          "totalSamples": 4800,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 4800,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3708,
+          "signalToCodecErrorDb": 78.535
+        },
+        "runtime": {
+          "bytes": 9644,
+          "channels": 1,
+          "dcOffset": [
+            0.001616923
+          ],
+          "durationSeconds": 0.1,
+          "format": "WAV",
+          "frames": 4800,
+          "integratedLufs": null,
+          "rmsDbfs": -17.8358,
+          "samplePeakDbfs": -5.9999,
+          "sampleRate": 48000,
+          "sha256": "5f75ab6b9efe2cf8d3741664d1ee6887b88c6541e0ac69eed51abdc87a5e6601",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -5.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 1957679763414509585,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_six_04.wav",
+      "runtimeSha256": "5f75ab6b9efe2cf8d3741664d1ee6887b88c6541e0ac69eed51abdc87a5e6601",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 17961759374641232664,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.00141308
+        ],
+        "durationSeconds": 0.106,
+        "frames": 5088,
+        "integratedLufs": null,
+        "rmsDbfs": -18.2291,
+        "samplePeakDbfs": -6.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+          "observed": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "1ff0319a329390a7cd240ec628c956951db14b8776e64fd8f72aafcdd2e732b4",
+          "observed": "1ff0319a329390a7cd240ec628c956951db14b8776e64fd8f72aafcdd2e732b4"
+        }
+      },
+      "id": "SFX-SIX-05",
+      "kind": "six",
+      "licenseRecord": "provenance/audio/sfx-six-05.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_six_05.wav",
+      "masterSha256": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 5088,
+          "deltaFrames": 0,
+          "expectedFrames": 5088,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 15308,
+          "channels": 1,
+          "dcOffset": [
+            0.0014130247
+          ],
+          "durationSeconds": 0.106,
+          "format": "WAV",
+          "frames": 5088,
+          "integratedLufs": null,
+          "rmsDbfs": -18.2291,
+          "samplePeakDbfs": -6.0,
+          "sampleRate": 48000,
+          "sha256": "f88bb9df36eea1cf19cb50579507f8dcb3734d73329417aa7cdc1d7cabdd43a7",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.8496
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1648,
+          "maxAbsoluteQuantizationErrorLsb": 1.421875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49213431,
+          "seed": 1711265899418547385,
+          "source": "encoded PCM24 master",
+          "totalSamples": 5088,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 5088,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.4673,
+          "signalToCodecErrorDb": 78.2382
+        },
+        "runtime": {
+          "bytes": 10220,
+          "channels": 1,
+          "dcOffset": [
+            0.0014128955
+          ],
+          "durationSeconds": 0.106,
+          "format": "WAV",
+          "frames": 5088,
+          "integratedLufs": null,
+          "rmsDbfs": -18.2291,
+          "samplePeakDbfs": -5.9999,
+          "sampleRate": 48000,
+          "sha256": "1ff0319a329390a7cd240ec628c956951db14b8776e64fd8f72aafcdd2e732b4",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -5.8495
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 1711265899418547385,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_six_05.wav",
+      "runtimeSha256": "1ff0319a329390a7cd240ec628c956951db14b8776e64fd8f72aafcdd2e732b4",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 18263397986703124415,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0011743153
+        ],
+        "durationSeconds": 0.11,
+        "frames": 5280,
+        "integratedLufs": null,
+        "rmsDbfs": -17.9316,
+        "samplePeakDbfs": -6.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+          "observed": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "db8231c3194c01ca7ac285f6db5c8780f1c679a2cb6299d89fe36275581e6bf7",
+          "observed": "db8231c3194c01ca7ac285f6db5c8780f1c679a2cb6299d89fe36275581e6bf7"
+        }
+      },
+      "id": "SFX-SIX-06",
+      "kind": "six",
+      "licenseRecord": "provenance/audio/sfx-six-06.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_six_06.wav",
+      "masterSha256": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 5280,
+          "deltaFrames": 0,
+          "expectedFrames": 5280,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 15884,
+          "channels": 1,
+          "dcOffset": [
+            0.0011742584
+          ],
+          "durationSeconds": 0.11,
+          "format": "WAV",
+          "frames": 5280,
+          "integratedLufs": null,
+          "rmsDbfs": -17.9316,
+          "samplePeakDbfs": -6.0,
+          "sampleRate": 48000,
+          "sha256": "6d9037ad67a9fc0c929b71dfc52abd647e3923add671bc939388c4a82a466e79",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -5.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1771,
+          "maxAbsoluteQuantizationErrorLsb": 1.39453125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50273989,
+          "seed": 7540827228954021790,
+          "source": "encoded PCM24 master",
+          "totalSamples": 5280,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 5280,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2821,
+          "signalToCodecErrorDb": 78.3505
+        },
+        "runtime": {
+          "bytes": 10604,
+          "channels": 1,
+          "dcOffset": [
+            0.0011742505
+          ],
+          "durationSeconds": 0.11,
+          "format": "WAV",
+          "frames": 5280,
+          "integratedLufs": null,
+          "rmsDbfs": -17.9316,
+          "samplePeakDbfs": -5.9999,
+          "sampleRate": 48000,
+          "sha256": "db8231c3194c01ca7ac285f6db5c8780f1c679a2cb6299d89fe36275581e6bf7",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -5.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 7540827228954021790,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_six_06.wav",
+      "runtimeSha256": "db8231c3194c01ca7ac285f6db5c8780f1c679a2cb6299d89fe36275581e6bf7",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 13794683750913331786,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0057012718
+        ],
+        "durationSeconds": 0.096,
+        "frames": 4608,
+        "integratedLufs": null,
+        "rmsDbfs": -13.0617,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+          "observed": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "09ffcab833ce9b2873e7de1b03ff90bc0d5dfd5c800c101be852ad30912b2aa3",
+          "observed": "09ffcab833ce9b2873e7de1b03ff90bc0d5dfd5c800c101be852ad30912b2aa3"
+        }
+      },
+      "id": "SFX-SEVEN-01",
+      "kind": "seven",
+      "licenseRecord": "provenance/audio/sfx-seven-01.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_seven_01.wav",
+      "masterSha256": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 4608,
+          "deltaFrames": 0,
+          "expectedFrames": 4608,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 13868,
+          "channels": 1,
+          "dcOffset": [
+            0.0057012183
+          ],
+          "durationSeconds": 0.096,
+          "format": "WAV",
+          "frames": 4608,
+          "integratedLufs": null,
+          "rmsDbfs": -13.0617,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "40f34bba27b853bdf8bddfc3e808e61816cd3588bec5850f6520246020bcdc00",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1534,
+          "maxAbsoluteQuantizationErrorLsb": 1.38671875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49786602,
+          "seed": 7294863235666712082,
+          "source": "encoded PCM24 master",
+          "totalSamples": 4608,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 4608,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3667,
+          "signalToCodecErrorDb": 83.3051
+        },
+        "runtime": {
+          "bytes": 9260,
+          "channels": 1,
+          "dcOffset": [
+            0.0057008797
+          ],
+          "durationSeconds": 0.096,
+          "format": "WAV",
+          "frames": 4608,
+          "integratedLufs": null,
+          "rmsDbfs": -13.0617,
+          "samplePeakDbfs": -5.0004,
+          "sampleRate": 48000,
+          "sha256": "09ffcab833ce9b2873e7de1b03ff90bc0d5dfd5c800c101be852ad30912b2aa3",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9948
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 7294863235666712082,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_seven_01.wav",
+      "runtimeSha256": "09ffcab833ce9b2873e7de1b03ff90bc0d5dfd5c800c101be852ad30912b2aa3",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9874853273281035213,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0055593532
+        ],
+        "durationSeconds": 0.106,
+        "frames": 5088,
+        "integratedLufs": null,
+        "rmsDbfs": -12.59,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+          "observed": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "38c5331aba4ffa5a5bf37c16a4fd240822dd949431eab7fcaf9e908ebbf3f63e",
+          "observed": "38c5331aba4ffa5a5bf37c16a4fd240822dd949431eab7fcaf9e908ebbf3f63e"
+        }
+      },
+      "id": "SFX-SEVEN-02",
+      "kind": "seven",
+      "licenseRecord": "provenance/audio/sfx-seven-02.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_seven_02.wav",
+      "masterSha256": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 5088,
+          "deltaFrames": 0,
+          "expectedFrames": 5088,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 15308,
+          "channels": 1,
+          "dcOffset": [
+            0.0055593047
+          ],
+          "durationSeconds": 0.106,
+          "format": "WAV",
+          "frames": 5088,
+          "integratedLufs": null,
+          "rmsDbfs": -12.59,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "9f31470db5061fb2f7683899909da12fd843dd48bcc567e36215c4ead614e858",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1648,
+          "maxAbsoluteQuantizationErrorLsb": 1.46484375,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49455472,
+          "seed": 1598602202895533024,
+          "source": "encoded PCM24 master",
+          "totalSamples": 5088,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 5088,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.4247,
+          "signalToCodecErrorDb": 83.8347
+        },
+        "runtime": {
+          "bytes": 10220,
+          "channels": 1,
+          "dcOffset": [
+            0.0055595376
+          ],
+          "durationSeconds": 0.106,
+          "format": "WAV",
+          "frames": 5088,
+          "integratedLufs": null,
+          "rmsDbfs": -12.59,
+          "samplePeakDbfs": -5.0004,
+          "sampleRate": 48000,
+          "sha256": "38c5331aba4ffa5a5bf37c16a4fd240822dd949431eab7fcaf9e908ebbf3f63e",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9948
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 1598602202895533024,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_seven_02.wav",
+      "runtimeSha256": "38c5331aba4ffa5a5bf37c16a4fd240822dd949431eab7fcaf9e908ebbf3f63e",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 3439552273621375651,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.004158149
+        ],
+        "durationSeconds": 0.116,
+        "frames": 5568,
+        "integratedLufs": null,
+        "rmsDbfs": -13.6344,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+          "observed": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5",
+          "observed": "f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5"
+        }
+      },
+      "id": "SFX-SEVEN-03",
+      "kind": "seven",
+      "licenseRecord": "provenance/audio/sfx-seven-03.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_seven_03.wav",
+      "masterSha256": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 5568,
+          "deltaFrames": 0,
+          "expectedFrames": 5568,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 16748,
+          "channels": 1,
+          "dcOffset": [
+            0.0041580987
+          ],
+          "durationSeconds": 0.116,
+          "format": "WAV",
+          "frames": 5568,
+          "integratedLufs": null,
+          "rmsDbfs": -13.6344,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "b57399ac0dfee8bdb7e3eff2c30f3d2e08784df22bd620db8171a1612435a971",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1902,
+          "maxAbsoluteQuantizationErrorLsb": 1.39453125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50607565,
+          "seed": 12514209070610333818,
+          "source": "encoded PCM24 master",
+          "totalSamples": 5568,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 5568,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2247,
+          "signalToCodecErrorDb": 82.5903
+        },
+        "runtime": {
+          "bytes": 11180,
+          "channels": 1,
+          "dcOffset": [
+            0.0041581569
+          ],
+          "durationSeconds": 0.116,
+          "format": "WAV",
+          "frames": 5568,
+          "integratedLufs": null,
+          "rmsDbfs": -13.6344,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 12514209070610333818,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_seven_03.wav",
+      "runtimeSha256": "f71e93284c7f7cf9ea6589dd7d33ac5f6773a4cd5801b4ee1c30f75b68f1d7f5",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9942509884225028380,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0039356062
+        ],
+        "durationSeconds": 0.126,
+        "frames": 6048,
+        "integratedLufs": null,
+        "rmsDbfs": -13.161,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+          "observed": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5",
+          "observed": "5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5"
+        }
+      },
+      "id": "SFX-SEVEN-04",
+      "kind": "seven",
+      "licenseRecord": "provenance/audio/sfx-seven-04.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_seven_04.wav",
+      "masterSha256": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 6048,
+          "deltaFrames": 0,
+          "expectedFrames": 6048,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 18188,
+          "channels": 1,
+          "dcOffset": [
+            0.0039355513
+          ],
+          "durationSeconds": 0.126,
+          "format": "WAV",
+          "frames": 6048,
+          "integratedLufs": null,
+          "rmsDbfs": -13.161,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "ea4aff7bb7678e243c2554e758f569048819d63415f2c0bdfa775d2a76f11b1a",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9854
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1993,
+          "maxAbsoluteQuantizationErrorLsb": 1.48046875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50078586,
+          "seed": 8501226384354091652,
+          "source": "encoded PCM24 master",
+          "totalSamples": 6048,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 6048,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.316,
+          "signalToCodecErrorDb": 83.1549
+        },
+        "runtime": {
+          "bytes": 12140,
+          "channels": 1,
+          "dcOffset": [
+            0.0039355215
+          ],
+          "durationSeconds": 0.126,
+          "format": "WAV",
+          "frames": 6048,
+          "integratedLufs": null,
+          "rmsDbfs": -13.161,
+          "samplePeakDbfs": -5.0004,
+          "sampleRate": 48000,
+          "sha256": "5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9855
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 8501226384354091652,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_seven_04.wav",
+      "runtimeSha256": "5681a4f7611d30fb1454d7e291578a4f575f1e58c0b210a77b14041643efaed5",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9847367331369263404,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0031043657
+        ],
+        "durationSeconds": 0.138,
+        "frames": 6624,
+        "integratedLufs": null,
+        "rmsDbfs": -14.0579,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+          "observed": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "3fa21b5de79794958a11ddd8c9cebceb99b87030bc76762fbb14bb25f9d262dc",
+          "observed": "3fa21b5de79794958a11ddd8c9cebceb99b87030bc76762fbb14bb25f9d262dc"
+        }
+      },
+      "id": "SFX-SEVEN-05",
+      "kind": "seven",
+      "licenseRecord": "provenance/audio/sfx-seven-05.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_seven_05.wav",
+      "masterSha256": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 6624,
+          "deltaFrames": 0,
+          "expectedFrames": 6624,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 19916,
+          "channels": 1,
+          "dcOffset": [
+            0.0031043107
+          ],
+          "durationSeconds": 0.138,
+          "format": "WAV",
+          "frames": 6624,
+          "integratedLufs": null,
+          "rmsDbfs": -14.0579,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "b13db9f0b88eacf7d14216eef63fb09d31e7cd6d5277c4c5becfb166c5cd5b72",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 2234,
+          "maxAbsoluteQuantizationErrorLsb": 1.40625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50712972,
+          "seed": 6248571555405137255,
+          "source": "encoded PCM24 master",
+          "totalSamples": 6624,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 6624,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2066,
+          "signalToCodecErrorDb": 82.1487
+        },
+        "runtime": {
+          "bytes": 13292,
+          "channels": 1,
+          "dcOffset": [
+            0.003104408
+          ],
+          "durationSeconds": 0.138,
+          "format": "WAV",
+          "frames": 6624,
+          "integratedLufs": null,
+          "rmsDbfs": -14.0579,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "3fa21b5de79794958a11ddd8c9cebceb99b87030bc76762fbb14bb25f9d262dc",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 6248571555405137255,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_seven_05.wav",
+      "runtimeSha256": "3fa21b5de79794958a11ddd8c9cebceb99b87030bc76762fbb14bb25f9d262dc",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 17477439293456507629,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0030055416
+        ],
+        "durationSeconds": 0.148,
+        "frames": 7104,
+        "integratedLufs": null,
+        "rmsDbfs": -13.7577,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "cycle",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+          "observed": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "00563700f99c7275a948ab696b850d4ab9c04c616b093e5406bce9ec81551185",
+          "observed": "00563700f99c7275a948ab696b850d4ab9c04c616b093e5406bce9ec81551185"
+        }
+      },
+      "id": "SFX-SEVEN-06",
+      "kind": "seven",
+      "licenseRecord": "provenance/audio/sfx-seven-06.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_seven_06.wav",
+      "masterSha256": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 7104,
+          "deltaFrames": 0,
+          "expectedFrames": 7104,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 21356,
+          "channels": 1,
+          "dcOffset": [
+            0.0030054867
+          ],
+          "durationSeconds": 0.148,
+          "format": "WAV",
+          "frames": 7104,
+          "integratedLufs": null,
+          "rmsDbfs": -13.7577,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "5e768127bb51a85fa25344f46ce528089518968cea63f65883adbd9d7ef02af2",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 2331,
+          "maxAbsoluteQuantizationErrorLsb": 1.4375,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49799909,
+          "seed": 1776073093371579436,
+          "source": "encoded PCM24 master",
+          "totalSamples": 7104,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 7104,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3644,
+          "signalToCodecErrorDb": 82.6067
+        },
+        "runtime": {
+          "bytes": 14252,
+          "channels": 1,
+          "dcOffset": [
+            0.0030057624
+          ],
+          "durationSeconds": 0.148,
+          "format": "WAV",
+          "frames": 7104,
+          "integratedLufs": null,
+          "rmsDbfs": -13.7577,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "00563700f99c7275a948ab696b850d4ab9c04c616b093e5406bce9ec81551185",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 1776073093371579436,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/cycle/sfx_seven_06.wav",
+      "runtimeSha256": "00563700f99c7275a948ab696b850d4ab9c04c616b093e5406bce9ec81551185",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 17537479888925607583,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0002404078
+        ],
+        "durationSeconds": 0.12,
+        "frames": 5760,
+        "integratedLufs": null,
+        "rmsDbfs": -16.8266,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+          "observed": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "216b2a98c050f70c5ae9512976d60863dfcc9d10141efdf1527be05b8eead7bb",
+          "observed": "216b2a98c050f70c5ae9512976d60863dfcc9d10141efdf1527be05b8eead7bb"
+        }
+      },
+      "id": "SFX-UI-TAB",
+      "kind": "ui_tab",
+      "licenseRecord": "provenance/audio/sfx-ui-tab.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_ui_tab.wav",
+      "masterSha256": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 5760,
+          "deltaFrames": 0,
+          "expectedFrames": 5760,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 17324,
+          "channels": 1,
+          "dcOffset": [
+            0.0002403523
+          ],
+          "durationSeconds": 0.12,
+          "format": "WAV",
+          "frames": 5760,
+          "integratedLufs": null,
+          "rmsDbfs": -16.8266,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "89441720d649fa964739665ce6520f551d935fe400faf7afe784202f4b7d370f",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 1948,
+          "maxAbsoluteQuantizationErrorLsb": 1.43359375,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50209869,
+          "seed": 17524043075303136713,
+          "source": "encoded PCM24 master",
+          "totalSamples": 5760,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 5760,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2932,
+          "signalToCodecErrorDb": 79.4666
+        },
+        "runtime": {
+          "bytes": 11564,
+          "channels": 1,
+          "dcOffset": [
+            0.0002401723
+          ],
+          "durationSeconds": 0.12,
+          "format": "WAV",
+          "frames": 5760,
+          "integratedLufs": null,
+          "rmsDbfs": -16.8266,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "216b2a98c050f70c5ae9512976d60863dfcc9d10141efdf1527be05b8eead7bb",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 17524043075303136713,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_ui_tab.wav",
+      "runtimeSha256": "216b2a98c050f70c5ae9512976d60863dfcc9d10141efdf1527be05b8eead7bb",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 16906589656946117560,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0001075088
+        ],
+        "durationSeconds": 0.18,
+        "frames": 8640,
+        "integratedLufs": null,
+        "rmsDbfs": -16.7513,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+          "observed": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "d998047eb0929a4b04b68ae45fc80d7f41a8620585a38f00caf3c9c088437723",
+          "observed": "d998047eb0929a4b04b68ae45fc80d7f41a8620585a38f00caf3c9c088437723"
+        }
+      },
+      "id": "SFX-UI-OPEN",
+      "kind": "ui_open",
+      "licenseRecord": "provenance/audio/sfx-ui-open.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_ui_open.wav",
+      "masterSha256": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 8640,
+          "deltaFrames": 0,
+          "expectedFrames": 8640,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 25964,
+          "channels": 1,
+          "dcOffset": [
+            0.0001074537
+          ],
+          "durationSeconds": 0.18,
+          "format": "WAV",
+          "frames": 8640,
+          "integratedLufs": null,
+          "rmsDbfs": -16.7513,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "be69c1a96e26728de98ca9e899dae6c4bcd90f90322957ff232d3aaf1981d922",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9672
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 2945,
+          "maxAbsoluteQuantizationErrorLsb": 1.44140625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50665158,
+          "seed": 4838240405388521804,
+          "source": "encoded PCM24 master",
+          "totalSamples": 8640,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 8640,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2148,
+          "signalToCodecErrorDb": 79.4635
+        },
+        "runtime": {
+          "bytes": 17324,
+          "channels": 1,
+          "dcOffset": [
+            0.0001073767
+          ],
+          "durationSeconds": 0.18,
+          "format": "WAV",
+          "frames": 8640,
+          "integratedLufs": null,
+          "rmsDbfs": -16.7513,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "d998047eb0929a4b04b68ae45fc80d7f41a8620585a38f00caf3c9c088437723",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9669
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 4838240405388521804,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_ui_open.wav",
+      "runtimeSha256": "d998047eb0929a4b04b68ae45fc80d7f41a8620585a38f00caf3c9c088437723",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 7376612979708160533,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          8.03813e-05
+        ],
+        "durationSeconds": 0.16,
+        "frames": 7680,
+        "integratedLufs": null,
+        "rmsDbfs": -16.4666,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+          "observed": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "030fb3b5466a8c04c689122b404b4520e80999227af6877e76dd30ab1911737f",
+          "observed": "030fb3b5466a8c04c689122b404b4520e80999227af6877e76dd30ab1911737f"
+        }
+      },
+      "id": "SFX-UI-CLOSE",
+      "kind": "ui_close",
+      "licenseRecord": "provenance/audio/sfx-ui-close.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_ui_close.wav",
+      "masterSha256": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 7680,
+          "deltaFrames": 0,
+          "expectedFrames": 7680,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 23084,
+          "channels": 1,
+          "dcOffset": [
+            8.03263e-05
+          ],
+          "durationSeconds": 0.16,
+          "format": "WAV",
+          "frames": 7680,
+          "integratedLufs": null,
+          "rmsDbfs": -16.4666,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "ec429ead53f0ba2f92620d3cbc6be93fbb2982b2e285ba4e096e524775fd6f3f",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 2534,
+          "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50044333,
+          "seed": 3426131891119832370,
+          "source": "encoded PCM24 master",
+          "totalSamples": 7680,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 7680,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3219,
+          "signalToCodecErrorDb": 79.8553
+        },
+        "runtime": {
+          "bytes": 15404,
+          "channels": 1,
+          "dcOffset": [
+            8.04067e-05
+          ],
+          "durationSeconds": 0.16,
+          "format": "WAV",
+          "frames": 7680,
+          "integratedLufs": null,
+          "rmsDbfs": -16.4666,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "030fb3b5466a8c04c689122b404b4520e80999227af6877e76dd30ab1911737f",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 3426131891119832370,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_ui_close.wav",
+      "runtimeSha256": "030fb3b5466a8c04c689122b404b4520e80999227af6877e76dd30ab1911737f",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 8117380409992000213,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0001618325
+        ],
+        "durationSeconds": 0.14,
+        "frames": 6720,
+        "integratedLufs": null,
+        "rmsDbfs": -17.5241,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+          "observed": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "d68ef87cbd18577110ce6ea3d547e7c2d48f5e54671a0a06224ba18e744288da",
+          "observed": "d68ef87cbd18577110ce6ea3d547e7c2d48f5e54671a0a06224ba18e744288da"
+        }
+      },
+      "id": "SFX-UI-TOGGLE-ON",
+      "kind": "ui_toggle_on",
+      "licenseRecord": "provenance/audio/sfx-ui-toggle-on.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_ui_toggle_on.wav",
+      "masterSha256": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 6720,
+          "deltaFrames": 0,
+          "expectedFrames": 6720,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 20204,
+          "channels": 1,
+          "dcOffset": [
+            0.0001617891
+          ],
+          "durationSeconds": 0.14,
+          "format": "WAV",
+          "frames": 6720,
+          "integratedLufs": null,
+          "rmsDbfs": -17.5241,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "cda9056579b74ed6a78714acf91c42f8f32fa22a04364457f2585faa6053ff22",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9538
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 2079,
+          "maxAbsoluteQuantizationErrorLsb": 1.40625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49990617,
+          "seed": 6597849457215141831,
+          "source": "encoded PCM24 master",
+          "totalSamples": 6720,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 6720,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3312,
+          "signalToCodecErrorDb": 78.8071
+        },
+        "runtime": {
+          "bytes": 13484,
+          "channels": 1,
+          "dcOffset": [
+            0.0001615933
+          ],
+          "durationSeconds": 0.14,
+          "format": "WAV",
+          "frames": 6720,
+          "integratedLufs": null,
+          "rmsDbfs": -17.5241,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "d68ef87cbd18577110ce6ea3d547e7c2d48f5e54671a0a06224ba18e744288da",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9541
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 6597849457215141831,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_ui_toggle_on.wav",
+      "runtimeSha256": "d68ef87cbd18577110ce6ea3d547e7c2d48f5e54671a0a06224ba18e744288da",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 13238081325963558963,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.000170717
+        ],
+        "durationSeconds": 0.14,
+        "frames": 6720,
+        "integratedLufs": null,
+        "rmsDbfs": -17.2705,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+          "observed": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "8f5e76f2ae8f01834ff0d26d7749e7a1b099a8c08342ebf6c5951bdf8c6cd7b0",
+          "observed": "8f5e76f2ae8f01834ff0d26d7749e7a1b099a8c08342ebf6c5951bdf8c6cd7b0"
+        }
+      },
+      "id": "SFX-UI-TOGGLE-OFF",
+      "kind": "ui_toggle_off",
+      "licenseRecord": "provenance/audio/sfx-ui-toggle-off.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_ui_toggle_off.wav",
+      "masterSha256": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 6720,
+          "deltaFrames": 0,
+          "expectedFrames": 6720,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 20204,
+          "channels": 1,
+          "dcOffset": [
+            0.0001706738
+          ],
+          "durationSeconds": 0.14,
+          "format": "WAV",
+          "frames": 6720,
+          "integratedLufs": null,
+          "rmsDbfs": -17.2705,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "0c76a886abab8d86346ef19184c9fd35651caa6cb229f9c73bbcc09bc68dd622",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.8624
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 2107,
+          "maxAbsoluteQuantizationErrorLsb": 1.44921875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50032252,
+          "seed": 10304923922782378390,
+          "source": "encoded PCM24 master",
+          "totalSamples": 6720,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 6720,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.324,
+          "signalToCodecErrorDb": 79.0535
+        },
+        "runtime": {
+          "bytes": 13484,
+          "channels": 1,
+          "dcOffset": [
+            0.0001704761
+          ],
+          "durationSeconds": 0.14,
+          "format": "WAV",
+          "frames": 6720,
+          "integratedLufs": null,
+          "rmsDbfs": -17.2705,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "8f5e76f2ae8f01834ff0d26d7749e7a1b099a8c08342ebf6c5951bdf8c6cd7b0",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.8623
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 10304923922782378390,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_ui_toggle_off.wav",
+      "runtimeSha256": "8f5e76f2ae8f01834ff0d26d7749e7a1b099a8c08342ebf6c5951bdf8c6cd7b0",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9799577747788659102,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0006552392
+        ],
+        "durationSeconds": 0.26,
+        "frames": 12480,
+        "integratedLufs": null,
+        "rmsDbfs": -16.0016,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+          "observed": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "acdb8387398035e45d7b72dd001f150d03c55619ddf4e58eebfba4cad34fe3ed",
+          "observed": "acdb8387398035e45d7b72dd001f150d03c55619ddf4e58eebfba4cad34fe3ed"
+        }
+      },
+      "id": "SFX-UI-ERROR",
+      "kind": "ui_error",
+      "licenseRecord": "provenance/audio/sfx-ui-error.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_ui_error.wav",
+      "masterSha256": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 12480,
+          "deltaFrames": 0,
+          "expectedFrames": 12480,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 37484,
+          "channels": 1,
+          "dcOffset": [
+            0.000655185
+          ],
+          "durationSeconds": 0.26,
+          "format": "WAV",
+          "frames": 12480,
+          "integratedLufs": null,
+          "rmsDbfs": -16.0016,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "b3da4634ede7b4b2cc735cc4b51ed2ed6f90e135005e88f58cbd90c3ebd5d828",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 4117,
+          "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49774888,
+          "seed": 1450545113976416427,
+          "source": "encoded PCM24 master",
+          "totalSamples": 12480,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 12480,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3688,
+          "signalToCodecErrorDb": 80.3672
+        },
+        "runtime": {
+          "bytes": 25004,
+          "channels": 1,
+          "dcOffset": [
+            0.0006552403
+          ],
+          "durationSeconds": 0.26,
+          "format": "WAV",
+          "frames": 12480,
+          "integratedLufs": null,
+          "rmsDbfs": -16.0016,
+          "samplePeakDbfs": -5.0004,
+          "sampleRate": 48000,
+          "sha256": "acdb8387398035e45d7b72dd001f150d03c55619ddf4e58eebfba4cad34fe3ed",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9948
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 1450545113976416427,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_ui_error.wav",
+      "runtimeSha256": "acdb8387398035e45d7b72dd001f150d03c55619ddf4e58eebfba4cad34fe3ed",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 18397068829143621678,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0012785963
+        ],
+        "durationSeconds": 0.35,
+        "frames": 16800,
+        "integratedLufs": null,
+        "rmsDbfs": -17.6609,
+        "samplePeakDbfs": -4.5,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+          "observed": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8",
+          "observed": "771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8"
+        }
+      },
+      "id": "SFX-SHOP-PURCHASE",
+      "kind": "shop_purchase",
+      "licenseRecord": "provenance/audio/sfx-shop-purchase.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_shop_purchase.wav",
+      "masterSha256": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 16800,
+          "deltaFrames": 0,
+          "expectedFrames": 16800,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 50444,
+          "channels": 1,
+          "dcOffset": [
+            0.0012785516
+          ],
+          "durationSeconds": 0.35,
+          "format": "WAV",
+          "frames": 16800,
+          "integratedLufs": null,
+          "rmsDbfs": -17.6609,
+          "samplePeakDbfs": -4.5,
+          "sampleRate": 48000,
+          "sha256": "5895d8f2e5d7fccb04e7cb9293327a72a7738a0eb0210905a5fe56975c1fdf07",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.489
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 5321,
+          "maxAbsoluteQuantizationErrorLsb": 1.453125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49976061,
+          "seed": 17939813930001531133,
+          "source": "encoded PCM24 master",
+          "totalSamples": 16800,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 16800,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3338,
+          "signalToCodecErrorDb": 78.6729
+        },
+        "runtime": {
+          "bytes": 33644,
+          "channels": 1,
+          "dcOffset": [
+            0.0012786429
+          ],
+          "durationSeconds": 0.35,
+          "format": "WAV",
+          "frames": 16800,
+          "integratedLufs": null,
+          "rmsDbfs": -17.6609,
+          "samplePeakDbfs": -4.5003,
+          "sampleRate": 48000,
+          "sha256": "771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.4892
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 17939813930001531133,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_shop_purchase.wav",
+      "runtimeSha256": "771669f2914d229249a01475047a8fc4a2a6ddd556faacf88ab888fb4be534e8",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 17905846244029697339,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0019245882
+        ],
+        "durationSeconds": 0.5,
+        "frames": 24000,
+        "integratedLufs": -18.3112,
+        "rmsDbfs": -16.7537,
+        "samplePeakDbfs": -4.5,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+          "observed": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "91da552e70bc80b0a301c97c38631d6ab4daf05ef106d812e4d15004fe908e07",
+          "observed": "91da552e70bc80b0a301c97c38631d6ab4daf05ef106d812e4d15004fe908e07"
+        }
+      },
+      "id": "SFX-SHOP-BATCH",
+      "kind": "shop_batch",
+      "licenseRecord": "provenance/audio/sfx-shop-batch.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_shop_batch.wav",
+      "masterSha256": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 24000,
+          "deltaFrames": 0,
+          "expectedFrames": 24000,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 72044,
+          "channels": 1,
+          "dcOffset": [
+            0.0019245383
+          ],
+          "durationSeconds": 0.5,
+          "format": "WAV",
+          "frames": 24000,
+          "integratedLufs": -18.3112,
+          "rmsDbfs": -16.7537,
+          "samplePeakDbfs": -4.5,
+          "sampleRate": 48000,
+          "sha256": "9a7d1b2be2ece861af11103c6c803a72cb00ac3667b149f809d753fd3e0695bf",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.4945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 7873,
+          "maxAbsoluteQuantizationErrorLsb": 1.42578125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.5011007,
+          "seed": 15180222054419711002,
+          "source": "encoded PCM24 master",
+          "totalSamples": 24000,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 24000,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3105,
+          "signalToCodecErrorDb": 79.5568
+        },
+        "runtime": {
+          "bytes": 48044,
+          "channels": 1,
+          "dcOffset": [
+            0.0019245656
+          ],
+          "durationSeconds": 0.5,
+          "format": "WAV",
+          "frames": 24000,
+          "integratedLufs": -18.3112,
+          "rmsDbfs": -16.7537,
+          "samplePeakDbfs": -4.4994,
+          "sampleRate": 48000,
+          "sha256": "91da552e70bc80b0a301c97c38631d6ab4daf05ef106d812e4d15004fe908e07",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.4939
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 15180222054419711002,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_shop_batch.wav",
+      "runtimeSha256": "91da552e70bc80b0a301c97c38631d6ab4daf05ef106d812e4d15004fe908e07",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9905814211958365476,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0008521725
+        ],
+        "durationSeconds": 0.26,
+        "frames": 12480,
+        "integratedLufs": null,
+        "rmsDbfs": -15.554,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+          "observed": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "873edfa3405248da06fd1302e079e96f47b58253d42a7150b3878e1c25c76bab",
+          "observed": "873edfa3405248da06fd1302e079e96f47b58253d42a7150b3878e1c25c76bab"
+        }
+      },
+      "id": "SFX-SHOP-UNAVAILABLE",
+      "kind": "shop_unavailable",
+      "licenseRecord": "provenance/audio/sfx-shop-unavailable.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_shop_unavailable.wav",
+      "masterSha256": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 12480,
+          "deltaFrames": 0,
+          "expectedFrames": 12480,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 37484,
+          "channels": 1,
+          "dcOffset": [
+            0.000852118
+          ],
+          "durationSeconds": 0.26,
+          "format": "WAV",
+          "frames": 12480,
+          "integratedLufs": null,
+          "rmsDbfs": -15.554,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "aebc771d336fba91e25684b13bb6a4d4288afbb0d423acf1254ea8a7b04773f4",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9928
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 4144,
+          "maxAbsoluteQuantizationErrorLsb": 1.421875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49770672,
+          "seed": 16263448811817233399,
+          "source": "encoded PCM24 master",
+          "totalSamples": 12480,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 12480,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3695,
+          "signalToCodecErrorDb": 80.8156
+        },
+        "runtime": {
+          "bytes": 25004,
+          "channels": 1,
+          "dcOffset": [
+            0.0008523036
+          ],
+          "durationSeconds": 0.26,
+          "format": "WAV",
+          "frames": 12480,
+          "integratedLufs": null,
+          "rmsDbfs": -15.554,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "873edfa3405248da06fd1302e079e96f47b58253d42a7150b3878e1c25c76bab",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9927
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 16263448811817233399,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_shop_unavailable.wav",
+      "runtimeSha256": "873edfa3405248da06fd1302e079e96f47b58253d42a7150b3878e1c25c76bab",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 6814876266466750899,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0001515307
+        ],
+        "durationSeconds": 0.9,
+        "frames": 43200,
+        "integratedLufs": -18.8866,
+        "rmsDbfs": -18.3252,
+        "samplePeakDbfs": -4.5,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+          "observed": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "0507ffd2b3cd5ce94d5a9e59bbed69c20814393ac46d90e01ad54a856368ceff",
+          "observed": "0507ffd2b3cd5ce94d5a9e59bbed69c20814393ac46d90e01ad54a856368ceff"
+        }
+      },
+      "id": "SFX-SHOP-UNLOCK",
+      "kind": "shop_unlock",
+      "licenseRecord": "provenance/audio/sfx-shop-unlock.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_shop_unlock.wav",
+      "masterSha256": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 43200,
+          "deltaFrames": 0,
+          "expectedFrames": 43200,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 129644,
+          "channels": 1,
+          "dcOffset": [
+            0.000151481
+          ],
+          "durationSeconds": 0.9,
+          "format": "WAV",
+          "frames": 43200,
+          "integratedLufs": -18.8866,
+          "rmsDbfs": -18.3252,
+          "samplePeakDbfs": -4.5,
+          "sampleRate": 48000,
+          "sha256": "0fbc3c0cd2af8def3302b7183b07894d0722e943be30d4fe9db0c3198835b414",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.4271
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 14043,
+          "maxAbsoluteQuantizationErrorLsb": 1.46875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50029919,
+          "seed": 6381839884780678613,
+          "source": "encoded PCM24 master",
+          "totalSamples": 43200,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 43200,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3244,
+          "signalToCodecErrorDb": 77.9992
+        },
+        "runtime": {
+          "bytes": 86444,
+          "channels": 1,
+          "dcOffset": [
+            0.0001514675
+          ],
+          "durationSeconds": 0.9,
+          "format": "WAV",
+          "frames": 43200,
+          "integratedLufs": -18.8866,
+          "rmsDbfs": -18.3252,
+          "samplePeakDbfs": -4.4998,
+          "sampleRate": 48000,
+          "sha256": "0507ffd2b3cd5ce94d5a9e59bbed69c20814393ac46d90e01ad54a856368ceff",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.4272
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 6381839884780678613,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_shop_unlock.wav",
+      "runtimeSha256": "0507ffd2b3cd5ce94d5a9e59bbed69c20814393ac46d90e01ad54a856368ceff",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 4424032378118711177,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0005097664
+        ],
+        "durationSeconds": 0.7,
+        "frames": 33600,
+        "integratedLufs": -23.761,
+        "rmsDbfs": -22.4137,
+        "samplePeakDbfs": -4.5,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+          "observed": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8",
+          "observed": "b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8"
+        }
+      },
+      "id": "SFX-SHOP-MILESTONE",
+      "kind": "shop_milestone",
+      "licenseRecord": "provenance/audio/sfx-shop-milestone.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_shop_milestone.wav",
+      "masterSha256": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 33600,
+          "deltaFrames": 0,
+          "expectedFrames": 33600,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 100844,
+          "channels": 1,
+          "dcOffset": [
+            0.0005097219
+          ],
+          "durationSeconds": 0.7,
+          "format": "WAV",
+          "frames": 33600,
+          "integratedLufs": -23.761,
+          "rmsDbfs": -22.4137,
+          "samplePeakDbfs": -4.5,
+          "sampleRate": 48000,
+          "sha256": "46c06cba9c2d24f547398fe941d2b4a49a46cc410b15789ae67ef82e1291ba89",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.4835
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 10710,
+          "maxAbsoluteQuantizationErrorLsb": 1.4609375,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50312329,
+          "seed": 18119930800897486700,
+          "source": "encoded PCM24 master",
+          "totalSamples": 33600,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 33600,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2755,
+          "signalToCodecErrorDb": 73.8618
+        },
+        "runtime": {
+          "bytes": 67244,
+          "channels": 1,
+          "dcOffset": [
+            0.0005096663
+          ],
+          "durationSeconds": 0.7,
+          "format": "WAV",
+          "frames": 33600,
+          "integratedLufs": -23.761,
+          "rmsDbfs": -22.4137,
+          "samplePeakDbfs": -4.4998,
+          "sampleRate": 48000,
+          "sha256": "b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.4837
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 18119930800897486700,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_shop_milestone.wav",
+      "runtimeSha256": "b6e8203e3ea2581e73f95411d991040e037f880f0bf437c6bcbe31d8e74e92d8",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 5121557483574678193,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          2.45752e-05
+        ],
+        "durationSeconds": 0.3,
+        "frames": 14400,
+        "integratedLufs": null,
+        "rmsDbfs": -21.6836,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+          "observed": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "1f3081eb43078a3ba6188d21538cfc5360dcaddf139c3f87a0eb0789c3dc817e",
+          "observed": "1f3081eb43078a3ba6188d21538cfc5360dcaddf139c3f87a0eb0789c3dc817e"
+        }
+      },
+      "id": "SFX-COLLECTION-EQUIP",
+      "kind": "collection_equip",
+      "licenseRecord": "provenance/audio/sfx-collection-equip.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_collection_equip.wav",
+      "masterSha256": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 14400,
+          "deltaFrames": 0,
+          "expectedFrames": 14400,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 43244,
+          "channels": 1,
+          "dcOffset": [
+            2.45179e-05
+          ],
+          "durationSeconds": 0.3,
+          "format": "WAV",
+          "frames": 14400,
+          "integratedLufs": null,
+          "rmsDbfs": -21.6836,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "1e87c9d4988ff65843d19f3b3b9e4ea02ca4301973ab6ef8a5a974e09c6bddca",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 4845,
+          "maxAbsoluteQuantizationErrorLsb": 1.4453125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50374752,
+          "seed": 17809336828176935189,
+          "source": "encoded PCM24 master",
+          "totalSamples": 14400,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 14400,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2647,
+          "signalToCodecErrorDb": 74.5811
+        },
+        "runtime": {
+          "bytes": 28844,
+          "channels": 1,
+          "dcOffset": [
+            2.44713e-05
+          ],
+          "durationSeconds": 0.3,
+          "format": "WAV",
+          "frames": 14400,
+          "integratedLufs": null,
+          "rmsDbfs": -21.6836,
+          "samplePeakDbfs": -5.0004,
+          "sampleRate": 48000,
+          "sha256": "1f3081eb43078a3ba6188d21538cfc5360dcaddf139c3f87a0eb0789c3dc817e",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9948
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 17809336828176935189,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_collection_equip.wav",
+      "runtimeSha256": "1f3081eb43078a3ba6188d21538cfc5360dcaddf139c3f87a0eb0789c3dc817e",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 10877147043214366598,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          6.13861e-05
+        ],
+        "durationSeconds": 0.26,
+        "frames": 12480,
+        "integratedLufs": null,
+        "rmsDbfs": -19.9262,
+        "samplePeakDbfs": -5.0,
+        "truePeakDbtp": null
+      },
+      "group": "ui",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+          "observed": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059",
+          "observed": "fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059"
+        }
+      },
+      "id": "SFX-COLLECTION-HIDE",
+      "kind": "collection_hide",
+      "licenseRecord": "provenance/audio/sfx-collection-hide.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_collection_hide.wav",
+      "masterSha256": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 12480,
+          "deltaFrames": 0,
+          "expectedFrames": 12480,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 37484,
+          "channels": 1,
+          "dcOffset": [
+            6.13289e-05
+          ],
+          "durationSeconds": 0.26,
+          "format": "WAV",
+          "frames": 12480,
+          "integratedLufs": null,
+          "rmsDbfs": -19.9262,
+          "samplePeakDbfs": -5.0,
+          "sampleRate": 48000,
+          "sha256": "3692fb05a8e0281d9377985028a4697a3afbf05be48bd448a2c453e07af3b9ec",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.9945
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 4207,
+          "maxAbsoluteQuantizationErrorLsb": 1.4296875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50287662,
+          "seed": 9877134738428794387,
+          "source": "encoded PCM24 master",
+          "totalSamples": 12480,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 12480,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.2798,
+          "signalToCodecErrorDb": 76.3535
+        },
+        "runtime": {
+          "bytes": 25004,
+          "channels": 1,
+          "dcOffset": [
+            6.12283e-05
+          ],
+          "durationSeconds": 0.26,
+          "format": "WAV",
+          "frames": 12480,
+          "integratedLufs": null,
+          "rmsDbfs": -19.9262,
+          "samplePeakDbfs": -4.9999,
+          "sampleRate": 48000,
+          "sha256": "fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.9944
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 9877134738428794387,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/ui/sfx_collection_hide.wav",
+      "runtimeSha256": "fbe43a32b385b3325f55456ed592fa2883ba3a6c23e91429d00e88f2d7b76059",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 3935418662739601128,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0005756359,
+          0.0005820501
+        ],
+        "durationSeconds": 1.2,
+        "frames": 57600,
+        "integratedLufs": -16.5,
+        "rmsDbfs": -19.0886,
+        "samplePeakDbfs": -2.4129,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+          "observed": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742",
+          "observed": "a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742"
+        }
+      },
+      "id": "STG-FORM-01",
+      "kind": "form",
+      "licenseRecord": "provenance/audio/stg-form-01.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_form_01.wav",
+      "masterSha256": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 57600,
+          "deltaFrames": 0,
+          "expectedFrames": 57600,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 345644,
+          "channels": 2,
+          "dcOffset": [
+            0.000575583,
+            0.0005819959
+          ],
+          "durationSeconds": 1.2,
+          "format": "WAV",
+          "frames": 57600,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.0886,
+          "samplePeakDbfs": -2.4129,
+          "sampleRate": 48000,
+          "sha256": "4dd68b6b56fc586ee1c6a0af1d18a870d7f1a1c152dcd469760f6023d08c719a",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -2.4074
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.989903,
+          "monoToStereoRmsDb": -0.0223
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 37740,
+          "maxAbsoluteQuantizationErrorLsb": 1.48046875,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50008033,
+          "seed": 15070329162450795008,
+          "source": "encoded PCM24 master",
+          "totalSamples": 115200,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 57600,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.3282,
+          "signalToCodecErrorDb": 77.2396
+        },
+        "runtime": {
+          "bytes": 230444,
+          "channels": 2,
+          "dcOffset": [
+            0.0005755732,
+            0.0005819644
+          ],
+          "durationSeconds": 1.2,
+          "format": "WAV",
+          "frames": 57600,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.0886,
+          "samplePeakDbfs": -2.413,
+          "sampleRate": 48000,
+          "sha256": "a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -2.4074
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 15070329162450795008,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_form_01.wav",
+      "runtimeSha256": "a4a4f4e081bbb83e8d7a4636988fcd2f8926cc23086ff78f5165489e727fe742",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 13008716580334488497,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0005834448,
+          0.0005512086
+        ],
+        "durationSeconds": 1.5,
+        "frames": 72000,
+        "integratedLufs": -16.5,
+        "rmsDbfs": -19.1864,
+        "samplePeakDbfs": -3.089,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+          "observed": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "90bcf1b8951d2a4fc8463213337c3e252ada85936c798b6b6cd25e7751c35b20",
+          "observed": "90bcf1b8951d2a4fc8463213337c3e252ada85936c798b6b6cd25e7751c35b20"
+        }
+      },
+      "id": "STG-FORM-02",
+      "kind": "form",
+      "licenseRecord": "provenance/audio/stg-form-02.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_form_02.wav",
+      "masterSha256": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 72000,
+          "deltaFrames": 0,
+          "expectedFrames": 72000,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 432044,
+          "channels": 2,
+          "dcOffset": [
+            0.0005833913,
+            0.0005511531
+          ],
+          "durationSeconds": 1.5,
+          "format": "WAV",
+          "frames": 72000,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.1864,
+          "samplePeakDbfs": -3.089,
+          "sampleRate": 48000,
+          "sha256": "25c760dc169af5eff3694ae6080fa2282ccfab4d80f3dfda74486e2db1805baa",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -3.0834
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.988998,
+          "monoToStereoRmsDb": -0.0242
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 47031,
+          "maxAbsoluteQuantizationErrorLsb": 1.47265625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50006729,
+          "seed": 16530024837601311517,
+          "source": "encoded PCM24 master",
+          "totalSamples": 144000,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 72000,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.3284,
+          "signalToCodecErrorDb": 77.1421
+        },
+        "runtime": {
+          "bytes": 288044,
+          "channels": 2,
+          "dcOffset": [
+            0.0005832876,
+            0.000551225
+          ],
+          "durationSeconds": 1.5,
+          "format": "WAV",
+          "frames": 72000,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.1864,
+          "samplePeakDbfs": -3.0892,
+          "sampleRate": 48000,
+          "sha256": "90bcf1b8951d2a4fc8463213337c3e252ada85936c798b6b6cd25e7751c35b20",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -3.0837
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 16530024837601311517,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_form_02.wav",
+      "runtimeSha256": "90bcf1b8951d2a4fc8463213337c3e252ada85936c798b6b6cd25e7751c35b20",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 2732851417043609455,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0005236767,
+          0.0005299142
+        ],
+        "durationSeconds": 1.8,
+        "frames": 86400,
+        "integratedLufs": -16.5,
+        "rmsDbfs": -19.2594,
+        "samplePeakDbfs": -1.8522,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+          "observed": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "7fe4e0c9c51a95c4e83ea6a5f2e551211713ca7e8bcd2cf059d12beb99fcf7ce",
+          "observed": "7fe4e0c9c51a95c4e83ea6a5f2e551211713ca7e8bcd2cf059d12beb99fcf7ce"
+        }
+      },
+      "id": "STG-FORM-03",
+      "kind": "form",
+      "licenseRecord": "provenance/audio/stg-form-03.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_form_03.wav",
+      "masterSha256": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 86400,
+          "deltaFrames": 0,
+          "expectedFrames": 86400,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 518444,
+          "channels": 2,
+          "dcOffset": [
+            0.0005236237,
+            0.0005298612
+          ],
+          "durationSeconds": 1.8,
+          "format": "WAV",
+          "frames": 86400,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.2594,
+          "samplePeakDbfs": -1.8522,
+          "sampleRate": 48000,
+          "sha256": "fb3cc6bb3d06cee0be726cd02ddbe6b5ce7c42a618ea26fb05ab54e4166bd68b",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -1.8467
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.988592,
+          "monoToStereoRmsDb": -0.025
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 56403,
+          "maxAbsoluteQuantizationErrorLsb": 1.4765625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50001346,
+          "seed": 6154785493164063299,
+          "source": "encoded PCM24 master",
+          "totalSamples": 172800,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 86400,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.3294,
+          "signalToCodecErrorDb": 77.0699
+        },
+        "runtime": {
+          "bytes": 345644,
+          "channels": 2,
+          "dcOffset": [
+            0.0005235467,
+            0.0005298607
+          ],
+          "durationSeconds": 1.8,
+          "format": "WAV",
+          "frames": 86400,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.2594,
+          "samplePeakDbfs": -1.8523,
+          "sampleRate": 48000,
+          "sha256": "7fe4e0c9c51a95c4e83ea6a5f2e551211713ca7e8bcd2cf059d12beb99fcf7ce",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -1.8468
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 6154785493164063299,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_form_03.wav",
+      "runtimeSha256": "7fe4e0c9c51a95c4e83ea6a5f2e551211713ca7e8bcd2cf059d12beb99fcf7ce",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9532005492932554002,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0004740024,
+          0.0004606405
+        ],
+        "durationSeconds": 2.1,
+        "frames": 100800,
+        "integratedLufs": -16.5,
+        "rmsDbfs": -19.4724,
+        "samplePeakDbfs": -2.6443,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+          "observed": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "0843cdf86d646ba79f78e05a7feb354afc855704fc606fc50406b84179b44461",
+          "observed": "0843cdf86d646ba79f78e05a7feb354afc855704fc606fc50406b84179b44461"
+        }
+      },
+      "id": "STG-FORM-04",
+      "kind": "form",
+      "licenseRecord": "provenance/audio/stg-form-04.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_form_04.wav",
+      "masterSha256": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 100800,
+          "deltaFrames": 0,
+          "expectedFrames": 100800,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 604844,
+          "channels": 2,
+          "dcOffset": [
+            0.0004739487,
+            0.0004605857
+          ],
+          "durationSeconds": 2.1,
+          "format": "WAV",
+          "frames": 100800,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.4724,
+          "samplePeakDbfs": -2.6443,
+          "sampleRate": 48000,
+          "sha256": "863a92597cba9a44bc59556a6aef5ca0fd73e43fcc6ec4cb7bdc3cb339af7288",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -2.6358
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.988206,
+          "monoToStereoRmsDb": -0.0257
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 66148,
+          "maxAbsoluteQuantizationErrorLsb": 1.4765625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50095832,
+          "seed": 14926592243992954118,
+          "source": "encoded PCM24 master",
+          "totalSamples": 201600,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 100800,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.313,
+          "signalToCodecErrorDb": 76.8406
+        },
+        "runtime": {
+          "bytes": 403244,
+          "channels": 2,
+          "dcOffset": [
+            0.0004738726,
+            0.0004606625
+          ],
+          "durationSeconds": 2.1,
+          "format": "WAV",
+          "frames": 100800,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.4724,
+          "samplePeakDbfs": -2.6442,
+          "sampleRate": 48000,
+          "sha256": "0843cdf86d646ba79f78e05a7feb354afc855704fc606fc50406b84179b44461",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -2.6356
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 14926592243992954118,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_form_04.wav",
+      "runtimeSha256": "0843cdf86d646ba79f78e05a7feb354afc855704fc606fc50406b84179b44461",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 17547744844896608356,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0004105621,
+          0.0004123072
+        ],
+        "durationSeconds": 2.4,
+        "frames": 115200,
+        "integratedLufs": -16.5,
+        "rmsDbfs": -19.6775,
+        "samplePeakDbfs": -2.0645,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+          "observed": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "d9255899e0b1ec67da3f8be97f3259019e312b075a5f4ceb1c2622606a931b1c",
+          "observed": "d9255899e0b1ec67da3f8be97f3259019e312b075a5f4ceb1c2622606a931b1c"
+        }
+      },
+      "id": "STG-FORM-05",
+      "kind": "form",
+      "licenseRecord": "provenance/audio/stg-form-05.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_form_05.wav",
+      "masterSha256": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 115200,
+          "deltaFrames": 0,
+          "expectedFrames": 115200,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 691244,
+          "channels": 2,
+          "dcOffset": [
+            0.0004105078,
+            0.0004122537
+          ],
+          "durationSeconds": 2.4,
+          "format": "WAV",
+          "frames": 115200,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.6775,
+          "samplePeakDbfs": -2.0645,
+          "sampleRate": 48000,
+          "sha256": "2742554d9e1ca8c46f74fb50ef2025681a8d263d74accd3e92c3c08af2a1ae6f",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -2.0589
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.988085,
+          "monoToStereoRmsDb": -0.0262
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 75686,
+          "maxAbsoluteQuantizationErrorLsb": 1.47265625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49998345,
+          "seed": 14027650767609683785,
+          "source": "encoded PCM24 master",
+          "totalSamples": 230400,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 115200,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.3299,
+          "signalToCodecErrorDb": 76.6524
+        },
+        "runtime": {
+          "bytes": 460844,
+          "channels": 2,
+          "dcOffset": [
+            0.0004105359,
+            0.0004121709
+          ],
+          "durationSeconds": 2.4,
+          "format": "WAV",
+          "frames": 115200,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.6775,
+          "samplePeakDbfs": -2.0645,
+          "sampleRate": 48000,
+          "sha256": "d9255899e0b1ec67da3f8be97f3259019e312b075a5f4ceb1c2622606a931b1c",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -2.059
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 14027650767609683785,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_form_05.wav",
+      "runtimeSha256": "d9255899e0b1ec67da3f8be97f3259019e312b075a5f4ceb1c2622606a931b1c",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9668095388137936009,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0003204152,
+          0.000280853
+        ],
+        "durationSeconds": 0.9,
+        "frames": 43200,
+        "integratedLufs": -17.0,
+        "rmsDbfs": -18.0483,
+        "samplePeakDbfs": -1.6775,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+          "observed": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f",
+          "observed": "c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f"
+        }
+      },
+      "id": "STG-ACHIEVEMENT",
+      "kind": "achievement",
+      "licenseRecord": "provenance/audio/stg-achievement.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_achievement.wav",
+      "masterSha256": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 43200,
+          "deltaFrames": 0,
+          "expectedFrames": 43200,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 259244,
+          "channels": 2,
+          "dcOffset": [
+            0.00032037,
+            0.000280808
+          ],
+          "durationSeconds": 0.9,
+          "format": "WAV",
+          "frames": 43200,
+          "integratedLufs": -17.0,
+          "rmsDbfs": -18.0483,
+          "samplePeakDbfs": -1.6775,
+          "sampleRate": 48000,
+          "sha256": "4c01cb9d6d6d388b979d18123dd89665302dd1cee38185f0e18f4a9b859e4320",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -1.6687
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.993143,
+          "monoToStereoRmsDb": -0.0166
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 27609,
+          "maxAbsoluteQuantizationErrorLsb": 1.484375,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50158488,
+          "seed": 10613129900793045331,
+          "source": "encoded PCM24 master",
+          "totalSamples": 86400,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 43200,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.3021,
+          "signalToCodecErrorDb": 78.2538
+        },
+        "runtime": {
+          "bytes": 172844,
+          "channels": 2,
+          "dcOffset": [
+            0.0003203498,
+            0.0002808316
+          ],
+          "durationSeconds": 0.9,
+          "format": "WAV",
+          "frames": 43200,
+          "integratedLufs": -17.0,
+          "rmsDbfs": -18.0483,
+          "samplePeakDbfs": -1.6775,
+          "sampleRate": 48000,
+          "sha256": "c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -1.6688
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 10613129900793045331,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_achievement.wav",
+      "runtimeSha256": "c15aaed93575c99e4ba0029745968effe5fd330dafcf6df7dbde2d1e6610b36f",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 8079010451911306515,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0007314374,
+          0.0007296085
+        ],
+        "durationSeconds": 3.2,
+        "frames": 153600,
+        "integratedLufs": -15.5,
+        "rmsDbfs": -18.5358,
+        "samplePeakDbfs": -1.7668,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+          "observed": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "56a9d1804d0d800416df1c72ee3da63306e76c17046347cd56a28221d0862ab2",
+          "observed": "56a9d1804d0d800416df1c72ee3da63306e76c17046347cd56a28221d0862ab2"
+        }
+      },
+      "id": "STG-ASCENSION",
+      "kind": "ascension",
+      "licenseRecord": "provenance/audio/stg-ascension.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_ascension.wav",
+      "masterSha256": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 153600,
+          "deltaFrames": 0,
+          "expectedFrames": 153600,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 921644,
+          "channels": 2,
+          "dcOffset": [
+            0.0007313826,
+            0.0007295558
+          ],
+          "durationSeconds": 3.2,
+          "format": "WAV",
+          "frames": 153600,
+          "integratedLufs": -15.5,
+          "rmsDbfs": -18.5358,
+          "samplePeakDbfs": -1.7668,
+          "sampleRate": 48000,
+          "sha256": "1983f5e67a6a33f5546d04633245ef5498c5912163de078bb18d2f17cd355fa2",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -1.7612
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.998226,
+          "monoToStereoRmsDb": -0.0039
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 101587,
+          "maxAbsoluteQuantizationErrorLsb": 1.484375,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50038454,
+          "seed": 307032754321625896,
+          "source": "encoded PCM24 master",
+          "totalSamples": 307200,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 153600,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.3229,
+          "signalToCodecErrorDb": 77.7871
+        },
+        "runtime": {
+          "bytes": 614444,
+          "channels": 2,
+          "dcOffset": [
+            0.0007314003,
+            0.0007295628
+          ],
+          "durationSeconds": 3.2,
+          "format": "WAV",
+          "frames": 153600,
+          "integratedLufs": -15.5,
+          "rmsDbfs": -18.5358,
+          "samplePeakDbfs": -1.7664,
+          "sampleRate": 48000,
+          "sha256": "56a9d1804d0d800416df1c72ee3da63306e76c17046347cd56a28221d0862ab2",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -1.7609
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 307032754321625896,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_ascension.wav",
+      "runtimeSha256": "56a9d1804d0d800416df1c72ee3da63306e76c17046347cd56a28221d0862ab2",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 17146613235334509922,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 2,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 2,
+        "dcOffset": [
+          0.0009494617,
+          0.0009472307
+        ],
+        "durationSeconds": 1.8,
+        "frames": 86400,
+        "integratedLufs": -16.5,
+        "rmsDbfs": -19.3213,
+        "samplePeakDbfs": -3.2534,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+          "observed": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "aa254e794cc4bc0769f61612e4e996ab9825721105be40eec2679a796944bfaf",
+          "observed": "aa254e794cc4bc0769f61612e4e996ab9825721105be40eec2679a796944bfaf"
+        }
+      },
+      "id": "STG-MARK-67",
+      "kind": "mark67",
+      "licenseRecord": "provenance/audio/stg-mark-67.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/stg_mark_67.wav",
+      "masterSha256": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 86400,
+          "deltaFrames": 0,
+          "expectedFrames": 86400,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 518444,
+          "channels": 2,
+          "dcOffset": [
+            0.0009494208,
+            0.0009471858
+          ],
+          "durationSeconds": 1.8,
+          "format": "WAV",
+          "frames": 86400,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.3213,
+          "samplePeakDbfs": -3.2534,
+          "sampleRate": 48000,
+          "sha256": "471fad587c2573a9453b2dcf97af02b5d21b512811705b59b6de671583080fc4",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -3.2479
+        },
+        "masterLoopBoundary": null,
+        "mono": {
+          "leftRightCorrelation": 0.99151,
+          "monoToStereoRmsDb": -0.0185
+        },
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 54422,
+          "maxAbsoluteQuantizationErrorLsb": 1.4765625,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50057722,
+          "seed": 15763404296936163006,
+          "source": "encoded PCM24 master",
+          "totalSamples": 172800,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 86400,
+          "correlationByChannel": [
+            1.0,
+            1.0
+          ],
+          "errorRmsDbfs": -96.3196,
+          "signalToCodecErrorDb": 76.9983
+        },
+        "runtime": {
+          "bytes": 345644,
+          "channels": 2,
+          "dcOffset": [
+            0.000949351,
+            0.0009472416
+          ],
+          "durationSeconds": 1.8,
+          "format": "WAV",
+          "frames": 86400,
+          "integratedLufs": -16.5,
+          "rmsDbfs": -19.3213,
+          "samplePeakDbfs": -3.2534,
+          "sampleRate": 48000,
+          "sha256": "aa254e794cc4bc0769f61612e4e996ab9825721105be40eec2679a796944bfaf",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -3.2479
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 15763404296936163006,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/stg_mark_67.wav",
+      "runtimeSha256": "aa254e794cc4bc0769f61612e4e996ab9825721105be40eec2679a796944bfaf",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 6932630263377862640,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0007698181
+        ],
+        "durationSeconds": 0.5,
+        "frames": 24000,
+        "integratedLufs": -20.7841,
+        "rmsDbfs": -22.2629,
+        "samplePeakDbfs": -4.5,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+          "observed": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "9b85557737390b03fc6168e8968b4fbdda8208f6f1bb5cc967cd51e9d26e77ba",
+          "observed": "9b85557737390b03fc6168e8968b4fbdda8208f6f1bb5cc967cd51e9d26e77ba"
+        }
+      },
+      "id": "SFX-RETURN-OFFLINE",
+      "kind": "return_offline",
+      "licenseRecord": "provenance/audio/sfx-return-offline.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_return_offline.wav",
+      "masterSha256": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 24000,
+          "deltaFrames": 0,
+          "expectedFrames": 24000,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 72044,
+          "channels": 1,
+          "dcOffset": [
+            0.0007697702
+          ],
+          "durationSeconds": 0.5,
+          "format": "WAV",
+          "frames": 24000,
+          "integratedLufs": -20.7841,
+          "rmsDbfs": -22.2629,
+          "samplePeakDbfs": -4.5,
+          "sampleRate": 48000,
+          "sha256": "5349e603019734205e601af41b83b7ab9d93c6d34fb1565af51e287df8128c57",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.3426
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 7757,
+          "maxAbsoluteQuantizationErrorLsb": 1.453125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.49880294,
+          "seed": 14405012320787335216,
+          "source": "encoded PCM24 master",
+          "totalSamples": 24000,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 24000,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3504,
+          "signalToCodecErrorDb": 74.0876
+        },
+        "runtime": {
+          "bytes": 48044,
+          "channels": 1,
+          "dcOffset": [
+            0.0007697754
+          ],
+          "durationSeconds": 0.5,
+          "format": "WAV",
+          "frames": 24000,
+          "integratedLufs": -20.7841,
+          "rmsDbfs": -22.2629,
+          "samplePeakDbfs": -4.5003,
+          "sampleRate": 48000,
+          "sha256": "9b85557737390b03fc6168e8968b4fbdda8208f6f1bb5cc967cd51e9d26e77ba",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.3429
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 14405012320787335216,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/sfx_return_offline.wav",
+      "runtimeSha256": "9b85557737390b03fc6168e8968b4fbdda8208f6f1bb5cc967cd51e9d26e77ba",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 827908589215699395,
+      "status": "candidate-reviewed"
+    },
+    {
+      "channels": 1,
+      "conditional": false,
+      "generatedMetrics": {
+        "channels": 1,
+        "dcOffset": [
+          0.0005583653
+        ],
+        "durationSeconds": 0.65,
+        "frames": 31200,
+        "integratedLufs": -19.8737,
+        "rmsDbfs": -19.1965,
+        "samplePeakDbfs": -4.5,
+        "truePeakDbtp": null
+      },
+      "group": "event",
+      "hashVerification": {
+        "expectedHashesPreserved": true,
+        "master": {
+          "expected": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+          "observed": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9"
+        },
+        "result": "pass",
+        "runtime": {
+          "expected": "918fe65122311e9f004205a68df50a3d3e2d80507db89fba41a804656a32785c",
+          "observed": "918fe65122311e9f004205a68df50a3d3e2d80507db89fba41a804656a32785c"
+        }
+      },
+      "id": "SFX-RETURN-BONUS",
+      "kind": "return_bonus",
+      "licenseRecord": "provenance/audio/sfx-return-bonus.md",
+      "loop": false,
+      "loopEndSample": null,
+      "loopStartSample": null,
+      "masterPath": "masters/audio/sfx_return_bonus.wav",
+      "masterSha256": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+      "required": true,
+      "reviewedMetrics": {
+        "coreAudio": {
+          "decodedFrames": 31200,
+          "deltaFrames": 0,
+          "expectedFrames": 31200,
+          "frameCountExact": true,
+          "pcmValuesExact": true,
+          "result": "sample-exact",
+          "runtimeFormat": "WAV/PCM_16",
+          "sampleExact": true,
+          "zeroOffsetAligned": true
+        },
+        "master": {
+          "bytes": 93644,
+          "channels": 1,
+          "dcOffset": [
+            0.0005583146
+          ],
+          "durationSeconds": 0.65,
+          "format": "WAV",
+          "frames": 31200,
+          "integratedLufs": -19.8737,
+          "rmsDbfs": -19.1965,
+          "samplePeakDbfs": -4.5,
+          "sampleRate": 48000,
+          "sha256": "26eebb3043b3fc3edc6e2e428078c1cb8b5d8fdd8011936ef99309c4cbb695f9",
+          "subtype": "PCM_24",
+          "truePeakDbtp": -4.4224
+        },
+        "masterLoopBoundary": null,
+        "mono": null,
+        "pcm16Dither": {
+          "changedSamplesVersusUndithered": 10136,
+          "maxAbsoluteQuantizationErrorLsb": 1.453125,
+          "reconstructionExact": true,
+          "result": "pass",
+          "rmsQuantizationErrorLsb": 0.50129305,
+          "seed": 15425340719427791497,
+          "source": "encoded PCM24 master",
+          "totalSamples": 31200,
+          "type": "TPDF"
+        },
+        "roundTrip": {
+          "commonFrames": 31200,
+          "correlationByChannel": [
+            1.0
+          ],
+          "errorRmsDbfs": -96.3072,
+          "signalToCodecErrorDb": 77.1107
+        },
+        "runtime": {
+          "bytes": 62444,
+          "channels": 1,
+          "dcOffset": [
+            0.0005582761
+          ],
+          "durationSeconds": 0.65,
+          "format": "WAV",
+          "frames": 31200,
+          "integratedLufs": -19.8737,
+          "rmsDbfs": -19.1965,
+          "samplePeakDbfs": -4.5003,
+          "sampleRate": 48000,
+          "sha256": "918fe65122311e9f004205a68df50a3d3e2d80507db89fba41a804656a32785c",
+          "subtype": "PCM_16",
+          "truePeakDbtp": -4.4226
+        },
+        "runtimeLoopBoundary": null
+      },
+      "revision": 3,
+      "runtimeDither": {
+        "peakToPeakLsb": 2,
+        "seed": 15425340719427791497,
+        "source": "encoded PCM24 master",
+        "type": "TPDF"
+      },
+      "runtimePath": "assets/audio/sfx/events/sfx_return_bonus.wav",
+      "runtimeSha256": "918fe65122311e9f004205a68df50a3d3e2d80507db89fba41a804656a32785c",
+      "sampleRate": 48000,
+      "sourceScore": "sources/audio/procedural/score-v1.json",
+      "sourceSeed": 9211885677439829767,
+      "status": "candidate-reviewed"
+    }
+  ],
+  "contract": "audio-candidate-manifest-v2",
+  "counts": {
+    "conditional": 0,
+    "required": 42,
+    "total": 42
+  },
+  "generatedAtUtc": "2026-07-12T19:14:13.816987+00:00",
+  "humanReview": "selected-and-approved-by-user-2026-07-12",
+  "legacySfxSource": {
+    "manifest": "assets/audio/audio-candidate-manifest-v1.json",
+    "manifestSha256": "18c2efd2243054d8f3ddfd149a6df724a777e09e61e0a6dcdc8bbc3539a2e6dd",
+    "reviewEvidenceRevision": 2,
+    "reviewEvidenceSha256": "0d7123c8c8ecab87133800bb38051a48a1848a92f33264e8ad5d922e1dd0a335"
+  },
+  "masterBitDepth": 24,
+  "reviewedAtUtc": "2026-07-12T19:14:13.816987+00:00",
+  "revision": 1,
+  "rightsReview": "commercial-terms-pending",
+  "runtimeEncoding": {
+    "music": {
+      "compressionLevel": 0.4,
+      "format": "Ogg/Vorbis",
+      "loop": false,
+      "target": "q6"
+    },
+    "soundEffects": {
+      "codec": "PCM_16",
+      "container": "WAV",
+      "dither": {
+        "peakToPeakLsb": 2,
+        "quantizer": "round-to-nearest-even, clipped to signed int16",
+        "seedNamespace": "aura-shift-pcm16-tpdf-v1",
+        "type": "TPDF"
+      },
+      "reason": "frame-exact cross-decoder behavior, smaller bundle and low-latency playback for short assets"
+    }
+  },
+  "sampleRate": 48000,
+  "similarityReview": "independent-review-pending",
+  "sourceBundleContract": "selected-music-import-v1-plus-legacy-sfx-r3",
+  "sourceBundleFiles": [
+    "sources/audio/imported/chatgpt-2026-07-12/09_boss_shift.wav",
+    "sources/audio/imported/chatgpt-2026-07-12/01_neon_drift_67.wav",
+    "sources/audio/imported/chatgpt-2026-07-12/02_aura_no_retrovisor.wav",
+    "sources/audio/imported/chatgpt-2026-07-12/04_passinho_de_aura.wav",
+    "sources/audio/imported/chatgpt-2026-07-12/05_sixseven_no_fluxo.wav",
+    "sources/audio/imported/chatgpt-2026-07-12/07_phase_bloom.wav",
+    "sources/audio/imported/chatgpt-2026-07-12/08_ritual_6_7.wav",
+    "tools/assets/import_selected_music.py",
+    "tools/assets/audio_common.py",
+    "assets/audio/audio-candidate-manifest-v1.json"
+  ],
+  "sourceBundleSha256": "d87e8f04090fea6b36d1cb6a51a83084e636fdd0bf97ddebeec3cb629b8bf980",
+  "sourcePolicy": {
+    "music": {
+      "declaredTool": "ChatGPT",
+      "externalAudioInputs": true,
+      "generativeAudioModel": true,
+      "promptAndModelMetadata": "not-provided",
+      "userSelectionDate": "2026-07-12"
+    },
+    "soundEffects": "inherited-unchanged-from-reviewed-r3-candidate"
+  },
+  "status": "candidate-reviewed",
+  "technicalReview": {
+    "musicLoudnessTarget": "7/7 within 0.25 LU of -16 LUFS-I",
+    "musicPlayback": "non-loop single-voice playlist",
+    "musicRuntimeFrameCount": "7/7",
+    "musicSources": "7/7 WAV PCM24 stereo validated",
+    "sfxInherited": "35/35 unchanged from r3"
+  },
+  "toolVersions": {
+    "libsndfile": "1.2.2",
+    "numpy": "2.5.1",
+    "python": "3.13.3",
+    "scipy": "1.18.0",
+    "soundfile": "0.14.0"
+  }
+}

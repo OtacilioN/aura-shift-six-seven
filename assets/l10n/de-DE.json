@@ -59,6 +59,8 @@
   "collection_effect_persists": "Gegenstandseffekte bleiben mit jedem Erscheinungsbild aktiv.",
   "collection_equip": "Erscheinungsbild verwenden",
   "collection_equipped": "In Verwendung",
+  "collection_hidden": "Erscheinungsbild ausgeblendet",
+  "collection_hide": "Erscheinungsbild ausblenden",
   "collection_locked": "Gesperrt",
   "collection_seal_unlocked": "67-Meilenstein erreicht: {amount} Gesamt-Aura",
   "collection_seals": "67-Siegel",

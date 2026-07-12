@@ -59,6 +59,8 @@
   "collection_effect_persists": "Efek item tetap aktif dengan tampilan apa pun.",
   "collection_equip": "Gunakan tampilan",
   "collection_equipped": "Sedang digunakan",
+  "collection_hidden": "Tampilan disembunyikan",
+  "collection_hide": "Sembunyikan tampilan",
   "collection_locked": "Terkunci",
   "collection_seal_unlocked": "Tonggak 67 tercapai: {amount} Aura Total",
   "collection_seals": "Segel 67",

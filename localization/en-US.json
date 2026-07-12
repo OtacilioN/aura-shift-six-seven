@@ -59,6 +59,8 @@
   "collection_effect_persists": "Item effects stay active with any appearance.",
   "collection_equip": "Use appearance",
   "collection_equipped": "In use",
+  "collection_hidden": "Appearance hidden",
+  "collection_hide": "Hide appearance",
   "collection_locked": "Locked",
   "collection_seal_unlocked": "67 milestone reached: {amount} Total Aura",
   "collection_seals": "67 Seals",

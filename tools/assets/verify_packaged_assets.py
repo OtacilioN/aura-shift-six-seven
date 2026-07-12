@@ -38,7 +38,7 @@ def main() -> int:
     art = json.loads(
         (ROOT / "assets/manifests/art-approved-manifest-v1.json").read_text()
     )
-    audio = json.loads((ROOT / "assets/audio/audio-manifest-v1.json").read_text())
+    audio = json.loads((ROOT / "assets/audio/audio-manifest-v2.json").read_text())
     fonts = json.loads((ROOT / "assets/manifests/font-manifest-v1.json").read_text())
     brand = json.loads((ROOT / "assets/manifests/brand-manifest-v1.json").read_text())
     production = json.loads(
@@ -47,7 +47,7 @@ def main() -> int:
 
     if art.get("schemaVersion") != "art-approved-manifest-v1" or art.get("status") != "approved":
         raise SystemExit("art release manifest is not approved")
-    if audio.get("contract") != "audio-manifest-v1" or audio.get("status") != "approved":
+    if audio.get("contract") != "audio-manifest-v2" or audio.get("status") != "approved":
         raise SystemExit("audio release manifest is not approved")
     if production.get("schema") != "production-assets-v1" or production.get("status") != "integrated":
         raise SystemExit("production asset set is not integrated")
@@ -70,17 +70,21 @@ def main() -> int:
         "assets/manifests/art-approved-manifest-v1.json",
         "assets/manifests/brand-manifest-v1.json",
         "assets/manifests/font-manifest-v1.json",
-        "assets/manifests/production-candidate-v1.json",
         "assets/manifests/asset-approval-v1.json",
+        "assets/manifests/music-selection-approval-v1.json",
         "assets/manifests/production-assets-v1.json",
-        "assets/audio/audio-candidate-manifest-v1.json",
-        "assets/audio/audio-manifest-v1.json",
+        "assets/audio/audio-candidate-manifest-v2.json",
+        "assets/audio/audio-manifest-v2.json",
     }
     errors: list[str] = []
     bindings = (
         (
             production["approval"]["decision"],
             production["approval"]["decisionSha256"],
+        ),
+        (
+            production["musicSelection"]["decision"],
+            production["musicSelection"]["decisionSha256"],
         ),
         (
             production["components"]["art"]["manifest"],
@@ -133,6 +137,23 @@ def main() -> int:
             elif digest(archive.read(member)) != digest((ROOT / relative).read_bytes()):
                 errors.append(f"packaged manifest drift: {relative}")
 
+        packaged_manifests = {
+            name.removeprefix(flutter_prefix)
+            for name in names
+            if name.startswith(flutter_prefix)
+            and name.endswith(".json")
+            and (
+                name.startswith(flutter_prefix + "assets/manifests/")
+                or name.startswith(flutter_prefix + "assets/audio/")
+            )
+        }
+        if packaged_manifests != expected_direct:
+            errors.append(
+                "manifest set mismatch: "
+                f"missing={sorted(expected_direct - packaged_manifests)} "
+                f"extra={sorted(packaged_manifests - expected_direct)}"
+            )
+
         android_brand = [
             entry
             for entry in brand["files"]
@@ -176,8 +197,7 @@ def main() -> int:
             name.removeprefix(flutter_prefix)
             for name in names
             if name.startswith(flutter_prefix + "assets/audio/")
-            and not name.endswith("audio-candidate-manifest-v1.json")
-            and not name.endswith("audio-manifest-v1.json")
+            and not name.endswith(".json")
         }
         expected_audio_runtime = {entry["runtimePath"] for entry in audio["assets"]}
         if packaged_audio_runtime != expected_audio_runtime:

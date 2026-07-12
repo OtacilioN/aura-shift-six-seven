@@ -59,6 +59,8 @@
   "collection_effect_persists": "どの外見でもアイテム効果は有効です。",
   "collection_equip": "この外見を使う",
   "collection_equipped": "使用中",
+  "collection_hidden": "外見は非表示です",
+  "collection_hide": "外見を非表示",
   "collection_locked": "未解放",
   "collection_seal_unlocked": "67マイルストーン到達：累計オーラ{amount}",
   "collection_seals": "67のシール",

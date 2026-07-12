@@ -9,28 +9,71 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-MANIFEST = ROOT / "assets/audio/audio-candidate-manifest-v1.json"
-REVIEW = ROOT / "reports/audio-review-results.json"
+MANIFEST = ROOT / "assets/audio/audio-candidate-manifest-v2.json"
 OUTPUT = ROOT / "reports/audio-listening-sheet.html"
+PROPOSAL_MANIFEST = ROOT / "assets/audio/proposals/proposal-manifest-v1.json"
 
 
 def esc(value: object) -> str:
     return html.escape(str(value), quote=True)
 
 
+def render_proposals() -> tuple[str, int]:
+    if not PROPOSAL_MANIFEST.is_file():
+        return "", 0
+    manifest = json.loads(PROPOSAL_MANIFEST.read_text(encoding="utf-8"))
+    tracks = manifest.get("tracks", [])
+    if (
+        manifest.get("contract") != "music-proposal-manifest-v1"
+        or manifest.get("status") != "refined-demo-reviewed"
+        or manifest.get("count") != 6
+        or len(tracks) != 6
+    ):
+        raise SystemExit("proposal listening section requires six reviewed demos")
+
+    rows: list[str] = []
+    for entry in tracks:
+        runtime = entry["runtimePath"]
+        metrics = entry["metrics"]["runtime"]
+        rows.append(
+            "<article class='asset proposal'>"
+            f"<header><code>{esc(entry['id'])}</code><span>{esc(entry['genre'])}</span></header>"
+            f"<h3>{esc(entry['title'])}</h3>"
+            f"<p>{esc(entry['description'])}</p>"
+            f"<audio controls preload='none' loop src='../{esc(runtime)}'></audio>"
+            "<dl>"
+            f"<div><dt>Agente</dt><dd>{esc(entry['agent'])}</dd></div>"
+            f"<div><dt>Runtime</dt><dd>{esc(runtime)}</dd></div>"
+            f"<div><dt>Duração</dt><dd>{esc(metrics['durationSeconds'])} s</dd></div>"
+            f"<div><dt>LUFS-I</dt><dd>{esc(metrics['integratedLufs'])}</dd></div>"
+            f"<div><dt>True peak</dt><dd>{esc(metrics['truePeakDbtp'])} dBTP</dd></div>"
+            f"<div><dt>Status</dt><dd>{esc(entry['status'])}; escuta humana pendente</dd></div>"
+            "</dl></article>"
+        )
+    section = (
+        "<section id='new-music-proposals'>"
+        "<h2>novas propostas — demos refinadas</h2>"
+        "<p class='proposal-note'>Seis faixas produzidas independentemente para comparação. "
+        "Elas são alternativas históricas fora do runtime e permanecem preservadas apenas para comparação.</p>"
+        f"<div class='grid'>{''.join(rows)}</div></section>"
+    )
+    return section, len(rows)
+
+
 def main() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    review = json.loads(REVIEW.read_text(encoding="utf-8"))
     if (
-        manifest.get("status") != "candidate-reviewed"
-        or manifest.get("revision") != 3
-        or review.get("reviewEvidenceRevision") != 2
+        manifest.get("contract") != "audio-candidate-manifest-v2"
+        or manifest.get("status") != "candidate-reviewed"
+        or manifest.get("revision") != 1
     ):
-        raise SystemExit(
-            "listening sheet only accepts reviewed audio revision 3 / evidence revision 2"
-        )
+        raise SystemExit("listening sheet only accepts reviewed audio v2 revision 1")
 
-    warnings = review["crossDecoderReview"]["warnings"]
+    warnings = [
+        "As sete músicas são faixas completas non-loop; validar crossfade, foco e retomada no Android.",
+        "Licença/termos comerciais do gerador e similaridade independente permanecem gates de release.",
+    ]
+    proposal_section, proposal_count = render_proposals()
     sections: list[str] = []
     groups = ["music", "cycle", "ui", "event"]
     rendered = 0
@@ -41,16 +84,15 @@ def main() -> None:
             runtime = entry["runtimePath"]
             relative = "../" + runtime
             metrics = entry["reviewedMetrics"]["runtime"]
-            coreaudio = entry["reviewedMetrics"]["coreAudio"]
-            badge = "conditional" if entry["conditional"] else "required"
+            badge = "principal" if entry.get("primary") else "required"
             loop = " loop" if entry["loop"] else ""
             decoder_rows = ""
             if entry["group"] == "music":
-                alignment = coreaudio["alignment"]
                 decoder_rows = (
-                    f"<div><dt>CoreAudio</dt><dd>{esc(coreaudio['decodedFrames'])}/{esc(coreaudio['expectedFrames'])} frames</dd></div>"
-                    f"<div><dt>Offset</dt><dd>{esc(alignment['coreAudioFrame0MatchesLibsndfileFrame'])} frames</dd></div>"
-                    f"<div><dt>Seam</dt><dd>{esc(coreaudio['coreAudioLoopBoundary']['boundaryDeltaDbfs'])} dBFS — {esc(coreaudio['coreAudioSeamGate'])}</dd></div>"
+                    f"<div><dt>Título</dt><dd>{esc(entry['title'])}</dd></div>"
+                    f"<div><dt>LUFS-I</dt><dd>{esc(metrics['integratedLufs'])}</dd></div>"
+                    f"<div><dt>True peak</dt><dd>{esc(metrics['truePeakDbtp'])} dBTP</dd></div>"
+                    f"<div><dt>Playback</dt><dd>playlist non-loop; ordem {esc(entry['playlistOrder'] + 1)}</dd></div>"
                 )
             rows.append(
                 "<article class='asset'>"
@@ -75,7 +117,7 @@ def main() -> None:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aura Shift — escuta humana de áudio r3</title>
+  <title>Aura Shift — escuta humana de áudio v2</title>
   <style>
     :root {{ color-scheme: dark; font-family: system-ui, sans-serif; background:#090b1a; color:#f7f5ff; }}
     body {{ margin:0 auto; max-width:1440px; padding:32px; }}
@@ -83,6 +125,10 @@ def main() -> None:
     .notice {{ background:#171d43; border:1px solid #8b7cff; border-radius:16px; padding:18px; line-height:1.5; }}
     .grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; }}
     .asset {{ background:#111632; border:1px solid #202750; border-radius:14px; padding:16px; }}
+    .asset.proposal {{ border-color:#ff4fa3; background:linear-gradient(145deg,#17183a,#111632); }}
+    .asset h3 {{ margin:.15rem 0 .5rem; color:#f7f5ff; }}
+    .asset p {{ color:#d8d5ec; line-height:1.4; min-height:2.8em; }}
+    .proposal-note {{ color:#d8d5ec; max-width:880px; }}
     header {{ display:flex; justify-content:space-between; gap:12px; margin-bottom:12px; }}
     header span {{ color:#ffd166; font-size:.8rem; }} audio {{ width:100%; }}
     dl {{ font-size:.82rem; color:#d8d5ec; overflow-wrap:anywhere; }}
@@ -90,13 +136,14 @@ def main() -> None:
   </style>
 </head>
 <body>
-  <h1>Aura Shift: Six Seven — escuta r3</h1>
-  <p>44 candidatos: 40 obrigatórios e quatro mixes condicionais. Esta página não aprova nenhum som.</p>
+  <h1>Aura Shift: Six Seven — escuta v2</h1>
+  <p>{len(manifest['assets'])} assets atuais (7 músicas + 35 SFX) e {proposal_count} demos históricas fora do runtime.</p>
   <div class="notice">
-    <strong>Ordem mínima:</strong> I0, I3, seis pares Six/Seven, FORM-01, FORM-05, Ascensão e Marco 67.
+    <strong>Ordem mínima:</strong> Boss Shift, ciclo completo das sete faixas, seis pares Six/Seven, FORM-01, FORM-05, Ascensão e Marco 67.
     Rejeite fadiga, semelhança reconhecível, conotação de moeda/jackpot, Seven ambíguo ou Six que pareça recompensa.
-    <p><strong>CoreAudio:</strong> frame count, offset PCM e seam são métricas diferentes. O taper passa o gate numérico, mas não elimina o offset do decoder. Repetir cada loop no Android.</p><ul>{warning_items}</ul>
+    <p><strong>Playlist:</strong> as músicas não repetem individualmente; validar a troca por posição/conclusão e o crossfade em aparelho.</p><ul>{warning_items}</ul>
   </div>
+  {proposal_section}
   {''.join(sections)}
 </body>
 </html>

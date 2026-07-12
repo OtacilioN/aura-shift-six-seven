@@ -38,14 +38,26 @@ flutter:
     - assets/art/seals/
     - assets/art/skins/
     - assets/art/vfx/
-    - assets/audio/audio-candidate-manifest-v1.json
-    - assets/audio/audio-manifest-v1.json
-    - assets/audio/music/
+    - assets/audio/audio-candidate-manifest-v2.json
+    - assets/audio/audio-manifest-v2.json
+    - assets/audio/music/mus_boss_shift.ogg
+    - assets/audio/music/mus_neon_drift_67.ogg
+    - assets/audio/music/mus_aura_no_retrovisor.ogg
+    - assets/audio/music/mus_passinho_de_aura.ogg
+    - assets/audio/music/mus_sixseven_no_fluxo.ogg
+    - assets/audio/music/mus_phase_bloom.ogg
+    - assets/audio/music/mus_ritual_6_7.ogg
     - assets/audio/sfx/cycle/
     - assets/audio/sfx/events/
     - assets/audio/sfx/ui/
     - assets/fonts/licenses/
-    - assets/manifests/
+    - assets/manifests/art-manifest-v1.json
+    - assets/manifests/art-approved-manifest-v1.json
+    - assets/manifests/brand-manifest-v1.json
+    - assets/manifests/font-manifest-v1.json
+    - assets/manifests/asset-approval-v1.json
+    - assets/manifests/music-selection-approval-v1.json
+    - assets/manifests/production-assets-v1.json
   fonts:
     - family: NotoSans
       fonts:

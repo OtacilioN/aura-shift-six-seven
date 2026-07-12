@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:aura_shift_six_seven/audio/audio_backend.dart';
@@ -38,7 +39,7 @@ void main() {
           'save-v1': jsonEncode({
             'levels': {itemId: 25},
             'appearances': [itemId],
-            'equipped': itemId,
+            'equippedAppearances': [itemId],
             'reduceMotion': reduceMotion,
             'locale': 'pt-BR',
           }),
@@ -113,12 +114,14 @@ class _SilentAudioBackend implements AudioBackend {
   Future<void> initialize({Iterable<String> preloadPaths = const []}) async {}
 
   @override
-  Future<void> playMusic(
+  Future<MusicPlaybackHandle> playMusic(
     String cachePath, {
     required double volume,
     required Duration transition,
+    required bool loop,
     bool preservePosition = false,
-  }) async {}
+  }) async =>
+      _SilentMusicPlaybackHandle();
 
   @override
   Future<void> playMusicLayers(
@@ -157,4 +160,14 @@ class _SilentPlaybackHandle implements AudioPlaybackHandle {
 
   @override
   Future<void> stop() async {}
+}
+
+class _SilentMusicPlaybackHandle implements MusicPlaybackHandle {
+  final Completer<void> _completed = Completer<void>();
+
+  @override
+  Stream<Duration> get position => const Stream<Duration>.empty();
+
+  @override
+  Future<void> get completed => _completed.future;
 }

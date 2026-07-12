@@ -1,12 +1,11 @@
 # Aura Shift: Six Seven — Inventário de Áudio
 
-> Contrato `audio-inventory-v1`. Os 40 itens obrigatórios e os quatro mixes
-> condicionais possuem candidatos reais, fontes procedurais, hashes e
-> proveniência. O manifesto técnico em
-> `assets/audio/audio-candidate-manifest-v1.json` é a fotografia executável do
-> lote. A decisão humana de 10 de julho de 2026 está no derivado
-> `assets/audio/audio-manifest-v1.json`; o teste em aparelho permanece gate de
-> publicação, não é ocultado pela promoção.
+> Contrato de runtime `audio-inventory-v2`. A trilha selecionada em 12 de julho
+> de 2026 contém sete faixas completas e substitui as nove renderizações
+> musicais procedurais no app. `Boss Shift` é o tema principal e abre toda
+> sessão. Os 35 SFX da revisão anterior permanecem inalterados. O lote antigo
+> continua preservado nos manifests v1 como evidência histórica; o runtime usa
+> `audio-manifest-v2.json`.
 
 ## Regra de estado
 
@@ -14,7 +13,10 @@ Fluxo permitido: `planned → generated → technical-review → candidate-revie
 → approved → integrated`. A automação desta pipeline termina em
 `candidate-reviewed`; apenas uma decisão humana promove para `approved`.
 
-Um item só chega a `approved` quando possui master real, fonte editável, licença/proveniência, SHA-256, relatório técnico e aceite de similaridade. Nomes de arquivo e IDs são estáveis; revisões substituem o conteúdo e incrementam `revision`.
+Um item só chega a `approved` no runtime quando possui arquivo real, SHA-256,
+proveniência e decisão humana. Aprovação de seleção não equivale a clearance
+comercial: termos do gerador, auditoria independente de similaridade, fadiga e
+teste Android continuam gates de publicação explícitos.
 
 Estrutura produzida:
 
@@ -25,36 +27,30 @@ assets/audio/sfx/ui/
 assets/audio/sfx/events/
 sources/audio/reaper/
 sources/audio/recordings/
+sources/audio/imported/chatgpt-2026-07-12/
 masters/audio/
 provenance/audio/
 ```
 
-## Música e mixes
+## Trilha selecionada
 
-| ID estável | Master previsto | Runtime previsto | Loop | Duração musical | Status |
-| --- | --- | --- | --- | ---: | --- |
-| `MUS-GAME-BASE` | `masters/audio/mus_game_base.wav` | `assets/audio/music/mus_game_base.ogg` | sim, sample-aligned | 52 compassos, ~91,76 s | candidate-reviewed |
-| `MUS-GAME-GROOVE` | `masters/audio/mus_game_groove.wav` | `assets/audio/music/mus_game_groove.ogg` | sim, alinhado a Base | 52 compassos | candidate-reviewed |
-| `MUS-GAME-HYPE` | `masters/audio/mus_game_hype.wav` | `assets/audio/music/mus_game_hype.ogg` | sim, alinhado a Base | 52 compassos | candidate-reviewed |
-| `MUS-MENU` | `masters/audio/mus_menu.wav` | `assets/audio/music/mus_menu.ogg` | sim | 26 compassos, ~45,88 s | candidate-reviewed |
-| `MUS-SHOP` | `masters/audio/mus_shop.wav` | `assets/audio/music/mus_shop.ogg` | sim | 26 compassos | candidate-reviewed |
+| Ordem | ID estável | Título | Master/runtime | Loop | Duração aprox. | Papel |
+| ---: | --- | --- | --- | --- | ---: | --- |
+| 1 | `MUS-BOSS-SHIFT` | Boss Shift | `mus_boss_shift.wav/.ogg` | não | 26,48 s | tema principal |
+| 2 | `MUS-NEON-DRIFT-67` | Neon Drift 67 | `mus_neon_drift_67.wav/.ogg` | não | 25,60 s | playlist |
+| 3 | `MUS-AURA-NO-RETROVISOR` | Aura no Retrovisor | `mus_aura_no_retrovisor.wav/.ogg` | não | 27,04 s | playlist |
+| 4 | `MUS-PASSINHO-DE-AURA` | Passinho de Aura | `mus_passinho_de_aura.wav/.ogg` | não | 23,27 s | playlist |
+| 5 | `MUS-SIXSEVEN-NO-FLUXO` | SixSeven no Fluxo | `mus_sixseven_no_fluxo.wav/.ogg` | não | 24,30 s | playlist |
+| 6 | `MUS-PHASE-BLOOM` | Phase Bloom | `mus_phase_bloom.wav/.ogg` | não | 22,07 s | playlist |
+| 7 | `MUS-RITUAL-6-7` | Ritual 6/7 | `mus_ritual_6_7.wav/.ogg` | não | 29,09 s | playlist |
 
-Contingência produzida somente se stems apresentarem drift:
-
-| ID | Conteúdo | Status |
-| --- | --- | --- |
-| `MUS-GAME-I0-MIX` | Base pré-renderizada | candidate-reviewed/conditional |
-| `MUS-GAME-I1-MIX` | Base + Groove leve | candidate-reviewed/conditional |
-| `MUS-GAME-I2-MIX` | Base + Groove + Hype leve | candidate-reviewed/conditional |
-| `MUS-GAME-I3-MIX` | mix completo com headroom | candidate-reviewed/conditional |
-
-Os quatro mixes condicionais não ampliam conteúdo musical; são renders alternativos da mesma sessão.
-
-Na revisão 3, todos os nove loops musicais receberam taper squared-sine de
-`1.024` frames por lado em uma fronteira de espaço negativo. No CoreAudio, 9/9
-mantiveram o número de frames e passaram o gate de seam abaixo de `-24 dBFS`;
-os 9/9 ainda apresentam offset de decode de `+128` frames e, portanto, não são
-declarados sample-exact. A escuta e o loop no Android continuam obrigatórios.
+Os WAVs recebidos são preservados byte a byte como fontes PCM24/44,1 kHz. O
+importador gera masters PCM24/48 kHz por resample polifásico, apenas atenua cada
+faixa para `-16 LUFS-I` e exporta Ogg/Vorbis q6. Não há compressão ou limiter na
+conversão. As faixas são completas e não possuem markers de loop; o runtime usa
+uma voz musical, inicia a próxima aproximadamente um segundo antes do fim e faz
+crossfade equal-power. Trocar aba, intensidade ou estado visual não reinicia a
+playlist.
 
 ## Ciclo Six-Seven
 
@@ -139,14 +135,16 @@ O manifesto técnico registra parâmetros, equivalente mono, limites de pan/ganh
 
 | Grupo | Obrigatórios | Condicionais |
 | --- | ---: | ---: |
-| música/mixes | 5 | 4 |
+| música/playlist | 7 | 0 |
 | Six/Seven | 12 | 0 |
 | UI/Loja/Coleção | 13 | 0 |
 | eventos/progressão | 10 | 0 |
-| **total de masters de áudio** | **40** | **4** |
+| **total de masters de áudio** | **42** | **0** |
 | padrões hápticos | 9 | 0 |
 
-Produzir arquivos além destes 40 masters obrigatórios não faz parte do MVP sem Substituição de Escopo. Revisões e formatos alternativos do mesmo ID não contam como conteúdo novo.
+Os sete IDs musicais substituem, no runtime, Base/Groove/Hype, Menu, Loja e os
+quatro mixes I0–I3. Esses arquivos antigos continuam somente como snapshot v1 e
+não são listados individualmente no `pubspec.yaml`, portanto não entram no APK.
 
 ## Registro de proveniência por item
 
@@ -156,11 +154,11 @@ Para cada ID obrigatório, criar `provenance/audio/<id-em-minusculas>.md` com:
 | --- | --- |
 | `id`, `revision`, `status` | sim |
 | autor, editor, revisores e datas | sim |
-| sessão REAPER e versão | sim |
+| sessão/ferramenta e versão conforme a origem | sim quando disponível |
 | gravações/fontes e cadeia de custódia | sim |
-| licença da DAW, plugins e materiais | sim |
+| licença/termos da ferramenta e materiais | gate comercial |
 | briefing sanitizado recebido | música/stingers |
-| declaração de ausência de referência no compositor | música/stingers |
+| prompt/modelo e referências declaradas | música; pendente se não entregue |
 | WAV master e export runtime | sim |
 | SHA-256 de fonte consolidada, master e runtime | sim |
 | LUFS, dBTP, pico, canais e duração | sim |
@@ -172,28 +170,20 @@ Foley com pessoas identificáveis exige termo de cessão; o baseline não grava 
 
 ## Manifesto de runtime
 
-O lote produzido usa
-`assets/audio/audio-candidate-manifest-v1.json`. Ele registra os 44 IDs,
-revisão, estado, master, runtime, SHA-256, métricas, fonte procedural e
-proveniência sem campos placeholder. As nove faixas musicais usam Ogg/Vorbis;
-os 35 SFX usam WAV PCM16. O nome reservado `audio-manifest-v1.json` só deve ser
-criado quando uma decisão humana promover os itens obrigatórios para
-`approved`.
-
-A decisão humana foi registrada em 10 de julho de 2026. O candidato acima
-continua imutável; `tools/assets/promote_approved_assets.py` deriva o contrato
-aprovado `assets/audio/audio-manifest-v1.json`, que é o manifesto carregado pelo
-runtime. As linhas `candidate-reviewed` deste inventário descrevem a evidência
-técnica de origem, não o estado atual do derivado aprovado.
+O runtime carrega `assets/audio/audio-manifest-v2.json`, derivado de
+`audio-candidate-manifest-v2.json` e da decisão
+`assets/manifests/music-selection-approval-v1.json`. O v2 contém exatamente 42
+IDs obrigatórios: sete Ogg musicais e 35 WAV PCM16 de SFX. Os manifests v1 não
+são alterados nem carregados pelo app; documentam o lote procedural anterior.
 
 ## QA do pacote
 
 ### Técnico
 
 - todos os masters em `48 kHz / 24-bit`, sem clipping;
-- stems com mesmo primeiro sample e número de samples;
-- loops sem clique em dez repetições consecutivas;
-- Ogg musical sem clique perceptível; SFX curto em WAV PCM16 sem padding;
+- sete fontes originais com hashes preservados e sete runtimes normalizados;
+- avanço por posição e fallback por conclusão sem pular ou duplicar faixa;
+- crossfade sem clique perceptível; SFX curto em WAV PCM16 sem padding;
 - mix mono sem cancelamento que remova kick, sub, Six ou Seven;
 - limites de loudness/pico de `AUDIO-DIRECTION.md` aprovados;
 - pausa, background, anúncio e retomada não duplicam música ou SFX.
@@ -212,7 +202,7 @@ técnica de origem, não o estado atual do derivado aprovado.
 
 - licença da ferramenta válida na data do trabalho;
 - fontes próprias e termos arquivados;
-- nenhum nome de artista/referência em prompt ou sessão de composição;
+- prompt/modelo/referências do gerador arquivados quando fornecidos;
 - auditoria adversarial documentada;
 - qualquer candidato reconhecivelmente próximo marcado `rejected` e excluído do build.
 
@@ -220,7 +210,7 @@ técnica de origem, não o estado atual do derivado aprovado.
 
 O pacote aprovado é empacotado pelo Flutter e os sons possuem disparadores de
 domínio para Ciclo, UI, Loja, Coleção, progressão, retorno, Ascensão e anúncios.
-Base/Groove/Hype formam a estratégia principal em camadas; os quatro mixes
-condicionais continuam a alternativa técnica de fallback, não conteúdo
-adicional. A promoção de release ainda exige teste Android de
-loop/latência/foco/retomada e 9/9 padrões hápticos em aparelho.
+`Boss Shift` abre a playlist e volta após as outras seis faixas. A cadência
+continua controlando apresentação/SFX, nunca música ou economia. A promoção de
+release ainda exige termos comerciais do gerador, similaridade/fadiga e teste
+Android de crossfade, latência, foco/retomada, além de 9/9 padrões hápticos.

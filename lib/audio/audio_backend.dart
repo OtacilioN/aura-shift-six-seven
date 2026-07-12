@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame_audio/flame_audio.dart';
 
@@ -7,13 +8,19 @@ abstract interface class AudioPlaybackHandle {
   Future<void> stop();
 }
 
+abstract interface class MusicPlaybackHandle {
+  Stream<Duration> get position;
+  Future<void> get completed;
+}
+
 abstract interface class AudioBackend {
   Future<void> initialize({Iterable<String> preloadPaths = const []});
 
-  Future<void> playMusic(
+  Future<MusicPlaybackHandle> playMusic(
     String cachePath, {
     required double volume,
     required Duration transition,
+    required bool loop,
     bool preservePosition = false,
   });
 
@@ -74,6 +81,7 @@ class FlameAudioBackend implements AudioBackend {
   final Set<AudioPlaybackHandle> _sounds = {};
   final Set<AudioPlayer> _transitionPlayers = {};
   Map<String, _MusicVoice> _musicVoices = {};
+  Map<AudioPlayer, double> _musicTransitionFactors = {};
   String _musicSignature = '';
   double _musicVolume = 1;
   int _musicGeneration = 0;
@@ -101,19 +109,25 @@ class FlameAudioBackend implements AudioBackend {
   }
 
   @override
-  Future<void> playMusic(
+  Future<MusicPlaybackHandle> playMusic(
     String cachePath, {
     required double volume,
     required Duration transition,
+    required bool loop,
     bool preservePosition = false,
-  }) {
-    return _switchMusic(
-      signature: 'single:$cachePath',
+  }) async {
+    await _switchMusic(
+      signature: 'single:$cachePath:${loop ? 'loop' : 'once'}',
       pathGains: {cachePath: 1},
       volume: volume,
       transition: transition,
       preservePosition: preservePosition,
+      loop: loop,
     );
+    final voice = _musicVoices[cachePath];
+    return voice == null
+        ? const _CompletedMusicPlaybackHandle()
+        : _AudioPlayerMusicPlaybackHandle(voice.player);
   }
 
   @override
@@ -129,6 +143,7 @@ class FlameAudioBackend implements AudioBackend {
       volume: volume,
       transition: transition,
       preservePosition: false,
+      loop: true,
     );
   }
 
@@ -138,6 +153,7 @@ class FlameAudioBackend implements AudioBackend {
     required double volume,
     required Duration transition,
     required bool preservePosition,
+    required bool loop,
   }) async {
     if (_disposed) return;
     _musicVolume = volume.clamp(0, 1);
@@ -171,7 +187,9 @@ class FlameAudioBackend implements AudioBackend {
             indexed.key == 0 ? _musicContext : _musicFollowerContext,
           );
           await player.setPlayerMode(PlayerMode.mediaPlayer);
-          await player.setReleaseMode(ReleaseMode.loop);
+          await player.setReleaseMode(
+            loop ? ReleaseMode.loop : ReleaseMode.stop,
+          );
           await player.setVolume(0);
           await player.setSource(AssetSource(entry.key));
           if (position != null && position > Duration.zero) {
@@ -229,8 +247,9 @@ class FlameAudioBackend implements AudioBackend {
         return;
       }
 
-      final previousVolumes = {
-        for (final voice in previous.values) voice.player: voice.player.volume,
+      _musicTransitionFactors = {
+        for (final voice in previous.values) voice.player: voice.gain,
+        for (final voice in next.values) voice.player: 0,
       };
       const steps = 12;
       final stepDelay = Duration(
@@ -239,15 +258,19 @@ class FlameAudioBackend implements AudioBackend {
       for (var step = 1; step <= steps; step++) {
         if (_disposed || generation != _musicGeneration) return;
         final ratio = step / steps;
-        await Future.wait([
-          _setVoiceVolumes(next, ratio: ratio),
-          ...previousVolumes.entries.map(
-            (entry) => entry.key.setVolume(entry.value * (1 - ratio)),
-          ),
-        ]);
+        final incomingRatio = sin(ratio * pi / 2);
+        final outgoingRatio = cos(ratio * pi / 2);
+        _musicTransitionFactors = {
+          for (final voice in previous.values)
+            voice.player: voice.gain * outgoingRatio,
+          for (final voice in next.values)
+            voice.player: voice.gain * incomingRatio,
+        };
+        await _setTransitionVolumes(_musicTransitionFactors);
         if (stepDelay > Duration.zero) await Future<void>.delayed(stepDelay);
       }
     } finally {
+      if (generation == _musicGeneration) _musicTransitionFactors = {};
       await _disposePlayers(previous.values.map((voice) => voice.player));
       _transitionPlayers.removeAll(next.values.map((voice) => voice.player));
     }
@@ -289,10 +312,22 @@ class FlameAudioBackend implements AudioBackend {
     ));
   }
 
+  Future<void> _setTransitionVolumes(Map<AudioPlayer, double> factors) {
+    final snapshot = Map<AudioPlayer, double>.from(factors);
+    return Future.wait(snapshot.entries.map(
+      (entry) => entry.key.setVolume(_musicVolume * entry.value),
+    ));
+  }
+
   @override
   Future<void> setMusicVolume(double volume) async {
     _musicVolume = volume.clamp(0, 1);
-    if (!_musicPaused) await _setVoiceVolumes(_musicVoices, ratio: 1);
+    if (_musicPaused) return;
+    if (_musicTransitionFactors.isNotEmpty) {
+      await _setTransitionVolumes(_musicTransitionFactors);
+    } else {
+      await _setVoiceVolumes(_musicVoices, ratio: 1);
+    }
   }
 
   @override
@@ -311,10 +346,19 @@ class FlameAudioBackend implements AudioBackend {
   Future<void> resumeMusic() async {
     if (_disposed || _musicVoices.isEmpty) return;
     _musicPaused = false;
-    await _setVoiceVolumes(_musicVoices, ratio: 1);
-    await Future.wait(_musicVoices.values
-        .map((voice) => voice.player)
-        .where((player) => player.state != PlayerState.playing)
+    if (_musicTransitionFactors.isNotEmpty) {
+      await _setTransitionVolumes(_musicTransitionFactors);
+    } else {
+      await _setVoiceVolumes(_musicVoices, ratio: 1);
+    }
+    final players = <AudioPlayer>{
+      ..._transitionPlayers,
+      ..._musicVoices.values.map((voice) => voice.player),
+    };
+    await Future.wait(players
+        .where((player) =>
+            player.state == PlayerState.paused ||
+            player.state == PlayerState.stopped)
         .map((player) => player.resume()));
   }
 
@@ -400,6 +444,7 @@ class FlameAudioBackend implements AudioBackend {
       ..._musicVoices.values.map((voice) => voice.player),
     };
     _transitionPlayers.clear();
+    _musicTransitionFactors = {};
     _musicVoices = {};
     _musicSignature = '';
     await attempt(() => _disposePlayers(players));
@@ -446,4 +491,26 @@ class _CompletedPlaybackHandle implements AudioPlaybackHandle {
 
   @override
   Future<void> stop() => Future<void>.value();
+}
+
+class _AudioPlayerMusicPlaybackHandle implements MusicPlaybackHandle {
+  const _AudioPlayerMusicPlaybackHandle(this.player);
+
+  final AudioPlayer player;
+
+  @override
+  Stream<Duration> get position => player.onPositionChanged;
+
+  @override
+  Future<void> get completed => player.onPlayerComplete.first;
+}
+
+class _CompletedMusicPlaybackHandle implements MusicPlaybackHandle {
+  const _CompletedMusicPlaybackHandle();
+
+  @override
+  Stream<Duration> get position => const Stream<Duration>.empty();
+
+  @override
+  Future<void> get completed => Future<void>.value();
 }

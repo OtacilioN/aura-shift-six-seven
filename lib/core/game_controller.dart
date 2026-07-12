@@ -232,6 +232,7 @@ class GameController extends ChangeNotifier {
     }
     final controller = GameController._(prefs, data);
     controller._migrateBalanceState();
+    controller._migrateAppearanceState();
     controller._lastTick = controller._foregroundClock.elapsedMilliseconds;
     // Process a persisted background interval before the first frame. The
     // operation is idempotent, so a later platform `resumed` callback cannot
@@ -272,6 +273,40 @@ class GameController extends ChangeNotifier {
     _setBig('multiplier', _multiplierForAscensionAura(migratedAscensionAura));
     _data['balanceVersion'] = balanceVersion;
   }
+
+  void _migrateAppearanceState() {
+    final storedAppearances = _data['appearances'];
+    final owned = _orderedAppearanceIds(
+      storedAppearances is List
+          ? storedAppearances.whereType<String>()
+          : const <String>[],
+    );
+    final storedEquipped = _data['equippedAppearances'];
+    final legacyEquipped = _data['equipped'];
+    final requested = storedEquipped is List
+        ? storedEquipped.whereType<String>()
+        : legacyEquipped is String
+            ? <String>[legacyEquipped]
+            : const <String>[];
+    final ownedSet = owned.toSet();
+
+    _data['appearances'] = owned;
+    _data['equippedAppearances'] =
+        _orderedAppearanceIds(requested.where(ownedSet.contains));
+    _data.remove('equipped');
+  }
+
+  List<String> _orderedAppearanceIds(Iterable<String> ids) {
+    final requested = ids.toSet();
+    return upgrades
+        .where(
+            (upgrade) => !upgrade.isTechnique && requested.contains(upgrade.id))
+        .map((upgrade) => upgrade.id)
+        .toList(growable: false);
+  }
+
+  bool _isKnownAppearanceId(String id) =>
+      upgrades.any((upgrade) => !upgrade.isTechnique && upgrade.id == id);
 
   BigInt _legacyAscensionAura() {
     final bonus = multiplier > BigInt.from(100)
@@ -322,7 +357,9 @@ class GameController extends ChangeNotifier {
       .map((entry) => MapEntry('${entry.key}', (entry.value as num).toInt())));
   List<String> get appearances => List<String>.from(
       (_data['appearances'] as List? ?? const []).whereType<String>());
-  String? get equippedAppearance => _data['equipped'] as String?;
+  Set<String> get equippedAppearances => Set<String>.unmodifiable(
+        (_data['equippedAppearances'] as List? ?? const []).whereType<String>(),
+      );
   Set<String> get transformations => Set<String>.from(
       (_data['transformations'] as List? ?? const []).cast<String>());
   Set<String> get seals =>
@@ -640,9 +677,7 @@ class GameController extends ChangeNotifier {
     final next = levels..[u.id] = level(u.id) + quote.quantity;
     _data['levels'] = next;
     if (!u.isTechnique) {
-      final owned = appearances..add(u.id);
-      _data['appearances'] = owned.toSet().toList();
-      _data['equipped'] ??= u.id;
+      _collectAppearance(u.id);
       _unlock('ACH-V-03');
     }
     if (['ITEM-A-01', 'ITEM-B-01', 'ITEM-C-01'].every((id) => level(id) > 0)) {
@@ -674,9 +709,23 @@ class GameController extends ChangeNotifier {
     _persist(notify: true);
   }
 
-  void equip(String? item) {
-    _data['equipped'] = item;
+  bool setAppearanceEquipped(String item, {required bool equipped}) {
+    if (!appearances.contains(item)) return false;
+    final next = equippedAppearances.toSet();
+    final changed = equipped ? next.add(item) : next.remove(item);
+    if (!changed) return false;
+    _data['equippedAppearances'] = _orderedAppearanceIds(next);
     _persist(notify: true);
+    return true;
+  }
+
+  void _collectAppearance(String item) {
+    final owned = appearances.toSet();
+    final firstAcquisition = owned.add(item);
+    _data['appearances'] = _orderedAppearanceIds(owned);
+    if (!firstAcquisition) return;
+    _data['equippedAppearances'] =
+        _orderedAppearanceIds({...equippedAppearances, item});
   }
 
   AuraComplementQuote? complementQuote(Upgrade upgrade, {int nowMillis = 0}) {
@@ -736,8 +785,7 @@ class GameController extends ChangeNotifier {
     final next = levels..[upgrade.id] = quote.level + 1;
     _data['levels'] = next;
     if (!upgrade.isTechnique) {
-      _data['appearances'] = {...appearances, upgrade.id}.toList();
-      _data['equipped'] ??= upgrade.id;
+      _collectAppearance(upgrade.id);
       _unlock('ACH-V-03');
     }
     if (['ITEM-A-01', 'ITEM-B-01', 'ITEM-C-01'].every((id) => level(id) > 0)) {
@@ -836,8 +884,33 @@ class GameController extends ChangeNotifier {
           candidate['achievements'] is! List) {
         return false;
       }
-      if (candidate['appearances'] != null &&
-          candidate['appearances'] is! List) {
+      final candidateAppearances = candidate['appearances'];
+      if (candidateAppearances != null &&
+          (candidateAppearances is! List ||
+              candidateAppearances.any(
+                (id) => id is! String || !_isKnownAppearanceId(id),
+              ))) {
+        return false;
+      }
+      final ownedAppearanceIds = candidateAppearances is List
+          ? candidateAppearances.whereType<String>().toSet()
+          : const <String>{};
+      final candidateEquipped = candidate['equippedAppearances'];
+      if (candidateEquipped != null &&
+          (candidateEquipped is! List ||
+              candidateEquipped.any(
+                (id) =>
+                    id is! String ||
+                    !_isKnownAppearanceId(id) ||
+                    !ownedAppearanceIds.contains(id),
+              ))) {
+        return false;
+      }
+      final legacyEquipped = candidate['equipped'];
+      if (legacyEquipped != null &&
+          (legacyEquipped is! String ||
+              !_isKnownAppearanceId(legacyEquipped) ||
+              !ownedAppearanceIds.contains(legacyEquipped))) {
         return false;
       }
       final analyticsDevicePreference = <String, dynamic>{
@@ -852,6 +925,7 @@ class GameController extends ChangeNotifier {
         ..remove('exportedAt')
         ..addAll(analyticsDevicePreference);
       _migrateBalanceState();
+      _migrateAppearanceState();
       _foregroundClock
         ..reset()
         ..start();

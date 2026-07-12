@@ -210,11 +210,11 @@ Convergências listam os três requisitos separadamente, nunca apenas uma porcen
 ├───────────────────────────────┤
 │       prévia do Mascote       │
 │                               │
-│ Espaço: [peito ▼]             │
-│ [visual 1] [visual 2] [vazio] │
+│ [visual 1] [ligado]           │
+│ [visual 2] [ligado]           │
 │                               │
 │ Efeito: ativo / reiniciado    │
-│ [Aplicar aparência]           │
+│ [Ativar/ocultar independente] │
 ├───────────────────────────────┤
 │ Jogar  Loja  Coleção  Ajustes │
 └───────────────────────────────┘
@@ -222,7 +222,7 @@ Convergências listam os três requisitos separadamente, nunca apenas uma porcen
 
 - Aparência preservada e Efeito de Item ativo são apresentados em linhas e ícones diferentes. Após Ascensão, uma aparência pode continuar `Em uso`, enquanto a linha nomeada “Efeito de Item” mostra `Bloqueado` até a readquisição; esses estados reutilizam `collection_equipped` e `collection_locked` sem sugerir perda da aparência.
 - Conquistas secretas bloqueadas exibem placeholder sem revelar nome/condição. Selos 67 têm contagem e grade distintas.
-- Aplicar, ocultar ou trocar Aparência não abre confirmação porque não afeta economia; o resultado é reversível e recebe feedback imediato.
+- Ativar ou ocultar uma Aparência não desativa as demais e não abre confirmação porque não afeta economia; o resultado é reversível e recebe feedback imediato. A prévia suporta as 18 Aparências simultâneas e usa o mesmo relayout sem sobreposição da Área de Aura.
 
 ## Wireframe — Ajustes
 

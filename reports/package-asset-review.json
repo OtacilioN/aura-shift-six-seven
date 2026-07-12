@@ -1,19 +1,19 @@
 {
   "androidBrandFiles": 8,
-  "androidBrandTransformed": 1,
-  "apk": "build/app/outputs/bundle/release/app-release.aab",
-  "apkBytes": 78078025,
-  "apkSha256": "634edd13e27854245bfebe63977946b403a892a95e7b3e9924ec0d74bd60cfc2",
+  "androidBrandTransformed": 0,
+  "apk": "build/app/outputs/flutter-apk/app-debug.apk",
+  "apkBytes": 210835622,
+  "apkSha256": "c6d3ac4a1a31764cc0dae0db80b580b7f1841661f65a33a507d2d3ddf7747f1a",
   "approvalStatus": {
     "art": "approved",
     "audio": "approved"
   },
   "artRuntime": 219,
   "audioFormats": {
-    "ogg": 9,
+    "ogg": 7,
     "wav": 35
   },
-  "audioRuntime": 44,
+  "audioRuntime": 42,
   "contract": "package-asset-review-v2",
   "errors": [],
   "fontFiles": 6,

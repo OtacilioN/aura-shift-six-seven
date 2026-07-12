@@ -59,6 +59,8 @@
   "collection_effect_persists": "Los efectos de los objetos siguen activos con cualquier apariencia.",
   "collection_equip": "Usar apariencia",
   "collection_equipped": "En uso",
+  "collection_hidden": "Apariencia oculta",
+  "collection_hide": "Ocultar apariencia",
   "collection_locked": "Bloqueado",
   "collection_seal_unlocked": "Hito 67 alcanzado: {amount} de Aura total",
   "collection_seals": "Sellos 67",
