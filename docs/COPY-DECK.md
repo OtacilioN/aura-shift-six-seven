@@ -158,13 +158,13 @@
 | --- | --- | --- |
 | `return_title` | Welcome back | Recompensa de ausência |
 | `return_away_time` | Away for {duration} | Duração localizada |
-| `return_base_reward` | Offline Production: {amount} Aura | Base creditada uma vez |
+| `return_base_reward` | Offline Production: {amount} Aura | Base proporcional aguardando resgate |
 | `return_collect` | Collect {amount} Aura | Encerra oferta |
-| `return_bonus_title` | Add a 20% return bonus? | Apenas ausência > 8h e elegível |
-| `return_bonus_body` | Watch an optional rewarded ad for {amount} extra Aura. Your base reward is already safe. | Explicita alternativa/base |
-| `return_watch_ad` | Watch ad for +{amount} | Ação explícita |
+| `return_bonus_title` | Claim a 20% return bonus? | Apenas ausência > 10 min e elegível |
+| `return_bonus_body` | Watch an optional rewarded ad to claim {amount} Aura with a 20% bonus, or collect the base reward. | Explicita as duas escolhas; base ainda pendente |
+| `return_watch_ad` | Watch ad to collect {amount} | Resgate total com bônus explícito |
 | `return_base_only` | Continue with base reward | Recusa encerra oportunidade |
-| `return_ad_failed` | The ad did not finish, so no bonus was added. Your base reward is safe. | Sem perda |
+| `return_ad_failed` | The ad did not finish. Your reward is still waiting: try again or collect the base reward. | Sem crédito ou perda antes da escolha |
 | `return_retry_bonus` | Try the bonus again | Mantém pendência |
 | `return_clock_issue` | Offline Production could not be calculated after a clock change. Your progress is safe, and a new time reference was set. | Sem acusação/punição |
 
@@ -254,7 +254,7 @@
 | ID | `en-US` | Contexto / observação |
 | --- | --- | --- |
 | `store_short_description` | Two taps. Infinite Aura. Build your style and shift the whole scene. | Até 80 caracteres na fonte; revalidar limite por locale |
-| `store_full_description` | Tap twice to complete a Six-Seven Cycle and farm Aura. Build active Techniques, grow three equally strong Aura Tree paths, collect Appearances, unlock Transformations, and Ascend for permanent momentum.\n\nPlay your way:\n• Active and passive progress\n• Up to 8 hours of Offline Production\n• Optional rewarded ads only\n• No account, required connection, or in-app purchases\n• Manual Backup, accessibility controls, and 8 languages\n\nAura Shift: Six Seven is a trend-driven incremental game for ages 13 and up. | Corpo da ficha Google Play; quebras são semânticas |
+| `store_full_description` | Tap twice to complete a Six-Seven Cycle and farm Aura. Build active Techniques, grow three equally strong Aura Tree paths, collect Appearances, unlock Transformations, and Ascend for permanent momentum.\n\nPlay your way:\n• Active and passive progress\n• Up to 4 hours of Offline Production\n• Optional rewarded ads only\n• No account, required connection, or in-app purchases\n• Manual Backup, accessibility controls, and 8 languages\n\nAura Shift: Six Seven is a trend-driven incremental game for ages 13 and up. | Corpo da ficha Google Play; quebras são semânticas |
 | `store_feature_graphic_alt` | Mascot switching oversized hands between Six and Seven as Aura fills the scene. | Alt-text/briefing de asset promocional |
 
 ## Conteúdo cultural integrado

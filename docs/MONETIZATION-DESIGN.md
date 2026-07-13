@@ -25,7 +25,7 @@ Nenhuma oferta publicitária é apresentada durante o Tutorial Contextual.
 
 ## Habilitação
 
-Anúncios somente são habilitados depois que o tutorial termina e o jogador compra normalmente uma Técnica Six-Seven e um Item de Aura. Pular orientações não substitui essas condições. Antes da habilitação, retornos creditam somente a base, e o Complemento de Aura não aparece. A primeira oferta explica benefício, natureza opcional e alternativa sem anúncio.
+Anúncios somente são habilitados depois que o tutorial termina e o jogador compra normalmente uma Técnica Six-Seven e um Item de Aura. Pular orientações não substitui essas condições. Antes da habilitação, retornos oferecem somente o resgate-base, e o Complemento de Aura não aparece. A primeira oferta explica benefício, natureza opcional e alternativa sem anúncio.
 
 ## Compras dentro do aplicativo
 
@@ -33,16 +33,16 @@ O lançamento não inclui compras dentro do aplicativo. Não serão vendidos Aur
 
 ## Ponto 1 — Bônus de Retorno
 
-Após uma ausência superior a oito horas, o jogador escolhe entre:
+Após uma ausência superior a dez minutos, o jogador escolhe entre:
 
-- resgatar a Produção Offline limitada a oito horas; ou
-- assistir a um Anúncio Recompensado e acrescentar 20% à mesma recompensa-base.
+- resgatar a Produção Offline proporcional, limitada a quatro horas; ou
+- assistir a um Anúncio Recompensado para resgatar a mesma recompensa-base com 20% adicional.
 
-O tempo excedente às oito horas não entra no cálculo. A recompensa-base permanece resgatável sem anúncio.
+O tempo excedente às quatro horas não entra no cálculo. A recompensa-base permanece resgatável sem anúncio.
 
-A Recompensa de Retorno é persistida antes da tela. Se o jogador optar pelo anúncio, a base é creditada e salva antes da solicitação; os 20% são concedidos separadamente após a conclusão válida. Falha ou cancelamento permite nova tentativa do bônus sem perder ou duplicar a base. Escolher apenas a base encerra a oferta daquela ausência.
+A Recompensa de Retorno é persistida antes da tela e permanece sem crédito até a escolha. Resgatar a base a credita e encerra a oferta. Se o jogador optar pelo anúncio, base e 20% são creditados somente após a conclusão válida. Falha ou cancelamento preservam a pendência para nova tentativa ou resgate-base, sem perda nem duplicação.
 
-Uma Ascensão somente pode ser confirmada depois que a base pendente tiver sido creditada e o jogador tiver aceitado ou recusado explicitamente a oportunidade de bônus. Recusar encerra apenas o bônus e nunca reduz ou reverte a base.
+Uma Ascensão somente pode ser confirmada depois que a Recompensa de Retorno pendente for resgatada, com ou sem bônus. Recusar encerra apenas o bônus e nunca reduz ou reverte a base resgatada.
 
 ## Ponto 2 — Complemento de Aura
 

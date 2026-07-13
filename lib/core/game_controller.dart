@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _quanta = 10000000;
 const _ascensionThreshold = 1000000000000000;
 const _ascensionScale = 100000000000;
+const _offlineRewardMinimumMilliseconds = 10 * 60 * 1000;
+const _offlineRewardMaximumMilliseconds = 4 * 60 * 60 * 1000;
 const balanceVersion = 'balance-v0.3';
 const achievementIds = <String>[
   'ACH-V-01',
@@ -111,7 +113,9 @@ final upgrades = <Upgrade>[
       baseCost: BigInt.from(67),
       base20: BigInt.from(100),
       isTechnique: true,
-      requiredTotal: BigInt.from(1000)),
+      requiredTotal: BigInt.from(1000),
+      prerequisite: 'ITEM-CONV-01',
+      prerequisiteLevel: 10),
   Upgrade(
       id: 'TECH-03',
       nameKey: 'content.tech_03.name',
@@ -119,7 +123,9 @@ final upgrades = <Upgrade>[
       baseCost: BigInt.from(67000),
       base20: BigInt.from(10000),
       isTechnique: true,
-      requiredTotal: BigInt.from(1000000)),
+      requiredTotal: BigInt.from(1000000),
+      prerequisite: 'TECH-02',
+      prerequisiteLevel: 10),
   Upgrade(
       id: 'TECH-04',
       nameKey: 'content.tech_04.name',
@@ -127,7 +133,9 @@ final upgrades = <Upgrade>[
       baseCost: BigInt.from(67000000),
       base20: BigInt.from(10000000),
       isTechnique: true,
-      requiredTotal: BigInt.from(1000000000)),
+      requiredTotal: BigInt.from(1000000000),
+      prerequisite: 'ITEM-CONV-02',
+      prerequisiteLevel: 10),
   Upgrade(
       id: 'TECH-05',
       nameKey: 'content.tech_05.name',
@@ -135,7 +143,9 @@ final upgrades = <Upgrade>[
       baseCost: BigInt.from(67000000000),
       base20: BigInt.from(10000000000),
       isTechnique: true,
-      requiredTotal: BigInt.from(1000000000000)),
+      requiredTotal: BigInt.from(1000000000000),
+      prerequisite: 'TECH-04',
+      prerequisiteLevel: 10),
   Upgrade(
       id: 'TECH-06',
       nameKey: 'content.tech_06.name',
@@ -143,7 +153,9 @@ final upgrades = <Upgrade>[
       baseCost: BigInt.from(67000000000000),
       base20: BigInt.from(10000000000000),
       isTechnique: true,
-      requiredTotal: BigInt.from(_ascensionThreshold)),
+      requiredTotal: BigInt.from(_ascensionThreshold),
+      prerequisite: 'ITEM-CONV-03',
+      prerequisiteLevel: 10),
   ..._branch('A', 'item_a', 270, 15),
   ..._branch('B', 'item_b', 270, 15),
   ..._branch('C', 'item_c', 270, 15),
@@ -366,6 +378,12 @@ class GameController extends ChangeNotifier {
       Set<String>.from((_data['seals'] as List? ?? const []).cast<String>());
   bool get returnBonusAvailable =>
       (_data['returnReward'] as Map?)?['bonusStatus'] == 'available';
+  bool get returnRewardAvailable {
+    final reward = (_data['returnReward'] as Map?)?.cast<String, dynamic>();
+    return reward?['baseStatus'] == 'available' ||
+        reward?['bonusStatus'] == 'available';
+  }
+
   bool consumeReturnAudioCue() {
     final pending = _returnAudioCuePending;
     _returnAudioCuePending = false;
@@ -523,12 +541,12 @@ class GameController extends ChangeNotifier {
   }
 
   /// Freezes the exact passive-rate numerator before backgrounding. Offline time
-  /// is never treated as open-app time and is capped at eight hours.
+  /// is never treated as open-app time and is capped at four hours.
   void pause() {
     if (!_foregroundClock.isRunning) return;
     integrate();
     _foregroundClock.stop();
-    if (returnBonusAvailable) {
+    if (returnRewardAvailable) {
       _persist();
       return;
     }
@@ -540,7 +558,7 @@ class GameController extends ChangeNotifier {
   void resume() {
     final leftAt = (_data['offlineAt'] as num?)?.toInt();
     if (leftAt == null && _foregroundClock.isRunning) return;
-    if (returnBonusAvailable && leftAt == null) {
+    if (returnRewardAvailable && leftAt == null) {
       _foregroundClock
         ..reset()
         ..start();
@@ -559,22 +577,39 @@ class GameController extends ChangeNotifier {
     _data.remove('offlineAt');
     _data.remove('offlineRate');
     if (elapsed > 0) {
-      final valid = elapsed > 28800000 ? 28800000 : elapsed;
+      final valid = elapsed > _offlineRewardMaximumMilliseconds
+          ? _offlineRewardMaximumMilliseconds
+          : elapsed;
       final base = rate * BigInt.from(valid) * BigInt.from(5);
-      final bonusEligible = elapsed > 28800000;
-      _credit(base);
-      if (base > BigInt.zero) _returnAudioCuePending = true;
-      _data['returnReward'] = <String, dynamic>{
-        'id': '${leftAt}_$valid',
-        'baseQuanta': base.toString(),
-        'bonusQuanta':
-            (bonusEligible ? base ~/ BigInt.from(5) : BigInt.zero).toString(),
-        'baseStatus': 'credited',
-        'bonusStatus': bonusEligible ? 'available' : 'unavailable',
-      };
+      if (elapsed > _offlineRewardMinimumMilliseconds) {
+        _data['returnReward'] = <String, dynamic>{
+          'id': '${leftAt}_$valid',
+          'baseQuanta': base.toString(),
+          'bonusQuanta': (base ~/ BigInt.from(5)).toString(),
+          'baseStatus': 'available',
+          'bonusStatus': 'available',
+        };
+      } else {
+        _credit(base);
+        if (base > BigInt.zero) _returnAudioCuePending = true;
+      }
       if (elapsed >= 22020000) _unlock('ACH-S-02');
     }
     _persist(notify: true);
+  }
+
+  /// Claims the base return reward and declines its optional bonus.
+  bool claimReturnBase() {
+    final reward = (_data['returnReward'] as Map?)?.cast<String, dynamic>();
+    if (reward == null || reward['baseStatus'] != 'available') return false;
+    final base = BigInt.tryParse('${reward['baseQuanta']}') ?? BigInt.zero;
+    _credit(base);
+    if (base > BigInt.zero) _returnAudioCuePending = true;
+    reward['baseStatus'] = 'credited';
+    reward['bonusStatus'] = 'declined';
+    _data['returnReward'] = reward;
+    _persist(notify: true);
+    return true;
   }
 
   /// Called only after the rewarded-ad adapter reports a valid completion.
@@ -582,6 +617,15 @@ class GameController extends ChangeNotifier {
     final reward = (_data['returnReward'] as Map?)?.cast<String, dynamic>();
     if (reward == null || reward['bonusStatus'] != 'available') return false;
     if (!rewarded) return false;
+    final basePending = reward['baseStatus'] == 'available';
+    if (basePending) {
+      final base = BigInt.tryParse('${reward['baseQuanta']}') ?? BigInt.zero;
+      _credit(base);
+      if (base > BigInt.zero) _returnAudioCuePending = true;
+      reward['baseStatus'] = 'credited';
+    } else if (reward['baseStatus'] != 'credited') {
+      return false;
+    }
     _credit(BigInt.parse('${reward['bonusQuanta']}'));
     reward['bonusStatus'] = 'credited';
     _data['returnReward'] = reward;
@@ -592,6 +636,7 @@ class GameController extends ChangeNotifier {
   bool declineReturnBonus() {
     final reward = (_data['returnReward'] as Map?)?.cast<String, dynamic>();
     if (reward == null || reward['bonusStatus'] != 'available') return false;
+    if (reward['baseStatus'] == 'available') return claimReturnBase();
     reward['bonusStatus'] = 'declined';
     _data['returnReward'] = reward;
     _persist(notify: true);
@@ -943,7 +988,7 @@ class GameController extends ChangeNotifier {
   }
 
   bool get canAscend =>
-      !returnBonusAvailable && journey >= BigInt.from(_ascensionThreshold);
+      !returnRewardAvailable && journey >= BigInt.from(_ascensionThreshold);
   BigInt ascensionGain() {
     final projectedMultiplier =
         _multiplierForAscensionAura(ascensionAura + journey);

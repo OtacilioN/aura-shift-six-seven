@@ -49,7 +49,7 @@ Aura gerada sem a conclusão de Ciclos Six-Seven, inclusive durante uma ausênci
 _Evitar_: Aura grátis, produção ativa
 
 **Produção Offline**:
-Produção Passiva acumulada enquanto o jogo está fechado, limitada ao equivalente a oito horas por ausência.
+Produção Passiva acumulada enquanto o jogo está fechado, limitada ao equivalente a quatro horas por ausência.
 _Evitar_: recompensa diária, produção ativa
 
 **Taxa Offline Registrada**:
@@ -57,11 +57,11 @@ Produção Passiva final salva quando o jogo entra em segundo plano e usada, sem
 _Evitar_: taxa atualizada retroativamente, Produção Ativa
 
 **Bônus de Retorno**:
-Adicional opcional de 20% sobre a Produção Offline limitada a oito horas, oferecido quando o jogador retorna após mais de oito horas e assiste a um Anúncio Recompensado.
+Adicional opcional de 20% sobre a Produção Offline proporcional, limitada a quatro horas, oferecido quando o jogador retorna após mais de dez minutos e assiste a um Anúncio Recompensado.
 _Evitar_: produção extra ilimitada, bônus diário
 
 **Recompensa de Retorno**:
-Transação persistente de uma ausência que reúne a Produção Offline base e, quando elegível, a oportunidade única de Bônus de Retorno.
+Transação persistente de uma ausência superior a dez minutos que reúne a Produção Offline base proporcional e, quando elegível, a oportunidade única de Bônus de Retorno. A base permanece pendente até o jogador escolher resgatá-la ou concluir o anúncio.
 _Evitar_: recompensa diária, crédito repetível
 
 **Anúncio Recompensado**:

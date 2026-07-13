@@ -79,19 +79,19 @@ Ao entrar em segundo plano, depois de integrar o trecho aberto, o jogo registra 
 O inteiro `F_registrado` é o numerador da Taxa Offline Registrada `F_registrado/2000 Aura/s`. Ele não é um cache recalculável: permanece imutável até materializar a Recompensa de Retorno daquela ausência, mesmo que níveis, parâmetros ou versão mudem. Para uma ausência coerente de `D` milissegundos:
 
 - se `D < 0` ou o intervalo for incoerente, `D_válido = 0` e uma nova referência temporal é estabelecida;
-- caso contrário, `D_válido = min(D, 28.800.000)`.
+- caso contrário, `D_válido = min(D, 14.400.000)`.
 
 `q_offline = F_registrado × D_válido × 5`
 
 A taxa permanece congelada durante a ausência. Não existem compras, níveis, Marcos de Nível ou crescimento composto offline.
 
-Quando o intervalo é coerente, `D > 28.800.000` e o anúncio é concluído validamente:
+Quando o intervalo é coerente, `D > 600.000` e o anúncio é concluído validamente:
 
 `q_bônus = q_offline ÷ 5`
 
 O bônus é exatamente `20%` da produção-base em quanta, antes da conversão em Aura inteira e sem reaplicar Ascensão. `q_offline` é sempre divisível por `5` nesse contrato.
 
-A Recompensa de Retorno persiste identificador, base exata, bônus exato, status de cada crédito e referências temporais. A base é aplicada uma vez; o bônus é uma transação separada e idempotente. Antes de Ascender, a base sempre precisa estar creditada e a oportunidade de bônus precisa ser aceita ou explicitamente recusada. Recusar o bônus nunca remove nem reduz a base.
+Após ausência superior a dez minutos, a Recompensa de Retorno persiste identificador, base exata, bônus exato, status de cada crédito e referências temporais antes de ser apresentada. Nenhum crédito ocorre antes da escolha: resgatar a base aplica-a uma vez; concluir validamente o anúncio aplica base e bônus uma vez. Falha ou cancelamento preservam a pendência para nova tentativa ou resgate-base. Antes de Ascender, a recompensa pendente precisa ser concluída. Recusar o bônus nunca reduz a base resgatada.
 
 ## Custos e Compras em Lote
 
@@ -176,9 +176,9 @@ Salvo quando uma linha declara encadeamento, cada fixture começa com `R=0`, con
 | Potência-base `1` + `TECH-02` L1 (`P=6`), `A=141` | crédito `8`, `R=4.600.000` |
 | `10 × 100ms` versus `1 × 1.000ms` | contadores, `R`, desbloqueios e limiares idênticos |
 | `0,75/s` por `1s`, depois `6,7/s` por `1s` | produção exata `7,45 Aura` |
-| offline `6,7 Aura/s`, `A=200`, `8h` | `385.920 Aura` |
-| nova fixture, `R=0`, offline `6,7 Aura/s`, `A=200`, ausência de `12h` | mesma base limitada de `385.920 Aura` |
-| ausência de `12h`, offline `7,45 Aura/s`, `A=141` | base `q=3.025.296.000.000`: crédito `302.529`, `R=6.000.000`; bônus `q=605.059.200.000`: crédito `60.506`, `R final=5.200.000`; total creditado `363.035` |
+| offline `6,7 Aura/s`, `A=200`, `4h` | `192.960 Aura` |
+| nova fixture, `R=0`, offline `6,7 Aura/s`, `A=200`, ausência de `12h` | mesma base limitada de `192.960 Aura` |
+| ausência de `12h`, offline `7,45 Aura/s`, `A=141` | base `q=1.512.648.000.000`: crédito `151.264`, `R=8.000.000`; bônus `q=302.529.600.000`: crédito `30.253`, `R final=7.600.000`; total creditado `181.517` |
 | `C₀=270`, `n=0,1,2` | preços `270`, `311`, `358` |
 | `C₀=270`, níveis `0..9` | total `5.487` |
 | partindo de L0, saldo `5.486` e `5.487` | não compra / compra o lote completo `0→10` |

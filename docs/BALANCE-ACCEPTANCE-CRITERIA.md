@@ -30,8 +30,8 @@ Essa regra existe somente no Perfil de Simulação. O produto não automatiza Ci
 Em cada Abertura Curta, a ordem metodológica é:
 
 1. reconciliar save e relógio;
-2. materializar e creditar a Produção Offline base;
-3. aplicar o Bônus de Retorno se o cenário publicitário o determinar;
+2. materializar a Produção Offline proporcional como recompensa pendente;
+3. após a escolha simulada, creditar a base ou a base com Bônus de Retorno somente se o cenário publicitário o determinar;
 4. processar Patamares e apresentações econômicas sem alterar o estado calculado;
 5. executar a Política de Ascensão antes de compras quando seu limiar já tiver sido alcançado;
 6. realizar o Bootstrap se a Ascensão acabou de reiniciar a economia;

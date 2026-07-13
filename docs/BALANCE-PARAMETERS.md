@@ -25,7 +25,7 @@
 | Casual | 2 | 10 min | `0,75 ciclo/s` | não |
 | Passivo | 2 | `60s` após Bootstrap | `0` após Bootstrap | não |
 
-Todas as agendas distribuem sessões uniformemente no dia, mantêm Produção Passiva aberta e aplicam no máximo oito horas por ausência. O onboarding inicial sempre usa `1,5 ciclo/s`. O Passivo repete a mesma cadência somente no Bootstrap posterior a cada Ascensão, até `TECH-01` L1 e um Item-raiz L1. Anúncios pertencem somente a cenários de sensibilidade.
+Todas as agendas distribuem sessões uniformemente no dia, mantêm Produção Passiva aberta e aplicam no máximo quatro horas por ausência. A Recompensa de Retorno é pendente após mais de dez minutos. O onboarding inicial sempre usa `1,5 ciclo/s`. O Passivo repete a mesma cadência somente no Bootstrap posterior a cada Ascensão, até `TECH-01` L1 e um Item-raiz L1. Anúncios pertencem somente a cenários de sensibilidade.
 
 ## Janelas de Patamar sem anúncios
 

@@ -255,8 +255,8 @@ Convergências listam os três requisitos separadamente, nunca apenas uma porcen
 Somente uma superfície modal recebe foco por vez. Na abertura ou retorno ao primeiro plano, a fila usa esta prioridade:
 
 1. recuperação de gravação/transação interrompida e erro fatal de integridade;
-2. Recompensa de Retorno persistente, garantindo a base;
-3. oportunidade de Bônus de Retorno já escolhida e ainda pendente;
+2. Recompensa de Retorno persistente, aguardando escolha de resgate;
+3. anúncio de Bônus de Retorno já escolhido e ainda pendente de conclusão;
 4. oferta de Relatórios de Diagnóstico da execução anterior;
 5. etapa ativa do Tutorial Contextual ou Consentimento de Analytics disparado por ele;
 6. confirmação de Ascensão iniciada, somente se ainda for válida;
@@ -283,9 +283,9 @@ Rever tutorial usa demonstrações textuais/visuais sobre o estado atual, sem re
 
 | Caso | Apresentação | Ação e persistência | Falha/retomada |
 | --- | --- | --- | --- |
-| ausência válida até 8h | folha com duração válida, taxa registrada e base | `[Resgatar]` credita base uma vez | reabre a mesma recompensa se não concluída |
-| ausência válida >8h antes de monetização | base de 8h, sem oferta | resgata base | não cria bônus posterior para essa ausência |
-| ausência válida >8h com monetização | base de 8h + opção de 20% | base é persistida antes de pedir anúncio | falha/cancelamento mantém somente bônus pendente |
+| ausência válida até 10 min | sem folha de retorno | segue para o jogo | não cria Recompensa de Retorno pendente |
+| ausência válida >10 min antes de monetização | folha com duração, taxa registrada e base proporcional até 4h | `[Resgatar]` credita base uma vez | reabre a mesma recompensa se não concluída |
+| ausência válida >10 min com monetização | base proporcional até 4h + opção de 20% | escolher base a credita; anúncio concluído credita base + bônus | falha/cancelamento mantém a recompensa pendente |
 | intervalo incoerente | mensagem discreta de zero para a ausência e nova referência | `[Continuar]`; sem bônus | não bane, não apaga e não repete o aviso |
 
 Escolher somente a base encerra a oportunidade. Escolher anúncio permite `[Tentar novamente]` ou `[Continuar com a base]`. Fechar o app preserva a decisão pendente sem duplicar crédito.

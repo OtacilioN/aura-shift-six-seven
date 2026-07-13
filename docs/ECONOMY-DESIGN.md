@@ -107,8 +107,8 @@ O contrato `arith-v1`, detalhado em `ECONOMIC-ARITHMETIC.md`, usa Contribuiçõe
 
 - conclusão de Ciclos Six-Seven;
 - Produção Passiva com o jogo aberto;
-- Produção Offline limitada a oito horas;
-- Bônus de Retorno opcional de 20% sobre as oito horas após ausência superior a esse limite.
+- Produção Offline limitada a quatro horas;
+- Bônus de Retorno opcional de 20% após ausência superior a dez minutos, sobre a produção proporcional limitada.
 
 ## Livro-Razão de Aura
 
@@ -142,15 +142,15 @@ O lançamento utiliza exclusivamente Anúncios Recompensados iniciados pelo joga
 
 ## Produção Offline
 
-A recompensa-base corresponde a no máximo oito horas de Produção Passiva. Após uma ausência superior a oito horas, o jogador pode receber essa recompensa sem anúncio ou assistir voluntariamente a um Anúncio Recompensado para acrescentar 20%.
+A recompensa-base corresponde ao tempo proporcional de Produção Passiva, até quatro horas. Após uma ausência superior a dez minutos, o jogador pode resgatar essa recompensa sem anúncio ou assistir voluntariamente a um Anúncio Recompensado para resgatar o mesmo valor com acréscimo de 20%.
 
-A recompensa usa a Produção Passiva final registrada quando o jogo deixa o primeiro plano, incluindo Itens de Aura e Multiplicador de Ascensão então vigentes. Essa taxa é multiplicada pelo tempo válido, limitado a oito horas. Frações permanecem no Resto de Produção compartilhado.
+A recompensa usa a Produção Passiva final registrada quando o jogo deixa o primeiro plano, incluindo Itens de Aura e Multiplicador de Ascensão então vigentes. Essa taxa é multiplicada pelo tempo válido, limitado a quatro horas. Frações permanecem no Resto de Produção compartilhado.
 
 Compras, níveis, desbloqueios e crescimento composto não são simulados durante a ausência. Produção Ativa não participa. Marcos e Transformações são processados somente no crédito da recompensa.
 
 Intervalos de relógio incoerentes resultam em zero Produção Offline somente para aquela ausência e não oferecem Bônus de Retorno. O jogo estabelece uma nova referência sem banimento ou perda de estado. Mudanças para trás não renovam a cota de Complementos de Aura.
 
-Cada ausência calculada é persistida como uma Recompensa de Retorno antes da apresentação. A base é creditada uma única vez. Quando o jogador escolhe o anúncio, a base é persistida primeiro e o adicional de 20% é creditado separadamente após o sucesso. Falhas podem ser repetidas sem reverter ou duplicar a base; fechamento e reabertura retomam o estado pendente.
+Após ausência superior a dez minutos, a recompensa calculada é persistida como uma Recompensa de Retorno antes da apresentação. A base não é creditada antes da escolha: o resgate-base a credita uma única vez e o anúncio concluído credita base e adicional de 20%. Falhas podem ser repetidas ou substituídas pelo resgate-base sem perda ou duplicação; fechamento e reabertura retomam o estado pendente.
 
 ## Modelo matemático de melhoramentos
 

@@ -77,7 +77,7 @@ Duas sensibilidades adicionais usam “Mais barata” e “Caçadora de meta”.
 | Casual | 2 | 10 min | 0,75 | 1,5 | 20 min |
 | Passivo | 2 aberturas | `60s` depois do Bootstrap | 0 depois do Bootstrap | 0 | `2 min` em dia regular; Bootstrap adiciona tempo variável |
 
-As sessões são distribuídas uniformemente em 24 horas. Muito ativo e Referência permanecem dentro do limite offline entre sessões; o Casual possui intervalos exatos de 12 horas, dos quais somente oito são creditados por ausência. O perfil Passivo também abre a cada 12 horas, conclui o onboarding em Cadência de Referência até adquirir um Item-raiz e repete esse Bootstrap de Jornada depois de cada Ascensão; fora dele, depende exclusivamente da produção passiva.
+As sessões são distribuídas uniformemente em 24 horas. Muito ativo e Referência permanecem dentro do limite offline entre sessões; o Casual possui intervalos exatos de 12 horas, dos quais somente quatro são creditados por ausência. O perfil Passivo também abre a cada 12 horas, conclui o onboarding em Cadência de Referência até adquirir um Item-raiz e repete esse Bootstrap de Jornada depois de cada Ascensão; fora dele, depende exclusivamente da produção passiva.
 
 A abertura de Bootstrap pode ultrapassar `60s` somente até `TECH-01` L1 e um Item-raiz L1. Isso corrige a estagnação pós-Ascensão do cenário matemático e não implica autoclick, compra automática ou tratamento especial no jogo real.
 
@@ -101,7 +101,7 @@ Ambas as fontes continuam ativas simultaneamente. Portanto, em paridade, tocar d
 
 ## Produção Offline
 
-A ausência usa a Produção Passiva final registrada na saída, já modificada pela Ascensão, multiplicada pelo tempo válido de até oito horas. Não há simulação de progressão ou composição durante o período. Perfis de retorno devem validar ausências curtas, oito horas, períodos superiores ao limite e alterações incoerentes de relógio.
+A ausência usa a Produção Passiva final registrada na saída, já modificada pela Ascensão, multiplicada pelo tempo válido de até quatro horas. O retorno gera recompensa pendente após mais de dez minutos; não há simulação de progressão ou composição durante o período. Perfis de retorno devem validar o limiar de dez minutos, quatro horas, períodos superiores ao limite e alterações incoerentes de relógio.
 
 ## Acúmulo de Ascensão
 

@@ -184,6 +184,38 @@ void main() {
     levelTen.dispose();
   });
 
+  test('techniques require their configured build dependencies at level 10',
+      () async {
+    const dependencies = <String, String>{
+      'TECH-02': 'ITEM-CONV-01',
+      'TECH-03': 'TECH-02',
+      'TECH-04': 'ITEM-CONV-02',
+      'TECH-05': 'TECH-04',
+      'TECH-06': 'ITEM-CONV-03',
+    };
+
+    for (final entry in dependencies.entries) {
+      final technique = upgrades.firstWhere((u) => u.id == entry.key);
+      expect(technique.prerequisite, entry.value);
+      expect(technique.prerequisiteLevel, 10);
+
+      final belowGate = await controllerWith({
+        'total': (technique.requiredTotal! + BigInt.one).toString(),
+        'levels': {entry.value: 9},
+      });
+      expect(belowGate.isUnlocked(technique), isFalse);
+      expect(belowGate.buy(technique, 1), isFalse);
+      belowGate.dispose();
+
+      final atGate = await controllerWith({
+        'total': technique.requiredTotal!.toString(),
+        'levels': {entry.value: 10},
+      });
+      expect(atGate.isUnlocked(technique), isTrue);
+      atGate.dispose();
+    }
+  });
+
   test('first Ascension adds rather than compounds the multiplier', () async {
     final controller = await controllerWith({
       'journey': '1000000000000000',
@@ -416,8 +448,26 @@ void main() {
     exact.dispose();
   });
 
-  test(
-      'offline base is credited once and its bonus is a separate idempotent transaction',
+  test('offline return after ten minutes stays pending until claimed',
+      () async {
+    final controller = await controllerWith({
+      'offlineAt': DateTime.now().millisecondsSinceEpoch -
+          const Duration(minutes: 20).inMilliseconds,
+      'offlineRate': '26800',
+      'remainder': '0',
+    });
+    controller.resume();
+    expect(controller.available, BigInt.zero);
+    expect(controller.returnRewardAvailable, isTrue);
+    expect(controller.returnBonusAvailable, isTrue);
+    expect(controller.claimReturnBase(), isTrue);
+    expect(controller.available, BigInt.from(16080));
+    expect(controller.returnRewardAvailable, isFalse);
+    expect(controller.claimReturnBase(), isFalse);
+    controller.dispose();
+  });
+
+  test('offline return caps at four hours and ad claims base plus bonus once',
       () async {
     final controller = await controllerWith({
       'offlineAt': DateTime.now().millisecondsSinceEpoch -
@@ -426,11 +476,24 @@ void main() {
       'remainder': '0',
     });
     controller.resume();
-    expect(controller.available, BigInt.from(385920));
-    expect(controller.returnBonusAvailable, isTrue);
+    expect(controller.available, BigInt.zero);
+    expect(controller.returnRewardAvailable, isTrue);
     expect(controller.resolveReturnBonus(rewarded: true), isTrue);
-    expect(controller.available, BigInt.from(463104));
+    expect(controller.available, BigInt.from(231552));
     expect(controller.resolveReturnBonus(rewarded: true), isFalse);
+    controller.dispose();
+  });
+
+  test('offline return below ten minutes credits silently', () async {
+    final controller = await controllerWith({
+      'offlineAt': DateTime.now().millisecondsSinceEpoch -
+          const Duration(minutes: 9).inMilliseconds,
+      'offlineRate': '26800',
+      'remainder': '0',
+    });
+    controller.resume();
+    expect(controller.available, BigInt.from(7236));
+    expect(controller.returnRewardAvailable, isFalse);
     controller.dispose();
   });
 
@@ -447,7 +510,8 @@ void main() {
     });
 
     expect(controller.multiplier, BigInt.from(416));
-    expect(controller.available, BigInt.from(385920));
+    expect(controller.available, BigInt.zero);
+    expect(controller.returnRewardAvailable, isTrue);
     expect(controller.returnBonusAvailable, isTrue);
     controller.dispose();
   });

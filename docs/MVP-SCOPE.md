@@ -11,8 +11,8 @@ Definir uma fronteira verificável para lançar o jogo sem ampliar silenciosamen
 ### Núcleo e economia
 
 - Ciclo Six-Seven com Fases Six e Seven;
-- Produção Ativa, Passiva e Offline limitada a oito horas;
-- Bônus de Retorno opcional de 20%;
+- Produção Ativa, Passiva e Offline limitada a quatro horas;
+- Recompensa de Retorno após mais de dez minutos, com resgate-base proporcional ou Bônus de Retorno opcional de 20%;
 - Aura Disponível, Aura Total e Aura da Jornada;
 - Notação Compacta de Aura e Marcos 67;
 - Ascensão de Aura e Multiplicador de Ascensão;

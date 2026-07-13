@@ -10,10 +10,10 @@ Validar custos, contribuições, Pré-requisitos, Patamares, produção offline 
 
 | Perfil | Agenda diária | Cadência ativa | Regra offline |
 | --- | --- | ---: | --- |
-| Muito ativo | 4 sessões de 30 min, uniformes | `3 ciclos/s` | intervalos reais, máximo 8h |
-| Referência | 3 sessões de 15 min, uniformes | `1,5 ciclo/s` | intervalos reais, máximo 8h |
-| Casual | 2 sessões de 10 min, uniformes | `0,75 ciclo/s` | cada intervalo de `12h` limitado a 8h |
-| Passivo | 2 aberturas de `60s`, exatamente 12h entre elas | `0` depois de cada Bootstrap de Jornada | cada intervalo limitado a 8h |
+| Muito ativo | 4 sessões de 30 min, uniformes | `3 ciclos/s` | intervalos reais, máximo 4h |
+| Referência | 3 sessões de 15 min, uniformes | `1,5 ciclo/s` | intervalos reais, máximo 4h |
+| Casual | 2 sessões de 10 min, uniformes | `0,75 ciclo/s` | cada intervalo de `12h` limitado a 4h |
+| Passivo | 2 aberturas de `60s`, exatamente 12h entre elas | `0` depois de cada Bootstrap de Jornada | cada intervalo limitado a 4h |
 
 Todos concluem o onboarding inicial em Cadência de Referência até o primeiro Item-raiz. Depois de cada Ascensão, somente o perfil Passivo repete um Bootstrap de Jornada na mesma cadência até `TECH-01` L1 e um Item-raiz L1; a abertura pode ultrapassar `60s` apenas até concluir esse mínimo. Produção Passiva também funciona enquanto o jogo está aberto. Essa metodologia não representa automação do produto.
 
@@ -120,7 +120,7 @@ Cada versão segue as camadas ortogonais de `BALANCE-ACCEPTANCE-CRITERIA.md`, co
 - heurísticas, anúncios, Políticas de Ascensão e perturbações em camadas próprias, sem produto cartesiano indiscriminado;
 - primeira jornada e ao menos três Ascensões completas;
 - equivalência de `×1`, `×10` e `MÁX` como fixtures ortogonais;
-- retornos abaixo, iguais e acima de oito horas.
+- retornos abaixo, iguais e acima de quatro horas, incluindo o limiar de mais de dez minutos para a Recompensa de Retorno.
 
 Antes de medir qualquer janela, a simulação deve carregar explicitamente o conjunto `balance-v0.3` e validar estas fixtures da curva `23/20`: `270→L10 = 5.487`, `2.350→L25 = 500.078`, `67.000→L50 = 483.587.018` e `67.000→L100 = 524.526.228.030`. Para `C₀ = 67.000`, deve também distinguir `99→100 = 68.416.522.780` de `100→101 = 78.679.001.197`.
 

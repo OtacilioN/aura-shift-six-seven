@@ -148,7 +148,7 @@ QA analisa gravação a `60fps` das Fases Six/Seven em cadência máxima humana 
 ## Fluxos críticos acessíveis
 
 - **Tutorial:** coach marks podem ser dispensados; TalkBack alcança o jogo abaixo; Consentimento de Analytics restaura o foco e o estado do tutorial.
-- **Retorno offline:** base, limite de oito horas, bônus, alternativa e estado já creditado são lidos separadamente.
+- **Retorno offline:** duração, base proporcional, limite de quatro horas, bônus, alternativas de resgate e estado pendente ou concluído são lidos separadamente; nenhum valor é anunciado como creditado antes da escolha.
 - **Anúncio:** benefício é conhecido antes; indisponibilidade não abre loop de erro; cancelamento retorna à ação.
 - **Ascensão:** grupos “recebe”, “reinicia” e “permanece” usam headings; confirmar anuncia irreversibilidade e multiplicador resultante.
 - **Backup:** picker cancelado não é erro; prévia válida é lida antes da substituição; falha mantém progresso e foco.

@@ -1004,6 +1004,7 @@ class _AuraTreePainter extends CustomPainter {
     _drawConvergence(canvas, 1, sourceDepth: 1);
     _drawConvergence(canvas, 2, sourceDepth: 3);
     _drawConvergence(canvas, 3, sourceDepth: 5);
+    _drawTechniqueDependency(canvas);
   }
 
   void _drawAtmosphere(Canvas canvas, Size size) {
@@ -1151,6 +1152,30 @@ class _AuraTreePainter extends CustomPainter {
     );
   }
 
+  void _drawTechniqueDependency(Canvas canvas) {
+    final spectrumOne = geometry.convergence(1);
+    final counterflow = geometry.technique(2);
+    final path = Path()
+      ..moveTo(spectrumOne.dx, spectrumOne.dy + 35)
+      ..cubicTo(
+        spectrumOne.dx + 18,
+        spectrumOne.dy + 54,
+        counterflow.dx + 18,
+        counterflow.dy - 54,
+        counterflow.dx,
+        counterflow.dy - 35,
+      );
+    _drawDashedPath(
+      canvas,
+      path,
+      Paint()
+        ..color = const Color(0xFFB8A7FF).withValues(alpha: .76)
+        ..strokeWidth = 3
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
   void _drawDashedPath(Canvas canvas, Path path, Paint paint) {
     for (final metric in path.computeMetrics()) {
       var distance = 0.0;
@@ -1213,7 +1238,6 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
     final nextEffect = _effectAt(level + 1);
     final one = controller.purchaseQuote(upgrade, 1);
     final ten = controller.purchaseQuote(upgrade, 10);
-    final max = controller.purchaseQuote(upgrade, -1);
     final complement = controller.complementQuote(upgrade);
     final requirements = controller.requirementsFor(upgrade);
     final requirementsMet = requirements.every(controller.requirementMet);
@@ -1243,8 +1267,8 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
-              PositionedDirectional(
-                end: 8,
+              Positioned(
+                left: 8,
                 child: IconButton(
                   onPressed: () => Navigator.pop(context),
                   tooltip: translate('action_close'),
@@ -1443,7 +1467,6 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
                       unlocked: unlocked,
                       one: one,
                       ten: ten,
-                      max: max,
                       available: controller.available,
                       translate: translate,
                       locale: locale,
@@ -1645,7 +1668,6 @@ class _PurchaseOptions extends StatelessWidget {
     required this.unlocked,
     required this.one,
     required this.ten,
-    required this.max,
     required this.available,
     required this.translate,
     required this.locale,
@@ -1656,7 +1678,6 @@ class _PurchaseOptions extends StatelessWidget {
   final bool unlocked;
   final UpgradePurchaseQuote one;
   final UpgradePurchaseQuote ten;
-  final UpgradePurchaseQuote max;
   final BigInt available;
   final AuraTranslate translate;
   final String locale;
@@ -1676,7 +1697,7 @@ class _PurchaseOptions extends StatelessWidget {
               primary: true,
               locale: locale,
               missingLabel: _missingLabel(one),
-              onPressed: () => _purchaseAndClose(context, 1),
+              onPressed: () => _purchase(1),
             ),
             _PurchaseButton(
               key: ValueKey('buy-x10-${upgrade.id}'),
@@ -1685,16 +1706,7 @@ class _PurchaseOptions extends StatelessWidget {
               enabled: unlocked && ten.affordable,
               locale: locale,
               missingLabel: _missingLabel(ten),
-              onPressed: () => _purchaseAndClose(context, 10),
-            ),
-            _PurchaseButton(
-              key: ValueKey('buy-max-${upgrade.id}'),
-              label: '${translate('shop_buy_max')} (×${max.quantity})',
-              cost: max.cost,
-              enabled: unlocked && max.affordable,
-              locale: locale,
-              missingLabel: max.affordable ? null : _missingLabel(one),
-              onPressed: () => _purchaseAndClose(context, -1),
+              onPressed: () => _purchase(10),
             ),
           ];
           if (stacked) {
@@ -1728,9 +1740,8 @@ class _PurchaseOptions extends StatelessWidget {
     });
   }
 
-  void _purchaseAndClose(BuildContext context, int quantity) {
+  void _purchase(int quantity) {
     onPurchase(upgrade, quantity);
-    Navigator.pop(context);
   }
 }
 

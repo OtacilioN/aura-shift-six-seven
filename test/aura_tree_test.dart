@@ -149,7 +149,7 @@ void main() {
       await tester.pump();
       expect(find.byKey(const ValueKey('buy-x1-ITEM-A-01')), findsOneWidget);
       expect(find.byKey(const ValueKey('buy-x10-ITEM-A-01')), findsOneWidget);
-      expect(find.byKey(const ValueKey('buy-max-ITEM-A-01')), findsOneWidget);
+      expect(find.byKey(const ValueKey('buy-max-ITEM-A-01')), findsNothing);
 
       final oneButton = find.descendant(
         of: find.byKey(const ValueKey('buy-x1-ITEM-A-01')),
@@ -169,8 +169,21 @@ void main() {
       expect(controller.available, BigInt.from(330));
       expect(
         find.byKey(const ValueKey('aura-detail-ITEM-A-01')),
-        findsNothing,
+        findsOneWidget,
       );
+      final closeButton = find.ancestor(
+        of: find.byIcon(Icons.close),
+        matching: find.byType(IconButton),
+      );
+      expect(closeButton, findsOneWidget);
+      final closePosition = tester.widget<Positioned>(
+        find.ancestor(
+          of: closeButton,
+          matching: find.byType(Positioned),
+        ),
+      );
+      expect(closePosition.left, 8);
+      expect(closePosition.right, isNull);
       expect(
         find.descendant(
           of: find.byKey(const ValueKey('aura-node-ITEM-A-01')),
@@ -400,11 +413,12 @@ void main() {
     }
   });
 
-  testWidgets('a reached tier unlocks a technique without earlier techniques',
+  testWidgets('a reached tier and build dependency unlock a technique',
       (tester) async {
     final controller = await controllerWith({
       'available': '67000',
       'total': '1000000',
+      'levels': {'TECH-02': 10},
     });
     final semantics = tester.ensureSemantics();
     try {
@@ -448,7 +462,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
       expect(controller.level('TECH-01'), 0);
-      expect(controller.level('TECH-02'), 0);
+      expect(controller.level('TECH-02'), 10);
       expect(controller.level('TECH-03'), 1);
       expect(controller.available, BigInt.zero);
 

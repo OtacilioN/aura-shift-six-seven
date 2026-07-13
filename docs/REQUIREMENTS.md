@@ -113,7 +113,7 @@
 - **REQ-OFF-004:** anúncios recompensados PODEM ficar indisponíveis quando não houver conexão ou inventário publicitário.
 - **REQ-OFF-005:** indisponibilidade de anúncio NÃO DEVE bloquear recompensa-base, compra normal ou função principal.
 - **REQ-OFF-006:** verificações de integridade NÃO DEVEM exigir conexão contínua nem impedir sessões offline legítimas.
-- **REQ-OFF-007:** o tempo considerado para Produção Offline DEVE permanecer entre zero e oito horas.
+- **REQ-OFF-007:** o tempo considerado para Produção Offline DEVE permanecer entre zero e quatro horas.
 - **REQ-OFF-008:** uma ausência cujo intervalo seja considerado incoerente DEVE conceder zero Produção Offline e estabelecer uma nova referência temporal.
 - **REQ-OFF-009:** uma ausência com intervalo incoerente NÃO DEVE oferecer Bônus de Retorno.
 - **REQ-OFF-010:** mudança de relógio NÃO DEVE causar banimento, remoção de progresso ou bloqueio da experiência principal.
@@ -350,8 +350,8 @@
 - **REQ-SIM-005:** o perfil Passivo DEVE realizar duas Aberturas Curtas de `60s` por dia e zero Ciclos Six-Seven depois de cada Bootstrap de Jornada.
 - **REQ-SIM-006:** o onboarding inicial de todos os perfis DEVE usar a Cadência de Referência para preservar a calibração das âncoras iniciais.
 - **REQ-SIM-007:** Produção Passiva DEVE permanecer ativa durante as sessões de todos os perfis.
-- **REQ-SIM-008:** intervalos entre sessões DEVEM usar a Taxa Offline Registrada e aplicar o limite de oito horas por ausência.
-- **REQ-SIM-009:** no perfil Casual, cada intervalo exato de 12 horas DEVE creditar no máximo oito horas offline.
+- **REQ-SIM-008:** intervalos entre sessões DEVEM usar a Taxa Offline Registrada e aplicar o limite de quatro horas por ausência.
+- **REQ-SIM-009:** no perfil Casual, cada intervalo exato de 12 horas DEVE creditar no máximo quatro horas offline.
 - **REQ-SIM-010:** o cenário-base de balanceamento NÃO DEVE usar Bônus de Retorno nem Complemento de Aura.
 - **REQ-SIM-011:** Bônus de Retorno e Complemento de Aura DEVEM ser avaliados em cenários de sensibilidade separados.
 - **REQ-SIM-012:** o perfil Muito ativo DEVE alcançar a primeira disponibilidade de Ascensão em aproximadamente 2–3 dias.
@@ -539,7 +539,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ARITH-013:** particionar um intervalo sem mudança de taxa NÃO DEVE alterar saldo, totais ou Resto de Produção.
 - **REQ-ARITH-014:** antes de qualquer evento que altere uma taxa, o tempo pendente DEVE ser integrado usando o estado anterior.
 - **REQ-ARITH-015:** o snapshot canônico da Taxa Offline Registrada DEVE ser `F_registrado=T20×A`, representando `F_registrado/2000 Aura/s`.
-- **REQ-ARITH-016:** a duração offline válida DEVE usar milissegundos inteiros e ser limitada a `28.800.000ms`.
+- **REQ-ARITH-016:** a duração offline válida DEVE usar milissegundos inteiros e ser limitada a `14.400.000ms`.
 - **REQ-ARITH-017:** a produção offline exata DEVE ser `F_registrado × D_válido × 5` quanta.
 - **REQ-ARITH-018:** o Bônus de Retorno DEVE ser exatamente `q_offline/5`, calculado antes da conversão em Aura inteira e sem reaplicar Ascensão.
 - **REQ-ARITH-019:** custo, preço de lote e teto DEVEM usar somente aritmética inteira e a fórmula racional `23ⁿ/20ⁿ`.
@@ -561,7 +561,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ARITH-035:** Produção Offline base e Bônus de Retorno DEVEM processar no mesmo evento todos os Patamares, Transformações e Marcos cruzados por seus próprios créditos.
 - **REQ-ARITH-036:** `P20` e `T20` PODEM ser caches derivados, mas `F_registrado=T20×A` DEVE ser um snapshot canônico congelado durante a ausência.
 - **REQ-ARITH-037:** `F_registrado` NÃO DEVE ser recalculado usando níveis, parâmetros ou versão posteriores ao início da ausência.
-- **REQ-ARITH-038:** o Bônus de Retorno somente DEVE ser elegível quando o intervalo for coerente e a ausência real exceder `28.800.000ms`.
+- **REQ-ARITH-038:** o Bônus de Retorno somente DEVE ser elegível quando o intervalo for coerente, a ausência real exceder `600.000ms` e a monetização estiver habilitada.
 - **REQ-ARITH-039:** uma Ascensão somente DEVE ser confirmável quando `J ≥ Jmín = 10¹⁵`, ainda que uma prévia possa ser calculada abaixo do limiar.
 
 ## Marcos 67
@@ -811,30 +811,30 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 
 - **REQ-IDLE-001:** melhoramentos de Produção Passiva DEVEM gerar Aura sem exigir Ciclos Six-Seven.
 - **REQ-IDLE-002:** a Produção Passiva DEVE continuar enquanto o jogo estiver fechado.
-- **REQ-IDLE-003:** a Produção Offline DEVE ser limitada ao equivalente a oito horas por ausência.
-- **REQ-IDLE-004:** após ausência de até oito horas, o resgate DEVE corresponder ao período efetivamente acumulado.
-- **REQ-IDLE-005:** após ausência superior a oito horas, o jogador DEVE poder resgatar a produção-base limitada a oito horas sem assistir a anúncio.
-- **REQ-IDLE-006:** após ausência superior a oito horas, o jogador DEVE poder optar por um Anúncio Recompensado para acrescentar 20% à produção-base limitada a oito horas.
-- **REQ-IDLE-007:** o Bônus de Retorno NÃO DEVE ser calculado sobre o tempo excedente às oito horas.
+- **REQ-IDLE-003:** a Produção Offline DEVE ser limitada ao equivalente a quatro horas por ausência.
+- **REQ-IDLE-004:** somente uma ausência coerente superior a `600.000ms` DEVE gerar uma Recompensa de Retorno pendente e apresentar seu modal.
+- **REQ-IDLE-005:** após ausência superior a dez minutos, o jogador DEVE poder resgatar a produção-base proporcional ao período efetivamente acumulado, limitada a quatro horas, sem assistir a anúncio.
+- **REQ-IDLE-006:** após ausência superior a dez minutos e com monetização habilitada, o jogador DEVE poder optar por um Anúncio Recompensado para resgatar a produção-base proporcional, limitada a quatro horas, acrescida de 20%.
+- **REQ-IDLE-007:** o Bônus de Retorno NÃO DEVE ser calculado sobre o tempo excedente às quatro horas.
 - **REQ-IDLE-008:** o Anúncio Recompensado NÃO DEVE bloquear ou substituir o resgate da produção-base.
 - **REQ-IDLE-009:** ao sair do primeiro plano, o jogo DEVE registrar a Produção Passiva final vigente como Taxa Offline Registrada.
 - **REQ-IDLE-010:** a Taxa Offline Registrada DEVE incluir os efeitos de Itens de Aura e do Multiplicador de Ascensão vigentes na saída.
-- **REQ-IDLE-011:** a Produção Offline DEVE ser calculada pela Taxa Offline Registrada multiplicada pelo tempo válido, limitado a oito horas.
+- **REQ-IDLE-011:** a Produção Offline DEVE ser calculada pela Taxa Offline Registrada multiplicada pelo tempo válido, limitado a quatro horas.
 - **REQ-IDLE-012:** frações resultantes da Produção Offline DEVEM ser preservadas pelo Resto de Produção compartilhado.
 - **REQ-IDLE-013:** o jogo NÃO DEVE simular compras, níveis, desbloqueios ou composição de crescimento durante a ausência.
 - **REQ-IDLE-014:** a Produção Ativa NÃO DEVE integrar a Produção Offline.
 - **REQ-IDLE-015:** marcos e Transformações gerados pela recompensa offline DEVEM ser processados quando ela for creditada.
-- **REQ-IDLE-016:** cada ausência elegível DEVE gerar uma Recompensa de Retorno persistente antes da apresentação de sua tela.
-- **REQ-IDLE-017:** a Produção Offline base de uma Recompensa de Retorno DEVE ser creditada no máximo uma vez.
+- **REQ-IDLE-016:** cada ausência coerente superior a dez minutos DEVE gerar uma Recompensa de Retorno persistente antes da apresentação de seu modal.
+- **REQ-IDLE-017:** a Produção Offline base de uma Recompensa de Retorno DEVE permanecer sem crédito até a escolha e DEVE ser creditada no máximo uma vez.
 - **REQ-IDLE-018:** escolher o resgate sem anúncio DEVE creditar a base e encerrar a oportunidade de Bônus de Retorno daquela ausência.
-- **REQ-IDLE-019:** ao escolher o anúncio, o jogo DEVE creditar e persistir a base antes de solicitar sua exibição.
-- **REQ-IDLE-020:** o Bônus de Retorno DEVE ser creditado no máximo uma vez após a conclusão válida do anúncio.
-- **REQ-IDLE-021:** falha ou cancelamento do anúncio NÃO DEVE reverter nem duplicar a base já creditada.
-- **REQ-IDLE-022:** após falha ou cancelamento, o jogador DEVE poder tentar novamente o bônus enquanto não encerrar explicitamente a oferta.
+- **REQ-IDLE-019:** ao escolher o anúncio, o jogo NÃO DEVE creditar a base antes de sua conclusão válida.
+- **REQ-IDLE-020:** após a conclusão válida do anúncio, o jogo DEVE creditar a base e o Bônus de Retorno exatamente uma vez.
+- **REQ-IDLE-021:** falha ou cancelamento do anúncio NÃO DEVE creditar, reverter nem duplicar a base ou o bônus.
+- **REQ-IDLE-022:** após falha ou cancelamento, o jogador DEVE poder tentar novamente o anúncio ou resgatar a base enquanto não encerrar explicitamente a oferta.
 - **REQ-IDLE-023:** fechar o aplicativo durante o fluxo NÃO DEVE perder ou duplicar a Recompensa de Retorno pendente.
-- **REQ-IDLE-024:** antes de uma Ascensão, toda Recompensa de Retorno pendente DEVE ter sua produção-base creditada exatamente uma vez.
-- **REQ-IDLE-025:** antes de uma Ascensão, uma oportunidade pendente de Bônus de Retorno DEVE ser aceita ou explicitamente recusada.
-- **REQ-IDLE-026:** recusar o Bônus de Retorno antes da Ascensão NÃO DEVE remover, reduzir ou reverter a produção-base.
+- **REQ-IDLE-024:** antes de uma Ascensão, toda Recompensa de Retorno pendente DEVE ser concluída por resgate-base ou por anúncio válido.
+- **REQ-IDLE-025:** antes de uma Ascensão, uma oportunidade pendente de Bônus de Retorno DEVE ser concluída ou recusada explicitamente com resgate da base.
+- **REQ-IDLE-026:** recusar o Bônus de Retorno antes da Ascensão NÃO DEVE remover, reduzir ou reverter a produção-base resgatada.
 
 ## Ascensão de Aura
 
@@ -881,7 +881,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ASC-041:** a prévia DEVE informar Aura da Jornada considerada, parcela projetada, multiplicador total resultante e todos os estados reiniciados ou preservados.
 - **REQ-ASC-042:** confirmar uma Ascensão DEVE persistir atomicamente o novo acumulado `L`, o multiplicador derivado e o reinício da Aura da Jornada e da economia corrente.
 - **REQ-ASC-043:** falha durante a persistência NÃO DEVE conceder o bônus sem reiniciar a jornada nem reiniciar a jornada sem conceder o bônus.
-- **REQ-ASC-044:** a confirmação de Ascensão DEVE permanecer indisponível enquanto uma oportunidade de Bônus de Retorno aguardar decisão, depois que a base já tiver sido garantida.
+- **REQ-ASC-044:** a confirmação de Ascensão DEVE permanecer indisponível enquanto uma Recompensa de Retorno pendente aguardar resgate-base ou conclusão da alternativa com bônus.
 - **REQ-ASC-045:** saves `balance-v0.1` sem `L` DEVEM ser migrados uma única vez usando contagem de Ascensões e multiplicador anterior, preservando saldos, Aura Total, Resto, coleção, conquistas e Taxa Offline Registrada.
 
 ## Anúncios Recompensados
@@ -908,7 +908,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ADS-020:** anúncios recompensados NÃO DEVEM ser habilitados antes da conclusão do Tutorial Contextual.
 - **REQ-ADS-021:** a habilitação DEVE exigir ao menos uma Técnica Six-Seven e um Item de Aura comprados normalmente, sem Complemento de Aura.
 - **REQ-ADS-022:** o Complemento de Aura somente DEVE ser oferecido em compras posteriores às duas compras normais exigidas.
-- **REQ-ADS-023:** uma Recompensa de Retorno anterior à habilitação de monetização DEVE creditar apenas a produção-base, sem oferta de Bônus de Retorno.
+- **REQ-ADS-023:** uma Recompensa de Retorno anterior à habilitação de monetização DEVE oferecer apenas o resgate da produção-base, sem oferta de Bônus de Retorno.
 - **REQ-ADS-024:** dispensar ou pular orientações NÃO DEVE antecipar a habilitação de anúncios.
 - **REQ-ADS-025:** a primeira oferta publicitária DEVE explicar o benefício, a natureza opcional e a alternativa sem anúncio.
 

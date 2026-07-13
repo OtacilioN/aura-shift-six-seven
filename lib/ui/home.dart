@@ -195,10 +195,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       promptedAnalytics = true;
       WidgetsBinding.instance.addPostFrameCallback((_) => _analyticsDialog());
     }
-    if (c.returnBonusAvailable && !promptedReturn) {
+    if (c.returnRewardAvailable && !promptedReturn) {
       promptedReturn = true;
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => _returnRewardDialog());
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _returnRewardDialog().whenComplete(() {
+          if (mounted) setState(() => promptedReturn = false);
+        });
+      });
     }
     return FutureBuilder<ArtCatalog?>(
       future: artCatalog,
@@ -455,7 +458,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   Expanded(
                       child: OutlinedButton(
                           onPressed: () {
-                            widget.controller.declineReturnBonus();
+                            widget.controller.claimReturnBase();
                             Navigator.pop(sheet);
                           },
                           child: Text(widget.strings('return_base_only')))),
@@ -1128,46 +1131,60 @@ class _Collection extends StatelessWidget {
             final title = strings(u.nameKey);
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 4),
-              child: ListTile(
-                leading: AuraAssetArt(
-                  catalog: art,
-                  assetId: AuraUiArt.appearanceThumbnail(u.id),
-                  fallback: const Icon(Icons.face_outlined),
-                  width: 54,
-                  height: 54,
-                  semanticLabel: title,
-                  decorative: true,
-                  opacity: owns ? 1 : .38,
-                ),
-                title: Text(strings(u.nameKey)),
-                subtitle: Text(owns
-                    ? (equipped
-                        ? strings('collection_equipped')
-                        : strings('collection_hidden'))
-                    : strings('collection_locked')),
-                trailing: owns
-                    ? OutlinedButton(
-                        key: ValueKey('appearance-toggle-${u.id}'),
-                        onPressed: () {
-                          controller.setAppearanceEquipped(
-                            u.id,
-                            equipped: !equipped,
-                          );
-                          unawaited(
-                            audio.playCollectionChange(hidden: equipped),
-                          );
-                        },
-                        child: Text(equipped
-                            ? strings('collection_hide')
-                            : strings('collection_equip')))
-                    : AuraAssetIcon(
+              child: owns
+                  ? SwitchListTile(
+                      key: ValueKey('appearance-toggle-${u.id}'),
+                      contentPadding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 4, 8, 4),
+                      secondary: AuraAssetArt(
+                        catalog: art,
+                        assetId: AuraUiArt.appearanceThumbnail(u.id),
+                        fallback: const Icon(Icons.face_outlined),
+                        width: 54,
+                        height: 54,
+                        semanticLabel: title,
+                        decorative: true,
+                      ),
+                      title: Text(title, maxLines: 2),
+                      subtitle: Text(
+                        equipped
+                            ? strings('collection_equipped')
+                            : strings('collection_hidden'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      value: equipped,
+                      onChanged: (enabled) {
+                        controller.setAppearanceEquipped(
+                          u.id,
+                          equipped: enabled,
+                        );
+                        unawaited(
+                          audio.playCollectionChange(hidden: !enabled),
+                        );
+                      },
+                    )
+                  : ListTile(
+                      leading: AuraAssetArt(
+                        catalog: art,
+                        assetId: AuraUiArt.appearanceThumbnail(u.id),
+                        fallback: const Icon(Icons.face_outlined),
+                        width: 54,
+                        height: 54,
+                        semanticLabel: title,
+                        decorative: true,
+                        opacity: owns ? 1 : .38,
+                      ),
+                      title: Text(title, maxLines: 2),
+                      subtitle: Text(strings('collection_locked')),
+                      trailing: AuraAssetIcon(
                         catalog: art,
                         role: AuraUiIcon.lock,
                         fallbackIcon: Icons.lock_outline,
                         semanticLabel: strings('collection_locked'),
                         size: 26,
                       ),
-              ),
+                    ),
             );
           }),
           const Divider(height: 36),
@@ -1411,7 +1428,7 @@ class _Settings extends StatelessWidget {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => _backup(context))),
             ListTile(
-                title: Text(strings('settings_version', {'version': '0.1.3'})),
+                title: Text(strings('settings_version', {'version': '0.1.5'})),
                 subtitle:
                     const Text('Development build · arith-v1 · balance-v0.3'))
           ]);

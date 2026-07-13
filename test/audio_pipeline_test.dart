@@ -261,7 +261,7 @@ void main() {
     game.dispose();
   });
 
-  test('cold load credits offline production once and emits a one-shot cue',
+  test('cold load keeps an eligible offline reward pending until it is claimed',
       () async {
     final leftAt = DateTime.now().millisecondsSinceEpoch - 3600000;
     SharedPreferences.setMockInitialValues({
@@ -272,6 +272,10 @@ void main() {
       }),
     });
     final game = await GameController.load();
+    expect(game.available, BigInt.zero);
+    expect(game.returnRewardAvailable, isTrue);
+    expect(game.consumeReturnAudioCue(), isFalse);
+    expect(game.claimReturnBase(), isTrue);
     final credited = game.available;
     expect(credited, greaterThan(BigInt.zero));
     expect(game.consumeReturnAudioCue(), isTrue);

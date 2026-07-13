@@ -29,7 +29,7 @@ O lançamento salva o progresso somente no aparelho. Não há conta, backup em n
 
 ## Retorno ao jogo
 
-A tela de retorno apresenta a Produção Offline base e, após ausência superior a oito horas, a alternativa com Bônus de Retorno. Escolher a base encerra a oferta. Escolher o anúncio salva primeiro a base e tenta conceder o adicional separadamente. Em caso de falha, a interface permite tentar novamente ou continuar somente com a base. Reabrir o aplicativo recupera a pendência sem repetir créditos.
+A tela de retorno aparece após ausência superior a dez minutos e apresenta a Produção Offline proporcional, limitada a quatro horas. Ela oferece resgatar a base ou assistir voluntariamente a um anúncio para resgatar a mesma base com Bônus de Retorno de 20%. Nenhum valor é creditado antes da escolha. Escolher a base encerra a oferta; concluir validamente o anúncio credita a base e o adicional. Em caso de falha, a interface permite tentar novamente ou continuar somente com a base. Reabrir o aplicativo recupera a pendência sem repetir créditos.
 
 Na abertura, fluxos persistentes são reconstruídos em ordem segura: recuperação do save, Recompensa de Retorno e bônus já escolhido, diagnóstico, tutorial/consentimento disparado, confirmação de Ascensão ainda válida e, por último, celebrações. Consentimentos e erros pausam apresentações; celebrações ficam enfileiradas e podem ser dispensadas sem perder registros.
 
@@ -151,7 +151,7 @@ A Árvore possui uma rota linear semântica equivalente ao pan visual. A Área d
 
 O painel de Ascensão torna-se visível em `1Qa` de Aura Total. A confirmação permanece desabilitada enquanto a Aura da Jornada atual for menor que `1Qa` e mostra o valor restante.
 
-Se existir uma Recompensa de Retorno pendente, sua base é garantida primeiro. A confirmação permanece desabilitada somente até o jogador aceitar ou recusar a oportunidade de Bônus de Retorno; recusar o bônus não afeta a base já creditada.
+Se existir uma Recompensa de Retorno pendente, a confirmação de Ascensão permanece desabilitada até o jogador resgatar a base ou concluir a alternativa com bônus. Recusar o bônus e resgatar a base não reduz sua recompensa.
 
 Quando elegível, a prévia apresenta:
 

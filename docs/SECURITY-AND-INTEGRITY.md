@@ -40,7 +40,7 @@ Assinatura e ofuscação local elevam o esforço, mas segredos distribuídos no 
 
 ### Manipulação do relógio
 
-Produção Offline e janelas de anúncios dependem de tempo. O limite de oito horas reduz o impacto econômico. Quando o intervalo for incoerente, o jogo concede zero Produção Offline e não oferece Bônus de Retorno apenas naquela ausência, estabelece uma nova referência e mantém todo o restante funcionando. Não existem banimento, perda de save ou punição permanente; voltar o relógio também não renova a cota de Complementos de Aura. Tolerâncias para viagens e correções legítimas serão validadas antes do lançamento.
+Produção Offline e janelas de anúncios dependem de tempo. O limite de quatro horas reduz o impacto econômico; a Recompensa de Retorno só é apresentada após ausência superior a dez minutos. Quando o intervalo for incoerente, o jogo concede zero Produção Offline e não oferece Bônus de Retorno apenas naquela ausência, estabelece uma nova referência e mantém todo o restante funcionando. Não existem banimento, perda de save ou punição permanente; voltar o relógio também não renova a cota de Complementos de Aura. Tolerâncias para viagens e correções legítimas serão validadas antes do lançamento.
 
 ### Recompensas publicitárias
 

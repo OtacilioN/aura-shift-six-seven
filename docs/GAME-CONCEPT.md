@@ -122,18 +122,18 @@ O lançamento possui 13 Conquistas locais: seis visíveis e sete secretas. Elas 
 
 ## Produção passiva e retorno
 
-A Produção Passiva funciona continuamente enquanto o jogo está aberto e acumula durante ausências. A Produção Offline de cada ausência é limitada ao equivalente a oito horas.
+A Produção Passiva funciona continuamente enquanto o jogo está aberto e acumula durante ausências. A Produção Offline de cada ausência é limitada ao equivalente a quatro horas.
 
 O cálculo usa a Taxa Offline Registrada no momento em que o jogo sai de primeiro plano, já incluindo Itens de Aura e Multiplicador de Ascensão. A taxa permanece congelada durante a ausência: compras, níveis, desbloqueios e crescimento composto não são simulados. Marcos e Transformações são processados quando a recompensa é creditada.
 
-Quando a ausência ultrapassa oito horas, o retorno oferece duas escolhas:
+Quando a ausência ultrapassa dez minutos, o retorno oferece duas escolhas:
 
-- resgatar somente a Produção Offline correspondente a oito horas; ou
-- assistir voluntariamente a um Anúncio Recompensado e resgatar as mesmas oito horas acrescidas de um Bônus de Retorno de 20%.
+- resgatar somente a Produção Offline proporcional, até quatro horas; ou
+- assistir voluntariamente a um Anúncio Recompensado e resgatar o mesmo valor acrescido de um Bônus de Retorno de 20%.
 
-O anúncio não substitui nem bloqueia a recompensa-base já acumulada.
+O anúncio não substitui nem bloqueia a alternativa de resgate-base. Nenhuma recompensa é creditada antes da escolha.
 
-Cada ausência cria uma Recompensa de Retorno persistente antes da tela ser exibida. A base é creditada no máximo uma vez. Na escolha pelo anúncio, a base é salva primeiro e o adicional de 20% é creditado separadamente após o sucesso. Falha, cancelamento ou fechamento do aplicativo preserva o estado correto e permite repetir apenas a tentativa do bônus, sem duplicar a base.
+Cada ausência superior a dez minutos cria uma Recompensa de Retorno persistente antes da tela ser exibida. A base é creditada no máximo uma vez, sempre após a escolha: pelo resgate-base ou, com o adicional de 20%, após o sucesso do anúncio. Falha, cancelamento ou fechamento do aplicativo preserva o estado correto e permite tentar novamente ou resgatar a base, sem duplicação.
 
 ## Monetização recompensada
 
