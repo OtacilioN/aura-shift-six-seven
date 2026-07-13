@@ -277,7 +277,7 @@ Fixtures mínimas: `0`, `999`, `1K`, `1.99K`, `999K`, `1M`, `1Dc`, `1e36`, expoe
 ### Loja/Árvore
 
 - cards em `surface-1`, selecionado em `surface-2`; ação primária ciano;
-- abas Técnicas/Árvore formam controle segmentado de altura `48dp`;
+- Técnicas ocupam o tronco central da única Árvore de Aura; não existe controle segmentado Técnicas/Árvore;
 - conexões de ramo usam cor + padrão; nó selecionado recebe anel `paper`, não cor funcional;
 - resumo do nó é folha `surface-1` com barra de ação fixa.
 

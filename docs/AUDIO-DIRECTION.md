@@ -81,12 +81,12 @@ assets neutros já inventariados. O equivalente mono e visual permanece
 completo; direção estéreo nunca é portadora de estado. Presets não são arquivos
 nem ampliam os 42 assets obrigatórios do contrato v2.
 
-## Trilha principal e playlist
+## Trilha por menu
 
 As sete músicas são mixes completos independentes e nunca são sobrepostas como
-stems. A playlist canônica é:
+stems. A lista de faixas elegíveis é:
 
-1. `Boss Shift` — tema principal e primeira faixa de toda sessão;
+1. `Boss Shift`;
 2. `Neon Drift 67`;
 3. `Aura no Retrovisor`;
 4. `Passinho de Aura`;
@@ -94,16 +94,17 @@ stems. A playlist canônica é:
 6. `Phase Bloom`;
 7. `Ritual 6/7`.
 
-Após `Ritual 6/7`, o ciclo volta para `Boss Shift`. Uma única voz musical fica
-ativa em condições normais; duas vozes coexistem somente durante o crossfade
-equal-power de `1 s`. O avanço usa a posição real do player aproximadamente um
-segundo antes do fim e a conclusão da faixa como fallback idempotente. Callback
-atrasado de uma faixa antiga não pode avançar a playlist duas vezes.
+Ao abrir o app, a ordem de uso dessas faixas é sorteada em uma shuffle bag. A
+primeira faixa escolhida toca em loop e cada troca de menu seleciona a próxima;
+as sete tocam uma vez antes do próximo embaralhamento e não há repetição
+imediata. Uma única voz musical fica ativa em condições normais; duas vozes
+coexistem somente durante o crossfade equal-power de `1 s` entre menus.
 
-As faixas não usam `ReleaseMode.loop`. Navegar entre Jogar, Loja, Coleção e
-Ajustes mantém música e posição; cadência I0–I3 não troca faixa. Diálogos e
-consentimentos atenuam música em `-8 dB`; anúncio/background pausam os buses e o
-retorno faz fade-in de `400 ms`, sem reiniciar nem pular a faixa corrente.
+O runtime usa `ReleaseMode.loop`, embora os arquivos não tenham markers de loop
+embutidos. Navegar entre Jogar, Loja, Coleção e Ajustes troca a faixa; cadência
+I0–I3 não troca faixa. Diálogos e consentimentos atenuam música em `-8 dB`;
+anúncio/background pausam os buses e o retorno faz fade-in de `400 ms`, sem
+reiniciar nem pular a faixa corrente.
 
 ## Six e Seven
 
@@ -188,7 +189,7 @@ Som nunca determina timing econômico. Se um arquivo não carregar ou o app esti
 | fonte musical preservada | WAV PCM | `44,1 kHz / 24-bit` | estéreo | cópia byte a byte do arquivo selecionado |
 | master musical derivado | WAV PCM | `48 kHz / 24-bit` | estéreo | resample 160/147 e atenuação para `-16 LUFS-I` |
 | SFX master | WAV PCM | `48 kHz / 24-bit` | mono preferencial | cauda completa |
-| runtime música | Ogg Vorbis | `48 kHz`, qualidade alvo `q6` | estéreo | faixa completa `non-loop` |
+| runtime música | Ogg Vorbis | `48 kHz`, qualidade alvo `q6` | estéreo | faixa completa sem marker; loop controlado pelo player |
 | runtime SFX | Ogg Vorbis ou WAV | `48 kHz` | mono preferencial | escolher por latência/tamanho na prova |
 
 Não usar MP3 em loops por padding. O codec final de SFX é decidido por teste de latência no Android, sem mudar IDs.
@@ -222,14 +223,14 @@ A auditoria compara impressão global, ritmo, motivo, harmonia, arranjo, timbre 
 
 ## Inventário e gate
 
-`AUDIO-INVENTORY.md` lista todos os IDs, masters, exports, ordem da playlist,
+`AUDIO-INVENTORY.md` lista todos os IDs, masters, exports, conjunto elegível,
 variações e registros. Planejamento fechado não equivale a pacote produzido. O
 gate de integração exige arquivo real, fonte, hash e decisão humana; licença,
 similaridade e aparelho continuam gates de publicação separados.
 
 ## Riscos residuais
 
-- atraso ou duplicação de callbacks entre posição, conclusão e crossfade;
+- clique perceptível na repetição ou no crossfade disparado por troca de menu;
 - latência de SFX Ogg em aparelhos modestos;
 - inconsistência de loudness entre alto-falantes fabricantes;
 - fadiga de Six/Seven em cadências extremas;

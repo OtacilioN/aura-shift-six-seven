@@ -1024,9 +1024,7 @@ class _CoachHintState extends State<_CoachHint>
   }
 }
 
-enum _ShopSection { auraTree, techniques }
-
-class _Shop extends StatefulWidget {
+class _Shop extends StatelessWidget {
   const _Shop({
     required this.controller,
     required this.strings,
@@ -1043,24 +1041,14 @@ class _Shop extends StatefulWidget {
   final Future<void> Function(Upgrade) onComplement;
 
   @override
-  State<_Shop> createState() => _ShopState();
-}
-
-class _ShopState extends State<_Shop> {
-  _ShopSection section = _ShopSection.auraTree;
-
-  @override
   Widget build(BuildContext context) {
-    final s = widget.strings;
-    final techniques = upgrades
-        .where((upgrade) => upgrade.isTechnique)
-        .toList(growable: false);
+    final s = strings;
     return Padding(
         padding: const EdgeInsets.fromLTRB(16, 18, 16, 10),
         child: Column(
           children: [
             _ArtworkHeading(
-              catalog: widget.art,
+              catalog: art,
               assetId: AuraUiArt.icon(AuraUiIcon.navShop),
               fallbackIcon: Icons.shopping_bag_outlined,
               title: s('nav_shop'),
@@ -1068,229 +1056,26 @@ class _ShopState extends State<_Shop> {
               large: true,
             ),
             const SizedBox(height: 14),
-            SizedBox(
-              width: double.infinity,
-              child: SegmentedButton<_ShopSection>(
-                segments: [
-                  ButtonSegment(
-                    value: _ShopSection.auraTree,
-                    icon: const Icon(Icons.account_tree_outlined, size: 19),
-                    label: Text(s('shop_aura_tree')),
-                  ),
-                  ButtonSegment(
-                    value: _ShopSection.techniques,
-                    icon: const Icon(Icons.bolt_outlined, size: 19),
-                    label: Text(s('shop_techniques')),
-                  ),
-                ],
-                selected: {section},
-                showSelectedIcon: false,
-                onSelectionChanged: (selected) =>
-                    setState(() => section = selected.single),
-                style: ButtonStyle(
-                  visualDensity: VisualDensity.compact,
-                  side: WidgetStateProperty.all(
-                    BorderSide(color: Colors.white.withValues(alpha: .1)),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
             Expanded(
-              child: IndexedStack(
-                index: section.index,
-                children: [
-                  AuraItemTree(
-                    controller: widget.controller,
-                    translate: s.call,
-                    locale: s.locale,
-                    art: widget.art,
-                    onPurchase: widget.onPurchase,
-                    onComplement: widget.onComplement,
-                    onDetailsOpen: () async {
-                      unawaited(widget.audio.playUiOpen());
-                      await widget.audio.beginDuck();
-                    },
-                    onDetailsClose: () async {
-                      await widget.audio.endDuck();
-                      unawaited(widget.audio.playUiClose());
-                    },
-                  ),
-                  ListView.builder(
-                    key: const PageStorageKey('techniques-scroll'),
-                    padding: const EdgeInsets.only(bottom: 24),
-                    itemCount: techniques.length,
-                    itemBuilder: (context, index) => _UpgradeCard(
-                      techniques[index],
-                      widget.controller,
-                      s,
-                      widget.art,
-                      widget.onPurchase,
-                      widget.onComplement,
-                    ),
-                  ),
-                ],
+              child: AuraItemTree(
+                controller: controller,
+                translate: s.call,
+                locale: s.locale,
+                art: art,
+                onPurchase: onPurchase,
+                onComplement: onComplement,
+                onDetailsOpen: () async {
+                  unawaited(audio.playUiOpen());
+                  await audio.beginDuck();
+                },
+                onDetailsClose: () async {
+                  await audio.endDuck();
+                  unawaited(audio.playUiClose());
+                },
               ),
             ),
           ],
         ));
-  }
-}
-
-class _UpgradeCard extends StatelessWidget {
-  const _UpgradeCard(
-    this.upgrade,
-    this.controller,
-    this.strings,
-    this.art,
-    this.onPurchase,
-    this.onComplement,
-  );
-  final Upgrade upgrade;
-  final GameController controller;
-  final Strings strings;
-  final ArtCatalog? art;
-  final void Function(Upgrade, int) onPurchase;
-  final Future<void> Function(Upgrade) onComplement;
-
-  @override
-  Widget build(BuildContext context) {
-    final unlocked = controller.isUnlocked(upgrade);
-    final cost = controller.price(upgrade);
-    final purchaseQuotes = {
-      for (final quantity in const [1, 10, -1])
-        quantity: controller.purchaseQuote(upgrade, quantity),
-    };
-    final level = controller.level(upgrade.id);
-    final currentEffect = upgrade.base20 *
-        BigInt.from(level * controller.milestoneFactor(level)) *
-        controller.multiplier;
-    final nextTotalEffect = upgrade.base20 *
-        BigInt.from((level + 1) * controller.milestoneFactor(level + 1)) *
-        controller.multiplier;
-    final nextEffect = nextTotalEffect - currentEffect;
-    final title = strings(upgrade.nameKey);
-    return Card(
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        child: Padding(
-            padding: const EdgeInsets.all(14),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: [
-                SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      AuraAssetArt(
-                        catalog: art,
-                        assetId: AuraUiArt.icon(AuraUiIcon.technique),
-                        fallback: const Icon(Icons.bolt),
-                        width: 34,
-                        height: 34,
-                        semanticLabel: title,
-                        decorative: true,
-                        opacity: unlocked ? 1 : .42,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                    child: Text(title,
-                        style: Theme.of(context).textTheme.titleMedium)),
-                Text(strings('shop_level', {'level': '$level'}))
-              ]),
-              const SizedBox(height: 4),
-              Text(strings(upgrade.descriptionKey)),
-              const SizedBox(height: 12),
-              Row(children: [
-                AuraAssetIcon(
-                  catalog: art,
-                  role: unlocked ? AuraUiIcon.itemEffect : AuraUiIcon.lock,
-                  fallbackIcon: unlocked ? Icons.add_chart : Icons.lock_outline,
-                  semanticLabel:
-                      unlocked ? title : strings('collection_locked'),
-                  decorative: true,
-                  size: 22,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(unlocked
-                      ? '+${AuraFormat.rate(nextEffect, locale: strings.locale)} Aura · ${strings(upgrade.isTechnique ? 'play_cycle_power' : 'play_passive_rate')}'
-                      : controller
-                          .requirementsFor(upgrade)
-                          .where((requirement) =>
-                              !controller.requirementMet(requirement))
-                          .map(_requirementLabel)
-                          .join('\n')),
-                ),
-              ]),
-              const SizedBox(height: 8),
-              Row(children: [
-                AuraAssetIcon(
-                  catalog: art,
-                  role: AuraUiIcon.auraItem,
-                  fallbackIcon: Icons.auto_awesome,
-                  semanticLabel: 'Aura',
-                  decorative: true,
-                  size: 20,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(strings('shop_cost', {
-                    'amount': AuraFormat.integer(cost, locale: strings.locale),
-                  })),
-                ),
-              ]),
-              const SizedBox(height: 12),
-              Wrap(spacing: 8, runSpacing: 8, children: [
-                for (final qty in [1, 10, -1])
-                  OutlinedButton(
-                      onPressed: unlocked && purchaseQuotes[qty]!.affordable
-                          ? () => onPurchase(upgrade, qty)
-                          : null,
-                      child: Text(switch (qty) {
-                        1 => strings('shop_buy_one'),
-                        10 => strings('shop_buy_ten'),
-                        _ =>
-                          '${strings('shop_buy_max')} (×${purchaseQuotes[qty]!.quantity})',
-                      }))
-              ]),
-              if (controller.complementQuote(upgrade) != null) ...[
-                const SizedBox(height: 8),
-                OutlinedButton.icon(
-                    onPressed: () => onComplement(upgrade),
-                    icon: AuraAssetIcon(
-                      catalog: art,
-                      role: AuraUiIcon.rewardedAd,
-                      fallbackIcon: Icons.play_circle_outline,
-                      semanticLabel: strings('shop_ad_topup_title'),
-                      decorative: true,
-                      size: 24,
-                    ),
-                    label: Text(strings('shop_ad_topup_title')))
-              ]
-            ])));
-  }
-
-  String _requirementLabel(UpgradeRequirement requirement) {
-    if (requirement.kind == UpgradeRequirementKind.totalAura) {
-      return strings('shop_tier_required', {
-        'amount': AuraFormat.integer(
-          requirement.total!,
-          locale: strings.locale,
-        ),
-      });
-    }
-    final prerequisite = upgrades.firstWhere(
-      (candidate) => candidate.id == requirement.upgradeId,
-    );
-    return strings('shop_item_required', {
-      'name': strings(prerequisite.nameKey),
-      'level': '${requirement.level}',
-    });
   }
 }
 
@@ -1628,7 +1413,7 @@ class _Settings extends StatelessWidget {
             ListTile(
                 title: Text(strings('settings_version', {'version': '0.1.3'})),
                 subtitle:
-                    const Text('Development build · arith-v1 · balance-v0.2'))
+                    const Text('Development build · arith-v1 · balance-v0.3'))
           ]);
   Future<void> _backup(BuildContext context) async {
     unawaited(audio.playUiOpen());

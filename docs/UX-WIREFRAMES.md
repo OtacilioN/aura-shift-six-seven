@@ -29,13 +29,12 @@ Aplicativo
 │   ├── progresso do próximo Patamar
 │   └── [Ascensão] — folha quando descoberta
 ├── Loja
-│   ├── Técnicas Six-Seven
-│   │   ├── detalhe da Técnica
-│   │   └── compra ×1 / ×10 / MÁX
-│   └── Árvore de Aura
-│       ├── visão geral dos três Ramos e Convergências
-│       ├── detalhe do nó
-│       ├── requisitos de Patamar e predecessor
+│   └── Árvore de Aura única
+│       ├── Técnicas Six-Seven no tronco central por Patamar
+│       ├── Poise, Motion e Signal como os três Ramos de Aura
+│       ├── Convergências em camada compartilhada
+│       ├── detalhe de Técnica ou Item
+│       ├── requisitos reais de Patamar e predecessor
 │       ├── compra ×1 / ×10 / MÁX
 │       └── Complemento de Aura elegível em ×1
 ├── Coleção
@@ -120,49 +119,54 @@ Inteiros arbitrariamente longos usam segmentos quebráveis ou virtualizados; nã
 
 ```text
 ┌────────────── Loja ──────────┐
-│ [Técnicas] [Árvore de Aura]  │
-│ modo de compra [×1][×10][MÁX]│
+│ Árvore de Aura               │
 ├──────────────────────────────┤
-│ Técnicas:                    │
-│ ┌ Switch Stance nível 9 ──┐ │
-│ │ atual → projetado        │ │
-│ │ próximo Marco: nível 10  │ │
-│ │ custo exato/compacto     │ │
-│ │                 [Comprar]│ │
-│ └──────────────────────────┘ │
+│ ───── Patamar inicial ────── │
+│       [Switch Stance]       │
+│ A-01      B-01       C-01   │
+│ ─────────── 1K ──────────── │
+│          CONV-01            │
+│         [TECH-02]           │
+│ A-02      B-02       C-02   │
 │ …                            │
 ├──────────────────────────────┤
 │ Jogar  Loja  Coleção Ajustes │
 └──────────────────────────────┘
 ```
 
-- O modo de compra é persistido para a sessão da Loja, mas cada card repete a quantidade e o custo na ação para evitar compra ambígua.
+- Selecionar qualquer nó abre sua folha de detalhe. As ações `×1`, `×10` e `MÁX` ficam nessa folha e repetem quantidade e custo para evitar compra ambígua.
 - `×10` fica indisponível se os dez níveis não puderem ser pagos. `MÁX` informa a quantidade calculada; se for zero, mostra a falta para `×1`.
 - Ao atravessar Marcos de Nível, a compra conclui uma vez e abre uma celebração consolidada com nível final, efeito final e lista dos marcos atravessados.
+- A Loja não oferece alternância `[Técnicas] [Árvore de Aura]`: Técnicas e Itens compartilham a mesma composição e o mesmo padrão de seleção, detalhe e compra.
 
-### Árvore de Aura dentro da Loja
+### Composição da Árvore de Aura
 
 ```text
 ┌────────── Árvore de Aura ────┐
-│ [Visão geral] [Poise] [Motion] [Signal] │
 │ Patamar atual: 1M             │
 │                               │
-│ A-01 ─ A-02 ─ A-03 ─ …       │
-│   ╲                           │
-│ B-01 ─ B-02 ─ B-03 ─ …       │
-│   ├──── CONV-01 ─────┐       │
-│ C-01 ─ C-02 ─ C-03 ─ …       │
+│ ───────── inicial ──────────  │
+│          [TECH-01]            │
+│ A-01       B-01        C-01   │
+│ ─────────── 1K ─────────────  │
+│          CONV-01              │
+│          [TECH-02]            │
+│ A-02       B-02        C-02   │
+│ ─────────── 1M ─────────────  │
+│          [TECH-03]            │
+│ A-03       B-03        C-03   │
 │                               │
-│ [Resumo do nó selecionado ↑]  │
 ├───────────────────────────────┤
 │ Jogar  Loja  Coleção  Ajustes │
 └───────────────────────────────┘
 ```
 
-- A visão geral pode rolar/panar dentro de uma viewport própria; a barra inferior, o título e o resumo do nó permanecem fixos. O pan não é necessário para acessar nós: abas A/B/C, lista semântica e “próximo bloqueio” oferecem rotas equivalentes.
-- Ramos A/B/C usam forma, ícone e rótulo além de cor. A simetria econômica é dita no primeiro contato com os Itens-raiz.
+- A Árvore rola verticalmente dentro de uma viewport própria; a barra inferior e o título permanecem fixos. A rota visual não é a única forma de alcançar nós: a ordem semântica por Patamar e o “próximo bloqueio” oferecem rotas equivalentes. Técnicas aparecem nessa mesma rota linear, nunca em uma lista paralela.
+- As Técnicas ocupam o tronco central na ordem visual `TECH-01` a `TECH-06`. Não há conectores entre elas: a sequência espacial comunica escalada de Patamares, não aquisição obrigatória.
+- Faixas, halos ou fundos de Patamar associam visualmente a Técnica e os Itens de Aura liberados pelo mesmo limiar de Aura Total. Esses recursos não usam a linguagem gráfica reservada a um Pré-requisito. Transformações e Ascensão permanecem fora da superfície da Árvore.
+- Ramos A/B/C usam forma, ícone e rótulo além de cor. Poise ocupa a trilha esquerda, Motion a central e Signal a direita no LTR; as Técnicas intercalam o eixo central em estágios próprios, sem se conectar a Motion. A simetria econômica é dita no primeiro contato com os Itens-raiz.
 - Convergências ocupam uma camada compartilhada e têm contorno/ícone próprio; não aparecem como continuação obrigatória de um ramo.
-- Cada nó tem estados `oculto por progressão`, `visível bloqueado`, `comprável`, `adquirido`, `marco próximo`, `selecionado`. Conteúdo oculto nunca impede anunciar o próximo objetivo conhecido.
+- Cada nó de Técnica ou Item tem estados `oculto por progressão`, `visível bloqueado`, `comprável`, `adquirido`, `marco próximo`, `selecionado`. Conteúdo oculto nunca impede anunciar o próximo objetivo conhecido.
 
 ### Folha — Nó e bloqueios
 
@@ -177,8 +181,8 @@ Inteiros arbitrariamente longos usam segmentos quebráveis ou virtualizados; nã
 │ ! Glow Receipt nível 18 de 25 │
 │                               │
 │ Faltam 7 níveis no predecessor│
-│ [Ir para Glow Receipt]        │
-│ [Comprar — indisponível]      │
+│ [×1 indisponível]             │
+│ [×10 indisponível] [MÁX ×0]   │
 └───────────────────────────────┘
 ```
 
@@ -378,7 +382,7 @@ O diagnóstico informa quantidade, finalidade e categorias de dados em linguagem
 2. Jogar, compra recorrente, equipar aparência e alterar canal sensorial são operáveis com uma mão em `360×800dp`.
 3. Cada fluxo transitório acima possui sucesso, bloqueio, falha, cancelamento e reabertura definidos.
 4. Nenhuma falha de anúncio, arquivo, rede ou SDK remove Aura, bloqueia a experiência-base ou duplica uma transação.
-5. A Árvore possui rota visual e rota linear semântica equivalentes; Convergências mostram três requisitos explícitos.
+5. A Árvore única possui rota visual e rota linear semântica equivalentes, ambas incluindo Técnicas, Ramos e Convergências; Convergências mostram três requisitos explícitos.
 6. Escala textual `200%`, pseudo-localização `+35%`, japonês e árabe RTL não escondem ação essencial.
 7. Todos os controles têm destino de foco determinístico e retorno ao controle de origem.
 8. Valores extremos seguem `number-format-v1`; comparação, compra e leitura assistiva usam o valor canônico.

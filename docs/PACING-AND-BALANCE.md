@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Cadência e Plano de Balanceamento
 
-> Status: marcos, perfis, curvas, parâmetros e tolerâncias `balance-gate-v1` aprovados; resultados ainda serão simulados.
+> Status: marcos, perfis, curvas, parâmetros e tolerâncias de `balance-gate-v1` definidos; a execução integral e seus resultados permanecem pendentes.
 
 ## Objetivo
 
@@ -123,7 +123,7 @@ As simulações devem avaliar o retorno marginal antes, no momento e depois de c
 
 1. carregar os Perfis de Simulação e frequências de retorno aprovados;
 2. carregar as âncoras ativas e passivas já confirmadas;
-3. carregar todos os custos e contribuições versionados em `balance-v0.2`;
+3. carregar todos os custos e contribuições versionados em `balance-v0.3`;
 4. simular cada perfil por minutos, horas e dias;
 5. procurar esperas mortas, crescimento explosivo e caminhos dominantes;
 6. revisar com agentes independentes de economia e UX;
@@ -140,7 +140,7 @@ Nenhuma delas pode ser uma armadilha irreversível. A rota ampla pode ter ganhos
 
 Especialista A, B e C formam um teste de invariância: com perfil e compras equivalentes, seus tempos, produção e níveis precisam coincidir exatamente. A comparação estratégica relevante é especialização versus divisão ou amplitude, não A versus B versus C.
 
-### Orçamentos de Gate do `balance-v0.2`
+### Orçamentos de Gate do `balance-v0.3`
 
 O balanceamento ancora os custos-base espelhados por profundidade em `270`, `2.350`, `67.000`, `67.000` e `67.000.000.000 Aura`. Com a curva `23/20`, elevar o predecessor aos níveis `10`, `25`, `50` e `100` custa, respectivamente, `5.487`, `500.078`, `483.587.018` e `524.526.228.030 Aura`.
 
@@ -150,7 +150,7 @@ As contribuições-base espelhadas, expressas em `Aura/s por nível`, são `0,75
 
 As Técnicas usam custos-base de `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`. Depois de `TECH-01`, cada entrada custa `6,7%` do Patamar que a desbloqueia. A simulação deve verificar tanto a compra próxima ao primeiro desbloqueio quanto a recompra em jornadas posteriores, quando o desbloqueio já é permanente mas o nível voltou a zero.
 
-Suas Contribuições-base são `1`, `5`, `5K`, `5M`, `5B` e `5T Aura/ciclo por nível`. De `TECH-02` em diante, custo e ganho crescem juntos em `1.000×`, mantendo `Contribuição-base ÷ custo-base = 5/67`. A redução de aproximadamente `25,37%` em `balance-v0.2` deve ser medida contra a utilidade passiva e as Janelas de Patamar.
+Suas Contribuições-base são `1`, `5`, `500`, `500K`, `500M` e `500B Aura/ciclo por nível`. Em `balance-v0.3`, os custos continuam subindo `1.000×` por Técnica depois de `TECH-02`, e `TECH-03` a `TECH-06` também crescem `1.000×` entre si. A razão `Contribuição-base ÷ custo-base` é `5/67` em `TECH-02` e `1/134` em cada Técnica de `TECH-03` a `TECH-06`. A matriz deve medir o nerf uniforme de `10×` das Técnicas `03` a `06` contra a utilidade passiva e as Janelas de Patamar.
 
 As três Convergências custam `6.700`, `26,8M` e `670T Aura` e acrescentam `7,5`, `3.350` e `13,4B Aura/s` por nível. Em L1, cada uma entrega somente `1/6` da produção dos três nós exigidos, depois de um custo equivalente a aproximadamente `40–61%` do Orçamento de Amplitude já investido. A rota ampla recebe uma recompensa real, mas não gratuita nem necessária para Ascender.
 

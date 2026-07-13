@@ -70,7 +70,7 @@ void main() {
     await tester.pump();
   }
 
-  testWidgets('renders the 3x5 build tree and three Convergence nodes',
+  testWidgets('renders six techniques in the 3x5 tree and Convergence nodes',
       (tester) async {
     final controller = await controllerWith({});
     try {
@@ -91,6 +91,12 @@ void main() {
         );
       }
       expect(find.byKey(const ValueKey('aura-root-TECH-01')), findsOneWidget);
+      for (var index = 2; index <= 6; index++) {
+        expect(
+          find.byKey(ValueKey('aura-technique-TECH-0$index')),
+          findsOneWidget,
+        );
+      }
 
       await tester.pumpWidget(const SizedBox.shrink());
     } finally {
@@ -248,7 +254,7 @@ void main() {
       expect(convergenceSemantics.label, contains('Glitch Homologado'));
       expect(
         (convergenceSemantics.sortKey! as OrdinalSortKey).order,
-        13,
+        14,
       );
 
       await tester.tap(
@@ -333,6 +339,204 @@ void main() {
     }
   });
 
+  testWidgets('techniques open in the tree without changing their gates',
+      (tester) async {
+    final controller = await controllerWith({
+      'available': '1000000',
+      'total': '999999',
+      'levels': {'TECH-01': 1},
+    });
+    final semantics = tester.ensureSemantics();
+    try {
+      await pumpTree(tester, controller, strings);
+
+      final technique = find.byKey(
+        const ValueKey('aura-technique-TECH-03'),
+      );
+      final techniqueSemantics = tester.getSemantics(technique);
+      expect(techniqueSemantics.label, contains('Bloqueado'));
+      expect(techniqueSemantics.label, contains('1M'));
+
+      final treeScroll = find.descendant(
+        of: find.byKey(const PageStorageKey('aura-tree-scroll')),
+        matching: find.byType(Scrollable),
+      );
+      await tester.scrollUntilVisible(
+        technique,
+        240,
+        scrollable: treeScroll,
+      );
+      await tester.tap(technique);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+
+      expect(
+        find.byKey(const ValueKey('aura-detail-TECH-03')),
+        findsOneWidget,
+      );
+      final detailScroll = find.descendant(
+        of: find.byKey(const ValueKey('aura-detail-TECH-03')),
+        matching: find.byType(Scrollable),
+      );
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('buy-x1-TECH-03')),
+        180,
+        scrollable: detailScroll,
+      );
+      final buyButton = find.descendant(
+        of: find.byKey(const ValueKey('buy-x1-TECH-03')),
+        matching: find.byType(FilledButton),
+      );
+      expect(tester.widget<FilledButton>(buyButton).onPressed, isNull);
+      expect(controller.level('TECH-03'), 0);
+
+      await tester.tap(find.byTooltip('Fechar'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pumpWidget(const SizedBox.shrink());
+    } finally {
+      semantics.dispose();
+      controller.dispose();
+    }
+  });
+
+  testWidgets('a reached tier unlocks a technique without earlier techniques',
+      (tester) async {
+    final controller = await controllerWith({
+      'available': '67000',
+      'total': '1000000',
+    });
+    final semantics = tester.ensureSemantics();
+    try {
+      await pumpTree(tester, controller, strings);
+
+      final technique = find.byKey(
+        const ValueKey('aura-technique-TECH-03'),
+      );
+      expect(tester.getSemantics(technique).label, contains('Desbloqueado'));
+
+      final treeScroll = find.descendant(
+        of: find.byKey(const PageStorageKey('aura-tree-scroll')),
+        matching: find.byType(Scrollable),
+      );
+      await tester.scrollUntilVisible(
+        technique,
+        240,
+        scrollable: treeScroll,
+      );
+      await tester.tap(technique);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      final detailScroll = find.descendant(
+        of: find.byKey(const ValueKey('aura-detail-TECH-03')),
+        matching: find.byType(Scrollable),
+      );
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('buy-x1-TECH-03')),
+        180,
+        scrollable: detailScroll,
+      );
+      final buyButton = find.descendant(
+        of: find.byKey(const ValueKey('buy-x1-TECH-03')),
+        matching: find.byType(FilledButton),
+      );
+      expect(tester.widget<FilledButton>(buyButton).onPressed, isNotNull);
+
+      await tester.ensureVisible(buyButton);
+      await tester.pump();
+      await tester.tap(buyButton);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      expect(controller.level('TECH-01'), 0);
+      expect(controller.level('TECH-02'), 0);
+      expect(controller.level('TECH-03'), 1);
+      expect(controller.available, BigInt.zero);
+
+      await tester.pumpWidget(const SizedBox.shrink());
+    } finally {
+      semantics.dispose();
+      controller.dispose();
+    }
+  });
+
+  testWidgets(
+      'techniques follow tier order and Motion connectors avoid central nodes',
+      (tester) async {
+    final controller = await controllerWith({});
+    try {
+      for (final direction in [TextDirection.ltr, TextDirection.rtl]) {
+        await pumpTree(
+          tester,
+          controller,
+          strings,
+          textDirection: direction,
+        );
+
+        Finder techniqueFinder(int index) => index == 1
+            ? find.byKey(const ValueKey('aura-root-TECH-01'))
+            : find.byKey(ValueKey('aura-technique-TECH-0$index'));
+        Finder branchFinder(String branch, int depth) =>
+            find.byKey(ValueKey('aura-node-ITEM-$branch-0$depth'));
+
+        final techniqueRects = [
+          for (var index = 1; index <= 6; index++)
+            tester.getRect(techniqueFinder(index)),
+        ];
+        for (var index = 1; index < techniqueRects.length; index++) {
+          expect(
+            techniqueRects[index - 1].bottom,
+            lessThan(techniqueRects[index].top),
+          );
+        }
+        for (var depth = 1; depth <= 5; depth++) {
+          final tierNode = tester.getRect(branchFinder('B', depth));
+          expect(
+            techniqueRects[depth - 1].center.dy,
+            lessThan(tierNode.center.dy),
+          );
+          expect(
+            techniqueRects[depth - 1].overlaps(tierNode),
+            isFalse,
+          );
+        }
+        expect(
+          tester.getRect(branchFinder('B', 5)).center.dy,
+          lessThan(techniqueRects[5].center.dy),
+        );
+
+        final motionX = tester.getRect(branchFinder('B', 1)).center.dx;
+        final signalX = tester.getRect(branchFinder('C', 1)).center.dx;
+        for (var depth = 1; depth < 5; depth++) {
+          final from = tester.getRect(branchFinder('B', depth)).center;
+          final to = tester.getRect(branchFinder('B', depth + 1)).center;
+          final path = auraTreeBranchConnectionPath(
+            from: from,
+            to: to,
+            branch: 'B',
+            direction: direction,
+            motionX: motionX,
+            signalX: signalX,
+            bendsAroundCenter: true,
+          );
+          for (final obstacle in techniqueRects.where(
+            (rect) => rect.center.dy > from.dy && rect.center.dy < to.dy,
+          )) {
+            expect(
+              _pathIntersectsRect(path, obstacle.inflate(4)),
+              isFalse,
+              reason:
+                  'Motion connector $depth crossed a Technique in $direction',
+            );
+          }
+        }
+      }
+
+      await tester.pumpWidget(const SizedBox.shrink());
+    } finally {
+      controller.dispose();
+    }
+  });
+
   testWidgets('reflows at 320dp with 200% text and mirrors branches in RTL',
       (tester) async {
     final controller = await controllerWith({});
@@ -397,4 +601,14 @@ void main() {
       controller.dispose();
     }
   });
+}
+
+bool _pathIntersectsRect(Path path, Rect rect) {
+  for (final metric in path.computeMetrics()) {
+    for (var distance = 0.0; distance <= metric.length; distance += 1) {
+      final point = metric.getTangentForOffset(distance)?.position;
+      if (point != null && rect.contains(point)) return true;
+    }
+  }
+  return false;
 }

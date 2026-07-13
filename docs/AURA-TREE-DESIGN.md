@@ -1,14 +1,29 @@
 # Aura Shift: Six Seven — Topologia da Árvore de Aura
 
-> Status: grafo, Pré-requisitos e Patamares preservados em `balance-v0.2`; identidades culturais revisadas em 11 de julho de 2026.
+> Status: grafo, Pré-requisitos e Patamares preservados em `balance-v0.3`; composição visual única com Técnicas integrada em 12 de julho de 2026.
 
 ## Visão geral
 
-A Árvore de Aura possui três ramos simétricos de cinco itens e três Itens de Convergência opcionais. A simetria controla complexidade e garante que nenhum ramo comece com uma armadilha estrutural. Tema e aparência diferenciam as rotas sem alterar o grafo ou a eficiência econômica.
+A Árvore de Aura é uma única superfície visual da Loja. As seis Técnicas Six-Seven formam seu tronco central por Patamar; ao redor dele permanecem exatamente três ramos simétricos de cinco Itens de Aura e três Itens de Convergência opcionais. A integração das Técnicas é somente visual: elas não se tornam Itens de Aura, não constituem um quarto Ramo de Aura e não recebem novas dependências econômicas.
 
 No MVP, a simetria também é econômica: itens A, B e C de mesma profundidade possuem parâmetros idênticos. Tema e aparência diferenciam a experiência colecionável, mas não criam um ramo numericamente superior. Somente as Convergências possuem parâmetros próprios fora desse espelho.
 
 Os territórios finais são **Poise** (A), **Motion** (B) e **Signal** (C). Eles descrevem apenas identidade, aparência e áudio; não são classes, afinidades ou multiplicadores. As Convergências formam o território **Spectrum** e continuam opcionais.
+
+## Composição visual por Patamar
+
+| Faixa visual | Tronco central | Ramos de Aura na faixa | Convergência na faixa |
+| --- | --- | --- | --- |
+| inicial | `TECH-01` | `A/B/C-01` | — |
+| `1K` Aura Total | `TECH-02` | `A/B/C-02` | `ITEM-CONV-01` |
+| `1M` Aura Total | `TECH-03` | `A/B/C-03` | — |
+| `1B` Aura Total | `TECH-04` | `A/B/C-04` | `ITEM-CONV-02` |
+| `1T` Aura Total | `TECH-05` | `A/B/C-05` | — |
+| `1Qa` Aura Total | `TECH-06` | — | `ITEM-CONV-03` |
+
+Essa tabela determina agrupamento e posição dos seis nós de Técnica e 18 nós de Item de Aura, não arestas do grafo econômico. Transformações de Aura e Ascensão permanecem marcos externos e não são nós nem conteúdo da superfície. Faixas, halos e fundos podem mostrar que os nós compartilham um limiar de Aura Total. Conectores são reservados a Pré-requisitos reais; portanto não existem linhas de dependência entre `TECH-01` a `TECH-06` nem entre uma Técnica e os outros conteúdos do mesmo Patamar. A única relação de Técnica que participa do grafo abaixo continua sendo a regra já existente: `TECH-01` no nível `1` libera os três Itens-raiz.
+
+O diagrama seguinte registra somente Pré-requisitos econômicos reais. O eixo visual completo das Técnicas é regido pela tabela acima e não acrescenta setas ao grafo.
 
 ```mermaid
 flowchart TD
@@ -86,7 +101,9 @@ Na Ascensão, aquisições e níveis retornam ao estado inicial, portanto todos 
 
 ## Estados de interface
 
-Cada nó bloqueado deve distinguir:
+Cada nó de Técnica deve distinguir Patamar ainda fechado de Aura Disponível insuficiente. Uma Técnica liberada por Aura Total é comprável sujeita somente ao próprio custo; nenhuma Técnica mostra outra Técnica, Item ou Convergência como requisito.
+
+Cada nó de Item bloqueado deve distinguir:
 
 - Patamar de Aura ainda fechado;
 - item predecessor ainda não adquirido;
@@ -109,7 +126,9 @@ Especialista A, B e C devem produzir saídas idênticas sob o mesmo Perfil de Si
 
 ## Identidade e apresentação fechadas
 
-- Poise ocupa a coluna esquerda, Motion a central e Signal a direita no LTR; em RTL, a composição espelha visualmente, mas IDs, requisitos e ordem semântica permanecem estáveis.
+- `TECH-01` a `TECH-06` ocupam o tronco central da composição, em ordem de Patamar, mas sem conectores entre si. Cada Técnica usa marcador ordinal próprio e mantém Potência de Ciclo como efeito.
+- Poise ocupa a trilha esquerda, Motion a central e Signal a direita no LTR. As Técnicas intercalam o eixo central em estágios próprios; compartilhar o alinhamento com Motion não cria conexão ou Pré-requisito. Em RTL, a composição espelha visualmente, mas IDs, requisitos e ordem semântica Poise, Motion, Signal permanecem estáveis.
+- Poise, Motion e Signal são os únicos Ramos de Aura. O tronco de Técnicas e Spectrum não são ramos.
 - Convergências ficam no eixo entre as três colunas e exibem individualmente os três requisitos, nunca uma porcentagem agregada.
 - Em desbloqueios simultâneos: persistir todos; destacar primeiro o nó de ramo de menor profundidade e depois a Convergência; empates seguem ordem estável A, B, C e Convergência. A ordem não implica recomendação econômica.
 - Nomes e aparências completos estão em `CONTENT-CATALOG.md`; nenhum label localizado substitui o ID em save, analytics ou fixtures.

@@ -8,14 +8,14 @@
 
 ## Estado e escopo
 
-O manifesto cobre a cena Flame, o pseudo-rig do Mascote, 18 Aparências de Item, cinco Transformações, três identidades de Ramo, Aura, fundos, Selos 67 e emblemas de eventos do MVP Android v1.0. Componentes de UI, fontes, ícones funcionais e materiais da Google Play pertencem a inventários próprios.
+O manifesto cobre as 203 artes consumidas pela cena Flame: 18 Aparências de Item, cinco Transformações, três identidades de Ramo, Aura, fundos, Selos 67, emblemas de eventos, badges e ícones do MVP Android v1.0. O Mascote atual é desenho procedural em Canvas e não pertence ao inventário de sprites. Componentes de UI, fontes e materiais da Google Play pertencem a inventários próprios.
 
 Os IDs são estáveis e independem do nome exibido ao jogador. Renomear conteúdo cultural não renomeia arquivos integrados.
 
 ## Convenções
 
 - nomes em `snake_case`, ASCII e minúsculos;
-- prefixos: `chr_`, `skin_`, `form_`, `branch_`, `vfx_`, `bg_`, `seal_`, `evt_`;
+- prefixos: `skin_`, `form_`, `branch_`, `vfx_`, `bg_`, `seal_`, `evt_`;
 - lados sempre `_l` e `_r`, do ponto de vista do Mascote;
 - variantes: `_base`, `_accent`, `_glow`, `_reduced`, `_thumb`;
 - nenhuma dimensão, pivô ou ordem de camada é inferida do nome;
@@ -26,14 +26,15 @@ Estrutura prevista:
 ```text
 assets/
   art/
-    character/
-    skins/
-    forms/
-    branches/
     backgrounds/
-    vfx/
-    seals/
+    badges/
+    branches/
     events/
+    forms/
+    icons/
+    seals/
+    skins/
+    vfx/
   atlases/
   manifests/art-manifest-v1.json
 sources/art/
@@ -50,19 +51,13 @@ provenance/art/
 - escala no runtime: uniforme; nunca esticar eixos separadamente;
 - pivôs de runtime: normalizados em `[0,1]` sobre o arquivo recortado e registrados no JSON;
 - encaixes: coordenadas normalizadas no palco lógico, transformadas pelo componente-pai;
-- pixel snapping: desligado para rig e VFX, permitido em miniaturas estáticas;
+- pixel snapping: desligado para o Mascote Canvas, skins e VFX, permitido em miniaturas estáticas;
 - sangria mínima para filtro: `8 px` em sprites 1× e `16 px` em fontes master 2×.
 
 ### Pivôs canônicos
 
 | Componente | Pivô normalizado | Encaixe no palco | Observação |
 | --- | --- | --- | --- |
-| corpo | `(0.50, 0.86)` | `(512, 900)` | raiz do rig |
-| braço esquerdo | `(0.82, 0.18)` | ombro L `(365, 438)` | fica atrás da mão |
-| braço direito | `(0.18, 0.18)` | ombro R `(659, 438)` | fica atrás da mão |
-| mão esquerda | `(0.72, 0.72)` | punho L do braço | desenho próprio |
-| mão direita | `(0.28, 0.72)` | punho R do braço | desenho próprio |
-| rosto | `(0.50, 0.50)` | face `(512, 340)` | olhos e boca separados |
 | slot `CHEST` | `(0.50, 0.50)` | `(512, 520)` | não herda rotação das mãos |
 | slot `SHOULDER` | `(0.50, 0.50)` | ombro declarado L/R | subslot declarado no metadado |
 | slot `FACE_SIDE` | `(0.50, 0.50)` | face lateral `(512, 340)` | offset L/R declarado |
@@ -78,7 +73,7 @@ provenance/art/
 | slot `GROUND_BACK` | `(0.50, 0.50)` | `(512, 865)` | atrás dos pés |
 | slot `GROUND_PROP` | `(0.77, 0.88)` | chão direito `(790, 800)` | world-space e atrás do Mascote |
 | slot `SCENE_FRAME` | `(0.50, 0.50)` | `(512, 540)` | atrás do palco e fora da UI |
-| slot `AURA_BACK` | `(0.50, 0.58)` | `(512, 560)` | Convergências; atrás do rig |
+| slot `AURA_BACK` | `(0.50, 0.58)` | `(512, 560)` | Convergências; atrás do Mascote Canvas |
 
 O artista pode recortar transparência, desde que o pivô exportado preserve estes encaixes. Alterar um pivô canônico exige revisão de todas as skins daquele slot.
 
@@ -93,10 +88,10 @@ Do fundo para a frente:
 5. `VFX-AURA-BACK` e `SLOT-AURA-BACK`;
 6. `SLOT-GROUND-BACK` e `SLOT-GROUND-PROP-BACK`;
 7. `SLOT-BODY-BACK`, `SLOT-HEAD-BACK` e `SLOT-SHOULDER-BACK`;
-8. `CHR-ARM-BACK`;
-9. `CHR-BODY` e `CHR-FACE`;
+8. braços traseiros procedurais do Mascote Canvas;
+9. corpo e rosto procedurais do Mascote Canvas;
 10. `SLOT-BODY-WEAR`, `SLOT-CHEST`, `SLOT-SHOULDER-FRONT`, `SLOT-HIP`, `SLOT-ANKLES`, `SLOT-FACE-SIDE`, `SLOT-FACE-WEAR` e `SLOT-HEAD-WEAR`;
-11. `CHR-HANDS`;
+11. mãos procedurais do Mascote Canvas;
 12. `SLOT-HAND-PROP-FRONT` e `SLOT-HANDS-WEAR-FRONT`;
 13. `VFX-AURA-FRONT`;
 14. feedback de contato;
@@ -109,7 +104,7 @@ Nenhum asset de arte pode ultrapassar a UI Flutter por z-order.
 
 | Categoria | Fonte editável | Runtime | Cor | Regras |
 | --- | --- | --- | --- | --- |
-| rig e skins | SVG, PSD ou KRA em camadas | WebP lossless; PNG se houver artefato | sRGB, alpha reto | 2× master; atlas após validação |
+| skins | SVG, PSD ou KRA em camadas | WebP lossless; PNG se houver artefato | sRGB, alpha reto | 2× master; atlas após validação |
 | fundos | PSD/KRA/SVG | WebP lossy qualidade 82–88 | sRGB | sem texto; separar planos |
 | VFX estruturado | SVG/PNG + metadado | WebP lossless/PNG | sRGB | emissores no runtime, não vídeo |
 | thumbnails e Selos | SVG | WebP lossless | sRGB | legíveis em 48 px |
@@ -121,9 +116,6 @@ Não usar GIF, vídeo, Lottie, Rive, spritesheet com frame rate embutido ou SVG 
 
 | Família | Master | Runtime-alvo 1× | Miniatura |
 | --- | ---: | ---: | ---: |
-| corpo | `1024 × 1024` | até `512 × 512` | `256 × 256` composta |
-| mão individual | `512 × 512` | até `256 × 256` | não aplicável |
-| rosto/expressão | `256 × 256` | até `128 × 128` | não aplicável |
 | skin por slot | `1024 × 1024` no palco | recorte até `512 × 512` | `256 × 256` composta |
 | camada de Transformação | `2160 × 2160` | até `1080 × 1080` | `256 × 256` |
 | plano de fundo | `2160 × 3840` | `1080 × 1920` | `270 × 480` |
@@ -133,19 +125,9 @@ Não usar GIF, vídeo, Lottie, Rive, spritesheet com frame rate embutido ou SVG 
 
 O runtime pode carregar resolução menor por perfil de memória. Masters nunca são redimensionados destrutivamente.
 
-## Inventário do Mascote
+## Personagem atual
 
-| IDs | Quantidade | Camadas/estados | Alternativa reduzida |
-| --- | ---: | --- | --- |
-| `chr_body_base` | 1 | massa, contorno, sombra | igual; sem squash |
-| `chr_arm_l`, `chr_arm_r` | 2 | massa e contorno | poses Six/Seven por rotação curta |
-| `chr_hand_l`, `chr_hand_r` | 2 | massa, contorno, brilho | troca estática ou crossfade de 100 ms |
-| `chr_eye_*` | 5 pares | neutro, foco, satisfação, surpresa, celebração | troca por crossfade |
-| `chr_mouth_*` | 5 | mesmos estados | troca por crossfade |
-| `chr_shadow` | 1 | elipse suave | opacidade fixa, sem escala |
-| `chr_silhouette_test` | 1 | arte QA, fora do runtime | não aplicável |
-
-Os braços e mãos são arquivos independentes. Nenhum item pode exigir novo corpo ou nova animação do Ciclo.
+O Rua Pixel kid é renderizado proceduralmente por `lib/game/aura_scene.dart`; ele não usa sprites de personagem. Corpo, rosto, braços e mãos são formas Canvas articuladas. As Aparências em `assets/art/skins/` continuam sobrepostas aos slots do personagem. Nenhum item pode exigir novo corpo ou nova animação do Ciclo.
 
 ## Inventário das Aparências
 
@@ -227,7 +209,7 @@ Cada entrada de `art-manifest-v1.json` contém:
 ## Orçamentos de runtime
 
 - máximo de `2048 × 2048` por página de atlas;
-- máximo de duas páginas residentes para rig/skins e uma para VFX na cena Jogar;
+- máximo de duas páginas residentes para skins/formas e uma para VFX na cena Jogar;
 - fundos carregados apenas para a Transformação ativa; anterior pode permanecer durante crossfade e deve ser liberado depois;
 - máximo normal de 80 partículas simultâneas e reduzido de 12, conforme a bíblia de motion;
 - nenhum asset individual de runtime acima de `1 MiB` comprimido sem exceção documentada;

@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 import re
 import shutil
 import struct
@@ -251,89 +250,6 @@ def validate_skin_matrix(records: list[dict[str, Any]]) -> None:
                 raise ValidationError(f"missing reducedId target for {record['manifestId']}")
 
 
-def validate_character_geometry(root: Path, records: list[dict[str, Any]]) -> None:
-    by_id = {record["manifestId"]: record for record in records}
-    expressions = ("neutral", "focus", "satisfaction", "surprise", "celebration")
-    for expression in expressions:
-        eyes = by_id[f"chr_eye_{expression}"]
-        mouth = by_id[f"chr_mouth_{expression}"]
-        if eyes.get("attachmentId") != "FACE_EYES" or eyes.get("attachmentStage") != [512, 330]:
-            raise ValidationError(f"invalid eye attachment for {expression}")
-        if mouth.get("attachmentId") != "FACE_MOUTH" or mouth.get("attachmentStage") != [512, 402]:
-            raise ValidationError(f"invalid mouth attachment for {expression}")
-        if eyes.get("attachmentStage") == mouth.get("attachmentStage"):
-            raise ValidationError(f"eyes and mouth share attachment for {expression}")
-        if eyes.get("logicalSizeStagePx") != [256, 256] or mouth.get("logicalSizeStagePx") != [256, 256]:
-            raise ValidationError(f"invalid face logical size for {expression}")
-
-    expected_hands = {
-        "chr_hand_l": {
-            "attachmentId": "WRIST_L",
-            "visualCenterPx": [256, 292],
-            "poseAttachments": {"neutral": [350, 575], "six": [350, 500], "seven": [350, 650]},
-            "poseAnglesDegrees": {"neutral": 0, "six": 8, "seven": 10},
-        },
-        "chr_hand_r": {
-            "attachmentId": "WRIST_R",
-            "visualCenterPx": [258, 304],
-            "poseAttachments": {"neutral": [674, 575], "six": [674, 650], "seven": [674, 500]},
-            "poseAnglesDegrees": {"neutral": 0, "six": -10, "seven": -8},
-        },
-    }
-    centers: dict[tuple[str, str], tuple[float, float]] = {}
-    for asset_id, expected in expected_hands.items():
-        record = by_id[asset_id]
-        for key, value in expected.items():
-            if record.get(key) != value:
-                raise ValidationError(f"invalid {key} for {asset_id}: {record.get(key)} != {value}")
-        logical = record.get("logicalSizeStagePx")
-        if logical != [512, 512]:
-            raise ValidationError(f"invalid hand logical size: {asset_id}")
-        for pose in ("six", "seven"):
-            attachment = record["poseAttachments"][pose]
-            angle = math.radians(record["poseAnglesDegrees"][pose])
-            local_x = record["visualCenterPx"][0] - record["pivot"][0] * logical[0]
-            local_y = record["visualCenterPx"][1] - record["pivot"][1] * logical[1]
-            center = (
-                attachment[0] + local_x * math.cos(angle) - local_y * math.sin(angle),
-                attachment[1] + local_x * math.sin(angle) + local_y * math.cos(angle),
-            )
-            centers[(asset_id, pose)] = center
-            if not (96 <= center[0] <= 928 and 96 <= center[1] <= 928):
-                raise ValidationError(f"hand center leaves safe stage: {asset_id}/{pose} -> {center}")
-    if not centers[("chr_hand_l", "six")][1] < centers[("chr_hand_l", "seven")][1]:
-        raise ValidationError("left hand does not move high Six -> low Seven")
-    if not centers[("chr_hand_r", "seven")][1] < centers[("chr_hand_r", "six")][1]:
-        raise ValidationError("right hand does not move high Seven -> low Six")
-
-    for asset_id, attachment, endpoint in (
-        ("chr_arm_l", [365, 438], [180, 394]),
-        ("chr_arm_r", [659, 438], [332, 394]),
-    ):
-        record = by_id[asset_id]
-        if record.get("attachmentStage") != attachment or record.get("endpointPx") != endpoint:
-            raise ValidationError(f"invalid arm anchor/endpoint: {asset_id}")
-
-    qa_expectations = {
-        "chr_composite_qa": ("golden_six_runtime", "golden_seven_runtime"),
-        "chr_silhouette_test": ("silhouette_full_runtime", "silhouette_ten_percent_runtime", "golden_48px_runtime"),
-        "chr_concept_sheet": (
-            "view_front_neutral", "view_front_six", "view_front_seven",
-            "view_three_quarter_left", "view_profile_technical",
-            "view_silhouette_ten_percent",
-        ),
-    }
-    for qa_id, group_ids in qa_expectations.items():
-        record = by_id[qa_id]
-        if record.get("compositionContract") != "runtime-sprites-pivots-attachments-v3":
-            raise ValidationError(f"invalid QA composition contract: {qa_id}")
-        source = json.loads((root / record["sourcePath"]).read_text(encoding="utf-8"))
-        views = source.get("views", [])
-        for group_id in group_ids:
-            if group_id not in views:
-                raise ValidationError(f"QA source {qa_id} missing required view {group_id}")
-
-
 def validate_manifest(root: Path, manifest: dict[str, Any]) -> list[str]:
     checks: list[str] = []
     if manifest.get("schemaVersion") != "art-manifest-v1":
@@ -364,37 +280,10 @@ def validate_manifest(root: Path, manifest: dict[str, Any]) -> list[str]:
     checks.append("exact-27-background-and-18x5-skin-matrices")
     checks.append("canonical-skin-pivots-side-offset-milestone-reduced-metadata")
 
-    qa_ids = {"chr_silhouette_test", "chr_concept_sheet", "chr_composite_qa"}
-    qa_records = [item for item in records if item["family"] == "qa"]
-    if {item["manifestId"] for item in qa_records} != qa_ids:
-        raise ValidationError("missing character QA sheet set")
-    if any(item.get("runtimeIncluded") is not False or item.get("reviewOnly") is not True for item in qa_records):
-        raise ValidationError("character QA sheets must be review-only and outside runtime")
-    if sum(1 for item in records if item.get("runtimeIncluded")) != 219 or manifest.get("runtimeAssetCount") != 219:
-        raise ValidationError("runtime asset count changed; expected preserved 219 IDs")
-    renderer = manifest.get("qaRenderer")
-    if not isinstance(renderer, dict):
-        raise ValidationError("manifest is missing QA renderer identity")
-    expected_renderer = {
-        "path": "tools/assets/render_art_qa.m",
-        "platform": "macOS Objective-C CoreGraphics ImageIO",
-        "canonicalSource": "sources/art/qa/*.json renderCommands",
-    }
-    for key, value in expected_renderer.items():
-        if renderer.get(key) != value:
-            raise ValidationError(f"invalid QA renderer {key}: {renderer.get(key)} != {value}")
-    renderer_path = root / renderer["path"]
-    if not renderer_path.is_file() or sha256_file(renderer_path) != renderer.get("sha256"):
-        raise ValidationError("QA renderer helper is missing or its hash drifted")
-    for record in qa_records:
-        if (
-            record.get("qaRendererPath") != renderer["path"]
-            or record.get("qaRendererSha256") != renderer["sha256"]
-            or record.get("qaRendererPlatform") != renderer["platform"]
-        ):
-            raise ValidationError(f"QA renderer identity drift: {record['manifestId']}")
-    checks.append("character-silhouette-concept-composite-review-only")
-    checks.append("qa-json-canonical-source-and-coregraphics-renderer")
+    if any(item.get("family") == "qa" for item in records):
+        raise ValidationError("legacy character QA sheets must not remain in art-v1")
+    if sum(1 for item in records if item.get("runtimeIncluded")) != 203 or manifest.get("runtimeAssetCount") != 203:
+        raise ValidationError("runtime asset count changed; expected 203 current IDs")
 
     total_runtime = 0
     records_by_id = {item["manifestId"]: item for item in records}
@@ -454,14 +343,11 @@ def validate_manifest(root: Path, manifest: dict[str, Any]) -> list[str]:
                 raise ValidationError(f"incomplete provenance {provenance}: missing {required}")
     if total_runtime > MAX_TOTAL_BYTES:
         raise ValidationError(f"total runtime art exceeds budget: {total_runtime}")
-    validate_character_geometry(root, records)
     packaged_art = root / "assets" / "art"
     packaged_files = [path for path in packaged_art.rglob("*") if path.is_file()]
-    if len(packaged_files) != 219 or any(path.suffix != ".webp" or "qa" in path.parts for path in packaged_files):
+    if len(packaged_files) != 203 or any(path.suffix != ".webp" or "qa" in path.parts for path in packaged_files):
         invalid = [str(path.relative_to(root)) for path in packaged_files if path.suffix != ".webp" or "qa" in path.parts]
-        raise ValidationError(f"assets/art must contain exactly 219 runtime WebPs and no previews/QA; invalid={invalid}")
-    if any(item.get("runtimePath") is not None for item in qa_records):
-        raise ValidationError("review-only QA entry exposes a runtimePath")
+        raise ValidationError(f"assets/art must contain exactly 203 runtime WebPs and no previews/QA; invalid={invalid}")
     if any(not str(item.get("previewPath", "")).startswith("reports/art-previews/") for item in records):
         raise ValidationError("PNG previews must live under reports/art-previews")
     background_hashes = [item["pngSha256"] for item in records if item["family"] == "backgrounds"]
@@ -469,13 +355,6 @@ def validate_manifest(root: Path, manifest: dict[str, Any]) -> list[str]:
         duplicates = [value for value, count in Counter(background_hashes).items() if count > 1]
         duplicate_ids = [[item["manifestId"] for item in records if item.get("pngSha256") == value] for value in duplicates]
         raise ValidationError(f"duplicate background pixels: {duplicate_ids}")
-    hand_right = root / "sources" / "art" / "character" / "chr_hand_r.svg"
-    hand_left = root / "sources" / "art" / "character" / "chr_hand_l.svg"
-    if b"scale(-1" in hand_right.read_bytes() or sha256_file(hand_right) == sha256_file(hand_left):
-        raise ValidationError("right hand is mirrored or identical instead of purpose-built")
-    body_svg = (root / "sources" / "art" / "character" / "chr_body_base.svg").read_text(encoding="utf-8")
-    if 'id="face_plate"' not in body_svg or PALETTE["paper_050"] not in body_svg:
-        raise ValidationError("body is missing canonical PAPER face plate")
     contact_sheet = root / "reports" / "art-contact-sheet.html"
     if not contact_sheet.is_file():
         raise ValidationError(f"missing contact sheet: {contact_sheet}")
@@ -486,10 +365,10 @@ def validate_manifest(root: Path, manifest: dict[str, Any]) -> list[str]:
         expected_reference = "../" + record["previewPath"]
         if expected_reference not in contact_html:
             raise ValidationError(f"contact sheet missing {record['manifestId']}")
-    required_compositions = ("Mascot Six / Seven composite QA", "Poise layer composite", "Motion layer composite", "Signal layer composite", "Spectrum layer composite", "FORM-05 layer composite", "FORM-05 grayscale composite")
+    required_compositions = ("Poise layer composite", "Motion layer composite", "Signal layer composite", "Spectrum layer composite", "FORM-05 layer composite", "FORM-05 grayscale composite")
     if any(label not in contact_html for label in required_compositions) or "48px" not in contact_html or "10%" not in contact_html or "gray" not in contact_html:
         raise ValidationError("contact sheet is missing composition, grayscale, 10%, or 48px review modes")
-    checks += ["files-hashes-dimensions-provenance", "runtime-svg-no-external-art-or-text", "qa-local-runtimepath-references-only", "palette-whitelist", "runtime-size-budgets", "runtime-only-assets-art-tree", "distinct-face-anchors-and-safe-hand-centers", "runtime-sprite-goldens-and-six-view-concept-sheet", "unique-background-pixels", "purpose-built-right-hand-and-paper-face-plate", "normalized-48px-thumbnails", "contact-sheet-all-entries-and-compositions"]
+    checks += ["files-hashes-dimensions-provenance", "runtime-svg-no-external-art-or-text", "palette-whitelist", "runtime-size-budgets", "runtime-only-assets-art-tree", "unique-background-pixels", "normalized-48px-thumbnails", "contact-sheet-all-entries-and-compositions"]
     return checks
 
 
@@ -520,9 +399,6 @@ def validate_determinism(root: Path, manifest_path: Path, manifest: dict[str, An
                 path_value = record.get(key)
                 if path_value and sha256_file(root / path_value) != sha256_file(temp_root / path_value):
                     raise ValidationError(f"non-deterministic file {path_value}")
-        renderer_path_value = manifest["qaRenderer"]["path"]
-        if sha256_file(root / renderer_path_value) != sha256_file(temp_root / renderer_path_value):
-            raise ValidationError(f"non-deterministic file {renderer_path_value}")
     return "full-regeneration-byte-determinism"
 
 
@@ -533,9 +409,9 @@ def validation_report(manifest: dict[str, Any], checks: list[str], deterministic
     largest = max(runtime_records, key=lambda item: item["runtimeBytes"])
     return f"""# Art validation report
 
-Result: **PASS**  
-Manifest: `assets/manifests/art-manifest-v1.json`  
-Entries: `{manifest['assetCount']}`  
+Result: **PASS**
+Manifest: `assets/manifests/art-manifest-v1.json`
+Entries: `{manifest['assetCount']}`
 Status: `candidate-reviewed`
 
 {rows}

@@ -128,7 +128,7 @@ void main() {
     expect(cadence.at(3400), 0);
   });
 
-  test('Boss Shift opens one-voice playlist and all seven tracks cycle once',
+  test('session-randomized music loops until the player changes menu',
       () async {
     SharedPreferences.setMockInitialValues({});
     final game = await GameController.load();
@@ -148,37 +148,36 @@ void main() {
     expect(
         backend.preloaded, contains(catalog[AudioIds.returnOffline].cachePath));
     expect(backend.layerCalls, isEmpty);
-    expect(backend.musicCalls, [catalog[AudioIds.bossShift].cachePath]);
-    expect(backend.musicLoops, [false]);
-    expect(audio.currentSoundtrackId, AudioIds.bossShift);
+    final selectedTracks = <String>[audio.currentSoundtrackId];
+    expect(AudioIds.soundtrack, contains(selectedTracks.single));
+    expect(backend.musicCalls, [catalog[selectedTracks.single].cachePath]);
+    expect(backend.musicLoops, [true]);
 
-    await audio.changeTab(1);
-    await audio.changeTab(2);
+    final openingHandle = backend.musicHandles.single;
+    openingHandle.emitPosition(catalog[selectedTracks.single].duration);
+    openingHandle.complete();
+    await Future<void>.delayed(Duration.zero);
     expect(backend.musicCalls, hasLength(1));
 
-    final firstHandle = backend.musicHandles.single;
-    firstHandle.emitPosition(catalog[AudioIds.bossShift].duration);
-    await _waitUntil(() => backend.musicCalls.length == 2);
-    expect(audio.currentSoundtrackId, AudioIds.neonDrift67);
-
-    firstHandle.complete();
-    await Future<void>.delayed(Duration.zero);
-    expect(backend.musicCalls, hasLength(2));
-
-    while (backend.musicCalls.length < AudioIds.soundtrack.length + 1) {
-      final expectedLength = backend.musicCalls.length + 1;
-      backend.musicHandles.last.complete();
-      await _waitUntil(() => backend.musicCalls.length == expectedLength);
+    // Each menu gets the next track in the session's shuffled order. Tabs 2
+    // and 3 share a presentation context but are still separate menus.
+    for (final tab in [1, 2, 3, 0, 1, 2]) {
+      await audio.changeTab(tab);
+      selectedTracks.add(audio.currentSoundtrackId);
     }
     expect(
-      backend.musicCalls,
-      [
-        ...AudioIds.soundtrack.map((id) => catalog[id].cachePath),
-        catalog[AudioIds.bossShift].cachePath,
-      ],
+      selectedTracks.toSet(),
+      AudioIds.soundtrack.toSet(),
     );
-    expect(audio.currentSoundtrackId, AudioIds.bossShift);
-    expect(backend.musicLoops, everyElement(isFalse));
+    expect(
+      backend.musicCalls,
+      selectedTracks.map((id) => catalog[id].cachePath).toList(),
+    );
+    expect(backend.musicLoops, everyElement(isTrue));
+
+    await audio.changeTab(3);
+    expect(audio.currentSoundtrackId, isNot(selectedTracks.last));
+    expect(backend.musicCalls, hasLength(8));
 
     audio.dispose();
     game.dispose();
@@ -229,7 +228,8 @@ void main() {
     game.dispose();
   });
 
-  test('cold muted start primes Boss Shift silently before fade-in', () async {
+  test('cold muted navigation primes the selected loop silently before fade-in',
+      () async {
     SharedPreferences.setMockInitialValues({});
     final game = await GameController.load();
     final backend = _FakeAudioBackend();
@@ -243,9 +243,16 @@ void main() {
 
     await audio.start(game);
     expect(backend.musicCalls, isEmpty);
+    final openingTrack = audio.currentSoundtrackId;
+
+    await audio.changeTab(1);
+    final selectedTrack = audio.currentSoundtrackId;
+    expect(selectedTrack, isNot(openingTrack));
+    expect(backend.musicCalls, isEmpty);
 
     await audio.setMusicMuted(false);
-    expect(backend.musicCalls, [catalog[AudioIds.bossShift].cachePath]);
+    expect(backend.musicCalls, [catalog[selectedTrack].cachePath]);
+    expect(backend.musicLoops, [true]);
     expect(backend.musicStartVolumes, [0]);
     expect(backend.resumeCount, 1);
     expect(backend.volumeCalls.last, closeTo(.72, 1e-10));
@@ -303,16 +310,6 @@ void main() {
       FlutterError.onError = previousHandler;
     }
   });
-}
-
-Future<void> _waitUntil(bool Function() predicate) async {
-  final deadline = DateTime.now().add(const Duration(seconds: 2));
-  while (!predicate()) {
-    if (DateTime.now().isAfter(deadline)) {
-      fail('Timed out waiting for asynchronous audio routing.');
-    }
-    await Future<void>.delayed(const Duration(milliseconds: 5));
-  }
 }
 
 class _MemoryAudioSettingsStore implements AudioSettingsStore {

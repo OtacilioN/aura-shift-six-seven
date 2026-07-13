@@ -9,8 +9,7 @@
 
 | Frente | Revisão | Conteúdo | Estado atual |
 | --- | ---: | --- | --- |
-| arte de runtime | 3 | 219 WebP + fontes SVG e previews fora do bundle | approved + integrated |
-| arte de QA | 3 | três goldens JSON/CoreGraphics review-only | approved, fora do runtime |
+| arte de runtime | 3 | 203 WebP + fontes SVG e previews fora do bundle | approved + integrated |
 | áudio runtime v2 | 1 | 7 músicas selecionadas + 35 SFX herdados | approved + integrated |
 | marca | 2 | 39 arquivos de launcher, splash, loja e fonte vetorial | approved + integrated |
 | fontes | 1 | seis binários pinados + licenças | approved + integrated |
@@ -18,23 +17,24 @@
 
 O áudio de runtime contém sete faixas Ogg/Vorbis e 35 SFX WAV PCM16: 42 assets
 obrigatórios, sem condicionais. Os WAVs selecionados são preservados como fontes
-PCM24/44,1 kHz e derivados para masters PCM24/48 kHz a `-16 LUFS-I`. `Boss
-Shift` abre a playlist de voz única; as outras seis avançam por posição/conclusão
-com crossfade de `1 s`. Os nove Ogg do lote procedural v1 permanecem no repo
-como evidência, mas não são declarados no `pubspec.yaml` nem entram no APK.
+PCM24/44,1 kHz e derivados para masters PCM24/48 kHz a `-16 LUFS-I`. A abertura
+sorteia uma das sete faixas; ela permanece em loop até a próxima troca de menu,
+que avança a shuffle bag com crossfade de `1 s`. Os nove Ogg e masters do lote procedural v1, bem como
+as seis demos não selecionadas, foram removidos como resíduos: não eram
+declarados no `pubspec.yaml` nem entravam no APK. Os manifests históricos ficam
+preservados como metadados de auditoria.
 
-Os 219 WebP têm consumidores verificáveis e sem sobreposição: 136 na cena Flame
-(Mascote, fundos, Aparências, Formas e VFX) e 83 na UI (22 ícones, 15 assets de
-Árvore, 13 badges, seis eventos, quatro Selos e 23 thumbnails). Os três assets
-de QA não possuem caminho de runtime e continuam fora do pacote. A cena decodifica
-sob demanda somente `base/accent/glow/reduced` atualmente necessários para todas
-as Aparências ativas, separa fundo, corpo e mãos em ordem determinística e aplica
-relayout aos territórios compartilhados. Marcos de Nível e Movimento Reduzido
+Os 203 WebP têm consumidores verificáveis e sem sobreposição: 120 na cena Flame
+(fundos, Aparências, Formas e VFX) e 83 na UI (22 ícones, 15 assets de Árvore,
+13 badges, seis eventos, quatro Selos e 23 thumbnails). A cena decodifica sob
+demanda somente `base/accent/glow/reduced` atualmente necessários para todas as
+Aparências ativas, enquanto o Rua Pixel kid é desenhado em Canvas. Marcos de
+Nível e Movimento Reduzido
 trocam apenas as variantes afetadas.
 
-A arte passou 18 gates, incluindo goldens compostos a partir dos mesmos WebP,
-pivôs, anchors e ângulos do runtime e regeneração byte a byte. Os 35 SFX mantêm
-a evidência r3 de reconstrução TPDF/sample-exact. As sete músicas v2 passaram
+Os 203 WebP atuais passam 11 validações estruturais, incluindo hashes, dimensões,
+proveniência, paleta, orçamento e galeria. Os 35 SFX mantêm a evidência r3 de
+reconstrução TPDF/sample-exact. As sete músicas v2 passaram
 validação de fonte, resample, loudness, frame count e hashes; escuta, termos e
 aparelho permanecem pendentes.
 
@@ -68,9 +68,9 @@ rig. O relatório consolidado está em
 
 ## Verificação desta revisão integrada
 
-- geração final: 222 entradas `art-v1`; 1.614.304 bytes WebP de runtime;
-- `validate_art_assets.py --determinism`: 18/18 gates, regeneração byte a byte;
-- promoção final: 219 assets de arte e 42 de áudio; candidato e aprovado usam
+- limpeza atual: 203 entradas `art-v1`; 1.565.576 bytes WebP de runtime;
+- `validate_art_assets.py`: 11/11 gates aprovados;
+- promoção final: 203 assets de arte e 42 de áudio; candidato e aprovado usam
   `SLOT-GROUND-PROP-BACK` para despertador e roteador;
 - importação musical executada duas vezes a partir das fontes preservadas, com
   manifesto candidato SHA-256 idêntico nas duas execuções;
@@ -80,10 +80,9 @@ rig. O relatório consolidado está em
 - `validate_planning.py`: P01–P11 presentes, 42 slots e oito catálogos
   alinhados;
 - `flutter build apk --debug`: aprovado;
-- auditoria `package-asset-review-v2`: 219/219 WebP, 7/7 Ogg, 35/35 WAV,
-  6/6 fontes, 8/8 PNG nativos Android e somente os manifests atuais; zero
-  asset de QA/report/preview, arte exclusiva de loja ou manifesto de áudio v1
-  no runtime;
+- a auditoria `package-asset-review-v2` anterior registrou 219 WebP; o próximo
+  APK deve confirmar 203/203 WebP, 7/7 Ogg, 35/35 WAV, 6/6 fontes e 8/8 PNG
+  nativos Android, sem asset de QA/report/preview ou arte exclusiva de loja;
 - APK debug: `210835622` bytes; SHA-256
   `c6d3ac4a1a31764cc0dae0db80b580b7f1841661f65a33a507d2d3ddf7747f1a`;
 - foram adicionados contratos para os 18 efeitos distintos, movimento
@@ -93,13 +92,14 @@ rig. O relatório consolidado está em
 
 ## Gates que continuam físicos ou de publicação
 
-- playlist/crossfade, latência, foco, anúncio, background e retomada no Android;
+- shuffle por menu/crossfade, latência, foco, anúncio, background e retomada no Android;
 - termos comerciais do ChatGPT, prompt/modelo quando recuperáveis, similaridade e fadiga;
 - máscaras do adaptive icon, splash e safe areas em aparelhos reais;
 - árabe/japonês, reflow e escala de texto a 200% no app;
 - identidade de publicação, assinatura e configuração dos SDKs externos.
 
-As sete músicas são `non-loop`; o gate relevante é o crossfade em aparelho, não
-o seam repetido do lote antigo. Os 35 SFX WAV continuam sample-exact na evidência
-herdada. A promoção não sobrescreve o candidato v1: o script deriva o manifesto
-v2 da nova decisão e mantém pendências jurídicas/físicas no índice de produção.
+As sete músicas não possuem markers embutidos, mas o player as executa em loop
+por menu; os gates relevantes são repetição perceptível, crossfade de troca e
+retomada em aparelho. Os 35 SFX WAV continuam sample-exact na evidência herdada.
+A promoção não sobrescreve o candidato v1: o script deriva o manifesto v2 da
+nova decisão e mantém pendências jurídicas/físicas no índice de produção.

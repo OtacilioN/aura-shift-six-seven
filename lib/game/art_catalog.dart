@@ -418,22 +418,6 @@ abstract final class AuraArtSelection {
   /// form, expression, appearance milestone, and reduced-motion variants.
   static Set<String> get sceneRuntimeIds {
     final ids = <String>{
-      'chr_shadow',
-      'chr_body_base',
-      'chr_arm_l',
-      'chr_arm_r',
-      'chr_hand_l',
-      'chr_hand_r',
-      for (final expression in const [
-        'neutral',
-        'satisfaction',
-        'focus',
-        'surprise',
-        'celebration',
-      ]) ...[
-        'chr_eye_$expression',
-        'chr_mouth_$expression',
-      ],
       'vfx_contact',
       'vfx_orb',
       'vfx_ribbon',

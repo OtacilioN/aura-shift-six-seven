@@ -28,7 +28,7 @@ Como memes mudam rapidamente, a pesquisa deve ser atualizada perto da produção
 3. Título, promessa, pilares de voz e nomenclatura foram fechados em `BRAND-VOICE-GUIDE.md`.
 4. Os territórios Poise, Motion e Signal foram escolhidos por portabilidade e baixo risco; Spectrum reúne Convergências.
 5. Mewing/looksmaxxing, gírias saturadas, pessoas, marcas, obras, letra, áudio e likeness foram eliminados.
-6. Os 42 slots foram nomeados e receberam função em `CONTENT-CATALOG.md` e `ACHIEVEMENTS.md`; o rebalanceamento posterior atualizou somente os valores econômicos para `balance-v0.2`, sem alterar IDs ou identidades.
+6. Os 42 slots foram nomeados e receberam função em `CONTENT-CATALOG.md` e `ACHIEVEMENTS.md`; o rebalanceamento posterior atualizou somente os valores econômicos para `balance-v0.3`, sem alterar IDs ou identidades.
 
 ## Entregáveis
 

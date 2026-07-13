@@ -2,10 +2,11 @@
 
 > Contrato de runtime `audio-inventory-v2`. A trilha selecionada em 12 de julho
 > de 2026 contém sete faixas completas e substitui as nove renderizações
-> musicais procedurais no app. `Boss Shift` é o tema principal e abre toda
-> sessão. Os 35 SFX da revisão anterior permanecem inalterados. O lote antigo
-> continua preservado nos manifests v1 como evidência histórica; o runtime usa
-> `audio-manifest-v2.json`.
+> musicais procedurais no app. `Boss Shift` é o tema principal, mas participa
+> do mesmo sorteio de abertura das outras seis faixas. Os 35 SFX da revisão
+> anterior permanecem inalterados. O snapshot v1
+> permanece apenas como metadado histórico dos SFX herdados; os binários das nove
+> músicas substituídas foram removidos. O runtime usa `audio-manifest-v2.json`.
 
 ## Regra de estado
 
@@ -34,7 +35,7 @@ provenance/audio/
 
 ## Trilha selecionada
 
-| Ordem | ID estável | Título | Master/runtime | Loop | Duração aprox. | Papel |
+| Catálogo | ID estável | Título | Master/runtime | Marker de loop | Duração aprox. | Papel |
 | ---: | --- | --- | --- | --- | ---: | --- |
 | 1 | `MUS-BOSS-SHIFT` | Boss Shift | `mus_boss_shift.wav/.ogg` | não | 26,48 s | tema principal |
 | 2 | `MUS-NEON-DRIFT-67` | Neon Drift 67 | `mus_neon_drift_67.wav/.ogg` | não | 25,60 s | playlist |
@@ -47,10 +48,12 @@ provenance/audio/
 Os WAVs recebidos são preservados byte a byte como fontes PCM24/44,1 kHz. O
 importador gera masters PCM24/48 kHz por resample polifásico, apenas atenua cada
 faixa para `-16 LUFS-I` e exporta Ogg/Vorbis q6. Não há compressão ou limiter na
-conversão. As faixas são completas e não possuem markers de loop; o runtime usa
-uma voz musical, inicia a próxima aproximadamente um segundo antes do fim e faz
-crossfade equal-power. Trocar aba, intensidade ou estado visual não reinicia a
-playlist.
+conversão. As faixas são completas e não possuem markers de loop; o controlador
+seleciona uma ordem aleatória por sessão e toca a faixa vigente em loop. Trocar
+entre Jogar, Loja, Coleção e Ajustes avança para a próxima faixa com crossfade
+equal-power de `1 s`; intensidade, duração e conclusão do arquivo não avançam a
+sequência. As sete faixas são usadas uma vez antes de novo embaralhamento, sem
+repetição imediata entre ciclos.
 
 ## Ciclo Six-Seven
 
@@ -142,9 +145,9 @@ O manifesto técnico registra parâmetros, equivalente mono, limites de pan/ganh
 | **total de masters de áudio** | **42** | **0** |
 | padrões hápticos | 9 | 0 |
 
-Os sete IDs musicais substituem, no runtime, Base/Groove/Hype, Menu, Loja e os
-quatro mixes I0–I3. Esses arquivos antigos continuam somente como snapshot v1 e
-não são listados individualmente no `pubspec.yaml`, portanto não entram no APK.
+Os sete IDs musicais substituem Base/Groove/Hype, Menu, Loja e os quatro mixes
+I0–I3. Os binários e masters desse lote obsoleto foram removidos; o snapshot v1
+permanece apenas como registro histórico e não é carregado pelo app.
 
 ## Registro de proveniência por item
 
@@ -182,8 +185,9 @@ são alterados nem carregados pelo app; documentam o lote procedural anterior.
 
 - todos os masters em `48 kHz / 24-bit`, sem clipping;
 - sete fontes originais com hashes preservados e sete runtimes normalizados;
-- avanço por posição e fallback por conclusão sem pular ou duplicar faixa;
-- crossfade sem clique perceptível; SFX curto em WAV PCM16 sem padding;
+- escolha inicial e ordem da sessão determinísticas sob fonte aleatória injetada;
+- loop sem avanço por posição ou conclusão, troca por menu e shuffle bag 7/7 sem repetição imediata;
+- crossfade entre menus sem clique perceptível; SFX curto em WAV PCM16 sem padding;
 - mix mono sem cancelamento que remova kick, sub, Six ou Seven;
 - limites de loudness/pico de `AUDIO-DIRECTION.md` aprovados;
 - pausa, background, anúncio e retomada não duplicam música ou SFX.
@@ -210,7 +214,9 @@ são alterados nem carregados pelo app; documentam o lote procedural anterior.
 
 O pacote aprovado é empacotado pelo Flutter e os sons possuem disparadores de
 domínio para Ciclo, UI, Loja, Coleção, progressão, retorno, Ascensão e anúncios.
-`Boss Shift` abre a playlist e volta após as outras seis faixas. A cadência
+A abertura sorteia uma das sete faixas; cada menu mantém sua faixa em loop e uma
+troca de menu consome a próxima entrada da sequência da sessão. A cadência
 continua controlando apresentação/SFX, nunca música ou economia. A promoção de
 release ainda exige termos comerciais do gerador, similaridade/fadiga e teste
-Android de crossfade, latência, foco/retomada, além de 9/9 padrões hápticos.
+Android de crossfade entre menus, latência, foco/retomada, além de 9/9 padrões
+hápticos.

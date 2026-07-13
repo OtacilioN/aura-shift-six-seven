@@ -55,6 +55,9 @@ class AuraAudioController extends ChangeNotifier {
         _sixBag = ShuffleBag<String>(AudioIds.six, random: random),
         _sevenBag = ShuffleBag<String>(AudioIds.seven, random: random),
         _nowMillisOverride = nowMillis {
+    _soundtrackBag = ShuffleBag<String>(AudioIds.soundtrack, random: random);
+    // Sample the session order at app launch, including the opening track.
+    _selectedMusicId = _soundtrackBag.next();
     _musicVolume = (_store.readDouble(_musicVolumeKey) ?? .72).clamp(0, 1);
     _effectsVolume = (_store.readDouble(_effectsVolumeKey) ?? .86).clamp(0, 1);
     _musicMuted = _store.readBool(_musicMutedKey) ?? false;
@@ -66,7 +69,7 @@ class AuraAudioController extends ChangeNotifier {
   static const _musicMutedKey = 'audio.musicMuted';
   static const _effectsMutedKey = 'audio.effectsMuted';
   static const _dialogDuck = .3981071706; // -8 dB
-  static const _soundtrackCrossfade = Duration(seconds: 1);
+  static const _musicContextCrossfade = Duration(seconds: 1);
 
   static Future<AuraAudioController> create() async {
     final preferences = await SharedPreferences.getInstance();
@@ -163,6 +166,7 @@ class AuraAudioController extends ChangeNotifier {
   final AudioSettingsStore _store;
   final ShuffleBag<String> _sixBag;
   final ShuffleBag<String> _sevenBag;
+  late final ShuffleBag<String> _soundtrackBag;
   final VoiceBudget _voices = VoiceBudget();
   final Map<int, AudioPlaybackHandle> _voiceHandles = {};
   final CadenceIntensity _cadence = CadenceIntensity();
@@ -190,9 +194,7 @@ class AuraAudioController extends ChangeNotifier {
   Set<String> _knownSeals = {};
   MusicContext _musicContext = MusicContext.play;
   String? _playingMusicId;
-  StreamSubscription<Duration>? _musicPositionSubscription;
-  int _soundtrackIndex = 0;
-  int _soundtrackPlaybackGeneration = 0;
+  late String _selectedMusicId;
   int _intensity = 0;
   late double _musicVolume;
   late double _effectsVolume;
@@ -209,7 +211,7 @@ class AuraAudioController extends ChangeNotifier {
   int get musicIntensity => _intensity;
 
   @visibleForTesting
-  String get currentSoundtrackId => AudioIds.soundtrack[_soundtrackIndex];
+  String get currentSoundtrackId => _selectedMusicId;
 
   int get _currentMillis =>
       _nowMillisOverride?.call() ?? _audioClock.elapsedMilliseconds;
@@ -230,10 +232,16 @@ class AuraAudioController extends ChangeNotifier {
     }
   }
 
-  Future<void> setMusicContext(MusicContext context) {
-    if (_musicContext == context) return Future<void>.value();
+  Future<void> setMusicContext(
+    MusicContext context, {
+    bool forceTrackChange = false,
+  }) {
+    if (_musicContext == context && !forceTrackChange) {
+      return Future<void>.value();
+    }
     _musicContext = context;
-    return Future<void>.value();
+    _selectedMusicId = _soundtrackBag.next();
+    return _ensureMusic(transition: _musicContextCrossfade);
   }
 
   Future<void> changeTab(int tab) async {
@@ -243,7 +251,9 @@ class AuraAudioController extends ChangeNotifier {
       1 => MusicContext.shop,
       _ => MusicContext.menu,
     };
-    await setMusicContext(context);
+    // Collection and Settings share a presentation context, but each tab is a
+    // distinct menu and therefore receives the next session track.
+    await setMusicContext(context, forceTrackChange: true);
   }
 
   void recordCycle(CycleFamily family, {int? nowMillis}) {
@@ -481,7 +491,7 @@ class AuraAudioController extends ChangeNotifier {
     _intensity = next;
   }
 
-  String get _desiredMusicRoute => AudioIds.soundtrack[_soundtrackIndex];
+  String get _desiredMusicRoute => _selectedMusicId;
 
   Future<void> _ensureMusic({
     required Duration transition,
@@ -503,15 +513,14 @@ class AuraAudioController extends ChangeNotifier {
       if (request != _musicRequest || !_canPlay || _musicMuted) return;
       try {
         final record = _catalog[route];
-        final playback = await _backend.playMusic(
+        await _backend.playMusic(
           record.cachePath,
           volume: requestedVolume,
           transition: transition,
-          loop: record.loop,
+          loop: true,
         );
         if (request == _musicRequest && _canPlay && !_musicMuted) {
           _playingMusicId = route;
-          _bindSoundtrackAdvance(playback, record);
         } else if (!_canPlay || _musicMuted) {
           await _backend.pauseMusic();
         }
@@ -520,71 +529,6 @@ class AuraAudioController extends ChangeNotifier {
       }
     });
     return _musicQueue;
-  }
-
-  void _bindSoundtrackAdvance(
-    MusicPlaybackHandle playback,
-    AudioAssetRecord record,
-  ) {
-    _invalidateSoundtrackPlayback();
-    final generation = _soundtrackPlaybackGeneration;
-    final advanceAt = record.duration > _soundtrackCrossfade
-        ? record.duration - _soundtrackCrossfade
-        : Duration.zero;
-    var advanced = false;
-
-    void advance() {
-      if (advanced ||
-          generation != _soundtrackPlaybackGeneration ||
-          _disposed ||
-          _playingMusicId != record.id) {
-        return;
-      }
-      advanced = true;
-      _advanceSoundtrack(generation);
-    }
-
-    _musicPositionSubscription = playback.position.listen(
-      (position) {
-        if (position >= advanceAt) advance();
-      },
-      onError: (Object error, StackTrace stackTrace) {
-        if (generation == _soundtrackPlaybackGeneration && !_disposed) {
-          _reportAudioError(
-            error,
-            stackTrace,
-            'tracking soundtrack position for ${record.id}',
-          );
-        }
-      },
-    );
-    unawaited(
-      playback.completed.then<void>((_) => advance()).catchError(
-        (Object error, StackTrace stackTrace) {
-          if (generation == _soundtrackPlaybackGeneration && !_disposed) {
-            _reportAudioError(
-              error,
-              stackTrace,
-              'waiting for soundtrack completion for ${record.id}',
-            );
-          }
-        },
-      ),
-    );
-  }
-
-  void _advanceSoundtrack(int generation) {
-    if (generation != _soundtrackPlaybackGeneration || _disposed) return;
-    _invalidateSoundtrackPlayback();
-    _soundtrackIndex = (_soundtrackIndex + 1) % AudioIds.soundtrack.length;
-    unawaited(_ensureMusic(transition: _soundtrackCrossfade));
-  }
-
-  void _invalidateSoundtrackPlayback() {
-    _soundtrackPlaybackGeneration++;
-    final subscription = _musicPositionSubscription;
-    _musicPositionSubscription = null;
-    if (subscription != null) unawaited(subscription.cancel());
   }
 
   Future<void> _applyMusicVolume() async {
@@ -756,7 +700,6 @@ class AuraAudioController extends ChangeNotifier {
     _game?.removeListener(_onGameChanged);
     _game = null;
     _cadenceReleaseTimer?.cancel();
-    _invalidateSoundtrackPlayback();
     _musicRequest++;
     _audioClock.stop();
     for (final timer in _transientDuckTimers.values) {

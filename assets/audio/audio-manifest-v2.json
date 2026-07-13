@@ -1,5 +1,5 @@
 {
-  "androidDeviceReview": "playlist-crossfade-focus-resume-pending",
+  "androidDeviceReview": "menu-loop-shuffle-crossfade-focus-resume-pending",
   "assets": [
     {
       "channels": 2,
@@ -5129,9 +5129,9 @@
   "masterBitDepth": 24,
   "promotion": {
     "approvalDecision": "assets/manifests/music-selection-approval-v1.json",
-    "approvalDecisionSha256": "4dff5f18a55afd9774db8fa8320fc1c7fc53425f6b528be31647c2925e7f221c",
+    "approvalDecisionSha256": "b78d457f7e4032bb6c83022ddd3bafbc8b5aa07f7dfb139e2871621b702f8128",
     "candidateManifest": "assets/audio/audio-candidate-manifest-v2.json",
-    "candidateManifestSha256": "825d9abcb7704001f2cd3a31a20b24ed4a18e07fda826b1ccb771a4144e8b83c",
+    "candidateManifestSha256": "3891879f14b0db9b85656a6bef224dbab81c6f5a9804c3398b6c07aa070b1c5a",
     "decisionDate": "2026-07-12",
     "integrationStatus": "integrated-in-build"
   },
@@ -5186,7 +5186,7 @@
   "status": "approved",
   "technicalReview": {
     "musicLoudnessTarget": "7/7 within 0.25 LU of -16 LUFS-I",
-    "musicPlayback": "non-loop single-voice playlist",
+    "musicPlayback": "controller-looped single-voice shuffled menu sequence",
     "musicRuntimeFrameCount": "7/7",
     "musicSources": "7/7 WAV PCM24 stereo validated",
     "sfxInherited": "35/35 unchanged from r3"

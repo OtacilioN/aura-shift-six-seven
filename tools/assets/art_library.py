@@ -122,161 +122,6 @@ def radial_gradient(gradient_id: str, stops: list[tuple[str, str, float]]) -> st
     return f'<radialGradient id="{gradient_id}" cx="50%" cy="50%" r="50%">{stop_tags}</radialGradient>'
 
 
-def _character_builder(kind: str) -> Callable[[AssetSpec], str]:
-    def build(spec: AssetSpec) -> str:
-        if kind == "body":
-            shapes = [
-                tag("path", d="M512 110 C700 110 790 260 770 480 C758 626 700 770 620 840 C580 876 444 876 404 840 C324 770 266 626 254 480 C234 260 324 110 512 110 Z", fill=I7, stroke=I9, stroke_width=30, stroke_linejoin="round"),
-                tag("path", d="M512 150 C654 150 724 275 708 470 C696 610 650 722 584 785 C552 815 472 815 440 785 C374 722 328 610 316 470 C300 275 370 150 512 150 Z", fill=S2),
-                tag("path", d="M344 540 C382 688 428 758 504 790 C430 804 374 770 336 700 C306 644 292 580 288 506 Z", fill=BV, opacity="0.92"),
-                group("face_plate", [tag("ellipse", cx=512, cy=342, rx=154, ry=138, fill=PAPER, stroke=I9, stroke_width=24), tag("path", d="M410 274 Q512 224 614 274", fill="none", stroke=VIOLET, stroke_width=14, stroke_linecap="round", opacity="0.42")]),
-                tag("path", d="M454 812 C426 846 414 892 432 920 C454 951 505 940 518 898 C528 863 498 824 454 812 Z", fill=S2, stroke=I9, stroke_width=26),
-                tag("path", d="M570 812 C598 846 610 892 592 920 C570 951 519 940 506 898 C496 863 526 824 570 812 Z", fill=S2, stroke=I9, stroke_width=26),
-                tag("path", d="M396 255 C456 210 576 201 636 240", fill="none", stroke=VIOLET, stroke_width=18, stroke_linecap="round", opacity="0.76"),
-            ]
-            return svg_document(spec, group("body", shapes))
-        if kind.startswith("arm_"):
-            left = kind.endswith("l")
-            path = "M402 110 C300 145 224 242 180 394" if left else "M110 110 C212 145 288 242 332 394"
-            shine = "M378 136 C302 175 252 242 218 332" if left else "M134 136 C210 175 260 242 294 332"
-            shapes = [
-                tag("path", d=path, fill="none", stroke=I9, stroke_width=100, stroke_linecap="round"),
-                tag("path", d=path, fill="none", stroke=S2, stroke_width=68, stroke_linecap="round"),
-                tag("path", d=shine, fill="none", stroke=VIOLET, stroke_width=13, stroke_linecap="round", opacity="0.68"),
-            ]
-            return svg_document(spec, group("arm_left" if left else "arm_right", shapes))
-        if kind.startswith("hand_"):
-            left = kind.endswith("l")
-            if left:
-                shapes = [
-                    tag("ellipse", cx=256, cy=292, rx=148, ry=132, fill=S2, stroke=I9, stroke_width=24),
-                    tag("circle", cx=151, cy=172, r=65, fill=S2, stroke=I9, stroke_width=22),
-                    tag("circle", cx=245, cy=132, r=68, fill=S2, stroke=I9, stroke_width=22),
-                    tag("circle", cx=340, cy=174, r=64, fill=S2, stroke=I9, stroke_width=22),
-                    tag("path", d="M374 246 C452 222 472 286 430 338 C400 375 358 370 332 338 Z", fill=S2, stroke=I9, stroke_width=22, stroke_linejoin="round"),
-                    tag("path", d="M160 247 C210 214 304 208 350 246", fill="none", stroke=CYAN, stroke_width=18, stroke_linecap="round", opacity="0.80"),
-                    tag("ellipse", cx=248, cy=318, rx=55, ry=24, fill=PAPER, opacity="0.13"),
-                ]
-            else:
-                # Purpose-built right hand: different palm contour, lobe spacing,
-                # thumb path, highlight, and accent curve. Never mirror left art.
-                shapes = [
-                    tag("path", d="M118 276 C126 206 184 174 256 174 C340 174 396 226 402 304 C408 386 346 432 258 430 C170 428 108 372 118 276 Z", fill=S2, stroke=I9, stroke_width=24, stroke_linejoin="round"),
-                    tag("circle", cx=166, cy=170, r=61, fill=S2, stroke=I9, stroke_width=22),
-                    tag("circle", cx=258, cy=126, r=70, fill=S2, stroke=I9, stroke_width=22),
-                    tag("circle", cx=352, cy=180, r=62, fill=S2, stroke=I9, stroke_width=22),
-                    tag("path", d="M142 242 C72 214 40 272 76 330 C102 372 150 374 184 338 L190 302 Z", fill=S2, stroke=I9, stroke_width=22, stroke_linejoin="round"),
-                    tag("path", d="M154 250 C210 216 300 220 354 258", fill="none", stroke=MAGENTA, stroke_width=18, stroke_linecap="round", opacity="0.80"),
-                    tag("path", d="M212 326 Q264 350 320 318", fill="none", stroke=PAPER, stroke_width=14, stroke_linecap="round", opacity="0.13"),
-                ]
-            return svg_document(spec, group("hand_left" if left else "hand_right", shapes))
-        if kind.startswith("eyes_"):
-            expression = kind.removeprefix("eyes_")
-            if expression == "neutral":
-                eyes = [tag("ellipse", cx=84, cy=130, rx=31, ry=42, fill=I9, transform="rotate(-8 84 130)"), tag("ellipse", cx=172, cy=130, rx=31, ry=42, fill=I9, transform="rotate(8 172 130)")]
-            elif expression == "focus":
-                eyes = [tag("path", d="M48 142 Q82 98 116 132 Q84 148 48 142 Z", fill=I9), tag("path", d="M140 132 Q174 98 208 142 Q172 148 140 132 Z", fill=I9)]
-            elif expression == "satisfaction":
-                eyes = [tag("path", d="M48 140 Q82 108 116 140", fill="none", stroke=I9, stroke_width=18, stroke_linecap="round"), tag("path", d="M140 140 Q174 108 208 140", fill="none", stroke=I9, stroke_width=18, stroke_linecap="round")]
-            elif expression == "surprise":
-                eyes = [tag("ellipse", cx=84, cy=130, rx=34, ry=54, fill=I9), tag("ellipse", cx=172, cy=130, rx=34, ry=54, fill=I9)]
-            else:
-                eyes = [tag("path", d="M44 145 Q84 96 122 136", fill="none", stroke=I9, stroke_width=18, stroke_linecap="round"), tag("path", d="M134 136 Q172 96 212 145", fill="none", stroke=I9, stroke_width=18, stroke_linecap="round"), tag("circle", cx=128, cy=82, r=12, fill=GOLD)]
-            brows = [tag("path", d="M50 72 Q82 52 110 70", fill="none", stroke=I9, stroke_width=12, stroke_linecap="round"), tag("path", d="M146 70 Q174 52 206 72", fill="none", stroke=I9, stroke_width=12, stroke_linecap="round")]
-            return svg_document(spec, group(f"eyes_{expression}", brows + eyes))
-        if kind.startswith("mouth_"):
-            expression = kind.removeprefix("mouth_")
-            if expression == "neutral":
-                mouth = tag("path", d="M88 136 Q128 148 168 136", fill="none", stroke=I9, stroke_width=14, stroke_linecap="round")
-            elif expression == "focus":
-                mouth = tag("path", d="M96 142 L160 142", fill="none", stroke=I9, stroke_width=14, stroke_linecap="round")
-            elif expression == "satisfaction":
-                mouth = tag("path", d="M84 126 Q128 178 172 126", fill="none", stroke=I9, stroke_width=15, stroke_linecap="round")
-            elif expression == "surprise":
-                mouth = tag("ellipse", cx=128, cy=140, rx=26, ry=34, fill=I9)
-            else:
-                mouth = tag("path", d="M76 116 Q128 190 180 116 Q166 190 128 194 Q90 190 76 116 Z", fill=I9)
-            return svg_document(spec, group(f"mouth_{expression}", mouth))
-        if kind == "shadow":
-            defs = radial_gradient("shadow", [("0%", I9, 0.72), ("72%", I9, 0.28), ("100%", I9, 0.0)])
-            return svg_document(spec, group("shadow", tag("ellipse", cx=256, cy=128, rx=218, ry=74, fill="url(#shadow)")), defs=defs)
-        raise ValueError(kind)
-
-    return build
-
-
-CHARACTER_KINDS = [
-    ("chr_body_base", "body", (1024, 1024), (512, 512), (0.50, 0.86), "CHR-BODY"),
-    ("chr_arm_l", "arm_l", (512, 512), (256, 256), (0.82, 0.18), "CHR-ARM-BACK"),
-    ("chr_arm_r", "arm_r", (512, 512), (256, 256), (0.18, 0.18), "CHR-ARM-BACK"),
-    ("chr_hand_l", "hand_l", (512, 512), (256, 256), (0.72, 0.72), "CHR-HANDS"),
-    ("chr_hand_r", "hand_r", (512, 512), (256, 256), (0.28, 0.72), "CHR-HANDS"),
-    *[(f"chr_eye_{name}", f"eyes_{name}", (256, 256), (128, 128), (0.50, 0.50), "CHR-FACE") for name in ("neutral", "focus", "satisfaction", "surprise", "celebration")],
-    *[(f"chr_mouth_{name}", f"mouth_{name}", (256, 256), (128, 128), (0.50, 0.50), "CHR-FACE") for name in ("neutral", "focus", "satisfaction", "surprise", "celebration")],
-    ("chr_shadow", "shadow", (512, 256), (256, 128), (0.50, 0.50), "SLOT-GROUND-BACK"),
-]
-
-CHARACTER_ATTACHMENTS = {
-    "chr_body_base": {
-        "attachmentId": "BODY_ROOT",
-        "attachmentStage": [512, 900],
-        "logicalSizeStagePx": [1024, 1024],
-    },
-    "chr_arm_l": {
-        "side": "left",
-        "attachmentId": "SHOULDER_L",
-        "attachmentStage": [365, 438],
-        "endpointPx": [180, 394],
-        "logicalSizeStagePx": [512, 512],
-    },
-    "chr_arm_r": {
-        "side": "right",
-        "attachmentId": "SHOULDER_R",
-        "attachmentStage": [659, 438],
-        "endpointPx": [332, 394],
-        "logicalSizeStagePx": [512, 512],
-    },
-    "chr_hand_l": {
-        "side": "left",
-        "attachmentId": "WRIST_L",
-        "logicalSizeStagePx": [512, 512],
-        "visualCenterPx": [256, 292],
-        "poseAttachments": {"neutral": [350, 575], "six": [350, 500], "seven": [350, 650]},
-        "poseAnglesDegrees": {"neutral": 0, "six": 8, "seven": 10},
-    },
-    "chr_hand_r": {
-        "side": "right",
-        "attachmentId": "WRIST_R",
-        "logicalSizeStagePx": [512, 512],
-        "visualCenterPx": [258, 304],
-        "poseAttachments": {"neutral": [674, 575], "six": [674, 650], "seven": [674, 500]},
-        "poseAnglesDegrees": {"neutral": 0, "six": -10, "seven": -8},
-    },
-    "chr_shadow": {
-        "attachmentId": "GROUND_SHADOW",
-        "attachmentStage": [512, 900],
-        "logicalSizeStagePx": [512, 256],
-    },
-}
-
-
-def _character_metadata(asset_id: str) -> tuple[tuple[str, object], ...]:
-    values = dict(CHARACTER_ATTACHMENTS.get(asset_id, {}))
-    if asset_id.startswith("chr_eye_"):
-        values.update({
-            "attachmentId": "FACE_EYES",
-            "attachmentStage": [512, 330],
-            "logicalSizeStagePx": [256, 256],
-        })
-    elif asset_id.startswith("chr_mouth_"):
-        values.update({
-            "attachmentId": "FACE_MOUTH",
-            "attachmentStage": [512, 402],
-            "logicalSizeStagePx": [256, 256],
-        })
-    return tuple(values.items())
-
-
 SKIN_META = [
     ("item_a_01", "A", "CHEST", "suspicious button physical four-hole stitched shirt button"),
     ("item_a_02", "A", "HIP", "luminous thermal receipt tucked into right shorts pocket"),
@@ -975,60 +820,6 @@ def _skin_builder(item_id: str, branch: str, variant: str) -> Callable[[AssetSpe
     return build
 
 
-def character_specs() -> list[AssetSpec]:
-    result: list[AssetSpec] = []
-    for asset_id, kind, source_size, runtime_size, pivot, z_layer in CHARACTER_KINDS:
-        result.append(AssetSpec(asset_id, "character", source_size, runtime_size, pivot, None, z_layer, "base", "lossless", f"Canonical pseudo-rig component {kind}", _character_builder(kind), metadata=_character_metadata(asset_id)))
-    return result
-
-
-def _qa_compositor_placeholder(kind: str) -> Callable[[AssetSpec], str]:
-    """The generator replaces this with a runtime-sprite compositor SVG.
-
-    Keeping the spec builder valid helps catalog introspection without retaining a
-    second mascot drawing implementation.
-    """
-    def build(spec: AssetSpec) -> str:
-        return svg_document(spec, group(f"qa_{kind}_owned_by_runtime_compositor", ""), view_box=(0, 0, 2160, 2160))
-
-    return build
-
-
-def qa_specs() -> list[AssetSpec]:
-    return [
-        AssetSpec(
-            asset_id,
-            "qa",
-            (2160, 2160),
-            (1080, 1080),
-            (0.50, 0.50),
-            None,
-            "QA-ONLY",
-            "qa",
-            "lossy",
-            description,
-            _qa_compositor_placeholder(kind),
-            metadata=(
-                ("qaType", kind),
-                ("reviewOnly", True),
-                ("compositionContract", "runtime-sprites-pivots-attachments-v3"),
-                ("composedFromRuntimeIds", [
-                    "chr_shadow", "chr_arm_l", "chr_arm_r", "chr_body_base",
-                    "chr_eye_neutral", "chr_eye_satisfaction",
-                    "chr_mouth_neutral", "chr_mouth_satisfaction",
-                    "chr_hand_l", "chr_hand_r",
-                ]),
-            ),
-            runtime_included=False,
-        )
-        for asset_id, kind, description in (
-            ("chr_silhouette_test", "silhouette_test", "Mascot silhouette, ten-percent, and 48px QA sheet"),
-            ("chr_concept_sheet", "concept_sheet", "Canonical Six and Seven mascot concept sheet"),
-            ("chr_composite_qa", "composite", "Full-color Six and Seven composite review sheet"),
-        )
-    ]
-
-
 def skin_specs() -> list[AssetSpec]:
     result: list[AssetSpec] = []
     for item_id, branch, slot, description in SKIN_META:
@@ -1535,8 +1326,6 @@ def icon_specs() -> list[AssetSpec]:
 
 def all_specs() -> list[AssetSpec]:
     specs = [
-        *character_specs(),
-        *qa_specs(),
         *skin_specs(),
         *form_specs(),
         *background_specs(),
@@ -1555,8 +1344,6 @@ def all_specs() -> list[AssetSpec]:
 
 
 EXPECTED_FAMILY_COUNTS = {
-    "character": 16,
-    "qa": 3,
     "skins": 90,
     "forms": 21,
     "backgrounds": 27,

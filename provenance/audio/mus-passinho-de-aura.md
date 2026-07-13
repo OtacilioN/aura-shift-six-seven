@@ -2,7 +2,7 @@
 
 - **Título:** Passinho de Aura
 - **ID:** `MUS-PASSINHO-DE-AURA`
-- **Papel:** playlist
+- **Papel:** trilha selecionada
 - **Status técnico:** `candidate-reviewed`; o derivado de runtime é promovido pela decisão humana de 12 de julho de 2026.
 - **Origem declarada pelo usuário:** geração musical via ChatGPT, entregue como WAV e selecionada pelo usuário.
 - **Prompt/modelo/sessão:** não fornecidos junto aos arquivos; não inferidos por este registro.
@@ -21,6 +21,6 @@
 
 ## Playback e revisão residual
 
-- Faixa completa `non-loop`; o runtime toca uma voz musical e avança por posição/conclusão com crossfade.
+- Faixa completa sem markers de loop; o controlador mantém a música atual em loop no mesmo menu e avança com crossfade somente quando o jogador troca de menu.
 - A seleção humana desta faixa está registrada em `assets/manifests/music-selection-approval-v1.json`.
 - Similaridade independente, fadiga, foco/retomada e crossfade em aparelho Android permanecem gates de release; esta proveniência não afirma que esses testes externos já ocorreram.

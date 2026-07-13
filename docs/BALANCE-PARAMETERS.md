@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Parâmetros de Balanceamento
 
-> Status: parâmetros `balance-v0.2` implementados em 11 de julho de 2026, aritmética `arith-v1` e gate `balance-gate-v1` confirmados; resultados da matriz ainda serão produzidos.
+> Status: parâmetros candidatos `balance-v0.3` substituem `balance-v0.2`; a aritmética `arith-v1` e os critérios de `balance-gate-v1` estão definidos, mas a matriz integral ainda não possui execução nem resultado.
 
 ## Constantes globais aprovadas
 
@@ -58,7 +58,7 @@ O baseline guarda Aura para sua melhor candidata, compra somente durante sessõe
 | `ITEM-B-01` | Item-raiz | `270 Aura` | `+0,75 Aura/s` por nível | primeiro nível de `TECH-01` |
 | `ITEM-C-01` | Item-raiz | `270 Aura` | `+0,75 Aura/s` por nível | primeiro nível de `TECH-01` |
 
-## Escada econômica dos Ramos de Aura — `balance-v0.2`
+## Escada econômica dos Ramos de Aura — `balance-v0.3`
 
 | Profundidade | IDs espelhados | Custo-base | Contribuição-base por nível | Nível-gate | Orçamento de Gate exato | Contribuição no gate |
 | ---: | --- | ---: | ---: | ---: | ---: | ---: |
@@ -80,14 +80,14 @@ As contribuições de gate já incluem os Marcos de Nível: `2×` no nível `10`
 | --- | ---: | ---: | ---: | ---: |
 | `TECH-01` | início | `45 Aura` | `1 Aura/ciclo` | `1/45` |
 | `TECH-02` | `1K` | `67 Aura` | `5 Aura/ciclo` | `5/67` |
-| `TECH-03` | `1M` | `67.000 Aura` | `5.000 Aura/ciclo` | `5/67` |
-| `TECH-04` | `1B` | `67.000.000 Aura` | `5.000.000 Aura/ciclo` | `5/67` |
-| `TECH-05` | `1T` | `67.000.000.000 Aura` | `5.000.000.000 Aura/ciclo` | `5/67` |
-| `TECH-06` | `1Qa` | `67.000.000.000.000 Aura` | `5.000.000.000.000 Aura/ciclo` | `5/67` |
+| `TECH-03` | `1M` | `67.000 Aura` | `500 Aura/ciclo` | `1/134` |
+| `TECH-04` | `1B` | `67.000.000 Aura` | `500.000 Aura/ciclo` | `1/134` |
+| `TECH-05` | `1T` | `67.000.000.000 Aura` | `500.000.000 Aura/ciclo` | `1/134` |
+| `TECH-06` | `1Qa` | `67.000.000.000.000 Aura` | `500.000.000.000 Aura/ciclo` | `1/134` |
 
 Os desbloqueios são permanentes. Níveis são reiniciados pela Ascensão e custos permanecem inalterados. Depois do primeiro desbloqueio, uma Técnica pode estar visível desde o começo de jornadas futuras, mas seu custo-base continua limitando quando seus níveis voltam a ser compráveis.
 
-De `TECH-02` a `TECH-06`, custo e contribuição avançam juntos por `1.000×`, preservando a razão exata `Contribuição-base ÷ custo-base = 5/67`. No nível `10`, o Marco `2×` produz, de `TECH-01` a `TECH-06`, `20`, `100`, `100.000`, `100.000.000`, `100.000.000.000` e `100.000.000.000.000 Aura/ciclo` antes da Ascensão.
+Depois de `TECH-02`, o custo-base continua crescendo `1.000×` por Técnica. `TECH-03` inicia a contribuição tardia em `500 Aura/ciclo`, e `TECH-04` a `TECH-06` voltam a crescer `1.000×`, para `500.000`, `500.000.000` e `500.000.000.000`. A eficiência-base de `TECH-03` a `TECH-06` é exatamente `1/134`; custos e desbloqueios não mudam. No nível `10`, o Marco `2×` produz, de `TECH-01` a `TECH-06`, `20`, `100`, `10.000`, `10.000.000`, `10.000.000.000` e `10.000.000.000.000 Aura/ciclo` antes da Ascensão.
 
 ## Patamares e marcos visuais
 
@@ -114,7 +114,7 @@ De `TECH-02` a `TECH-06`, custo e contribuição avançam juntos por `1.000×`, 
 
 Cada nó também exige seu Patamar de Aura conforme a tabela anterior. Convergências são opcionais e não participam dos requisitos de Ascensão; `1Qa` libera a Ascensão independentemente de terem sido adquiridas.
 
-## Economia das Convergências — `balance-v0.2`
+## Economia das Convergências — `balance-v0.3`
 
 | Entrada | Custo-base | Contribuição-base por nível | Orçamento de Amplitude | Soma dos três requisitos | Parcela adicionada em L1 |
 | --- | ---: | ---: | ---: | ---: | ---: |

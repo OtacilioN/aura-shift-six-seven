@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:aura_shift_six_seven/game/art_catalog.dart';
@@ -11,20 +10,8 @@ void main() {
         .readAsStringSync();
     final catalog = ArtCatalog.fromJson(source);
     final runtimeIds = catalog.records.map((record) => record.id).toSet();
-    final manifest = jsonDecode(source) as Map<String, dynamic>;
-    final qaEntries = (manifest['assets'] as List<dynamic>)
-        .map((entry) => Map<String, dynamic>.from(entry as Map))
-        .where((entry) => entry['family'] == 'qa')
-        .toList();
-
-    expect(runtimeIds, hasLength(219));
-    expect(qaEntries, hasLength(3));
-    expect(
-        qaEntries.every((entry) => entry['runtimeIncluded'] == false), isTrue);
-    for (final entry in qaEntries) {
-      expect(catalog[entry['manifestId'] as String], isNull);
-    }
-    expect(AuraArtSelection.sceneRuntimeIds, hasLength(136));
+    expect(runtimeIds, hasLength(203));
+    expect(AuraArtSelection.sceneRuntimeIds, hasLength(120));
     expect(AuraUiArt.mappedRuntimeIds, hasLength(83));
     expect(
       AuraArtSelection.sceneRuntimeIds.intersection(AuraUiArt.mappedRuntimeIds),
@@ -64,65 +51,6 @@ void main() {
           manifest(status: 'approved', assetStatus: 'candidate-reviewed')),
       throwsFormatException,
     );
-  });
-
-  test('v3 manifest exposes distinct face anchors and safe hand centers', () {
-    final catalog = ArtCatalog.fromJson(
-      File('assets/manifests/art-manifest-v1.json').readAsStringSync(),
-    );
-    final eyes = catalog['chr_eye_neutral']!;
-    final mouth = catalog['chr_mouth_neutral']!;
-    expect(eyes.attachmentId, 'FACE_EYES');
-    expect(mouth.attachmentId, 'FACE_MOUTH');
-    expect(eyes.attachmentStage!.x, 512);
-    expect(eyes.attachmentStage!.y, 330);
-    expect(mouth.attachmentStage!.x, 512);
-    expect(mouth.attachmentStage!.y, 402);
-    expect(eyes.attachmentStage!.y, isNot(mouth.attachmentStage!.y));
-
-    final left = catalog['chr_hand_l']!;
-    final right = catalog['chr_hand_r']!;
-    final leftSix = AuraRigGeometry.handVisualCenter(left, 'six');
-    final leftSeven = AuraRigGeometry.handVisualCenter(left, 'seven');
-    final rightSix = AuraRigGeometry.handVisualCenter(right, 'six');
-    final rightSeven = AuraRigGeometry.handVisualCenter(right, 'seven');
-    for (final center in [leftSix, leftSeven, rightSix, rightSeven]) {
-      expect(center.x, inInclusiveRange(96, 928));
-      expect(center.y, inInclusiveRange(96, 928));
-    }
-    expect(leftSix.y, lessThan(leftSeven.y));
-    expect(rightSeven.y, lessThan(rightSix.y));
-  });
-
-  test('runtime catalog skips review-only sheets with no runtime path', () {
-    final catalog = ArtCatalog.fromJson('''
-      {
-        "schemaVersion": "art-manifest-v1",
-        "assets": [
-          {
-            "manifestId": "chr_body_base",
-            "family": "character",
-            "variant": "base",
-            "runtimePath": "assets/art/character/chr_body_base.webp",
-            "sizePx": [1024, 1024],
-            "sourceSizePx": [1024, 1024],
-            "pivot": [0.5, 0.86],
-            "zLayer": "SLOT-BODY",
-            "runtimeIncluded": true
-          },
-          {
-            "manifestId": "chr_concept_sheet",
-            "family": "qa",
-            "variant": "review",
-            "runtimePath": null,
-            "runtimeIncluded": false
-          }
-        ]
-      }
-    ''');
-
-    expect(catalog['chr_body_base'], isNotNull);
-    expect(catalog['chr_concept_sheet'], isNull);
   });
 
   group('AuraArtSelection', () {

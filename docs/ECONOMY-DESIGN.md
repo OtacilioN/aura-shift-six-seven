@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Design de Economia
 
-> Status: estrutura e precisão `arith-v1` aprovadas; parâmetros `balance-v0.2` implementados em 11 de julho de 2026 e ainda aguardando a matriz de simulação.
+> Status: estrutura e precisão `arith-v1` aprovadas; parâmetros candidatos `balance-v0.3` substituem `balance-v0.2` e ainda aguardam a matriz de simulação.
 
 ## Objetivos
 
@@ -185,7 +185,7 @@ O Multiplicador de Ascensão é aplicado uma única vez depois de cada soma. Cá
 
 Esse modelo combina custos geométricos, ganhos aditivos e saltos de marco. Ele evita tanto a dominância permanente causada por custos lineares quanto a instabilidade de ganhos exponenciais puros por nível. Se uma Compra em Lote atravessar vários marcos, todos os fatores são aplicados, mas a interface usa uma celebração consolidada.
 
-### Escada econômica dos ramos — `balance-v0.2`
+### Escada econômica dos ramos — `balance-v0.3`
 
 | Profundidade | Custo-base de `A/B/C` | Contribuição-base | Gate | Investimento exato | Contribuição no gate |
 | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -203,7 +203,7 @@ A escada de contribuição, expressa em `Aura/s por nível`, é deliberadamente 
 
 No último item, as contribuições antes da Ascensão são `67.000.000 Aura/s` no nível `1`, `1.340.000.000 Aura/s` no nível `10`, `6.700.000.000 Aura/s` no nível `25`, `26.800.000.000 Aura/s` no nível `50` e `107.200.000.000 Aura/s` no nível `100`. Essas fixtures tornam explícito o salto mais sensível da escada e devem ser confrontadas com a janela `1T→1Qa`.
 
-Os números são o baseline identificado `balance-v0.2`, não constantes imunes a teste. Uma mudança posterior só é aceita em nova versão e deve atualizar conjuntamente todas as tabelas e fixtures numéricas.
+Os números são o baseline identificado `balance-v0.3`, não constantes imunes a teste. Uma mudança posterior só é aceita em nova versão e deve atualizar conjuntamente todas as tabelas e fixtures numéricas.
 
 ## Progressão da Loja
 
@@ -215,14 +215,14 @@ As seis Técnicas formam uma trilha paralela sem Pré-requisitos internos: `TECH
 | --- | ---: | ---: | ---: |
 | `TECH-01` | início | `45 Aura` | `1 Aura/ciclo` |
 | `TECH-02` | `1K` | `67 Aura` | `5 Aura/ciclo` |
-| `TECH-03` | `1M` | `67.000 Aura` | `5.000 Aura/ciclo` |
-| `TECH-04` | `1B` | `67.000.000 Aura` | `5.000.000 Aura/ciclo` |
-| `TECH-05` | `1T` | `67.000.000.000 Aura` | `5.000.000.000 Aura/ciclo` |
-| `TECH-06` | `1Qa` | `67.000.000.000.000 Aura` | `5.000.000.000.000 Aura/ciclo` |
+| `TECH-03` | `1M` | `67.000 Aura` | `500 Aura/ciclo` |
+| `TECH-04` | `1B` | `67.000.000 Aura` | `500.000 Aura/ciclo` |
+| `TECH-05` | `1T` | `67.000.000.000 Aura` | `500.000.000 Aura/ciclo` |
+| `TECH-06` | `1Qa` | `67.000.000.000.000 Aura` | `500.000.000.000 Aura/ciclo` |
 
 Depois da exceção inicial de `TECH-01`, cada custo-base equivale exatamente a `6,7%` do Patamar que revelou a Técnica. Isso a torna uma recompensa economicamente próxima, mas não gratuita. Em jornadas posteriores, o desbloqueio permanente permite vê-la desde cedo, enquanto o custo crescente ainda controla o momento da recompra.
 
-Da segunda Técnica em diante, custo-base e Contribuição-base aumentam juntos por `1.000×`. O `balance-v0.2` reduziu essas contribuições de `6,7` para `5 Aura/ciclo` na primeira magnitude tardia, uma queda de aproximadamente `25,37%`, sem alterar custos, desbloqueios ou saves. A eficiência-base passa de `1/10` para `5/67`, preservando a comparação entre magnitudes e dando mais espaço à Produção Passiva.
+Em `balance-v0.3`, o custo-base continua crescendo `1.000×` por Técnica depois de `TECH-02`. A contribuição de `TECH-03` a `TECH-06` é `500`, `500.000`, `500.000.000` e `500.000.000.000 Aura/ciclo` por nível: a partir de `TECH-03`, ela também cresce `1.000×` entre entradas. Em relação a `balance-v0.2`, é um nerf uniforme de `10×` dessas quatro Técnicas, sem alterar custos, desbloqueios ou saves. A eficiência-base de cada uma é exatamente `1/134`, metade da eficiência `5/67` de `TECH-02`, preservando espaço para a Produção Passiva.
 
 Níveis não possuem limite econômico planejado. A Loja permite `×1`, `×10` e `MÁX`. O custo de `×10` é a soma real dos próximos dez níveis; `MÁX` compra a maior quantidade inteira pagável. O Complemento de Aura é restrito a uma aquisição ou nível em `×1` e nunca cobre Compra em Lote.
 
@@ -298,4 +298,4 @@ O multiplicador é sempre recalculado a partir de `L`, nunca multiplicado por si
 
 ## Estado do modelo
 
-Parâmetros do catálogo, aritmética e apresentação numérica estão definidos e versionados como `balance-v0.2`, `arith-v1` e `number-format-v1`. A próxima etapa econômica é executar `balance-v0.2` contra `balance-gate-v1`; ajustes posteriores somente podem entrar em uma nova versão identificada.
+Parâmetros do catálogo, aritmética e apresentação numérica estão definidos e versionados como `balance-v0.3`, `arith-v1` e `number-format-v1`. A próxima etapa econômica é executar `balance-v0.3` contra `balance-gate-v1`; ajustes posteriores somente podem entrar em uma nova versão identificada.

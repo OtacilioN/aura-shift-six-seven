@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" color-interpolation="sRGB" shape-rendering="geometricPrecision">
-  <title>chr_mouth_satisfaction</title>
-  <desc>Canonical pseudo-rig component mouth_satisfaction. Original project-authored procedural vector, art-v1.</desc>
-  <metadata>manifestId=chr_mouth_satisfaction;style=art-v1;license=project-original</metadata>
-  <defs></defs>
-  <g id="asset"><g id="mouth_satisfaction"><path d="M84 126 Q128 178 172 126" fill="none" stroke="#090B1A" stroke-width="15" stroke-linecap="round"/></g></g>
-</svg>

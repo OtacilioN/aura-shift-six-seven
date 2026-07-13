@@ -34,13 +34,13 @@ A integração Flutter de anúncios recompensados é documentada diretamente pel
 
 ## Rive
 
-Rive não integra o MVP Android v1.0. O Mascote e suas 18 Aparências de Item precisam funcionar com o pseudo-rig Flame. Rive somente pode voltar a ser avaliado depois da primeira publicação, por nova decisão de escopo.
+Rive não integra o MVP Android v1.0. O Mascote e suas 18 Aparências de Item precisam funcionar com o pseudo-rig Canvas na cena Flame. Rive somente pode voltar a ser avaliado depois da primeira publicação, por nova decisão de escopo.
 
 ## Condições de reavaliação
 
 A escolha poderá ser reaberta se a prova técnica demonstrar que:
 
-- o pseudo-rig Flame não sustenta os 18 Itens e cinco Transformações;
+- o pseudo-rig Canvas na cena Flame não sustenta os 18 Itens e cinco Transformações;
 - o áudio em camadas apresenta drift inaceitável sem alternativa simples;
 - um requisito crítico de Android ou iOS não é atendido;
 - uma dependência essencial viola licença, 16 KB ou estabilidade;

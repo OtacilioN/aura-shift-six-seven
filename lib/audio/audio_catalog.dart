@@ -12,8 +12,8 @@ abstract final class AudioIds {
   static const phaseBloom = 'MUS-PHASE-BLOOM';
   static const ritual67 = 'MUS-RITUAL-6-7';
 
-  /// Boss Shift is intentionally first: it is the main theme on every cold
-  /// start and again when the complete soundtrack cycle wraps.
+  /// Stable catalog order. Runtime playback shuffles this list once per app
+  /// session and advances it only when the player changes menu.
   static const soundtrack = <String>[
     bossShift,
     neonDrift67,

@@ -67,13 +67,13 @@ Contém Mascote, Área de Aura, contadores, progressão imediata e acesso a um p
 
 ### Loja
 
-Contém Técnicas Six-Seven e Árvore de Aura, incluindo Pré-requisitos, compras `×1`, `×10` e `MÁX` e Complemento de Aura elegível. Cada card informa o próximo Marco de Nível e compara a contribuição atual com a projetada após o salto.
+Contém uma única Árvore de Aura visual, sem aba ou lista separada de Técnicas. As seis Técnicas Six-Seven formam o tronco central distribuído pelos Patamares; Poise, Motion e Signal permanecem os únicos três Ramos de Aura, e as Convergências ocupam uma camada compartilhada. Cada nó abre detalhe, requisitos, compras `×1`, `×10` e `MÁX` e Complemento de Aura elegível. O detalhe informa o próximo Marco de Nível e compara a contribuição atual com a projetada após o salto.
 
 Se valores distintos de uma comparação produzirem o mesmo texto compacto, a interface não aumenta arbitrariamente as casas: ela calcula a diferença exatamente. Para saldo insuficiente, a ação mostra `Faltam {diferença} Aura`; para contribuição atual contra projetada, mostra `+{diferença} Aura/ciclo` ou `+{diferença} Aura/s`. O rótulo curto pode seguir `number-format-v1`; um detalhe acionável e a leitura assistiva oferecem a representação completa. Quando elegível, o Complemento de Aura reutiliza exatamente a falta, sem sugerir que os dois valores abreviados eram economicamente iguais.
 
 Quando uma Compra em Lote atravessa um ou mais Marcos de Nível, o nível, o novo efeito e todos os fatores alcançados são aplicados imediatamente. A interface apresenta uma única celebração consolidada para evitar uma sequência de modais; o feedback usa componentes compartilhados e não exige nova arte exclusiva em marcos ilimitados.
 
-A Árvore de Aura mostra três ramos simétricos e as Convergências em uma camada visual compartilhada. Um bloqueio informa separadamente o Patamar de Aura, o item predecessor e o nível ainda necessário. Convergências exibem os três requisitos lado a lado; elas parecem objetivos extras, não um corredor obrigatório para Ascensão.
+A Árvore de Aura mostra as Técnicas intercaladas no eixo central e os três ramos simétricos em trilhas Poise, Motion e Signal, organizados em faixas de Patamar. Motion compartilha o alinhamento central em estágios alternados, mas forma uma trilha distinta por rótulo, cor e forma. Faixa, halo e proximidade expressam liberação conjunta por Aura Total, nunca Pré-requisito: Técnicas continuam independentes umas das outras e dos Itens do mesmo Patamar. Conectores de Pré-requisito são reservados às relações econômicas reais, inclusive `TECH-01` no nível `1` para os três Itens-raiz. Um bloqueio informa separadamente o Patamar de Aura, o item predecessor e o nível ainda necessário. Convergências exibem os três requisitos lado a lado; elas parecem objetivos extras, não um corredor obrigatório para Ascensão.
 
 ### Coleção
 
@@ -90,7 +90,7 @@ Voltar fecha primeiro diálogo, folha, detalhe ou subtela antes de sair. Trocar 
 O mapa completo é:
 
 - **Jogar:** indicadores, Área de Aura, Detalhes de Aura e acesso contextual à Ascensão;
-- **Loja:** Técnicas e Árvore de Aura; detalhe, requisitos e compra permanecem dentro da Loja;
+- **Loja:** uma única Árvore de Aura com Técnicas no tronco central, Ramos e Convergências; detalhe, requisitos e compra permanecem dentro da Loja;
 - **Coleção:** Aparências, Transformações, Conquistas e Selos 67 com estado econômico separado;
 - **Ajustes:** idioma, canais sensoriais, acessibilidade, Backup Manual, privacidade, tutorial, créditos e licenças.
 

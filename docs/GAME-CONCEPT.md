@@ -33,13 +33,13 @@ A Coleção Visual é permanente. Após uma Ascensão, Aparências e variações
 
 ### Direção visual inicial
 
-O Mascote é apresentado em 2D estilizado, com um rig-base reutilizado por todas as variações. Corpo, mãos, Aparências de Item, efeitos de Aura e fundo são camadas modulares. A produção inicial não utiliza personagem 3D.
+O Mascote é apresentado em 2D estilizado, com corpo, rosto, braços e mãos desenhados proceduralmente em Canvas. Aparências de Item, efeitos de Aura e fundo permanecem camadas modulares sobre essa base. A produção inicial não utiliza personagem 3D.
 
 Transformações de Aura podem combinar paleta, partículas, iluminação, rastros e alterações de fundo para comunicar crescimento sem exigir uma nova animação completa a cada marco.
 
 O jogo utiliza uma composição principal em orientação vertical: indicadores de progressão no topo, Mascote e interação central no meio e navegação na região inferior. A experiência prioriza uso confortável com uma mão e não possui uma composição horizontal dedicada no primeiro lançamento.
 
-A navegação inferior possui quatro áreas: **Jogar**, **Loja**, **Coleção** e **Ajustes**. Jogar concentra Mascote e produção; Loja reúne Técnicas e Árvore de Aura; Coleção reúne personalização, Transformações, Conquistas e Selos 67; Ajustes reúne idioma, canais sensoriais, acessibilidade, backup, privacidade e créditos. Detalhes econômicos abrem como painel sobre Jogar.
+A navegação inferior possui quatro áreas: **Jogar**, **Loja**, **Coleção** e **Ajustes**. Jogar concentra Mascote e produção; Loja apresenta uma única Árvore de Aura com as Técnicas no tronco central; Coleção reúne personalização, Transformações, Conquistas e Selos 67; Ajustes reúne idioma, canais sensoriais, acessibilidade, backup, privacidade e créditos. Detalhes econômicos abrem como painel sobre Jogar.
 
 A interação ativa ocorre em uma **Área de Aura** ampla na região central. Qualquer toque nessa área avança a fase vigente, sem exigir que o jogador acerte o Mascote, uma mão específica ou lados alternados. O ponto tocado e o Mascote respondem visualmente; regiões ocupadas por controles não contam para o ciclo.
 
@@ -186,7 +186,7 @@ Cada ramo possui cinco nós. Os itens posteriores ao Item-raiz exigem o predeces
 
 As Convergências custam `6.700`, `26,8M` e `670T Aura` e produzem `7,5`, `3.350` e `13,4B Aura/s` por nível. No primeiro nível, cada uma acrescenta exatamente `1/6` da produção somada dos três nós diretamente exigidos. O preço adicional permanece material, e a terceira Convergência funciona como objetivo opcional para uma jornada prolongada depois de `1Qa`, em vez de atrasar obrigatoriamente a Ascensão.
 
-No conjunto atual `balance-v0.2`, os custos-base espelhados das cinco profundidades são `270`, `2.350`, `67.000`, `67.000` e `67 bilhões de Aura`. A repetição de `67.000` é intencional: exigir nível `100` em vez de `50` já transforma centenas de milhões em centenas de bilhões de investimento. Esses números são uma hipótese controlada para simulação, não motivo para permitir compras antes do Patamar correspondente.
+No conjunto atual `balance-v0.3`, os custos-base espelhados das cinco profundidades são `270`, `2.350`, `67.000`, `67.000` e `67 bilhões de Aura`. A repetição de `67.000` é intencional: exigir nível `100` em vez de `50` já transforma centenas de milhões em centenas de bilhões de investimento. Esses números são uma hipótese controlada para simulação, não motivo para permitir compras antes do Patamar correspondente.
 
 As contribuições-base passivas dessas profundidades, expressas em `Aura/s por nível`, são `0,75`, `6,7`, `67`, `6.700` e `67.000.000` antes dos Marcos. A escada não usa um multiplicador uniforme: ela acompanha os diferentes gates e preserva espaço entre `1K`, `1M`, `1B`, `1T` e `1Qa`. O último salto é deliberadamente tratado como o ponto mais sensível da simulação.
 
@@ -194,7 +194,7 @@ Os Patamares permanentes seguem `1K`, `1M`, `1B`, `1T` e `1Qa` de Aura Total. Ca
 
 O catálogo fechado do MVP possui exatamente 18 Itens de Aura: cinco itens próprios em cada um dos três Ramos de Aura e três Itens de Convergência que exigem progresso em mais de um ramo. Uma progressão separada contém exatamente seis Técnicas Six-Seven, e a Aura Total desbloqueia exatamente cinco Transformações de Aura. Conteúdo excedente não entra na primeira publicação.
 
-`TECH-01` começa disponível; `TECH-02` a `TECH-06` são liberadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa`. Seus custos-base são `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`; suas Contribuições-base em `balance-v0.2` são `1`, `5`, `5K`, `5M`, `5B` e `5T Aura/ciclo por nível`. Depois da primeira Técnica, cada custo corresponde a `6,7%` do Patamar associado e custo e ganho crescem separadamente na mesma escala de `1.000×`. Elas não exigem níveis umas das outras. Ascensão reinicia seus níveis, mas a Aura Total preservada mantém a trilha inteira já descoberta.
+`TECH-01` começa disponível; `TECH-02` a `TECH-06` são liberadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa`. Seus custos-base são `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`; suas Contribuições-base em `balance-v0.3` são `1`, `5`, `500`, `500K`, `500M` e `500B Aura/ciclo por nível`. Depois da primeira Técnica, cada custo corresponde a `6,7%` do Patamar associado. `TECH-03` a `TECH-06` crescem `1.000×` entre si e têm eficiência-base constante de `1/134`, enquanto `TECH-02` permanece em `5/67`. Elas não exigem níveis umas das outras. Ascensão reinicia seus níveis, mas a Aura Total preservada mantém a trilha inteira já descoberta.
 
 ## Progressão de longo prazo
 

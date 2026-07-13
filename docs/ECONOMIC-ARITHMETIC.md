@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Aritmética Econômica Exata
 
-> Status: representação e ordem econômica `arith-v1` implementadas; `balance-v0.2` reutiliza a mesma precisão inteira e substitui a fórmula de recompensa repetida da Ascensão.
+> Status: representação e ordem econômica `arith-v1` implementadas; `balance-v0.3` reutiliza a mesma precisão inteira e mantém a fórmula de Ascensão introduzida em `balance-v0.2`.
 
 ## Objetivo
 

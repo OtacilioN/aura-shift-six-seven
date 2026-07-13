@@ -51,20 +51,21 @@ O estado econômico e as regras do jogo não devem depender da renderização. F
 
 ## Mascote
 
-O baseline usa um pseudo-rig de componentes Flame: corpo, mãos, rosto, Aparências de Item, Aura e efeitos como camadas independentes. O movimento Six-Seven inicial não requer animação esquelética externa.
+O baseline usa um pseudo-rig procedural em Canvas dentro de `AuraScene`: corpo, mãos e rosto são desenhados por código; Aparências de Item, Aura e efeitos permanecem camadas independentes. O movimento Six-Seven inicial não requer sprites de personagem nem animação esquelética externa.
 
-Pivôs, ordem de camadas, envelopes dos seis slots, dimensões, formatos, atlases e variantes reduzidas seguem o contrato `asset-manifest-v1` de `ASSET-MANIFEST.md`. A cena escala o palco lógico uniformemente e usa os metadados como fonte de verdade; coordenadas ou pivôs não ficam duplicados em componentes individuais.
+Pivôs, ordem de camadas, envelopes dos slots, dimensões, formatos, atlases e variantes reduzidas das skins seguem o contrato `asset-manifest-v1` de `ASSET-MANIFEST.md`. A cena escala o palco lógico uniformemente e usa esses metadados para sobrepor as skins; a geometria do personagem procedural permanece em `aura_scene.dart`.
 
-Rive não será avaliado nem integrado durante o MVP. O pseudo-rig precisa cumprir o escopo usando Flame; qualquer reconsideração pertence a uma atualização futura e exige nova decisão documentada.
+Rive não será avaliado nem integrado durante o MVP. O pseudo-rig Canvas precisa cumprir o escopo usando Flame; qualquer reconsideração pertence a uma atualização futura e exige nova decisão documentada.
 
 ## Áudio
 
-O runtime usa `flame_audio`, com efeitos de ciclo pré-carregados e uma playlist
-de sete mixes completos `non-loop`. `Boss Shift` é o tema principal e abre toda
-sessão; as demais faixas avançam em ordem fixa. Uma voz musical permanece ativa
-normalmente e duas coexistem somente no crossfade equal-power de `1 s`. A
-posição do player antecipa a troca e a conclusão funciona como fallback
-idempotente; navegar entre abas não reinicia a trilha.
+O runtime usa `flame_audio`, com efeitos de ciclo pré-carregados e sete mixes
+completos sem markers de loop. Na abertura, uma shuffle bag sorteia a sequência
+da sessão e sua primeira faixa. Uma voz musical permanece em loop enquanto o
+jogador continua no mesmo menu; duas coexistem somente no crossfade equal-power
+de `1 s` disparado por uma troca entre Jogar, Loja, Coleção e Ajustes. Posição e
+conclusão do player não avançam a sequência, e as sete faixas são consumidas
+antes de novo embaralhamento sem repetição imediata.
 
 O pacote de integração segue `audio-manifest-v2`: fontes musicais preservadas em
 WAV `44,1 kHz/24-bit`, masters em WAV `48 kHz/24-bit`, música runtime em Ogg e

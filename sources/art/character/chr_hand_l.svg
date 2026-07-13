@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" color-interpolation="sRGB" shape-rendering="geometricPrecision">
-  <title>chr_hand_l</title>
-  <desc>Canonical pseudo-rig component hand_l. Original project-authored procedural vector, art-v1.</desc>
-  <metadata>manifestId=chr_hand_l;style=art-v1;license=project-original</metadata>
-  <defs></defs>
-  <g id="asset"><g id="hand_left"><ellipse cx="256" cy="292" rx="148" ry="132" fill="#202750" stroke="#090B1A" stroke-width="24"/><circle cx="151" cy="172" r="65" fill="#202750" stroke="#090B1A" stroke-width="22"/><circle cx="245" cy="132" r="68" fill="#202750" stroke="#090B1A" stroke-width="22"/><circle cx="340" cy="174" r="64" fill="#202750" stroke="#090B1A" stroke-width="22"/><path d="M374 246 C452 222 472 286 430 338 C400 375 358 370 332 338 Z" fill="#202750" stroke="#090B1A" stroke-width="22" stroke-linejoin="round"/><path d="M160 247 C210 214 304 208 350 246" fill="none" stroke="#43E6FF" stroke-width="18" stroke-linecap="round" opacity="0.80"/><ellipse cx="248" cy="318" rx="55" ry="24" fill="#F7F5FF" opacity="0.13"/></g></g>
-</svg>

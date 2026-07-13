@@ -11,23 +11,23 @@
       "approvalStatus": "approved",
       "integrationStatus": "integrated",
       "manifest": "assets/manifests/art-approved-manifest-v1.json",
-      "manifestSha256": "cfeda03fec5097a21bd1b2c8b1a43cb939d0fdf157e2c31862d562e0e8e8e69f",
-      "reviewOnlyEntries": 3,
+      "manifestSha256": "62d44744b67739c5271743de16be3077ad7a8d22e87cea693189743e719f2129",
+      "reviewOnlyEntries": 0,
       "revision": 3,
       "runtimeConsumers": {
-        "scene": 136,
-        "total": 219,
+        "scene": 120,
+        "total": 203,
         "ui": 83
       },
-      "runtimeEntries": 219,
+      "runtimeEntries": 203,
       "sourceManifest": "assets/manifests/art-manifest-v1.json",
-      "sourceManifestSha256": "88e0aee606881cf32a263d7d4179093229b66f3fce26ed70860c32761ccd650e"
+      "sourceManifestSha256": "58d4a54815c85b31668c17cf0f14bbd3ba66038cad2a1765aaf89df10e7c49e7"
     },
     "audio": {
       "approvalStatus": "approved",
       "integrationStatus": "integrated",
       "manifest": "assets/audio/audio-manifest-v2.json",
-      "manifestSha256": "bff230e89fc9feb480fc6f9b4d8a954ea6d61baf8f8cf8a32df9fb234993f817",
+      "manifestSha256": "d8f62d6710de8760c2b92d145358d6baae1bc07f5ba02444852484fdba14f0d3",
       "revision": 1,
       "runtimeConsumers": {
         "cycle": 12,
@@ -43,7 +43,7 @@
         "wav": 35
       },
       "sourceManifest": "assets/audio/audio-candidate-manifest-v2.json",
-      "sourceManifestSha256": "825d9abcb7704001f2cd3a31a20b24ed4a18e07fda826b1ccb771a4144e8b83c"
+      "sourceManifestSha256": "3891879f14b0db9b85656a6bef224dbab81c6f5a9804c3398b6c07aa070b1c5a"
     },
     "brand": {
       "approvalStatus": "approved",
@@ -51,7 +51,7 @@
       "integrationStatus": "integrated-native-platforms",
       "revision": 2,
       "sourceManifest": "assets/manifests/brand-manifest-v1.json",
-      "sourceManifestSha256": "18ee7826361b0e0a035d2db0f97af7de53a1126eb8215a906e7f07485166c133"
+      "sourceManifestSha256": "d2189bea665d99fc99bdd6518beeb7a836e7b1d9881b8cddad2979e858e00d9b"
     },
     "fonts": {
       "approvalStatus": "approved",
@@ -65,13 +65,13 @@
   "musicSelection": {
     "decision": "assets/manifests/music-selection-approval-v1.json",
     "decisionDate": "2026-07-12",
-    "decisionSha256": "4dff5f18a55afd9774db8fa8320fc1c7fc53425f6b528be31647c2925e7f221c",
+    "decisionSha256": "b78d457f7e4032bb6c83022ddd3bafbc8b5aa07f7dfb139e2871621b702f8128",
     "decisionSource": "human-user",
     "primaryTrack": "MUS-BOSS-SHIFT"
   },
   "remainingDeviceValidation": [
     "adaptive-icon-splash-and-safe-area-device-test",
-    "android-playlist-crossfade-focus-and-resume-test",
+    "android-menu-loop-shuffle-crossfade-focus-and-resume-test",
     "arabic-japanese-reflow-and-200-percent-text-scale-test",
     "chatgpt-commercial-terms-record",
     "independent-music-similarity-review",

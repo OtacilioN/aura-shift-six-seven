@@ -107,7 +107,7 @@ P01 e P02 podem começar imediatamente em paralelo. As demais rodadas seguem as 
 
 ### P05 — Direção visual, Mascote e bíblia de assets
 
-- **Objetivo:** fechar uma identidade original, marcante e produzível com o pseudo-rig já planejado.
+- **Objetivo:** fechar uma identidade original, marcante e produzível com o pseudo-rig Canvas já planejado.
 - **Entregáveis:** linguagem gráfica, referências permitidas e proibidas, paleta-base, progressão cromática, character sheet, mãos, identidade dos Ramos, cinco concept sheets de Transformação, Aura, fundos, Selos 67, slots de Aparência, pivôs, camadas, formatos, dimensões e inventário de assets.
 - **Critério de saída:** o estilo está aprovado; Mascote e Transformações são reconhecíveis; cada asset possui especificação de produção e alternativa reduzida quando aplicável.
 - **Dependências:** P01, P03 e os territórios de conteúdo de P04.
@@ -183,6 +183,6 @@ O planejamento criativo e de experiência está pronto quando:
 1. Iniciar desenvolvimento usando contratos e inventários estáveis.
 2. Arte e áudio avançam de especificação para produção; nenhum arquivo recebe status final sem proveniência, QA e aprovação.
 3. A build comprova reflow, RTL, TalkBack, contraste, performance, áudio/haptics e os oito idiomas em tela.
-4. `balance-v0.2` substitui o baseline inicial, continua separado e só é aprovado como balanceamento final depois de passar por `balance-gate-v1`.
+4. `balance-v0.3` substitui `balance-v0.2`, continua separado e só é aprovado como balanceamento final depois de passar por `balance-gate-v1`.
 
 O roadmap não considera stubs, placeholders ou afirmações sem evidência como conclusão de asset, master, revisão nativa, clearance jurídico ou QA de build.

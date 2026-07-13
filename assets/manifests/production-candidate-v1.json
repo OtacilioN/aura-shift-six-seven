@@ -1,45 +1,43 @@
 {
   "components": {
     "art": {
-      "entries": 222,
+      "entries": 203,
       "manifest": "assets/manifests/art-manifest-v1.json",
-      "manifestSha256": "98cc36b0b8a8fa31d5eca3d2815d6d5855eefed0323a472599d7ad0dc985311a",
-      "reviewOnlyEntries": 3,
+      "manifestSha256": "58d4a54815c85b31668c17cf0f14bbd3ba66038cad2a1765aaf89df10e7c49e7",
+      "reviewOnlyEntries": 0,
       "revision": 3,
-      "runtimeBytes": 1403534,
-      "runtimeEntries": 219
+      "runtimeBytes": 1565576,
+      "runtimeEntries": 203
     },
     "audio": {
-      "conditionalMasters": 4,
+      "conditionalMasters": 0,
       "coreAudio": {
-        "musicFrameCountExact": "9/9",
-        "musicSeamGate": "9/9",
-        "musicZeroOffsetAligned": "0/9",
-        "sfxSampleExact": "35/35"
+        "musicFrameCountExact": true,
+        "musicManifestLoopMarkers": false,
+        "musicRuntimeLoopedByController": true,
+        "sfxPcm16": true
       },
-      "manifest": "assets/audio/audio-candidate-manifest-v1.json",
-      "manifestSha256": "18c2efd2243054d8f3ddfd149a6df724a777e09e61e0a6dcdc8bbc3539a2e6dd",
-      "masterBytes": 216686416,
-      "masters": 44,
-      "requiredMasters": 40,
-      "reviewEvidenceRevision": 2,
-      "reviewEvidenceSha256": "0d7123c8c8ecab87133800bb38051a48a1848a92f33264e8ad5d922e1dd0a335",
-      "revision": 3,
-      "runtimeBytes": 10764639,
+      "manifest": "assets/audio/audio-candidate-manifest-v2.json",
+      "manifestSha256": "3891879f14b0db9b85656a6bef224dbab81c6f5a9804c3398b6c07aa070b1c5a",
+      "masterBytes": 56484522,
+      "masters": 42,
+      "requiredMasters": 42,
+      "revision": 1,
+      "runtimeBytes": 7495129,
       "runtimeFormats": {
-        "ogg": 9,
+        "ogg": 7,
         "wav": 35
       }
     },
     "brand": {
-      "bytes": 2375767,
+      "bytes": 2375768,
       "featureGraphic": "assets/brand/aura_shift_feature_graphic_v1.webp",
       "featureGraphicSha256": "e7820259ad5f2b087f6b6dee0f54cfd94b46ce63affde60075475260a4568559",
       "files": 39,
       "keyArt": "sources/art/concepts/aura_shift_key_art_imagegen_v1.png",
       "keyArtSha256": "f352b503699adc4126abeae4efe2aa6209977cd11c2593829879c1f640f94eea",
       "manifest": "assets/manifests/brand-manifest-v1.json",
-      "manifestSha256": "18ee7826361b0e0a035d2db0f97af7de53a1126eb8215a906e7f07485166c133",
+      "manifestSha256": "d2189bea665d99fc99bdd6518beeb7a836e7b1d9881b8cddad2979e858e00d9b",
       "revision": 2
     },
     "fonts": {
@@ -51,10 +49,10 @@
     }
   },
   "integration": {
-    "audioEventPlayback": "not-integrated",
-    "audioRuntime": "bundled-candidate",
+    "audioEventPlayback": "integrated-candidate",
+    "audioRuntime": "integrated-candidate",
     "visualSceneRuntime": "integrated-candidate",
-    "visualUiCollectionTree": "generated-bundled-not-integrated"
+    "visualUiCollectionTree": "integrated-candidate"
   },
   "manualGates": [
     "visual-cultural-originality-acceptance",

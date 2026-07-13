@@ -1,5 +1,5 @@
 {
-  "androidDeviceReview": "playlist-crossfade-focus-resume-pending",
+  "androidDeviceReview": "menu-loop-shuffle-crossfade-focus-resume-pending",
   "assets": [
     {
       "channels": 2,
@@ -5178,7 +5178,7 @@
   "status": "candidate-reviewed",
   "technicalReview": {
     "musicLoudnessTarget": "7/7 within 0.25 LU of -16 LUFS-I",
-    "musicPlayback": "non-loop single-voice playlist",
+    "musicPlayback": "controller-looped single-voice shuffled menu sequence",
     "musicRuntimeFrameCount": "7/7",
     "musicSources": "7/7 WAV PCM24 stereo validated",
     "sfxInherited": "35/35 unchanged from r3"

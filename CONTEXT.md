@@ -73,8 +73,8 @@ Quantidade exata de Aura gerada quando a Fase Seven conclui um Ciclo Six-Seven. 
 _Evitar_: Aura por clique, força do clique, Aura por toque
 
 **Técnica Six-Seven**:
-Melhoramento ativo que aumenta a Potência de Ciclo ao aperfeiçoar tematicamente o movimento do personagem. `TECH-01` existe desde o início; as demais são desbloqueadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa` de Aura Total e possuem custo-base equivalente a `6,7%` do respectivo Patamar.
-_Evitar_: upgrade de clique, item ativo
+Melhoramento ativo que aumenta a Potência de Ciclo ao aperfeiçoar tematicamente o movimento do personagem. As seis Técnicas ocupam o tronco central da Árvore de Aura, sem constituir um Ramo de Aura e sem exigir aquisição ou nível de outra Técnica. `TECH-01` existe desde o início; as demais são desbloqueadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa` de Aura Total e possuem custo-base equivalente a `6,7%` do respectivo Patamar.
+_Evitar_: upgrade de clique, item ativo, ramo de Técnica, sequência obrigatória de Técnicas
 
 **Item de Aura**:
 Melhoramento passivo ligado à presença do personagem e responsável por aumentar sua Produção Passiva.
@@ -113,11 +113,11 @@ Condição que exige níveis mínimos em um ou mais Itens de Aura para permitir 
 _Evitar_: preço, nível do jogador
 
 **Árvore de Aura**:
-Rede de progressão da Loja que organiza Itens de Aura em patamares e ramos temáticos conectados por Pré-requisitos de Item.
-_Evitar_: lista de itens, sequência linear
+Rede unificada de progressão da Loja que organiza as Técnicas Six-Seven como tronco central dos Patamares e os Itens de Aura em três ramos temáticos conectados por Pré-requisitos de Item, com Convergências opcionais. Reunir conteúdos do mesmo Patamar não cria dependência econômica.
+_Evitar_: lista de itens, sequência linear, quarta ramificação
 
 **Patamar de Aura**:
-Estágio permanente liberado por Aura Total na escada `1K`, `1M`, `1B`, `1T` e `1Qa`. Cada Patamar desbloqueia uma Transformação de Aura e os nós correspondentes da Árvore; o último também disponibiliza a primeira Ascensão.
+Estágio permanente liberado por Aura Total na escada `1K`, `1M`, `1B`, `1T` e `1Qa`. Cada Patamar desbloqueia uma Transformação de Aura, a Técnica correspondente e os Itens de Aura aplicáveis na Árvore; esses conteúdos não dependem da aquisição uns dos outros. O último Patamar também disponibiliza a primeira Ascensão.
 _Evitar_: tier, nível do jogador
 
 **Ramo de Aura**:

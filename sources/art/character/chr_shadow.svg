@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="256" viewBox="0 0 512 256" color-interpolation="sRGB" shape-rendering="geometricPrecision">
-  <title>chr_shadow</title>
-  <desc>Canonical pseudo-rig component shadow. Original project-authored procedural vector, art-v1.</desc>
-  <metadata>manifestId=chr_shadow;style=art-v1;license=project-original</metadata>
-  <defs><radialGradient id="shadow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#090B1A" stop-opacity="0.72"/><stop offset="72%" stop-color="#090B1A" stop-opacity="0.28"/><stop offset="100%" stop-color="#090B1A" stop-opacity="0.0"/></radialGradient></defs>
-  <g id="asset"><g id="shadow"><ellipse cx="256" cy="128" rx="218" ry="74" fill="url(#shadow)"/></g></g>
-</svg>

@@ -27,7 +27,7 @@ Não encadear mais de um overshoot no mesmo elemento. Tremor, câmera e parallax
 
 ## Estado do Ciclo e reentrada
 
-A fase canônica troca imediatamente no domínio de entrada. O pseudo-rig observa o estado e se move em direção à pose vigente. Novo contato durante a animação:
+A fase canônica troca imediatamente no domínio de entrada. O pseudo-rig Canvas observa o estado e se move em direção à pose vigente. Novo contato durante a animação:
 
 1. interrompe o tween anterior no valor visual atual;
 2. retargeta a pose em até um frame;
@@ -227,4 +227,4 @@ Limita partículas vivas a 12 e sua opacidade a `0,35`, remove emissor contínuo
 
 ## Riscos a validar na fatia vertical
 
-Latência real de áudio/haptic, diferenças de vibração entre fabricantes, retarget do pseudo-rig em cadências extremas, custo combinado de fundos e skins, e legibilidade de celebrações sobre UI localizada. Falha nesses testes reduz espetáculo antes de alterar semântica ou estado.
+Latência real de áudio/haptic, diferenças de vibração entre fabricantes, retarget do pseudo-rig Canvas em cadências extremas, custo combinado de fundos e skins, e legibilidade de celebrações sobre UI localizada. Falha nesses testes reduz espetáculo antes de alterar semântica ou estado.

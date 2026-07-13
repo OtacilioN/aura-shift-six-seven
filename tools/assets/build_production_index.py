@@ -37,11 +37,11 @@ def verify(relative: str, expected: str) -> None:
 
 def main() -> None:
     art_path, art = load("assets/manifests/art-manifest-v1.json")
-    audio_path, audio = load("assets/audio/audio-candidate-manifest-v1.json")
+    audio_path, audio = load("assets/audio/audio-candidate-manifest-v2.json")
     brand_path, brand = load("assets/manifests/brand-manifest-v1.json")
     font_path, fonts = load("assets/manifests/font-manifest-v1.json")
 
-    expected_revisions = ((art, 3), (audio, 3), (brand, 2), (fonts, 1))
+    expected_revisions = ((art, 3), (audio, 1), (brand, 2), (fonts, 1))
     for manifest, revision in expected_revisions:
         if manifest.get("status") != "candidate-reviewed":
             raise SystemExit("every component must remain candidate-reviewed")
@@ -93,25 +93,31 @@ def main() -> None:
                 "manifest": audio_path.relative_to(ROOT).as_posix(),
                 "manifestSha256": sha256(audio_path),
                 "revision": audio["revision"],
-                "reviewEvidenceRevision": audio["reviewEvidenceRevision"],
-                "reviewEvidenceSha256": audio["reviewBundle"]["sha256"],
                 "masters": len(audio["assets"]),
                 "requiredMasters": sum(bool(entry["required"]) for entry in audio["assets"]),
                 "conditionalMasters": sum(bool(entry["conditional"]) for entry in audio["assets"]),
                 "runtimeFormats": dict(sorted(runtime_formats.items())),
                 "coreAudio": {
-                    "musicFrameCountExact": audio["crossDecoderReview"][
-                        "musicOggFrameCountExact"
-                    ],
-                    "musicSeamGate": audio["crossDecoderReview"][
-                        "musicOggCoreAudioSeamGate"
-                    ],
-                    "musicZeroOffsetAligned": audio["crossDecoderReview"][
-                        "musicOggZeroOffsetAligned"
-                    ],
-                    "sfxSampleExact": audio["crossDecoderReview"][
-                        "sfxWavPcm16FrameAndValueExact"
-                    ],
+                    "musicRuntimeLoopedByController": True,
+                    "musicManifestLoopMarkers": False,
+                    "musicFrameCountExact": all(
+                        entry.get("reviewedMetrics", {})
+                        .get("decoder", {})
+                        .get("decodedFrames")
+                        == entry.get("reviewedMetrics", {})
+                        .get("decoder", {})
+                        .get("expectedFrames")
+                        for entry in audio["assets"]
+                        if entry["group"] == "music"
+                    ),
+                    "sfxPcm16": all(
+                        entry.get("reviewedMetrics", {})
+                        .get("runtime", {})
+                        .get("subtype")
+                        == "PCM_16"
+                        for entry in audio["assets"]
+                        if entry["group"] != "music"
+                    ),
                 },
                 "runtimeBytes": sum(
                     (ROOT / entry["runtimePath"]).stat().st_size
@@ -143,9 +149,9 @@ def main() -> None:
         },
         "integration": {
             "visualSceneRuntime": "integrated-candidate",
-            "visualUiCollectionTree": "generated-bundled-not-integrated",
-            "audioRuntime": "bundled-candidate",
-            "audioEventPlayback": "not-integrated",
+            "visualUiCollectionTree": "integrated-candidate",
+            "audioRuntime": "integrated-candidate",
+            "audioEventPlayback": "integrated-candidate",
         },
         "manualGates": [
             "visual-cultural-originality-acceptance",

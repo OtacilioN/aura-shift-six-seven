@@ -21,7 +21,7 @@ As versões estão fixadas. Para uma reprodução de arquivo idêntica, também
 registre arquitetura, Python, libsndfile e sistema operacional, pois o encoder
 Vorbis fornecido pelo wheel de SoundFile pode mudar entre plataformas.
 
-## Gerar e revisar
+## Gerar e revisar o snapshot histórico
 
 ```bash
 .asset-venv/bin/python tools/assets/generate_audio_assets.py
@@ -34,15 +34,20 @@ WAV PCM16 com dither determinístico. O revisor reabre todos os arquivos,
 recalcula hashes e métricas, compara duas renderizações integrais independentes
 e falha com código não zero quando um gate automatizável reprova.
 
+Estes comandos preservam somente a reprodutibilidade histórica do lote v1 e
+**não devem ser executados para montar o pacote atual**: eles recriam as nove
+músicas substituídas. O pipeline ativo parte do manifesto v2 com sete músicas
+selecionadas e 35 efeitos.
+
 Saídas principais:
 
-- `masters/audio/`: 40 masters obrigatórios e quatro mixes condicionais;
-- `assets/audio/`: exports runtime e manifesto candidato;
+- `masters/audio/`: 35 masters de SFX ainda aproveitados; os nove masters musicais v1 foram removidos;
+- `assets/audio/`: 35 SFX ainda aproveitados; os nove exports musicais v1 foram removidos;
 - `provenance/audio/`: registro por ID, sem alegação de aprovação;
 - `reports/audio-generation-report.md`: resultado consolidado e limitações;
 - `reports/audio-review-results.json`: evidência estruturada de QA;
-- `reports/audio-listening-sheet.html`: 44 players locais e roteiro do gate
-  humano, sem promover nenhum candidato.
+- `reports/audio-listening-sheet.html`: 42 players ativos (sete músicas e 35
+  SFX) e roteiro do gate humano, sem promover nenhum candidato.
 
 Não renomeie o manifesto candidato para `audio-manifest-v1.json`. O contrato do
 projeto reserva esse nome ao conjunto aprovado, e esta pipeline não realiza a

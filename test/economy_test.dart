@@ -148,16 +148,16 @@ void main() {
     controller.dispose();
   });
 
-  test('later Techniques use the nerfed balance-v0.2 contributions', () async {
+  test('Techniques use the balance-v0.3 base contributions', () async {
     expect(
       upgrades.where((upgrade) => upgrade.isTechnique).map((u) => u.base20),
       [
         BigInt.from(20),
         BigInt.from(100),
-        BigInt.from(100000),
-        BigInt.from(100000000),
-        BigInt.from(100000000000),
-        BigInt.from(100000000000000),
+        BigInt.from(10000),
+        BigInt.from(10000000),
+        BigInt.from(10000000000),
+        BigInt.from(10000000000000),
       ],
     );
 
@@ -338,7 +338,42 @@ void main() {
     controller.dispose();
   });
 
-  test('balance-v0.2 backups require their canonical Ascension pool', () async {
+  test('balance-v0.2 backups remain importable and migrate to balance-v0.3',
+      () async {
+    final controller = await controllerWith({});
+    final imported = await controller.restoreState(jsonEncode({
+      'saveVersion': 1,
+      'arithVersion': 'arith-v1',
+      'balanceVersion': 'balance-v0.2',
+      'available': '123',
+      'journey': '456',
+      'total': '2000000000000456',
+      'remainder': '999',
+      'multiplier': '241',
+      'ascensions': 2,
+      'ascensionAura': '2000000000000000',
+      'levels': {'TECH-03': 2},
+    }));
+
+    expect(imported, isTrue);
+    expect(controller.available, BigInt.from(123));
+    expect(controller.journey, BigInt.from(456));
+    expect(controller.total, BigInt.parse('2000000000000456'));
+    expect(controller.remainder, BigInt.from(999));
+    expect(controller.ascensionAura, BigInt.parse('2000000000000000'));
+    expect(controller.multiplier, BigInt.from(241));
+    expect(controller.level('TECH-03'), 2);
+    expect(controller.power20, BigInt.from(20020));
+    expect(
+      (jsonDecode(controller.exportState())
+          as Map<String, dynamic>)['balanceVersion'],
+      balanceVersion,
+    );
+    controller.dispose();
+  });
+
+  test('current-balance backups require their canonical Ascension pool',
+      () async {
     final controller = await controllerWith({
       'available': '7',
       'journey': '7',

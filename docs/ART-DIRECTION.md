@@ -60,7 +60,7 @@ A progressão amplia alcance, contraste e geometria, não apenas saturação. Em
 
 ## Character sheet textual do Mascote
 
-O Mascote é uma criatura de Aura sem nome próprio obrigatório, gênero, idade, espécie ou origem nacional declarados. O corpo é um volume único em forma de gota invertida truncada: topo largo, base curta e dois pés semicirculares. O rosto ocupa o terço superior, com dois olhos ovais inclinados para dentro e boca curta capaz de cinco expressões. Não há nariz, cabelo, orelha ou anatomia humana detalhada.
+O personagem atual é o **Rua Pixel kid**, desenhado proceduralmente em Canvas: boné `67`, camiseta `SIX SEVEN`, tênis grandes, cabelo, lágrimas azuis e mãos articuladas voltadas para cima. Ele é a única referência visual vigente para roupas, props e efeitos de cena; o antigo mascote abstrato não faz parte do produto.
 
 ### Proporções canônicas
 
@@ -72,15 +72,15 @@ O Mascote é uma criatura de Aura sem nome próprio obrigatório, gênero, idade
 - olhos: eixo central em 32% da altura do corpo;
 - linha de ombros/pivôs dos braços: 43% da altura do corpo.
 
-As mãos precisam continuar sendo o maior detalhe externo da silhueta em todas as Transformações e com qualquer Aparência equipada.
+As mãos continuam sendo o maior detalhe externo da silhueta em todas as Transformações e com qualquer Aparência equipada.
 
 ### Vistas e expressões obrigatórias
 
-O sheet de produção contém frente neutra, frente Six, frente Seven, três-quartos esquerdo, perfil técnico e silhueta a 10% do tamanho. As cinco expressões-base são neutra, foco, satisfação, surpresa e celebração. Sobrancelhas são recortes flutuantes; a boca nunca precisa de sincronização labial.
+O Canvas precisa preservar uma leitura clara em neutro, Six e Seven, inclusive em miniatura. Expressão, cabelo, lágrimas, roupa e mãos pertencem ao mesmo desenho procedural; não há sheet raster separado nem sincronização labial.
 
 ### Mãos
 
-Cada mão é uma palma arredondada com três lóbulos curtos e um polegar destacado, sem unha ou linha anatômica. O desenho evita sinais culturais específicos: Six e Seven são posições de altura e inclinação, não gestos numéricos ou de linguagem de sinais.
+As mãos seguem o mesmo traço do Rua Pixel kid e preservam a leitura de palmas voltadas para cima. Six e Seven são posições de altura e inclinação, não gestos numéricos ou de linguagem de sinais.
 
 - **Pose neutra:** mãos na altura média, palmas em três-quartos para a câmera.
 - **Fase Six:** mão esquerda alta e 8° para dentro; mão direita baixa e 10° para fora.
@@ -195,7 +195,7 @@ Texto essencial é renderizado por UI, nunca rasterizado na arte. Molduras são 
 
 ## Produção e integração
 
-O inventário, convenções de nomes, dimensões, pivôs, camadas, formatos, variantes reduzidas e critérios de aceite estão em `ASSET-MANIFEST.md`. O pseudo-rig usa componentes Flame; Rive, 3D e animação quadro a quadro por combinação permanecem fora do MVP.
+O inventário, convenções de nomes, dimensões, pivôs, camadas, formatos, variantes reduzidas e critérios de aceite estão em `ASSET-MANIFEST.md`. O pseudo-rig do personagem é procedural em Canvas dentro da cena Flame; Rive, sprites `chr_*`, 3D e animação quadro a quadro por combinação permanecem fora do MVP.
 
 Cada asset final passa por:
 
@@ -210,4 +210,4 @@ Cada asset final passa por:
 
 `art-v1` fecha linguagem, paleta de arte, Mascote, mãos, territórios Poise/Motion/Signal, cinco Transformações, Aura, fundos, Selos, slots e contrato de exportação. Os conceitos das 18 Aparências vêm de `CONTENT-CATALOG.md` e respeitam os envelopes deste documento.
 
-Riscos residuais a validar na fatia vertical: sobreposição de combinações extremas de skins, legibilidade do pseudo-rig a oito contatos por janela móvel de um segundo, custo de partículas em aparelhos modestos e contraste conjunto entre arte e UI final.
+Riscos residuais a validar na fatia vertical: sobreposição de combinações extremas de skins, legibilidade do pseudo-rig Canvas a oito contatos por janela móvel de um segundo, custo de partículas em aparelhos modestos e contraste conjunto entre arte e UI final.

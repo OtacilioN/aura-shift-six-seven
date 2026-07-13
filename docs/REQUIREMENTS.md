@@ -208,7 +208,7 @@
 - **REQ-UX-011:** toques em regiões ocupadas por controles NÃO DEVEM avançar o Ciclo Six-Seven.
 - **REQ-UX-012:** a navegação inferior DEVE possuir exatamente quatro áreas principais: Jogar, Loja, Coleção e Ajustes.
 - **REQ-UX-013:** Jogar DEVE reunir Mascote, Área de Aura, indicadores e acesso aos detalhes econômicos.
-- **REQ-UX-014:** Loja DEVE reunir Técnicas Six-Seven e Árvore de Aura.
+- **REQ-UX-014:** Loja DEVE reunir Técnicas Six-Seven e Itens de Aura em uma única Árvore de Aura.
 - **REQ-UX-015:** Coleção DEVE reunir personalização, Transformações de Aura, Conquistas e Selos 67.
 - **REQ-UX-016:** Ajustes DEVE reunir idioma, música, efeitos, vibração, acessibilidade, Backup Manual, privacidade e créditos.
 - **REQ-UX-017:** detalhes de Aura DEVEM abrir como painel associado a Jogar e NÃO DEVEM criar uma quinta área principal.
@@ -225,6 +225,10 @@
 - **REQ-UX-028:** pan ou zoom visual da Árvore NÃO DEVE ser a única forma de alcançar um nó; uma rota linear e semântica equivalente DEVE existir.
 - **REQ-UX-029:** Convergências DEVEM expor os três requisitos separadamente e NÃO DEVEM comunicar obrigatoriedade para Patamar ou Ascensão.
 - **REQ-UX-030:** qualquer ação assíncrona econômica DEVE bloquear ativações repetidas até produzir resultado persistido, falha segura ou cancelamento.
+- **REQ-UX-031:** a Loja DEVE apresentar Técnicas Six-Seven e Itens de Aura em uma única Árvore de Aura visual, sem uma aba ou lista separada de Técnicas como navegação primária.
+- **REQ-UX-032:** `TECH-01` a `TECH-06` DEVEM ocupar o tronco central da Árvore em ordem visual de Patamar; Poise, Motion e Signal DEVEM permanecer os únicos três Ramos de Aura.
+- **REQ-UX-033:** faixa, halo, fundo ou proximidade entre conteúdos do mesmo Patamar NÃO DEVEM usar a mesma linguagem visual de um conector de Pré-requisito nem comunicar dependência econômica inexistente.
+- **REQ-UX-034:** a rota linear e semântica equivalente da Árvore DEVE incluir Técnicas, Itens de Ramo e Convergências na ordem dos Patamares.
 
 ## Sistema visual de UI — `ui-system-v1`
 
@@ -624,6 +628,8 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-SHOP-030:** a progressão ativa do MVP DEVE possuir exatamente seis Técnicas Six-Seven.
 - **REQ-SHOP-031:** a progressão visual do MVP DEVE possuir exatamente cinco Transformações de Aura.
 - **REQ-SHOP-032:** conteúdo adicional NÃO DEVE ser incluído antes da primeira publicação; futuras atualizações exigem nova decisão de escopo.
+- **REQ-SHOP-033:** integrar as seis Técnicas ao tronco visual da Árvore NÃO DEVE reclassificá-las como Itens de Aura nem alterar Potência de Ciclo, custos, níveis, desbloqueios ou regras de Ascensão.
+- **REQ-SHOP-034:** a superfície da Árvore DEVE conter exatamente os seis nós de Técnica e os 18 nós de Item de Aura do MVP; Transformações e Ascensão DEVEM permanecer marcos externos, não nós da Árvore.
 
 ## Curvas de melhoramento
 
@@ -657,9 +663,9 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-CURVE-028:** diferenças de progressão entre entradas DEVEM ser expressas por custo-base, contribuição-base, desbloqueio e Pré-requisitos, não pela razão geométrica.
 - **REQ-CURVE-029:** Ascensão de Aura e Marcos de Nível NÃO DEVEM alterar custos-base nem a razão geométrica.
 
-## Escada de custos dos Ramos de Aura — `balance-v0.2`
+## Escada de custos dos Ramos de Aura — `balance-v0.3`
 
-- **REQ-COST-001:** o conjunto atual de parâmetros de balanceamento DEVE ser identificado como `balance-v0.2`; ele substitui `balance-v0.1` e permanece candidato até passar por `balance-gate-v1`.
+- **REQ-COST-001:** o conjunto atual de parâmetros de balanceamento DEVE ser identificado como `balance-v0.3`; ele substitui `balance-v0.2` e permanece candidato até passar por `balance-gate-v1`.
 - **REQ-COST-002:** `ITEM-A/B/C-01` DEVEM possuir custo-base idêntico de `270 Aura`.
 - **REQ-COST-003:** `ITEM-A/B/C-02` DEVEM possuir custo-base idêntico de `2.350 Aura`.
 - **REQ-COST-004:** `ITEM-A/B/C-03` DEVEM possuir custo-base idêntico de `67.000 Aura`.
@@ -675,7 +681,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-COST-014:** o Patamar de Aura e o Pré-requisito de Item DEVEM continuar sendo verificados independentemente do preço; possuir Aura suficiente NÃO DEVE liberar uma compra antecipada.
 - **REQ-COST-015:** qualquer alteração nessa escada DEVE decorrer de uma revisão identificada da simulação, registrar o motivo e atualizar conjuntamente requisitos, parâmetros, catálogo e fixtures numéricas.
 
-## Escada de contribuições dos Ramos de Aura — `balance-v0.2`
+## Escada de contribuições dos Ramos de Aura — `balance-v0.3`
 
 - **REQ-CONTRIB-001:** a Contribuição-base de `ITEM-A/B/C-01` DEVE ser idêntica e igual a `+0,75 Aura/s` por nível.
 - **REQ-CONTRIB-002:** a Contribuição-base de `ITEM-A/B/C-02` DEVE ser idêntica e igual a `+6,7 Aura/s` por nível.
@@ -718,8 +724,10 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-TREE-024:** Itens de Convergência PODEM possuir parâmetros próprios e NÃO DEVEM ser obrigados a espelhar itens de ramo.
 - **REQ-TREE-025:** simulações Especialista A, B e C com o mesmo perfil e heurística DEVEM produzir resultados econômicos idênticos.
 - **REQ-TREE-026:** qualquer divergência entre especialistas A, B e C DEVE ser tratada como erro de dados ou implementação.
+- **REQ-TREE-027:** a composição visual da Árvore DEVE alinhar cada Técnica à faixa do Patamar que a desbloqueia, mantendo os conectores visíveis reservados às relações econômicas reais.
+- **REQ-TREE-028:** o tronco visual de Técnicas NÃO DEVE ser contado como Ramo de Aura, e Spectrum NÃO DEVE ser contado como Ramo de Aura.
 
-## Economia das Convergências — `balance-v0.2`
+## Economia das Convergências — `balance-v0.3`
 
 - **REQ-CONVECO-001:** `ITEM-CONV-01` DEVE possuir custo-base de `6.700 Aura` e Contribuição-base de `7,5 Aura/s` por nível.
 - **REQ-CONVECO-002:** `ITEM-CONV-02` DEVE possuir custo-base de `26.800.000 Aura` e Contribuição-base de `3.350 Aura/s` por nível.
@@ -781,15 +789,16 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-TECHPROG-024:** qualquer alteração nessa escada DEVE criar uma nova versão identificada de balanceamento e atualizar requisitos, parâmetros, catálogo e simulação.
 - **REQ-TECHPROG-025:** `TECH-01` DEVE manter a Contribuição-base de `+1 Aura/ciclo` por nível.
 - **REQ-TECHPROG-026:** `TECH-02` DEVE possuir Contribuição-base de `+5 Aura/ciclo` por nível.
-- **REQ-TECHPROG-027:** `TECH-03` DEVE possuir Contribuição-base de `+5.000 Aura/ciclo` por nível.
-- **REQ-TECHPROG-028:** `TECH-04` DEVE possuir Contribuição-base de `+5.000.000 Aura/ciclo` por nível.
-- **REQ-TECHPROG-029:** `TECH-05` DEVE possuir Contribuição-base de `+5.000.000.000 Aura/ciclo` por nível.
-- **REQ-TECHPROG-030:** `TECH-06` DEVE possuir Contribuição-base de `+5.000.000.000.000 Aura/ciclo` por nível.
+- **REQ-TECHPROG-027:** `TECH-03` DEVE possuir Contribuição-base de `+500 Aura/ciclo` por nível.
+- **REQ-TECHPROG-028:** `TECH-04` DEVE possuir Contribuição-base de `+500.000 Aura/ciclo` por nível.
+- **REQ-TECHPROG-029:** `TECH-05` DEVE possuir Contribuição-base de `+500.000.000 Aura/ciclo` por nível.
+- **REQ-TECHPROG-030:** `TECH-06` DEVE possuir Contribuição-base de `+500.000.000.000 Aura/ciclo` por nível.
 - **REQ-TECHPROG-031:** todas as contribuições de Técnica DEVEM permanecer exatas na escala `B20`, sem drift binário acumulado.
-- **REQ-TECHPROG-032:** de `TECH-02` a `TECH-06`, custo-base e Contribuição-base DEVEM crescer juntos por `1.000×` entre entradas consecutivas.
-- **REQ-TECHPROG-033:** de `TECH-02` a `TECH-06`, a razão `Contribuição-base ÷ custo-base` DEVE permanecer exatamente `5/67` antes da Cadência, dos Marcos e da Ascensão.
-- **REQ-TECHPROG-034:** no nível `10`, antes da Ascensão, `TECH-01` a `TECH-06` DEVEM contribuir respectivamente `20`, `100`, `100.000`, `100.000.000`, `100.000.000.000` e `100.000.000.000.000 Aura/ciclo`.
+- **REQ-TECHPROG-032:** depois de `TECH-02`, custos-base DEVEM crescer `1.000×` por entrada. As Contribuições-base de `TECH-03` a `TECH-06` DEVEM seguir exatamente `500`, `500.000`, `500.000.000` e `500.000.000.000 Aura/ciclo` por nível e também crescer `1.000×` entre essas entradas.
+- **REQ-TECHPROG-033:** antes da Cadência, dos Marcos e da Ascensão, a razão `Contribuição-base ÷ custo-base` DEVE ser `5/67` para `TECH-02` e `1/134` para cada uma de `TECH-03` a `TECH-06`.
+- **REQ-TECHPROG-034:** no nível `10`, antes da Ascensão, `TECH-01` a `TECH-06` DEVEM contribuir respectivamente `20`, `100`, `10.000`, `10.000.000`, `10.000.000.000` e `10.000.000.000.000 Aura/ciclo`.
 - **REQ-TECHPROG-035:** a simulação DEVE validar a escada ativa em todas as Cadências e NÃO DEVE aceitar uma configuração na qual o toque torne a Produção Passiva irrelevante para todos os perfis.
+- **REQ-TECHPROG-036:** a integração visual das Técnicas à Árvore NÃO DEVE criar Pré-requisito de aquisição ou nível entre Técnicas, nem entre uma Técnica e os demais conteúdos do mesmo Patamar.
 
 ## Conteúdo e linguagem cultural
 

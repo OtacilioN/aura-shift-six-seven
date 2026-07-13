@@ -187,7 +187,7 @@ def provenance_text(
     runtime_metrics: dict[str, Any],
     processing: dict[str, Any],
 ) -> str:
-    role = "tema principal e primeira faixa da playlist" if track["primary"] else "playlist"
+    role = "trilha selecionada principal" if track["primary"] else "trilha selecionada"
     return f"""# {track['id']} — proveniência da trilha selecionada
 
 - **Título:** {track['title']}
@@ -211,7 +211,7 @@ def provenance_text(
 
 ## Playback e revisão residual
 
-- Faixa completa `non-loop`; o runtime toca uma voz musical e avança por posição/conclusão com crossfade.
+- Faixa completa sem markers de loop; o controlador mantém a música atual em loop no mesmo menu e avança com crossfade somente quando o jogador troca de menu.
 - A seleção humana desta faixa está registrada em `assets/manifests/music-selection-approval-v1.json`.
 - Similaridade independente, fadiga, foco/retomada e crossfade em aparelho Android permanecem gates de release; esta proveniência não afirma que esses testes externos já ocorreram.
 """
@@ -382,7 +382,7 @@ def main() -> int:
         "humanReview": "selected-and-approved-by-user-2026-07-12",
         "similarityReview": "independent-review-pending",
         "rightsReview": "commercial-terms-pending",
-        "androidDeviceReview": "playlist-crossfade-focus-resume-pending",
+        "androidDeviceReview": "menu-loop-shuffle-crossfade-focus-resume-pending",
         "toolVersions": {
             "python": platform.python_version(),
             "numpy": version("numpy"),
@@ -394,7 +394,7 @@ def main() -> int:
             "musicSources": "7/7 WAV PCM24 stereo validated",
             "musicRuntimeFrameCount": "7/7",
             "musicLoudnessTarget": "7/7 within 0.25 LU of -16 LUFS-I",
-            "musicPlayback": "non-loop single-voice playlist",
+            "musicPlayback": "controller-looped single-voice shuffled menu sequence",
             "sfxInherited": "35/35 unchanged from r3",
         },
         "assets": assets,

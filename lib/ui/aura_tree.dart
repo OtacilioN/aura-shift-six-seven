@@ -13,6 +13,84 @@ typedef AuraTranslate = String Function(
   Map<String, String> values,
 ]);
 
+@visibleForTesting
+Path auraTreeBranchConnectionPath({
+  required Offset from,
+  required Offset to,
+  required String branch,
+  required TextDirection direction,
+  required double motionX,
+  required double signalX,
+  required bool bendsAroundCenter,
+}) {
+  final start = Offset(from.dx, from.dy + 34);
+  final end = Offset(to.dx, to.dy - 34);
+  final path = Path()..moveTo(start.dx, start.dy);
+
+  if (bendsAroundCenter) {
+    final detourX = (motionX + signalX) / 2;
+    final detourStartY = start.dy + 24;
+    final detourEndY = end.dy - 24;
+    path
+      ..cubicTo(
+        start.dx,
+        start.dy + 8,
+        detourX,
+        detourStartY - 8,
+        detourX,
+        detourStartY,
+      )
+      ..lineTo(detourX, detourEndY)
+      ..cubicTo(
+        detourX,
+        detourEndY + 8,
+        end.dx,
+        end.dy - 8,
+        end.dx,
+        end.dy,
+      );
+  } else if (branch == 'A') {
+    final mirror = direction == TextDirection.ltr ? 1.0 : -1.0;
+    path.cubicTo(
+      start.dx - 8 * mirror,
+      start.dy + 38,
+      end.dx + 8 * mirror,
+      end.dy - 38,
+      end.dx,
+      end.dy,
+    );
+  } else if (branch == 'B') {
+    final middle = (start.dy + end.dy) / 2;
+    path
+      ..cubicTo(
+        start.dx + 17,
+        start.dy + 20,
+        start.dx + 17,
+        middle - 20,
+        start.dx,
+        middle,
+      )
+      ..cubicTo(
+        start.dx - 17,
+        middle + 20,
+        end.dx - 17,
+        end.dy - 20,
+        end.dx,
+        end.dy,
+      );
+  } else {
+    final middle = (start.dy + end.dy) / 2;
+    final mirror = direction == TextDirection.ltr ? 1.0 : -1.0;
+    path
+      ..lineTo(start.dx, middle - 14)
+      ..lineTo(start.dx + 12 * mirror, middle - 14)
+      ..lineTo(start.dx + 12 * mirror, middle + 14)
+      ..lineTo(end.dx, middle + 14)
+      ..lineTo(end.dx, end.dy);
+  }
+  return path;
+}
+
 class AuraItemTree extends StatefulWidget {
   const AuraItemTree({
     super.key,
@@ -296,7 +374,9 @@ class _AuraTreeCanvas extends StatelessWidget {
     final convergenceUpgrades = upgrades
         .where((upgrade) => upgrade.branch == 'Spectrum')
         .toList(growable: false);
-    final root = upgrades.firstWhere((upgrade) => upgrade.id == 'TECH-01');
+    final techniques = upgrades
+        .where((upgrade) => upgrade.isTechnique)
+        .toList(growable: false);
 
     return SizedBox(
       width: width,
@@ -317,23 +397,28 @@ class _AuraTreeCanvas extends StatelessWidget {
               centerX: geometry.branchX(branch),
               top: geometry.branchLabelTop,
             ),
-          _positionedNode(
-            geometry.root,
-            geometry.nodeWidth,
-            _AuraTreeNode(
-              key: const ValueKey('aura-root-TECH-01'),
-              upgrade: root,
-              controller: controller,
-              translate: translate,
-              locale: locale,
-              art: art,
-              shortLabel: translate(root.nameKey),
-              height: geometry.nodeHeight,
-              sortOrder: 0,
-              selected: selectedId == root.id,
-              onTap: () => onSelected(root),
+          for (var index = 0; index < techniques.length; index++)
+            _positionedNode(
+              geometry.technique(index + 1),
+              geometry.nodeWidth,
+              _AuraTreeNode(
+                key: ValueKey(
+                  index == 0
+                      ? 'aura-root-TECH-01'
+                      : 'aura-technique-${techniques[index].id}',
+                ),
+                upgrade: techniques[index],
+                controller: controller,
+                translate: translate,
+                locale: locale,
+                art: art,
+                shortLabel: translate(techniques[index].nameKey),
+                height: geometry.nodeHeight,
+                sortOrder: const [0, 20, 40, 60, 80, 100][index],
+                selected: selectedId == techniques[index].id,
+                onTap: () => onSelected(techniques[index]),
+              ),
             ),
-          ),
           for (final branch in const ['A', 'B', 'C'])
             for (var depth = 1; depth <= 5; depth++)
               _positionedNode(
@@ -349,7 +434,8 @@ class _AuraTreeCanvas extends StatelessWidget {
                   shortLabel:
                       '${_branchTitle(translate, branch)} \u2066$depth\u2069',
                   height: geometry.nodeHeight,
-                  sortOrder: depth * 10 + const ['A', 'B', 'C'].indexOf(branch),
+                  sortOrder: const [10, 30, 50, 70, 90][depth - 1] +
+                      const ['A', 'B', 'C'].indexOf(branch),
                   selected: selectedId == branchUpgrades[branch]![depth - 1].id,
                   onTap: () => onSelected(branchUpgrades[branch]![depth - 1]),
                 ),
@@ -367,7 +453,7 @@ class _AuraTreeCanvas extends StatelessWidget {
                 art: art,
                 shortLabel: 'Spectrum ${index + 1}',
                 height: geometry.nodeHeight,
-                sortOrder: const [13, 33, 53][index],
+                sortOrder: const [14, 54, 94][index],
                 selected: selectedId == convergenceUpgrades[index].id,
                 onTap: () => onSelected(convergenceUpgrades[index]),
               ),
@@ -544,6 +630,32 @@ class _AuraTreeNode extends StatelessWidget {
                     clipBehavior: Clip.none,
                     alignment: Alignment.center,
                     children: [
+                      if (upgrade.isTechnique)
+                        PositionedDirectional(
+                          top: -7,
+                          start: -7,
+                          child: Container(
+                            width: 27,
+                            height: 27,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF17123D),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: color.withValues(alpha: .72),
+                              ),
+                            ),
+                            child: Text(
+                              upgrade.id.substring(upgrade.id.length - 1),
+                              textDirection: TextDirection.ltr,
+                              style: const TextStyle(
+                                color: Color(0xFFE5E0FF),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
                       if (upgrade.branch == 'Spectrum')
                         AuraAssetArt(
                           catalog: art,
@@ -810,10 +922,10 @@ class _TreeGeometry {
   final double branchLabelHeight;
 
   double get nodeWidth => width < 320 ? 84 : 100;
-  double get branchLabelTop => root.dy - 36 + nodeHeight + 4;
+  double get branchLabelTop => technique(1).dy - 36 + nodeHeight + 4;
   double get _firstDepthY => branchLabelTop + branchLabelHeight + 44;
   double get _stageGap => math.max(110, nodeHeight + 12);
-  double get canvasHeight => convergence(3).dy - 36 + nodeHeight + 20;
+  double get canvasHeight => technique(6).dy - 36 + nodeHeight + 20;
 
   double branchX(String branch) {
     final inset = (width * .16).clamp(52.0, 104.0);
@@ -827,15 +939,26 @@ class _TreeGeometry {
     };
   }
 
-  Offset get root => Offset(width / 2, 58);
+  Offset technique(int index) {
+    if (index == 1) return Offset(width / 2, 58);
+    final stage = switch (index) {
+      2 => 2,
+      3 => 4,
+      4 => 7,
+      5 => 9,
+      6 => 12,
+      _ => throw RangeError.range(index, 1, 6, 'index'),
+    };
+    return Offset(width / 2, _firstDepthY + _stageGap * stage);
+  }
 
   Offset item(String branch, int depth) {
     final stage = switch (depth) {
       1 => 0,
-      2 => 2,
-      3 => 3,
-      4 => 5,
-      5 => 6,
+      2 => 3,
+      3 => 5,
+      4 => 8,
+      5 => 10,
       _ => throw RangeError.range(depth, 1, 5, 'depth'),
     };
     return Offset(branchX(branch), _firstDepthY + _stageGap * stage);
@@ -844,8 +967,8 @@ class _TreeGeometry {
   Offset convergence(int index) {
     final stage = switch (index) {
       1 => 1,
-      2 => 4,
-      3 => 7,
+      2 => 6,
+      3 => 11,
       _ => throw RangeError.range(index, 1, 3, 'index'),
     };
     return Offset(width / 2, _firstDepthY + _stageGap * stage);
@@ -874,7 +997,7 @@ class _AuraTreePainter extends CustomPainter {
           geometry.item(branch, depth),
           geometry.item(branch, depth + 1),
           branch,
-          bendsAroundConvergence: branch == 'B' && (depth == 1 || depth == 3),
+          bendsAroundConvergence: branch == 'B',
         );
       }
     }
@@ -889,6 +1012,36 @@ class _AuraTreePainter extends CustomPainter {
       ..strokeWidth = 1;
     for (var y = 82.0; y < size.height; y += 56) {
       canvas.drawLine(Offset(16, y), Offset(size.width - 16, y), gridPaint);
+    }
+    final axisTop = geometry.technique(1).dy - 42;
+    final axisBottom = geometry.technique(6).dy + 42;
+    final axisRect = Rect.fromLTRB(
+      geometry.width / 2 - 46,
+      axisTop,
+      geometry.width / 2 + 46,
+      axisBottom,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(axisRect, const Radius.circular(46)),
+      Paint()
+        ..shader = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0x178B7CFF),
+            Color(0x078B7CFF),
+            Color(0x178B7CFF),
+          ],
+        ).createShader(axisRect),
+    );
+    for (var index = 1; index <= 6; index++) {
+      canvas.drawCircle(
+        geometry.technique(index),
+        45,
+        Paint()
+          ..color = const Color(0xFF8B7CFF).withValues(alpha: .045)
+          ..style = PaintingStyle.fill,
+      );
     }
     for (final branch in const ['A', 'B', 'C']) {
       final x = geometry.branchX(branch);
@@ -922,13 +1075,14 @@ class _AuraTreePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
     for (final branch in const ['A', 'B', 'C']) {
       final target = geometry.item(branch, 1);
-      final startY = geometry.root.dy + 31;
+      final root = geometry.technique(1);
+      final startY = root.dy + 31;
       final endY = target.dy - 34;
       final middleY = (startY + endY) / 2;
       final path = Path()
-        ..moveTo(geometry.root.dx, startY)
+        ..moveTo(root.dx, startY)
         ..cubicTo(
-          geometry.root.dx,
+          root.dx,
           middleY,
           target.dx,
           middleY,
@@ -952,44 +1106,15 @@ class _AuraTreePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
-    final start = Offset(from.dx, from.dy + 34);
-    final end = Offset(to.dx, to.dy - 34);
-    final path = Path()..moveTo(start.dx, start.dy);
-
-    if (bendsAroundConvergence) {
-      final side = geometry.direction == TextDirection.ltr ? 1.0 : -1.0;
-      final detourX = start.dx + (78 * side);
-      path
-        ..cubicTo(start.dx, start.dy + 42, detourX, start.dy + 42, detourX,
-            (start.dy + end.dy) / 2)
-        ..cubicTo(detourX, end.dy - 42, end.dx, end.dy - 42, end.dx, end.dy);
-    } else if (branch == 'A') {
-      final mirror = geometry.direction == TextDirection.ltr ? 1.0 : -1.0;
-      path.cubicTo(
-        start.dx - 8 * mirror,
-        start.dy + 38,
-        end.dx + 8 * mirror,
-        end.dy - 38,
-        end.dx,
-        end.dy,
-      );
-    } else if (branch == 'B') {
-      final middle = (start.dy + end.dy) / 2;
-      path
-        ..cubicTo(start.dx + 17, start.dy + 20, start.dx + 17, middle - 20,
-            start.dx, middle)
-        ..cubicTo(start.dx - 17, middle + 20, end.dx - 17, end.dy - 20, end.dx,
-            end.dy);
-    } else {
-      final middle = (start.dy + end.dy) / 2;
-      final mirror = geometry.direction == TextDirection.ltr ? 1.0 : -1.0;
-      path
-        ..lineTo(start.dx, middle - 14)
-        ..lineTo(start.dx + 12 * mirror, middle - 14)
-        ..lineTo(start.dx + 12 * mirror, middle + 14)
-        ..lineTo(end.dx, middle + 14)
-        ..lineTo(end.dx, end.dy);
-    }
+    final path = auraTreeBranchConnectionPath(
+      from: from,
+      to: to,
+      branch: branch,
+      direction: geometry.direction,
+      motionX: geometry.branchX('B'),
+      signalX: geometry.branchX('C'),
+      bendsAroundCenter: bendsAroundConvergence,
+    );
     canvas.drawPath(path, paint);
   }
 
@@ -1040,7 +1165,9 @@ class _AuraTreePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _AuraTreePainter oldDelegate) =>
       oldDelegate.geometry.width != geometry.width ||
-      oldDelegate.geometry.direction != geometry.direction;
+      oldDelegate.geometry.direction != geometry.direction ||
+      oldDelegate.geometry.nodeHeight != geometry.nodeHeight ||
+      oldDelegate.geometry.branchLabelHeight != geometry.branchLabelHeight;
 }
 
 class AuraUpgradeDetailsSheet extends StatelessWidget {

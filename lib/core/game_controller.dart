@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _quanta = 10000000;
 const _ascensionThreshold = 1000000000000000;
 const _ascensionScale = 100000000000;
-const balanceVersion = 'balance-v0.2';
+const balanceVersion = 'balance-v0.3';
 const achievementIds = <String>[
   'ACH-V-01',
   'ACH-V-02',
@@ -117,7 +117,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_03.name',
       descriptionKey: 'content.tech_03.description',
       baseCost: BigInt.from(67000),
-      base20: BigInt.from(100000),
+      base20: BigInt.from(10000),
       isTechnique: true,
       requiredTotal: BigInt.from(1000000)),
   Upgrade(
@@ -125,7 +125,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_04.name',
       descriptionKey: 'content.tech_04.description',
       baseCost: BigInt.from(67000000),
-      base20: BigInt.from(100000000),
+      base20: BigInt.from(10000000),
       isTechnique: true,
       requiredTotal: BigInt.from(1000000000)),
   Upgrade(
@@ -133,7 +133,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_05.name',
       descriptionKey: 'content.tech_05.description',
       baseCost: BigInt.from(67000000000),
-      base20: BigInt.from(100000000000),
+      base20: BigInt.from(10000000000),
       isTechnique: true,
       requiredTotal: BigInt.from(1000000000000)),
   Upgrade(
@@ -141,7 +141,7 @@ final upgrades = <Upgrade>[
       nameKey: 'content.tech_06.name',
       descriptionKey: 'content.tech_06.description',
       baseCost: BigInt.from(67000000000000),
-      base20: BigInt.from(100000000000000),
+      base20: BigInt.from(10000000000000),
       isTechnique: true,
       requiredTotal: BigInt.from(_ascensionThreshold)),
   ..._branch('A', 'item_a', 270, 15),
@@ -833,6 +833,7 @@ class GameController extends ChangeNotifier {
           candidate['arithVersion'] != 'arith-v1' ||
           (importedBalance != null &&
               importedBalance != 'balance-v0.1' &&
+              importedBalance != 'balance-v0.2' &&
               importedBalance != balanceVersion)) {
         return false;
       }
@@ -866,7 +867,8 @@ class GameController extends ChangeNotifier {
                   candidateAscensionAura < BigInt.zero))) {
         return false;
       }
-      if (importedBalance == balanceVersion) {
+      if (importedBalance == 'balance-v0.2' ||
+          importedBalance == balanceVersion) {
         if (candidateAscensionAura == null ||
             candidateAscensionAura + candidateJourney > candidateTotal ||
             candidateAscensionAura <

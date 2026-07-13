@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Generate the complete deterministic art-v1 asset catalog.
+"""Generate the complete deterministic runtime-only art-v1 catalog.
 
-Runtime SVG files in ``sources/art`` are canonical editable sources. The QA
-JSON files are canonical compositor recipes over the exported runtime WebPs.
-PNG previews are normalized to remove incidental metadata, and runtime WebP
-files are encoded with cwebp.
+SVG files in ``sources/art`` are canonical editable sources. PNG previews are
+normalized to remove incidental metadata, and runtime WebP files are encoded
+with cwebp.
 """
 
 from __future__ import annotations
@@ -12,7 +11,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 import os
 import shutil
 import struct
@@ -160,65 +158,17 @@ def compile_appkit_svg_renderer(root: Path, clang: str) -> str:
     return str(executable)
 
 
-def compile_coregraphics_qa_renderer(root: Path, clang: str) -> tuple[Path, str]:
-    template = Path(__file__).with_name("render_art_qa.m")
-    renderer_source = root / "tools" / "assets" / "render_art_qa.m"
-    source_bytes = template.read_bytes()
-    write_if_changed(renderer_source, source_bytes)
-    renderer_hash = sha256_bytes(source_bytes)[:16]
-    build_root = Path(tempfile.gettempdir()) / "aura-shift-qa-renderer"
-    build_root.mkdir(parents=True, exist_ok=True)
-    module_cache = build_root / "clang-module-cache"
-    module_cache.mkdir(parents=True, exist_ok=True)
-    executable = build_root / f"render-art-qa-{renderer_hash}"
-    temporary = executable.with_name(f".{executable.name}.tmp-{os.getpid()}")
-    env = dict(os.environ)
-    env["CLANG_MODULE_CACHE_PATH"] = str(module_cache)
-    completed = subprocess.run(
-        [
-            clang,
-            "-fobjc-arc",
-            "-O2",
-            "-framework",
-            "CoreGraphics",
-            "-framework",
-            "Foundation",
-            "-framework",
-            "ImageIO",
-            str(renderer_source),
-            "-o",
-            str(temporary),
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        check=False,
-        env=env,
-    )
-    if completed.returncode != 0 or not temporary.exists():
-        temporary.unlink(missing_ok=True)
-        raise RuntimeError(
-            f"CoreGraphics QA renderer compilation failed: "
-            f"{completed.stdout.strip()}"
-        )
-    os.replace(temporary, executable)
-    return renderer_source, str(executable)
-
-
 def clean_packaged_art_directory(root: Path) -> None:
     """Keep the pubspec-facing art tree runtime-only.
 
     Earlier revisions stored review PNGs beside runtime WebPs. Remove those
-    generated previews and any review-only QA directory before every run.
+    generated previews before every run.
     """
     art_root = root / "assets" / "art"
     if not art_root.exists():
         return
     for png in art_root.rglob("*.png"):
         png.unlink()
-    qa_directory = art_root / "qa"
-    if qa_directory.exists():
-        shutil.rmtree(qa_directory)
 
 
 def rasterize_svg(
@@ -282,274 +232,6 @@ def encode_webp(png_path: Path, webp_path: Path, mode: str, cwebp: str) -> None:
 
 def relative_path(path: Path, root: Path) -> str:
     return path.relative_to(root).as_posix()
-
-
-Matrix = tuple[float, float, float, float, float, float]
-
-
-def _matrix_multiply(left: Matrix, right: Matrix) -> Matrix:
-    a1, b1, c1, d1, tx1, ty1 = left
-    a2, b2, c2, d2, tx2, ty2 = right
-    return (
-        a1 * a2 + c1 * b2,
-        b1 * a2 + d1 * b2,
-        a1 * c2 + c1 * d2,
-        b1 * c2 + d1 * d2,
-        a1 * tx2 + c1 * ty2 + tx1,
-        b1 * tx2 + d1 * ty2 + ty1,
-    )
-
-
-def _translate(x: float, y: float) -> Matrix:
-    return (1, 0, 0, 1, x, y)
-
-
-def _scale(x: float, y: float | None = None) -> Matrix:
-    return (x, 0, 0, x if y is None else y, 0, 0)
-
-
-def _rotate_degrees(degrees: float) -> Matrix:
-    angle = math.radians(degrees)
-    return (math.cos(angle), math.sin(angle), -math.sin(angle), math.cos(angle), 0, 0)
-
-
-def _skew_y(degrees: float) -> Matrix:
-    return (1, math.tan(math.radians(degrees)), 0, 1, 0, 0)
-
-
-def _compose(*matrices: Matrix) -> Matrix:
-    result: Matrix = (1, 0, 0, 1, 0, 0)
-    for matrix in matrices:
-        result = _matrix_multiply(result, matrix)
-    return result
-
-
-def _sprite_command(
-    record: dict[str, Any],
-    matrix: Matrix,
-    *,
-    tint: str | None = None,
-    view_id: str | None = None,
-) -> dict[str, Any]:
-    command: dict[str, Any] = {
-        "type": "sprite",
-        "manifestId": record["manifestId"],
-        "runtimePath": record["runtimePath"],
-        "runtimeSha256": record["sha256"],
-        "logicalSize": record.get("logicalSizeStagePx") or record["sourceSizePx"],
-        "matrix": [round(value, 9) for value in matrix],
-    }
-    if tint is not None:
-        command["tint"] = tint
-    if view_id is not None:
-        command["viewId"] = view_id
-    return command
-
-
-def _attached_matrix(
-    record: dict[str, Any],
-    attachment: list[float],
-    *,
-    angle_degrees: float = 0,
-    scale: float = 1,
-) -> Matrix:
-    logical = record.get("logicalSizeStagePx") or record["sourceSizePx"]
-    pivot_x = record["pivot"][0] * logical[0]
-    pivot_y = record["pivot"][1] * logical[1]
-    return _compose(
-        _translate(attachment[0], attachment[1]),
-        _rotate_degrees(angle_degrees),
-        _scale(scale),
-        _translate(-pivot_x, -pivot_y),
-    )
-
-
-def _arm_matrix(record: dict[str, Any], wrist: list[float]) -> Matrix:
-    logical = record["logicalSizeStagePx"]
-    shoulder = record["attachmentStage"]
-    endpoint = record["endpointPx"]
-    pivot_x = record["pivot"][0] * logical[0]
-    pivot_y = record["pivot"][1] * logical[1]
-    source_x = endpoint[0] - pivot_x
-    source_y = endpoint[1] - pivot_y
-    target_x = wrist[0] - shoulder[0]
-    target_y = wrist[1] - shoulder[1]
-    scale = math.hypot(target_x, target_y) / math.hypot(source_x, source_y)
-    angle = math.degrees(math.atan2(target_y, target_x) - math.atan2(source_y, source_x))
-    return _attached_matrix(record, shoulder, angle_degrees=angle, scale=scale)
-
-
-def _rig_render_commands(
-    records: dict[str, dict[str, Any]],
-    *,
-    view_id: str,
-    pose: str,
-    expression: str,
-    outer: Matrix,
-    silhouette: bool = False,
-) -> list[dict[str, Any]]:
-    left_hand = records["chr_hand_l"]
-    right_hand = records["chr_hand_r"]
-    left_wrist = left_hand["poseAttachments"][pose]
-    right_wrist = right_hand["poseAttachments"][pose]
-    eyes = records[f"chr_eye_{expression}"]
-    mouth = records[f"chr_mouth_{expression}"]
-    tint = PALETTE["ink_900"] if silhouette else None
-    layers = [
-        (records["chr_shadow"], _attached_matrix(records["chr_shadow"], records["chr_shadow"]["attachmentStage"])),
-        (records["chr_arm_l"], _arm_matrix(records["chr_arm_l"], left_wrist)),
-        (records["chr_arm_r"], _arm_matrix(records["chr_arm_r"], right_wrist)),
-        (records["chr_body_base"], (1, 0, 0, 1, 0, 0)),
-        (eyes, _attached_matrix(eyes, eyes["attachmentStage"])),
-        (mouth, _attached_matrix(mouth, mouth["attachmentStage"])),
-        (left_hand, _attached_matrix(left_hand, left_wrist, angle_degrees=left_hand["poseAnglesDegrees"][pose])),
-        (right_hand, _attached_matrix(right_hand, right_wrist, angle_degrees=right_hand["poseAnglesDegrees"][pose])),
-    ]
-    return [
-        _sprite_command(record, _matrix_multiply(outer, local), tint=tint, view_id=view_id)
-        for record, local in layers
-    ]
-
-
-def _rect_command(
-    x: float,
-    y: float,
-    width: float,
-    height: float,
-    *,
-    fill: str,
-    radius: float = 0,
-    stroke: str | None = None,
-    stroke_width: float = 0,
-) -> dict[str, Any]:
-    command: dict[str, Any] = {
-        "type": "rect", "x": x, "y": y, "width": width, "height": height,
-        "radius": radius, "fill": fill,
-    }
-    if stroke is not None:
-        command.update({"stroke": stroke, "strokeWidth": stroke_width})
-    return command
-
-
-def _qa_render_commands(
-    spec: AssetSpec,
-    records: dict[str, dict[str, Any]],
-) -> list[dict[str, Any]]:
-    commands: list[dict[str, Any]] = []
-    if spec.manifest_id == "chr_composite_qa":
-        commands += [
-            _rect_command(0, 0, 2160, 2160, fill=PALETTE["ink_900"]),
-            _rect_command(70, 70, 2020, 2020, fill=PALETTE["ink_700"], radius=120, stroke=PALETTE["divider"], stroke_width=22),
-        ]
-        commands += _rig_render_commands(records, view_id="golden_six_runtime", pose="six", expression="neutral", outer=_compose(_translate(80, 380), _scale(0.92)))
-        commands += _rig_render_commands(records, view_id="golden_seven_runtime", pose="seven", expression="satisfaction", outer=_compose(_translate(1140, 380), _scale(0.92)))
-    elif spec.manifest_id == "chr_silhouette_test":
-        commands += [
-            _rect_command(0, 0, 2160, 2160, fill=PALETTE["paper_050"]),
-            _rect_command(60, 60, 1320, 2040, fill=PALETTE["paper_050"], radius=120, stroke=PALETTE["ink_900"], stroke_width=28),
-            _rect_command(1450, 120, 620, 620, fill=PALETTE["paper_050"], radius=72, stroke=PALETTE["ink_900"], stroke_width=22),
-            _rect_command(1450, 790, 620, 620, fill=PALETTE["ink_700"], radius=72, stroke=PALETTE["ink_900"], stroke_width=22),
-            _rect_command(1450, 1460, 620, 620, fill=PALETTE["ink_700"], radius=72, stroke=PALETTE["ink_900"], stroke_width=22),
-        ]
-        commands += _rig_render_commands(records, view_id="silhouette_full_runtime", pose="six", expression="neutral", outer=_compose(_translate(180, 450), _scale(1.02)), silhouette=True)
-        commands += _rig_render_commands(records, view_id="silhouette_ten_percent_runtime", pose="six", expression="neutral", outer=_compose(_translate(1708, 365), _scale(0.10)), silhouette=True)
-        commands += _rig_render_commands(records, view_id="golden_48px_runtime", pose="seven", expression="satisfaction", outer=_compose(_translate(1712, 1042), _scale(0.09375)))
-        commands += _rig_render_commands(records, view_id="golden_reduced_scale_runtime", pose="neutral", expression="neutral", outer=_compose(_translate(1608, 1620), _scale(0.30)))
-    else:
-        commands.append(_rect_command(0, 0, 2160, 2160, fill=PALETTE["ink_900"]))
-        panels = [
-            ("view_front_neutral", "neutral", "neutral", _compose(_translate(92, 180), _scale(0.56)), False),
-            ("view_front_six", "six", "neutral", _compose(_translate(778, 180), _scale(0.56)), False),
-            ("view_front_seven", "seven", "satisfaction", _compose(_translate(1464, 180), _scale(0.56)), False),
-            ("view_three_quarter_left", "neutral", "neutral", _compose(_translate(160, 1160), _scale(0.46, 0.56), _skew_y(-2)), False),
-            ("view_profile_technical", "neutral", "neutral", _compose(_translate(920, 1160), _scale(0.30, 0.56)), False),
-            ("view_silhouette_ten_percent", "six", "neutral", _compose(_translate(1750, 1430), _scale(0.10)), True),
-        ]
-        for index, (view_id, pose, expression, outer, silhouette) in enumerate(panels):
-            commands.append(_rect_command(50 + (index % 3) * 700, 50 + (index // 3) * 1040, 660, 1000, fill=PALETTE["ink_700"], radius=90, stroke=PALETTE["divider"], stroke_width=18))
-            commands += _rig_render_commands(records, view_id=view_id, pose=pose, expression=expression, outer=outer, silhouette=silhouette)
-        for idx, color in enumerate((PALETTE["ink_900"], PALETTE["ink_700"], PALETTE["paper_050"], PALETTE["aura_violet"], PALETTE["aura_cyan"], PALETTE["aura_magenta"], PALETTE["aura_gold"], PALETTE["aura_mint"])):
-            commands.append(_rect_command(190 + idx * 222, 2010, 150, 78, fill=color, radius=28, stroke=PALETTE["ink_900"], stroke_width=12))
-    return commands
-
-
-def qa_composition_source(
-    spec: AssetSpec,
-    runtime_records: dict[str, dict[str, Any]],
-) -> str:
-    runtime_ids = dict(spec.metadata).get("composedFromRuntimeIds", [])
-    views = {
-        "chr_composite_qa": ["golden_six_runtime", "golden_seven_runtime"],
-        "chr_silhouette_test": [
-            "silhouette_full_runtime", "silhouette_ten_percent_runtime",
-            "golden_48px_runtime", "golden_reduced_scale_runtime",
-        ],
-        "chr_concept_sheet": [
-            "view_front_neutral", "view_front_six", "view_front_seven",
-            "view_three_quarter_left", "view_profile_technical",
-            "view_silhouette_ten_percent",
-        ],
-    }[spec.manifest_id]
-    inputs: list[dict[str, Any]] = []
-    for asset_id in runtime_ids:
-        record = runtime_records[asset_id]
-        inputs.append(
-            {
-                "manifestId": asset_id,
-                "runtimePath": record["runtimePath"],
-                "runtimeSha256": record["sha256"],
-                "pivot": record["pivot"],
-                "logicalSizeStagePx": record.get("logicalSizeStagePx"),
-                "attachmentId": record.get("attachmentId"),
-                "attachmentStage": record.get("attachmentStage"),
-                "endpointPx": record.get("endpointPx"),
-                "visualCenterPx": record.get("visualCenterPx"),
-                "poseAttachments": record.get("poseAttachments"),
-                "poseAnglesDegrees": record.get("poseAnglesDegrees"),
-            }
-        )
-    payload = {
-        "schemaVersion": "art-runtime-composition-v1",
-        "revision": ASSET_REVISION,
-        "manifestId": spec.manifest_id,
-        "compositionContract": "runtime-sprites-pivots-attachments-v3",
-        "sourceSizePx": list(spec.source_size),
-        "renderSizePx": list(spec.runtime_size),
-        "views": views,
-        "runtimeInputs": inputs,
-        "renderCommands": _qa_render_commands(spec, runtime_records),
-    }
-    return json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=False) + "\n"
-
-
-def render_qa_coregraphics(
-    composition_path: Path,
-    root: Path,
-    renderer_executable: str,
-) -> bytes:
-    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as handle:
-        output_path = Path(handle.name)
-    output_path.unlink(missing_ok=True)
-    try:
-        completed = subprocess.run(
-            [
-                renderer_executable,
-                str(composition_path),
-                str(root),
-                str(output_path),
-            ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            check=False,
-        )
-        if completed.returncode != 0 or not output_path.exists():
-            raise RuntimeError(
-                f"CoreGraphics QA compositor failed for {composition_path}: {completed.stdout.strip()}"
-            )
-        return output_path.read_bytes()
-    finally:
-        output_path.unlink(missing_ok=True)
 
 
 def render_one(
@@ -668,13 +350,7 @@ def render_one(
 
 
 def provenance_markdown(record: dict[str, Any]) -> str:
-    webp_path = record.get("runtimePath") or record.get("reviewWebpPath")
-    webp_role = "WebP runtime" if record["runtimeIncluded"] else "WebP QA preview"
-    construction = (
-        "deterministic project-authored SVG primitives only"
-        if record["runtimeIncluded"]
-        else "deterministic compositor decoding declared runtimePath WebPs with manifest pivots and attachments"
-    )
+    webp_path = record["runtimePath"]
     return f"""# {record['manifestId']}
 
 - Status: `{record['status']}`
@@ -682,17 +358,17 @@ def provenance_markdown(record: dict[str, Any]) -> str:
 - Style contract: `art-v1`
 - Generator: `{GENERATOR_VERSION}`
 - Review date: `{FIXED_REVIEW_DATE}`
-- Construction: {construction}
+- Construction: deterministic project-authored SVG primitives only
 - External inputs: none
 - License: {LICENSE}
 - Source: `{record['sourcePath']}` — `{record['sourceSizePx'][0]} × {record['sourceSizePx'][1]}` — SHA-256 `{record['sourceSha256']}`
 - PNG preview: `{record['previewPath']}` — `{record['sizePx'][0]} × {record['sizePx'][1]}` — SHA-256 `{record['pngSha256']}`
-- {webp_role}: `{webp_path}` — `{record['sizePx'][0]} × {record['sizePx'][1]}` — SHA-256 `{record['sha256']}`
+- WebP runtime: `{webp_path}` — `{record['sizePx'][0]} × {record['sizePx'][1]}` — SHA-256 `{record['sha256']}`
 - Slot: `{record['slot'] or 'none'}`
 - Z layer: `{record['zLayer']}`
 - Runtime included: `{str(record['runtimeIncluded']).lower()}`
 {f"- Normalized 48px thumbnail: `{record['thumb48Path']}` — SHA-256 `{record['thumb48Sha256']}`" if record.get('thumb48Path') else ''}
-{f"- QA renderer: `{record['qaRendererPath']}` — `{record['qaRendererPlatform']}` — SHA-256 `{record['qaRendererSha256']}`" if record.get('qaRendererPath') else ''}
+
 
 ## Candidate review
 
@@ -708,7 +384,6 @@ def make_manifest(records: list[dict[str, Any]]) -> dict[str, Any]:
     counts = dict(sorted(Counter(item["family"] for item in records).items()))
     if counts != EXPECTED_FAMILY_COUNTS:
         raise RuntimeError(f"Family count mismatch: {counts} != {EXPECTED_FAMILY_COUNTS}")
-    qa_record = next(item for item in records if not item["runtimeIncluded"])
     return {
         "schemaVersion": SCHEMA_VERSION,
         "revision": ASSET_REVISION,
@@ -718,12 +393,6 @@ def make_manifest(records: list[dict[str, Any]]) -> dict[str, Any]:
         "status": STATUS,
         "deterministic": True,
         "externalArtInputs": [],
-        "qaRenderer": {
-            "path": qa_record["qaRendererPath"],
-            "sha256": qa_record["qaRendererSha256"],
-            "platform": qa_record["qaRendererPlatform"],
-            "canonicalSource": "sources/art/qa/*.json renderCommands",
-        },
         "license": LICENSE,
         "referenceCompositionPx": [1080, 1920],
         "logicalStagePx": [1024, 1024],
@@ -767,8 +436,8 @@ Revision: `{manifest['revision']}` — `{manifest['reviewBatch']}`
 
 ## Result
 
-The deterministic pipeline generated **{manifest['runtimeAssetCount']}** editable SVG
-runtime sources plus **{manifest['assetCount'] - manifest['runtimeAssetCount']}** editable JSON compositor sources for review-only QA sheets. Each has matching PNG/WebP review exports and one provenance
+The deterministic pipeline generated **{manifest['runtimeAssetCount']}** editable
+SVG runtime sources. Each has matching PNG/WebP review exports and one provenance
 record per manifest entry. All geometry is original to this repository and uses no
 external image, font, model output, or network input.
 
@@ -787,10 +456,8 @@ external image, font, model output, or network input.
 ## Output contract
 
 - Editable runtime source: `sources/art/<family>/<manifestId>.svg`
-- Editable QA composition source: `sources/art/qa/<manifestId>.json`
 - PNG review export: `reports/art-previews/<family>/<manifestId>.png`
 - WebP runtime export: `assets/art/<family>/<manifestId>.webp`
-- Review-only QA PNG/WebP: `reports/art-previews/qa/`
 - Provenance: `provenance/art/<family>/<manifestId>.md`
 - Manifest: `assets/manifests/art-manifest-v1.json`
 
@@ -838,7 +505,6 @@ def contact_sheet_html(manifest: dict[str, Any]) -> str:
 
     compositions = "".join(
         [
-            composition("Mascot Six / Seven composite QA", ["reports/art-previews/qa/chr_composite_qa.png"]),
             composition("Poise layer composite", [f"reports/art-previews/skins/skin_item_a_01_{part}.png" for part in ("base", "accent", "glow")]),
             composition("Motion layer composite", [f"reports/art-previews/skins/skin_item_b_01_{part}.png" for part in ("base", "accent", "glow")]),
             composition("Signal layer composite", [f"reports/art-previews/skins/skin_item_c_01_{part}.png" for part in ("base", "accent", "glow")]),
@@ -869,8 +535,8 @@ main,.compositions{display:grid;grid-template-columns:repeat(auto-fill,minmax(21
 </head>
 <body>
 <h1>Aura Shift: Six Seven — art-v1</h1>
-<p>Runtime assets plus review-only QA sheets. Every entry includes color, grayscale, 48px, and 10% checks.</p>
-<h2>Layer and character compositions</h2><section class=compositions>""" + compositions + """</section>
+<p>Runtime assets. Every entry includes color, grayscale, 48px, and 10% checks.</p>
+<h2>Layer compositions</h2><section class=compositions>""" + compositions + """</section>
 <h2>All manifest entries</h2><main>""" + "".join(cards) + """</main>
 </body>
 </html>
@@ -894,11 +560,10 @@ def main() -> int:
     clang = command_path("clang")
     cwebp = command_path("cwebp")
     svg_renderer = compile_appkit_svg_renderer(root, clang)
-    renderer_path, qa_renderer = compile_coregraphics_qa_renderer(root, clang)
-    renderer_hash = sha256_file(renderer_path)
     clean_packaged_art_directory(root)
-    runtime_specs = [spec for spec in specs if spec.runtime_included]
-    qa_only_specs = [spec for spec in specs if not spec.runtime_included]
+    if any(not spec.runtime_included for spec in specs):
+        raise RuntimeError("art-v1 accepts runtime assets only")
+    runtime_specs = specs
     with ThreadPoolExecutor(max_workers=max(1, args.jobs)) as executor:
         runtime_records = list(
             executor.map(
@@ -911,43 +576,7 @@ def main() -> int:
                 runtime_specs,
             )
         )
-    runtime_by_id = {record["manifestId"]: record for record in runtime_records}
-    qa_records: list[dict[str, Any]] = []
-    qa_source_dir = root / "sources" / "art" / "qa"
-    if qa_source_dir.exists():
-        for obsolete_svg in qa_source_dir.glob("*.svg"):
-            obsolete_svg.unlink()
-    for spec in qa_only_specs:
-        source_json = qa_composition_source(spec, runtime_by_id)
-        if source_json != qa_composition_source(spec, runtime_by_id):
-            raise RuntimeError(f"Non-deterministic QA source: {spec.manifest_id}")
-        composition_path = root / "sources" / "art" / "qa" / f"{spec.manifest_id}.json"
-        write_if_changed(composition_path, source_json.encode("utf-8"))
-        rendered_png = render_qa_coregraphics(
-            composition_path,
-            root,
-            qa_renderer,
-        )
-        qa_record = render_one(
-            spec,
-            root,
-            svg_renderer,
-            cwebp,
-            source_override=source_json,
-            source_extension=".json",
-            pre_rendered_png=rendered_png,
-        )
-        qa_record.update(
-            {
-                "qaRendererPath": relative_path(renderer_path, root),
-                "qaRendererSha256": renderer_hash,
-                "qaRendererPlatform": "macOS Objective-C CoreGraphics ImageIO",
-            }
-        )
-        provenance_path = root / qa_record["licenseRecord"]
-        write_if_changed(provenance_path, provenance_markdown(qa_record).encode("utf-8"))
-        qa_records.append(qa_record)
-    records = [*runtime_records, *qa_records]
+    records = runtime_records
     manifest = make_manifest(records)
     manifest_path = root / "assets" / "manifests" / "art-manifest-v1.json"
     manifest_bytes = (json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=False) + "\n").encode("utf-8")

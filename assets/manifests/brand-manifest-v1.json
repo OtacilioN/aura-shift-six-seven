@@ -156,8 +156,8 @@
     },
     {
       "path": "android/app/src/main/AndroidManifest.xml",
-      "bytes": 2391,
-      "sha256": "e71247a60bdb8941116f6db742f0a76dcbaa78fd2fb87c4d069babda93ac912d"
+      "bytes": 2392,
+      "sha256": "0702fd2eaceef9f51b706f755da04cc141a76aa4f85349101eb1b99daeef9c75"
     },
     {
       "path": "android/app/src/main/res/values/brand_colors.xml",
