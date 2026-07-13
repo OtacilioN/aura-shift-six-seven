@@ -9,6 +9,7 @@ const _ascensionThreshold = 1000000000000000;
 const _ascensionScale = 100000000000;
 const _offlineRewardMinimumMilliseconds = 10 * 60 * 1000;
 const _offlineRewardMaximumMilliseconds = 4 * 60 * 60 * 1000;
+const _rewardedUpgradeCooldownMilliseconds = 15 * 60 * 1000;
 const balanceVersion = 'balance-v0.3';
 const achievementIds = <String>[
   'ACH-V-01',
@@ -28,18 +29,24 @@ const achievementIds = <String>[
 
 enum CyclePhase { six, seven }
 
-class AuraComplementQuote {
-  const AuraComplementQuote(
-      {required this.upgradeId,
-      required this.level,
-      required this.price,
-      required this.spend,
-      required this.missing});
+class RewardedUpgradeQuote {
+  const RewardedUpgradeQuote({
+    required this.upgradeId,
+    required this.level,
+    required this.levelsGranted,
+  });
   final String upgradeId;
   final int level;
-  final BigInt price;
-  final BigInt spend;
-  final BigInt missing;
+  final int levelsGranted;
+}
+
+enum RewardedUpgradeAvailability {
+  available,
+  locked,
+  monetizationLocked,
+  needsFirstLevel,
+  itemAlreadyUsedInStreak,
+  cooldown,
 }
 
 enum UpgradeRequirementKind { totalAura, upgradeLevel }
@@ -245,6 +252,8 @@ class GameController extends ChangeNotifier {
     final controller = GameController._(prefs, data);
     controller._migrateBalanceState();
     controller._migrateAppearanceState();
+    controller._migrateRewardedUpgradeState();
+    controller._migrateMonetizationState();
     controller._lastTick = controller._foregroundClock.elapsedMilliseconds;
     // Process a persisted background interval before the first frame. The
     // operation is idempotent, so a later platform `resumed` callback cannot
@@ -308,6 +317,67 @@ class GameController extends ChangeNotifier {
     _data.remove('equipped');
   }
 
+  /// Replaces the retired Aura top-up state with the rewarded-level state.
+  /// A cooldown is stored as an absolute timestamp so it survives app restarts.
+  void _migrateRewardedUpgradeState() {
+    _data
+      ..remove('complementQuote')
+      ..remove('complementUses');
+
+    final cooldownUntil = _rewardedUpgradeCooldownUntil();
+    final now = DateTime.now().millisecondsSinceEpoch;
+    if (cooldownUntil <= now) {
+      _data.remove('rewardedUpgradeCooldownUntil');
+    }
+
+    final rawItems = _data['rewardedUpgradeStreakItems'];
+    final validItems = rawItems is List
+        ? rawItems
+            .whereType<String>()
+            .where((id) => upgrades.any((upgrade) => upgrade.id == id))
+            .toSet()
+            .take(2)
+            .toList(growable: false)
+        : const <String>[];
+    if (_rewardedUpgradeCooldownUntil() > now) {
+      _data['rewardedUpgradeStreakItems'] = const <String>[];
+    } else if (validItems.isEmpty) {
+      _data.remove('rewardedUpgradeStreakItems');
+    } else {
+      _data['rewardedUpgradeStreakItems'] = validItems;
+    }
+
+    // An in-flight platform ad cannot survive a process restart. Drop its
+    // transient quote rather than leaving the player locked behind it.
+    _data.remove('rewardedUpgradeQuote');
+  }
+
+  /// Adds the persisted progression gate to saves created before ads existed.
+  /// Legacy Aura Complement ads could grant an upgrade level, so existing
+  /// levels are not safe evidence that the player made a normal purchase.
+  void _migrateMonetizationState() {
+    if (_data['normalTechniquePurchased'] is! bool) {
+      _data['normalTechniquePurchased'] = false;
+    }
+    if (_data['normalItemPurchased'] is! bool) {
+      _data['normalItemPurchased'] = false;
+    }
+    if (_data['tutorialCompleted'] is! bool) {
+      _data['tutorialCompleted'] = false;
+    }
+
+    // A return reward created by an older build never carried a durable ad
+    // eligibility decision. It remains base-only even if ads unlock later.
+    final reward = (_data['returnReward'] as Map?)?.cast<String, dynamic>();
+    if (reward != null && reward['adsEligibilityVersion'] != 1) {
+      if (reward['bonusStatus'] == 'available') {
+        reward['bonusStatus'] = 'ineligible';
+      }
+      reward['adsEligibilityVersion'] = 1;
+      _data['returnReward'] = reward;
+    }
+  }
+
   List<String> _orderedAppearanceIds(Iterable<String> ids) {
     final requested = ids.toSet();
     return upgrades
@@ -359,6 +429,13 @@ class GameController extends ChangeNotifier {
   bool get analyticsEnabled => _data['analyticsEnabled'] == true;
   bool get reduceMotion => _data['reduceMotion'] == true;
   bool get highContrast => _data['highContrast'] == true;
+  bool get tutorialCompleted => _data['tutorialCompleted'] == true;
+  bool get normalTechniquePurchased =>
+      _data['normalTechniquePurchased'] == true;
+  bool get normalItemPurchased => _data['normalItemPurchased'] == true;
+  bool get adsUnlocked =>
+      tutorialCompleted && normalTechniquePurchased && normalItemPurchased;
+  bool get adOfferExplained => _data['firstAdOfferExplained'] == true;
   Set<String> get achievements => Set<String>.from(
       (_data['achievements'] as List? ?? const []).whereType<String>());
   Map<String, int> get levels => Map<String, int>.fromEntries((_data['levels']
@@ -587,7 +664,8 @@ class GameController extends ChangeNotifier {
           'baseQuanta': base.toString(),
           'bonusQuanta': (base ~/ BigInt.from(5)).toString(),
           'baseStatus': 'available',
-          'bonusStatus': 'available',
+          'bonusStatus': adsUnlocked ? 'available' : 'ineligible',
+          'adsEligibilityVersion': 1,
         };
       } else {
         _credit(base);
@@ -615,7 +693,11 @@ class GameController extends ChangeNotifier {
   /// Called only after the rewarded-ad adapter reports a valid completion.
   bool resolveReturnBonus({required bool rewarded}) {
     final reward = (_data['returnReward'] as Map?)?.cast<String, dynamic>();
-    if (reward == null || reward['bonusStatus'] != 'available') return false;
+    if (!adsUnlocked ||
+        reward == null ||
+        reward['bonusStatus'] != 'available') {
+      return false;
+    }
     if (!rewarded) return false;
     final basePending = reward['baseStatus'] == 'available';
     if (basePending) {
@@ -719,23 +801,39 @@ class GameController extends ChangeNotifier {
     final quote = purchaseQuote(u, quantity);
     if (!quote.affordable || quote.quantity == 0) return false;
     _setBig('available', available - quote.cost);
-    final next = levels..[u.id] = level(u.id) + quote.quantity;
+    _grantUpgradeLevels(u, quote.quantity);
+    if (u.isTechnique) {
+      _data['normalTechniquePurchased'] = true;
+    } else {
+      _data['normalItemPurchased'] = true;
+      _data['tutorialCompleted'] = true;
+    }
+    _persist(notify: true);
+    return true;
+  }
+
+  void markAdOfferExplained() {
+    if (adOfferExplained) return;
+    _data['firstAdOfferExplained'] = true;
+    _persist(notify: true);
+  }
+
+  void _grantUpgradeLevels(Upgrade upgrade, int quantity) {
+    final next = levels..[upgrade.id] = level(upgrade.id) + quantity;
     _data['levels'] = next;
-    if (!u.isTechnique) {
-      _collectAppearance(u.id);
+    if (!upgrade.isTechnique) {
+      _collectAppearance(upgrade.id);
       _unlock('ACH-V-03');
     }
     if (['ITEM-A-01', 'ITEM-B-01', 'ITEM-C-01'].every((id) => level(id) > 0)) {
       _unlock('ACH-V-04');
     }
-    if (u.id.startsWith('ITEM-CONV')) _unlock('ACH-S-05');
+    if (upgrade.id.startsWith('ITEM-CONV')) _unlock('ACH-S-05');
     if (['ITEM-CONV-01', 'ITEM-CONV-02', 'ITEM-CONV-03']
         .every((id) => level(id) > 0)) {
       _unlock('ACH-S-06');
     }
     if (available == BigInt.from(67)) _unlock('ACH-S-03');
-    _persist(notify: true);
-    return true;
   }
 
   void setLocale(String value) {
@@ -773,86 +871,123 @@ class GameController extends ChangeNotifier {
         _orderedAppearanceIds({...equippedAppearances, item});
   }
 
-  AuraComplementQuote? complementQuote(Upgrade upgrade, {int nowMillis = 0}) {
-    if (!isUnlocked(upgrade)) return null;
-    final current = available;
-    final nextPrice = price(upgrade);
-    if (!(BigInt.from(7) * nextPrice <= BigInt.from(10) * current &&
-        BigInt.from(10) * current < BigInt.from(10) * nextPrice)) {
-      return null;
-    }
-    final now =
-        nowMillis == 0 ? DateTime.now().millisecondsSinceEpoch : nowMillis;
-    final recent = _complementUses()
-        .where((at) => now - at >= 0 && now - at < 86400000)
-        .toList();
-    if (recent.length >= 3) return null;
-    return AuraComplementQuote(
-        upgradeId: upgrade.id,
-        level: level(upgrade.id),
-        price: nextPrice,
-        spend: current,
-        missing: nextPrice - current);
+  int rewardedUpgradeLevelsFor(int currentLevel) {
+    if (currentLevel < 1) return 0;
+    if (currentLevel <= 5) return 1;
+    if (currentLevel <= 100) return 5;
+    return 25;
   }
 
-  AuraComplementQuote? beginComplement(Upgrade upgrade, {int nowMillis = 0}) {
-    final quote = complementQuote(upgrade, nowMillis: nowMillis);
+  RewardedUpgradeAvailability rewardedUpgradeAvailability(
+    Upgrade upgrade, {
+    int nowMillis = 0,
+  }) {
+    if (upgrade.isTechnique) return RewardedUpgradeAvailability.locked;
+    if (!isUnlocked(upgrade)) return RewardedUpgradeAvailability.locked;
+    if (!adsUnlocked) {
+      return RewardedUpgradeAvailability.monetizationLocked;
+    }
+    if (rewardedUpgradeLevelsFor(level(upgrade.id)) == 0) {
+      return RewardedUpgradeAvailability.needsFirstLevel;
+    }
+    final now = _nowMillis(nowMillis);
+    if (_rewardedUpgradeCooldownUntil() > now) {
+      return RewardedUpgradeAvailability.cooldown;
+    }
+    if (_rewardedUpgradeStreakItems().contains(upgrade.id)) {
+      return RewardedUpgradeAvailability.itemAlreadyUsedInStreak;
+    }
+    return RewardedUpgradeAvailability.available;
+  }
+
+  RewardedUpgradeQuote? rewardedUpgradeQuote(
+    Upgrade upgrade, {
+    int nowMillis = 0,
+  }) {
+    if (rewardedUpgradeAvailability(upgrade, nowMillis: nowMillis) !=
+        RewardedUpgradeAvailability.available) {
+      return null;
+    }
+    return RewardedUpgradeQuote(
+      upgradeId: upgrade.id,
+      level: level(upgrade.id),
+      levelsGranted: rewardedUpgradeLevelsFor(level(upgrade.id)),
+    );
+  }
+
+  Duration rewardedUpgradeCooldownRemaining({int nowMillis = 0}) {
+    final remaining = _rewardedUpgradeCooldownUntil() - _nowMillis(nowMillis);
+    return Duration(milliseconds: remaining > 0 ? remaining : 0);
+  }
+
+  RewardedUpgradeQuote? beginRewardedUpgrade(
+    Upgrade upgrade, {
+    int nowMillis = 0,
+  }) {
+    if (_data['rewardedUpgradeQuote'] != null) return null;
+    final quote = rewardedUpgradeQuote(upgrade, nowMillis: nowMillis);
     if (quote == null) return null;
-    _data['complementQuote'] = <String, dynamic>{
+    _data['rewardedUpgradeQuote'] = <String, dynamic>{
       'upgradeId': quote.upgradeId,
       'level': quote.level,
-      'price': quote.price.toString(),
-      'spend': quote.spend.toString(),
-      'missing': quote.missing.toString(),
+      'levelsGranted': quote.levelsGranted,
     };
     _persist(notify: true);
     return quote;
   }
 
-  bool redeemComplement(AuraComplementQuote quote,
-      {required bool rewarded, int nowMillis = 0}) {
-    if (!rewarded) return false;
-    final upgrade = upgrades.where((u) => u.id == quote.upgradeId).firstOrNull;
-    if (upgrade == null ||
-        level(upgrade.id) != quote.level ||
-        available < quote.spend) {
-      return false;
-    }
-    final stored = (_data['complementQuote'] as Map?)?.cast<String, dynamic>();
-    if (stored == null ||
+  bool redeemRewardedUpgrade(
+    RewardedUpgradeQuote quote, {
+    required bool rewarded,
+    int nowMillis = 0,
+  }) {
+    final stored =
+        (_data['rewardedUpgradeQuote'] as Map?)?.cast<String, dynamic>();
+    if (!rewarded ||
+        stored == null ||
         stored['upgradeId'] != quote.upgradeId ||
         stored['level'] != quote.level ||
-        '${stored['price']}' != quote.price.toString() ||
-        '${stored['spend']}' != quote.spend.toString()) {
+        stored['levelsGranted'] != quote.levelsGranted) {
+      _data.remove('rewardedUpgradeQuote');
+      _persist(notify: true);
       return false;
     }
-    _setBig('available', available - quote.spend);
-    final next = levels..[upgrade.id] = quote.level + 1;
-    _data['levels'] = next;
-    if (!upgrade.isTechnique) {
-      _collectAppearance(upgrade.id);
-      _unlock('ACH-V-03');
+    final upgrade = upgrades.where((u) => u.id == quote.upgradeId).firstOrNull;
+    final now = _nowMillis(nowMillis);
+    if (upgrade == null ||
+        level(upgrade.id) != quote.level ||
+        rewardedUpgradeAvailability(upgrade, nowMillis: now) !=
+            RewardedUpgradeAvailability.available) {
+      _data.remove('rewardedUpgradeQuote');
+      _persist(notify: true);
+      return false;
     }
-    if (['ITEM-A-01', 'ITEM-B-01', 'ITEM-C-01'].every((id) => level(id) > 0)) {
-      _unlock('ACH-V-04');
+
+    _grantUpgradeLevels(upgrade, quote.levelsGranted);
+    final streak = [..._rewardedUpgradeStreakItems(), upgrade.id];
+    if (streak.length == 3) {
+      _data['rewardedUpgradeCooldownUntil'] =
+          now + _rewardedUpgradeCooldownMilliseconds;
+      _data['rewardedUpgradeStreakItems'] = const <String>[];
+    } else {
+      _data['rewardedUpgradeStreakItems'] = streak;
     }
-    if (upgrade.id.startsWith('ITEM-CONV')) _unlock('ACH-S-05');
-    if (['ITEM-CONV-01', 'ITEM-CONV-02', 'ITEM-CONV-03']
-        .every((id) => level(id) > 0)) {
-      _unlock('ACH-S-06');
-    }
-    final now =
-        nowMillis == 0 ? DateTime.now().millisecondsSinceEpoch : nowMillis;
-    _data['complementUses'] =
-        [..._complementUses(), now].where((at) => now - at < 86400000).toList();
-    _data.remove('complementQuote');
+    _data.remove('rewardedUpgradeQuote');
     _persist(notify: true);
     return true;
   }
 
-  List<int> _complementUses() =>
-      List<int>.from((_data['complementUses'] as List? ?? const [])
-          .map((value) => (value as num).toInt()));
+  int _nowMillis(int nowMillis) =>
+      nowMillis == 0 ? DateTime.now().millisecondsSinceEpoch : nowMillis;
+
+  int _rewardedUpgradeCooldownUntil() {
+    final value = _data['rewardedUpgradeCooldownUntil'];
+    return value is num ? value.toInt() : 0;
+  }
+
+  List<String> _rewardedUpgradeStreakItems() => List<String>.from(
+      (_data['rewardedUpgradeStreakItems'] as List? ?? const [])
+          .whereType<String>());
 
   /// The save body is intentionally portable: every economic integer is decimal text.
   String exportState() {
@@ -973,6 +1108,8 @@ class GameController extends ChangeNotifier {
         ..addAll(analyticsDevicePreference);
       _migrateBalanceState();
       _migrateAppearanceState();
+      _migrateRewardedUpgradeState();
+      _migrateMonetizationState();
       _foregroundClock
         ..reset()
         ..start();

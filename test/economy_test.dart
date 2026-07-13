@@ -448,8 +448,7 @@ void main() {
     exact.dispose();
   });
 
-  test('offline return after ten minutes stays pending until claimed',
-      () async {
+  test('offline return before the monetization gate is base-only', () async {
     final controller = await controllerWith({
       'offlineAt': DateTime.now().millisecondsSinceEpoch -
           const Duration(minutes: 20).inMilliseconds,
@@ -459,7 +458,7 @@ void main() {
     controller.resume();
     expect(controller.available, BigInt.zero);
     expect(controller.returnRewardAvailable, isTrue);
-    expect(controller.returnBonusAvailable, isTrue);
+    expect(controller.returnBonusAvailable, isFalse);
     expect(controller.claimReturnBase(), isTrue);
     expect(controller.available, BigInt.from(16080));
     expect(controller.returnRewardAvailable, isFalse);
@@ -474,6 +473,9 @@ void main() {
           const Duration(hours: 12).inMilliseconds,
       'offlineRate': '26800',
       'remainder': '0',
+      'normalTechniquePurchased': true,
+      'normalItemPurchased': true,
+      'tutorialCompleted': true,
     });
     controller.resume();
     expect(controller.available, BigInt.zero);
@@ -512,27 +514,176 @@ void main() {
     expect(controller.multiplier, BigInt.from(416));
     expect(controller.available, BigInt.zero);
     expect(controller.returnRewardAvailable, isTrue);
-    expect(controller.returnBonusAvailable, isTrue);
+    expect(controller.returnBonusAvailable, isFalse);
     controller.dispose();
   });
 
-  test('Complement spends only the quoted balance and never creates Total Aura',
+  test('Rewarded upgrades grant the configured levels without spending Aura',
       () async {
     final controller = await controllerWith({
-      'available': '200',
+      'available': '0',
       'journey': '500',
       'total': '500',
-      'levels': {'TECH-01': 1},
+      'levels': {'TECH-01': 1, 'ITEM-A-01': 6},
+      'normalTechniquePurchased': true,
+      'normalItemPurchased': true,
+      'tutorialCompleted': true,
     });
-    final root = upgrades.firstWhere((u) => u.id == 'ITEM-A-01');
-    final quote = controller.beginComplement(root);
+    final item = upgrades.firstWhere((u) => u.id == 'ITEM-A-01');
+    final quote = controller.beginRewardedUpgrade(item, nowMillis: 1000);
     expect(quote, isNotNull);
-    expect(quote!.missing, BigInt.from(70));
-    expect(controller.redeemComplement(quote, rewarded: true), isTrue);
+    expect(quote!.levelsGranted, 5);
+    expect(
+      controller.redeemRewardedUpgrade(quote, rewarded: true, nowMillis: 1000),
+      isTrue,
+    );
     expect(controller.available, BigInt.zero);
     expect(controller.total, BigInt.from(500));
     expect(controller.journey, BigInt.from(500));
-    expect(controller.level(root.id), 1);
+    expect(controller.level(item.id), 11);
+    expect(
+      controller.redeemRewardedUpgrade(quote, rewarded: true, nowMillis: 1000),
+      isFalse,
+    );
+    controller.dispose();
+  });
+
+  test('Rewarded upgrade brackets use the current level boundaries', () async {
+    final controller = await controllerWith({});
+    expect(controller.rewardedUpgradeLevelsFor(0), 0);
+    expect(controller.rewardedUpgradeLevelsFor(1), 1);
+    expect(controller.rewardedUpgradeLevelsFor(5), 1);
+    expect(controller.rewardedUpgradeLevelsFor(6), 5);
+    expect(controller.rewardedUpgradeLevelsFor(100), 5);
+    expect(controller.rewardedUpgradeLevelsFor(101), 25);
+    controller.dispose();
+  });
+
+  test('ads unlock only after normal Technique and Item purchases', () async {
+    final controller = await controllerWith({
+      'available': '315',
+      'journey': '315',
+      'total': '315',
+    });
+    final technique = upgrades.firstWhere((u) => u.id == 'TECH-01');
+    final item = upgrades.firstWhere((u) => u.id == 'ITEM-A-01');
+
+    expect(controller.adsUnlocked, isFalse);
+    expect(controller.buy(technique, 1), isTrue);
+    expect(controller.normalTechniquePurchased, isTrue);
+    expect(controller.adsUnlocked, isFalse);
+    expect(
+      controller.rewardedUpgradeAvailability(item),
+      RewardedUpgradeAvailability.monetizationLocked,
+    );
+
+    expect(controller.buy(item, 1), isTrue);
+    expect(controller.normalItemPurchased, isTrue);
+    expect(controller.tutorialCompleted, isTrue);
+    expect(controller.adsUnlocked, isTrue);
+    controller.dispose();
+  });
+
+  test('a legacy pending return reward stays base-only after ads unlock',
+      () async {
+    final controller = await controllerWith({
+      'normalTechniquePurchased': true,
+      'normalItemPurchased': true,
+      'tutorialCompleted': true,
+      'returnReward': {
+        'id': 'legacy',
+        'baseQuanta': '10000000',
+        'bonusQuanta': '2000000',
+        'baseStatus': 'available',
+        'bonusStatus': 'available',
+      },
+    });
+
+    expect(controller.adsUnlocked, isTrue);
+    expect(controller.returnRewardAvailable, isTrue);
+    expect(controller.returnBonusAvailable, isFalse);
+    expect(controller.resolveReturnBonus(rewarded: true), isFalse);
+    expect(controller.claimReturnBase(), isTrue);
+    expect(controller.available, BigInt.one);
+    controller.dispose();
+  });
+
+  test('Rewarded upgrades require three different items then cool down',
+      () async {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final controller = await controllerWith({
+      'levels': {
+        'TECH-01': 1,
+        'ITEM-A-01': 1,
+        'ITEM-B-01': 1,
+        'ITEM-C-01': 1,
+      },
+      'normalTechniquePurchased': true,
+      'normalItemPurchased': true,
+      'tutorialCompleted': true,
+    });
+    final technique = upgrades.firstWhere((u) => u.id == 'TECH-01');
+    final itemA = upgrades.firstWhere((u) => u.id == 'ITEM-A-01');
+    final itemB = upgrades.firstWhere((u) => u.id == 'ITEM-B-01');
+    final itemC = upgrades.firstWhere((u) => u.id == 'ITEM-C-01');
+
+    RewardedUpgradeQuote claim(Upgrade upgrade) {
+      final quote = controller.beginRewardedUpgrade(upgrade, nowMillis: now);
+      expect(quote, isNotNull);
+      expect(
+        controller.redeemRewardedUpgrade(quote!,
+            rewarded: true, nowMillis: now),
+        isTrue,
+      );
+      return quote;
+    }
+
+    expect(
+      controller.rewardedUpgradeAvailability(technique, nowMillis: now),
+      RewardedUpgradeAvailability.locked,
+    );
+    expect(controller.beginRewardedUpgrade(technique, nowMillis: now), isNull);
+
+    claim(itemA);
+    expect(
+      controller.rewardedUpgradeAvailability(itemA, nowMillis: now),
+      RewardedUpgradeAvailability.itemAlreadyUsedInStreak,
+    );
+    expect(controller.beginRewardedUpgrade(itemA, nowMillis: now), isNull);
+
+    claim(itemB);
+    claim(itemC);
+    expect(
+      controller.rewardedUpgradeAvailability(itemA, nowMillis: now),
+      RewardedUpgradeAvailability.cooldown,
+    );
+    expect(
+      controller.rewardedUpgradeCooldownRemaining(nowMillis: now),
+      const Duration(minutes: 15),
+    );
+    final restored = await controllerWith({});
+    expect(await restored.restoreState(controller.exportState()), isTrue);
+    expect(
+      restored.rewardedUpgradeAvailability(itemA, nowMillis: now),
+      RewardedUpgradeAvailability.cooldown,
+    );
+    restored.dispose();
+    expect(
+      controller.rewardedUpgradeQuote(itemA, nowMillis: now + 15 * 60 * 1000),
+      isNotNull,
+    );
+    controller.dispose();
+  });
+
+  test('legacy levels never count as proof of normal purchases', () async {
+    final controller = await controllerWith({
+      'levels': {'TECH-01': 2, 'ITEM-A-01': 2},
+    });
+
+    expect(controller.normalTechniquePurchased, isFalse);
+    expect(controller.normalItemPurchased, isFalse);
+    expect(controller.tutorialCompleted, isFalse);
+    expect(controller.adsUnlocked, isFalse);
     controller.dispose();
   });
 }

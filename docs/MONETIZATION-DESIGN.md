@@ -1,6 +1,8 @@
 # Aura Shift: Six Seven — Design de Monetização
 
-> Status: modelo, tratamento etário e consentimento aprovados; configuração territorial e revalidação das políticas vigentes permanecem pré-requisitos de lançamento.
+> Status: modelo e integração implementados; mensagem UMP europeia publicada,
+> tratamento `TEEN` e anúncios não personalizados configurados. A veiculação
+> real depende das revisões da conta e do app pelo AdMob.
 
 ## Princípios
 
@@ -19,7 +21,8 @@ Todos os anúncios são recompensados e voluntários. O jogo não utiliza:
 - anúncios ao abrir ou retomar o aplicativo;
 - anúncios disparados por navegação, conclusão de ciclos ou compras.
 
-A intenção inicial é utilizar a rede de anúncios do Google, sujeita à validação técnica, regulatória e comercial na fase apropriada.
+A rede configurada é o Google AdMob, com inventário oficial de teste em builds
+debug/profile e unidades próprias somente em release.
 
 Nenhuma oferta publicitária é apresentada durante o Tutorial Contextual.
 
@@ -44,25 +47,22 @@ A Recompensa de Retorno é persistida antes da tela e permanece sem crédito at�
 
 Uma Ascensão somente pode ser confirmada depois que a Recompensa de Retorno pendente for resgatada, com ou sem bônus. Recusar encerra apenas o bônus e nunca reduz ou reverte a base resgatada.
 
-## Ponto 2 — Complemento de Aura
+## Ponto 2 — Upgrade por Anúncio
 
-Uma compra desbloqueada pode oferecer o complemento quando o jogador possui pelo menos 70% e menos de 100% do preço. O anúncio cobre exatamente o valor faltante, limitado a 30%; a Aura Disponível do jogador é consumida normalmente.
+Um item desbloqueado que já esteja no nível 1 pode receber um Upgrade por Anúncio, sem gastar Aura Disponível. A recompensa é calculada pelo nível atual: níveis 1–5 recebem `+1`, níveis 6–100 recebem `+5` e nível 101 ou maior recebe `+25`.
 
-A elegibilidade exata usa `7 × preço ≤ 10 × saldo < 10 × preço`. Ao iniciar o anúncio, uma cotação idempotente registra item, nível, preço, saldo comprometido e falta coberta. Uma conclusão válida consome o saldo cotado e quita diretamente a falta; produção posterior à cotação permanece no saldo. Falha, cancelamento ou mudança que invalide a compra não consome Aura nem cota.
-
-O valor coberto liquida diretamente a compra. Ele não é creditado como Aura Disponível, Aura Total ou Aura da Jornada e, portanto, não acelera Transformações ou a recompensa de Ascensão.
+Ao iniciar o anúncio, uma cotação idempotente registra item, nível e quantidade de níveis. A conclusão válida só é aplicada se esse item ainda estiver no nível cotado; ela não altera Aura Disponível, Aura Total ou Aura da Jornada. Falha, cancelamento ou mudança que invalide a cotação não concede nível nem consome a sequência.
 
 Regras de frequência:
 
-- no máximo três Complementos concluídos em qualquer janela móvel de 24 horas;
-- sem cooldown entre os três usos;
-- Bônus de Retorno fora dessa cota;
-- cancelamento, indisponibilidade ou erro não consomem a cota;
-- quantidade restante apresentada discretamente na Loja.
+- cada sequência aceita no máximo três anúncios concluídos em itens distintos;
+- um item já usado na sequência não pode receber novo Upgrade por Anúncio antes do cooldown;
+- após o terceiro anúncio, a Loja fica em cooldown global de 15 minutos;
+- Bônus de Retorno permanece fora dessa regra;
+- cancelamento, indisponibilidade ou erro não consomem a sequência;
+- a Loja informa quando o item precisa do primeiro nível, já foi usado na sequência ou quando falta tempo de cooldown.
 
-O complemento não ignora Patamares de Aura, Pré-requisitos de Item ou outras condições de desbloqueio.
-
-O Complemento de Aura pode concluir somente uma aquisição inicial ou o próximo nível selecionado em `×1`. Ele nunca se aplica aos modos `×10` ou `MÁX`.
+O Upgrade por Anúncio não ignora Patamares de Aura, Pré-requisitos de Item ou outras condições de desbloqueio. Os modos normais `×1`, `×10` e `MÁX` continuam com seus custos próprios.
 
 ## Indisponibilidade de anúncios
 
@@ -74,9 +74,9 @@ Todas as solicitações usam tratamento `TEEN`, desativando personalização e r
 
 A Play Age Signals é isolada do sistema publicitário e não fornece dados para marketing, perfilamento ou analytics. O jogo não coleta data de nascimento e não oferece loot boxes.
 
-## Questões pendentes
+## Pendências externas e operacionais
 
-- fluxos de consentimento, privacidade e configuração etária por território;
-- comportamento quando não houver inventário de anúncios;
-- eventos analíticos e limites de otimização ética;
-- validação atualizada das políticas da Google Play e da rede de anúncios antes da implementação.
+- aprovação da conta AdMob e vinculação do app à página pública da Play Store;
+- revisão de prontidão do app e rastreamento do `app-ads.txt` pelo AdMob;
+- validação visual em aparelho Android e monitoramento de falta de inventário;
+- revalidação de políticas e territórios antes de cada publicação.

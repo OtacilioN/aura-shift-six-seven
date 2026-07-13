@@ -99,7 +99,7 @@ class AuraItemTree extends StatefulWidget {
     required this.locale,
     required this.art,
     required this.onPurchase,
-    required this.onComplement,
+    required this.onRewardedUpgrade,
     this.onDetailsOpen,
     this.onDetailsClose,
   });
@@ -109,7 +109,7 @@ class AuraItemTree extends StatefulWidget {
   final String locale;
   final ArtCatalog? art;
   final void Function(Upgrade upgrade, int quantity) onPurchase;
-  final Future<void> Function(Upgrade upgrade) onComplement;
+  final Future<void> Function(Upgrade upgrade) onRewardedUpgrade;
   final Future<void> Function()? onDetailsOpen;
   final Future<void> Function()? onDetailsClose;
 
@@ -147,7 +147,7 @@ class _AuraItemTreeState extends State<AuraItemTree> {
             locale: widget.locale,
             art: widget.art,
             onPurchase: widget.onPurchase,
-            onComplement: widget.onComplement,
+            onRewardedUpgrade: widget.onRewardedUpgrade,
           ),
         ),
       );
@@ -1204,7 +1204,7 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
     required this.locale,
     required this.art,
     required this.onPurchase,
-    required this.onComplement,
+    required this.onRewardedUpgrade,
   });
 
   final GameController controller;
@@ -1213,7 +1213,7 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
   final String locale;
   final ArtCatalog? art;
   final void Function(Upgrade upgrade, int quantity) onPurchase;
-  final Future<void> Function(Upgrade upgrade) onComplement;
+  final Future<void> Function(Upgrade upgrade) onRewardedUpgrade;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -1238,7 +1238,9 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
     final nextEffect = _effectAt(level + 1);
     final one = controller.purchaseQuote(upgrade, 1);
     final ten = controller.purchaseQuote(upgrade, 10);
-    final complement = controller.complementQuote(upgrade);
+    final rewardedUpgrade = controller.rewardedUpgradeQuote(upgrade);
+    final rewardedUpgradeAvailability =
+        controller.rewardedUpgradeAvailability(upgrade);
     final requirements = controller.requirementsFor(upgrade);
     final requirementsMet = requirements.every(controller.requirementMet);
     final title = translate(upgrade.nameKey);
@@ -1472,27 +1474,39 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
                       locale: locale,
                       onPurchase: onPurchase,
                     ),
-                    if (complement != null) ...[
+                    if (unlocked &&
+                        rewardedUpgradeAvailability !=
+                            RewardedUpgradeAvailability.locked) ...[
                       const SizedBox(height: 10),
-                      SizedBox(
-                        width: double.infinity,
-                        child: OutlinedButton.icon(
-                          key: ValueKey('buy-complement-${upgrade.id}'),
-                          onPressed: () async {
-                            await onComplement(upgrade);
-                            if (context.mounted) Navigator.pop(context);
-                          },
-                          icon: AuraAssetIcon(
-                            catalog: art,
-                            role: AuraUiIcon.rewardedAd,
-                            fallbackIcon: Icons.play_circle_outline,
-                            semanticLabel: translate('shop_ad_topup_title'),
-                            decorative: true,
-                            size: 24,
+                      if (rewardedUpgrade != null)
+                        SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton.icon(
+                            key: ValueKey('buy-rewarded-upgrade-${upgrade.id}'),
+                            onPressed: () async {
+                              await onRewardedUpgrade(upgrade);
+                              if (context.mounted) Navigator.pop(context);
+                            },
+                            icon: AuraAssetIcon(
+                              catalog: art,
+                              role: AuraUiIcon.rewardedAd,
+                              fallbackIcon: Icons.play_circle_outline,
+                              semanticLabel: translate('shop_ad_upgrade_title'),
+                              decorative: true,
+                              size: 24,
+                            ),
+                            label: Text(translate('shop_ad_upgrade_watch', {
+                              'levels': '${rewardedUpgrade.levelsGranted}',
+                            })),
                           ),
-                          label: Text(translate('shop_ad_topup_title')),
+                        )
+                      else
+                        _RewardedUpgradeUnavailable(
+                          availability: rewardedUpgradeAvailability,
+                          cooldown:
+                              controller.rewardedUpgradeCooldownRemaining(),
+                          translate: translate,
                         ),
-                      ),
                     ],
                   ],
                 ),
@@ -1540,6 +1554,57 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
   }
 
   String _ltrToken(String value) => '\u2066$value\u2069';
+}
+
+class _RewardedUpgradeUnavailable extends StatelessWidget {
+  const _RewardedUpgradeUnavailable({
+    required this.availability,
+    required this.cooldown,
+    required this.translate,
+  });
+
+  final RewardedUpgradeAvailability availability;
+  final Duration cooldown;
+  final AuraTranslate translate;
+
+  @override
+  Widget build(BuildContext context) {
+    final message = switch (availability) {
+      RewardedUpgradeAvailability.monetizationLocked =>
+        translate('shop_ad_upgrade_locked'),
+      RewardedUpgradeAvailability.needsFirstLevel =>
+        translate('shop_ad_upgrade_first_level'),
+      RewardedUpgradeAvailability.itemAlreadyUsedInStreak =>
+        translate('shop_ad_upgrade_item_used'),
+      RewardedUpgradeAvailability.cooldown => translate(
+          'shop_ad_upgrade_cooldown',
+          {'minutes': '${(cooldown.inSeconds / 60).ceil()}'},
+        ),
+      _ => '',
+    };
+    if (message.isEmpty) return const SizedBox.shrink();
+    return Semantics(
+      liveRegion: true,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFD166).withValues(alpha: .1),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: const Color(0xFFFFD166).withValues(alpha: .3),
+          ),
+        ),
+        child: Text(
+          message,
+          style: const TextStyle(
+            color: Color(0xFFFFE59A),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _DetailPill extends StatelessWidget {

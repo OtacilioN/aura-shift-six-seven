@@ -30,7 +30,7 @@
 - **REQ-MVP-002:** o MVP DEVE incluir Ciclo Six-Seven, Produção Ativa, Produção Passiva e Produção Offline.
 - **REQ-MVP-003:** o MVP DEVE incluir exatamente 18 Itens de Aura, seis Técnicas Six-Seven, cinco Transformações de Aura e 13 Conquistas.
 - **REQ-MVP-004:** os 18 Itens de Aura DEVEM compreender exatamente 15 itens próprios distribuídos entre três Ramos de Aura e três Itens de Convergência.
-- **REQ-MVP-005:** o MVP DEVE incluir compras `×1`, `×10` e `MÁX`, Árvore de Aura, Pré-requisitos de Item e Complemento de Aura.
+- **REQ-MVP-005:** o MVP DEVE incluir compras `×1`, `×10` e `MÁX`, Árvore de Aura, Pré-requisitos de Item e Upgrade por Anúncio.
 - **REQ-MVP-006:** o MVP DEVE incluir Ascensão de Aura, Marcos 67, Selos 67, Coleção Visual e personalização do Mascote.
 - **REQ-MVP-007:** o MVP DEVE incluir música original, efeitos sonoros e respostas táteis conforme as preferências do jogador.
 - **REQ-MVP-008:** o MVP DEVE incluir as áreas Jogar, Loja, Coleção e Ajustes.
@@ -478,8 +478,8 @@
 - **REQ-AURA-009:** o Bônus de Retorno DEVE aumentar os três contadores pelo mesmo valor concedido.
 - **REQ-AURA-010:** multiplicadores DEVEM ser aplicados antes do crédito nos três contadores.
 - **REQ-AURA-011:** compras DEVEM reduzir somente Aura Disponível.
-- **REQ-AURA-012:** o Complemento de Aura NÃO DEVE aumentar Aura Disponível, Aura Total ou Aura da Jornada.
-- **REQ-AURA-013:** o valor coberto pelo Complemento de Aura DEVE ser aplicado diretamente à quitação da compra elegível.
+- **REQ-AURA-012:** Upgrade por Anúncio NÃO DEVE alterar Aura Disponível, Aura Total ou Aura da Jornada.
+- **REQ-AURA-013:** Upgrade por Anúncio DEVE elevar somente o nível do item cotado após a conclusão válida do anúncio.
 
 ## Exibição numérica
 
@@ -543,8 +543,8 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ARITH-017:** a produção offline exata DEVE ser `F_registrado × D_válido × 5` quanta.
 - **REQ-ARITH-018:** o Bônus de Retorno DEVE ser exatamente `q_offline/5`, calculado antes da conversão em Aura inteira e sem reaplicar Ascensão.
 - **REQ-ARITH-019:** custo, preço de lote e teto DEVEM usar somente aritmética inteira e a fórmula racional `23ⁿ/20ⁿ`.
-- **REQ-ARITH-020:** a elegibilidade do Complemento DEVE usar `7×preço ≤ 10×saldo < 10×preço`, sem porcentagem em ponto flutuante.
-- **REQ-ARITH-021:** uma cotação de Complemento DEVE registrar item, nível, preço, saldo comprometido e falta coberta; sucesso consome somente o saldo cotado e falha não consome saldo nem cota.
+- **REQ-ARITH-020:** a quantidade do Upgrade por Anúncio DEVE usar somente o nível inteiro cotado: 1–5 concede `+1`, 6–100 concede `+5` e nível maior que 100 concede `+25`.
+- **REQ-ARITH-021:** uma cotação de Upgrade por Anúncio DEVE registrar item, nível e quantidade; sucesso só pode ocorrer se o nível ainda coincidir, e falha não pode conceder nível nem consumir a sequência.
 - **REQ-ARITH-022:** para Aura de Ascensão acumulada `L`, o bônus `B` DEVE ser o maior inteiro que satisfaz `B² × 10¹¹ ≤ L`, e o multiplicador total DEVE ser `A=100+B`.
 - **REQ-ARITH-023:** produção pendente DEVE ser integrada antes de calcular e confirmar uma Ascensão.
 - **REQ-ARITH-024:** Aura Total e Resto de Produção DEVEM permanecer após Ascensão; Aura Disponível e Aura da Jornada DEVEM voltar a zero.
@@ -619,8 +619,8 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-SHOP-021:** `×10` DEVE cobrar a soma exata dos preços dos próximos dez níveis e somente concluir quando o total puder ser pago.
 - **REQ-SHOP-022:** `MÁX` DEVE adquirir a maior quantidade inteira de níveis que a Aura Disponível puder pagar.
 - **REQ-SHOP-023:** o custo de Compra em Lote NÃO DEVE ser calculado apenas pela multiplicação do preço do próximo nível.
-- **REQ-SHOP-024:** o Complemento de Aura DEVE se aplicar somente a uma aquisição inicial ou ao próximo nível em `×1`.
-- **REQ-SHOP-025:** o Complemento de Aura NÃO DEVE financiar compras `×10` ou `MÁX`.
+- **REQ-SHOP-024:** Upgrade por Anúncio DEVE exigir que o item desbloqueado já esteja no nível 1.
+- **REQ-SHOP-025:** compras `×1`, `×10` e `MÁX` DEVEM manter seus custos normais; Upgrade por Anúncio não financia nem altera seus preços.
 - **REQ-SHOP-026:** múltiplos marcos atravessados por uma Compra em Lote DEVEM ter suas novidades apresentadas de forma consolidada.
 - **REQ-SHOP-027:** o catálogo do MVP DEVE possuir exatamente 18 Itens de Aura.
 - **REQ-SHOP-028:** a Árvore de Aura DEVE possuir exatamente três Ramos de Aura com cinco itens próprios em cada.
@@ -887,27 +887,27 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 ## Anúncios Recompensados
 
 - **REQ-ADS-001:** anúncios associados a benefícios de jogo DEVEM ser voluntários.
-- **REQ-ADS-002:** a Loja somente DEVE oferecer um Complemento de Aura quando o jogador possuir pelo menos 70% e menos de 100% do preço da compra.
-- **REQ-ADS-003:** o Complemento de Aura DEVE cobrir somente o valor que falta para a compra elegível.
-- **REQ-ADS-004:** o Complemento de Aura NÃO DEVE exceder 30% do preço da compra.
-- **REQ-ADS-005:** ao concluir o anúncio, a compra DEVE consumir a Aura Disponível que o jogador possuía para realizá-la.
-- **REQ-ADS-006:** o Complemento de Aura NÃO DEVE ignorar Patamares de Aura, Pré-requisitos de Item ou qualquer outra condição de desbloqueio.
-- **REQ-ADS-007:** o Complemento de Aura NÃO DEVE ser oferecido quando o jogador puder pagar o preço integral.
-- **REQ-ADS-008:** cancelar ou não concluir um Anúncio Recompensado NÃO DEVE concluir a compra nem consumir Aura.
-- **REQ-ADS-009:** o jogador NÃO DEVE concluir mais de três Complementos de Aura em qualquer janela móvel de 24 horas.
-- **REQ-ADS-010:** os três Complementos disponíveis NÃO DEVEM possuir intervalo obrigatório entre usos.
-- **REQ-ADS-011:** o Bônus de Retorno NÃO DEVE consumir nem reduzir a cota de Complementos de Aura.
-- **REQ-ADS-012:** anúncio cancelado, indisponível ou concluído com erro NÃO DEVE consumir a cota de Complementos de Aura.
-- **REQ-ADS-013:** a oferta de Complemento de Aura NÃO DEVE abrir automaticamente nem interromper a tela principal.
-- **REQ-ADS-014:** a Loja DEVE informar quantos Complementos de Aura ainda estão disponíveis na janela vigente.
+- **REQ-ADS-002:** a Loja somente DEVE oferecer Upgrade por Anúncio para um item desbloqueado no nível 1 ou superior.
+- **REQ-ADS-003:** a recompensa DEVE ser `+1` para nível atual 1–5, `+5` para 6–100 e `+25` acima de 100.
+- **REQ-ADS-004:** a conclusão válida NÃO DEVE consumir Aura nem alterar Aura Disponível, Total ou da Jornada.
+- **REQ-ADS-005:** a cotação DEVE registrar item, nível e quantidade de níveis, e só pode ser aplicada se o nível ainda coincidir.
+- **REQ-ADS-006:** Upgrade por Anúncio NÃO DEVE ignorar Patamares de Aura, Pré-requisitos de Item ou qualquer outra condição de desbloqueio.
+- **REQ-ADS-007:** o mesmo item NÃO DEVE receber dois Upgrades por Anúncio dentro da mesma sequência.
+- **REQ-ADS-008:** cancelar ou não concluir um Anúncio Recompensado NÃO DEVE conceder nível nem consumir a sequência.
+- **REQ-ADS-009:** cada sequência DEVE concluir no máximo três anúncios em itens distintos.
+- **REQ-ADS-010:** após a terceira conclusão, a Loja DEVE aplicar cooldown global de 15 minutos aos Upgrades por Anúncio.
+- **REQ-ADS-011:** o Bônus de Retorno NÃO DEVE consumir nem reduzir a sequência ou cooldown de Upgrade por Anúncio.
+- **REQ-ADS-012:** anúncio cancelado, indisponível ou concluído com erro NÃO DEVE consumir a sequência de Upgrade por Anúncio.
+- **REQ-ADS-013:** a oferta de Upgrade por Anúncio NÃO DEVE abrir automaticamente nem interromper a tela principal.
+- **REQ-ADS-014:** a Loja DEVE informar quando o item precisa do primeiro nível, já foi usado na sequência ou está em cooldown.
 - **REQ-ADS-015:** no lançamento, todo anúncio DEVE usar um formato recompensado e ser iniciado explicitamente pelo jogador.
 - **REQ-ADS-016:** o jogo NÃO DEVE exibir banners publicitários.
 - **REQ-ADS-017:** o jogo NÃO DEVE exibir anúncios intersticiais automáticos.
 - **REQ-ADS-018:** abrir o jogo, navegar entre telas, concluir ciclos ou realizar compras NÃO DEVE disparar anúncios automaticamente.
-- **REQ-ADS-019:** no lançamento, anúncios recompensados DEVEM ser oferecidos somente no Bônus de Retorno e no Complemento de Aura.
+- **REQ-ADS-019:** no lançamento, anúncios recompensados DEVEM ser oferecidos somente no Bônus de Retorno e no Upgrade por Anúncio.
 - **REQ-ADS-020:** anúncios recompensados NÃO DEVEM ser habilitados antes da conclusão do Tutorial Contextual.
-- **REQ-ADS-021:** a habilitação DEVE exigir ao menos uma Técnica Six-Seven e um Item de Aura comprados normalmente, sem Complemento de Aura.
-- **REQ-ADS-022:** o Complemento de Aura somente DEVE ser oferecido em compras posteriores às duas compras normais exigidas.
+- **REQ-ADS-021:** a habilitação DEVE exigir ao menos uma Técnica Six-Seven e um Item de Aura comprados normalmente, sem Upgrade por Anúncio.
+- **REQ-ADS-022:** Upgrade por Anúncio somente DEVE ser oferecido depois das duas compras normais exigidas.
 - **REQ-ADS-023:** uma Recompensa de Retorno anterior à habilitação de monetização DEVE oferecer apenas o resgate da produção-base, sem oferta de Bônus de Retorno.
 - **REQ-ADS-024:** dispensar ou pular orientações NÃO DEVE antecipar a habilitação de anúncios.
 - **REQ-ADS-025:** a primeira oferta publicitária DEVE explicar o benefício, a natureza opcional e a alternativa sem anúncio.

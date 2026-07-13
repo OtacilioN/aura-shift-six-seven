@@ -8,6 +8,8 @@ val uploadStoreFile = System.getenv("AURA_SHIFT_UPLOAD_STORE_FILE")
 val uploadStorePassword = System.getenv("AURA_SHIFT_UPLOAD_STORE_PASSWORD")
 val uploadKeyPassword = System.getenv("AURA_SHIFT_UPLOAD_KEY_PASSWORD")
 val uploadKeyAlias = System.getenv("AURA_SHIFT_UPLOAD_KEY_ALIAS") ?: "aura-shift-upload"
+val testAdMobAppId = "ca-app-pub-3940256099942544~3347511713"
+val productionAdMobAppId = "ca-app-pub-1879801690271355~3301040623"
 val hasUploadSigning = listOf(
     uploadStoreFile,
     uploadStorePassword,
@@ -40,9 +42,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        // Official Google test app ID by default. Release builds must inject
-        // ADMOB_APP_ID through an untracked Gradle property.
-        manifestPlaceholders["ADMOB_APP_ID"] = project.findProperty("ADMOB_APP_ID") ?: "ca-app-pub-3940256099942544~3347511713"
+        // Debug/profile builds use Google's official test inventory.
+        manifestPlaceholders["ADMOB_APP_ID"] = testAdMobAppId
     }
 
     signingConfigs {
@@ -60,8 +61,16 @@ android {
         release {
             signingConfig = signingConfigs.getByName("release")
             proguardFiles("proguard-rules.pro")
+            // AdMob identifiers are public application configuration. Keeping
+            // the production value explicit prevents a release from silently
+            // shipping with Google's test App ID.
+            manifestPlaceholders["ADMOB_APP_ID"] = productionAdMobAppId
         }
     }
+}
+
+dependencies {
+    implementation("com.google.android.play:age-signals:0.0.3")
 }
 
 kotlin {

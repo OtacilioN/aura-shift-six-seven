@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../audio/aura_audio_controller.dart';
 import '../core/backup_service.dart';
@@ -30,10 +31,12 @@ class Home extends StatefulWidget {
     required this.controller,
     required this.strings,
     required this.audio,
+    required this.rewardedAds,
   });
   final GameController controller;
   final Strings strings;
   final AuraAudioController audio;
+  final RewardedAds rewardedAds;
   @override
   State<Home> createState() => _HomeState();
 }
@@ -42,7 +45,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   int tab = 0;
   bool promptedAnalytics = false;
   bool promptedReturn = false;
-  final RewardedAds rewardedAds = GoogleRewardedAds();
   final ListQueue<_VisualFeedback> _visualFeedback = ListQueue();
   late final AuraScene scene;
   late final Future<ArtCatalog?> artCatalog;
@@ -50,6 +52,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   late Set<String> _knownSeals;
   late Set<String> _knownAchievements;
   bool _showingVisualFeedback = false;
+  bool _returnAdInFlight = false;
+  bool _rewardedUpgradeInFlight = false;
+  late bool _adsEnabled;
 
   @override
   void initState() {
@@ -61,7 +66,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     _knownTransformations = widget.controller.transformations;
     _knownSeals = widget.controller.seals;
     _knownAchievements = widget.controller.achievements;
+    _adsEnabled =
+        widget.controller.adsUnlocked && widget.controller.adOfferExplained;
     widget.controller.addListener(_detectUnlocks);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(widget.rewardedAds.setEnabled(_adsEnabled));
+    });
   }
 
   Future<ArtCatalog?> _loadArtCatalog() async {
@@ -80,6 +90,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   }
 
   void _detectUnlocks() {
+    final adsEnabled =
+        widget.controller.adsUnlocked && widget.controller.adOfferExplained;
+    if (adsEnabled != _adsEnabled) {
+      _adsEnabled = adsEnabled;
+      unawaited(widget.rewardedAds.setEnabled(adsEnabled));
+    }
     final nextTransformations = widget.controller.transformations;
     for (final id in nextTransformations.difference(_knownTransformations)) {
       final key = id.toLowerCase().replaceAll('-', '_');
@@ -222,10 +238,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             art: art,
             audio: widget.audio,
             onPurchase: _buyUpgrade,
-            onComplement: _completeComplement,
+            onRewardedUpgrade: _claimRewardedUpgrade,
           ),
           _Collection(controller: c, strings: s, art: art, audio: widget.audio),
-          _Settings(controller: c, strings: s, art: art, audio: widget.audio),
+          _Settings(
+            controller: c,
+            strings: s,
+            art: art,
+            audio: widget.audio,
+            rewardedAds: widget.rewardedAds,
+          ),
         ];
         return Scaffold(
           body: SafeArea(
@@ -431,85 +453,187 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             );
           }));
 
-  Future<void> _returnRewardDialog() =>
-      _withSheetAudio(() => showModalBottomSheet<void>(
-          context: context,
-          isDismissible: false,
-          builder: (sheet) {
-            final base = AuraFormat.integer(
-                widget.controller.returnBase ~/ BigInt.from(10000000),
-                locale: widget.strings.locale);
-            final bonus = AuraFormat.integer(
-                widget.controller.returnBonus ~/ BigInt.from(10000000),
-                locale: widget.strings.locale);
-            return _Sheet(
-                title: widget.strings('return_title'),
-                body: '${widget.strings('return_base_reward', {
-                      'amount': base
-                    })}\n${widget.strings('return_bonus_body', {
-                      'amount': bonus
-                    })}',
-                artwork: _iconArtwork(
-                  AuraUiIcon.rewardedAd,
-                  widget.strings('return_title'),
-                  Icons.card_giftcard,
-                ),
-                child: Row(children: [
-                  Expanded(
-                      child: OutlinedButton(
-                          onPressed: () {
-                            widget.controller.claimReturnBase();
-                            Navigator.pop(sheet);
-                          },
-                          child: Text(widget.strings('return_base_only')))),
-                  const SizedBox(width: 12),
-                  Expanded(
-                      child: FilledButton(
-                          onPressed: () async {
-                            var rewarded = false;
-                            try {
-                              rewarded = await widget.audio.whileInterrupted(
-                                () => rewardedAds
-                                    .show(RewardedPlacement.returnBonus),
-                              );
-                            } catch (_) {}
-                            if (rewarded) {
-                              final credited = widget.controller
-                                  .resolveReturnBonus(rewarded: true);
-                              if (credited) {
-                                unawaited(widget.audio.playReturnBonus());
-                              }
-                              if (sheet.mounted) Navigator.pop(sheet);
-                            } else if (sheet.mounted) {
-                              unawaited(widget.audio.playUiError());
-                              ScaffoldMessenger.of(sheet).showSnackBar(SnackBar(
-                                content:
-                                    Text(widget.strings('return_ad_failed')),
-                              ));
-                            }
-                          },
-                          child: Text(widget
-                              .strings('return_watch_ad', {'amount': bonus}))))
-                ]));
-          }));
+  Future<void> _returnRewardDialog() {
+    _returnAdInFlight = false;
+    return _withSheetAudio(() => showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        enableDrag: false,
+        builder: (sheet) => StatefulBuilder(builder: (sheet, setSheetState) {
+              final base = AuraFormat.integer(
+                  widget.controller.returnBase ~/ BigInt.from(10000000),
+                  locale: widget.strings.locale);
+              final bonus = AuraFormat.integer(
+                  widget.controller.returnBonus ~/ BigInt.from(10000000),
+                  locale: widget.strings.locale);
+              final bonusAvailable = widget.controller.returnBonusAvailable;
+              return PopScope(
+                  canPop: !_returnAdInFlight,
+                  child: _Sheet(
+                      title: widget.strings('return_title'),
+                      body: bonusAvailable
+                          ? '${widget.strings('return_base_reward', {
+                                  'amount': base
+                                })}\n${widget.strings('return_bonus_body', {
+                                  'amount': bonus
+                                })}'
+                          : widget
+                              .strings('return_base_reward', {'amount': base}),
+                      artwork: _iconArtwork(
+                        AuraUiIcon.rewardedAd,
+                        widget.strings('return_title'),
+                        Icons.card_giftcard,
+                      ),
+                      child: bonusAvailable
+                          ? Row(children: [
+                              Expanded(
+                                  child: OutlinedButton(
+                                      onPressed: _returnAdInFlight
+                                          ? null
+                                          : () {
+                                              widget.controller
+                                                  .claimReturnBase();
+                                              Navigator.pop(sheet);
+                                            },
+                                      child: Text(
+                                          widget.strings('return_base_only')))),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                  child: FilledButton(
+                                      onPressed: _returnAdInFlight
+                                          ? null
+                                          : () async {
+                                              setSheetState(
+                                                () => _returnAdInFlight = true,
+                                              );
+                                              var rewarded = false;
+                                              try {
+                                                if (!await _explainFirstAdOffer(
+                                                    sheet)) {
+                                                  return;
+                                                }
+                                                if (!widget.controller
+                                                    .returnBonusAvailable) {
+                                                  return;
+                                                }
+                                                rewarded = await widget.audio
+                                                    .whileInterrupted(
+                                                  () => widget.rewardedAds.show(
+                                                    RewardedPlacement
+                                                        .returnBonus,
+                                                  ),
+                                                );
+                                                if (rewarded) {
+                                                  final credited = widget
+                                                      .controller
+                                                      .resolveReturnBonus(
+                                                    rewarded: true,
+                                                  );
+                                                  if (credited) {
+                                                    unawaited(widget.audio
+                                                        .playReturnBonus());
+                                                    if (sheet.mounted) {
+                                                      Navigator.pop(sheet);
+                                                    }
+                                                  }
+                                                }
+                                                if (!rewarded &&
+                                                    sheet.mounted) {
+                                                  unawaited(widget.audio
+                                                      .playUiError());
+                                                  ScaffoldMessenger.of(sheet)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(widget.strings(
+                                                        'return_ad_failed')),
+                                                  ));
+                                                }
+                                              } catch (_) {
+                                                if (sheet.mounted) {
+                                                  unawaited(widget.audio
+                                                      .playUiError());
+                                                  ScaffoldMessenger.of(sheet)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(widget.strings(
+                                                        'return_ad_failed')),
+                                                  ));
+                                                }
+                                              } finally {
+                                                _returnAdInFlight = false;
+                                                if (sheet.mounted) {
+                                                  setSheetState(() {});
+                                                }
+                                              }
+                                            },
+                                      child: Text(widget.strings(
+                                          'return_watch_ad',
+                                          {'amount': bonus}))))
+                            ])
+                          : FilledButton(
+                              style: FilledButton.styleFrom(
+                                minimumSize: const Size.fromHeight(52),
+                              ),
+                              onPressed: _returnAdInFlight
+                                  ? null
+                                  : () {
+                                      widget.controller.claimReturnBase();
+                                      Navigator.pop(sheet);
+                                    },
+                              child:
+                                  Text(widget.strings('return_base_only')))));
+            })));
+  }
 
-  Future<void> _completeComplement(Upgrade upgrade) async {
-    final quote = widget.controller.beginComplement(upgrade);
+  Future<bool> _explainFirstAdOffer(BuildContext dialogContext) async {
+    if (widget.controller.adOfferExplained) return true;
+    final proceed = await showDialog<bool>(
+          context: dialogContext,
+          builder: (dialog) => AlertDialog(
+            title: Text(widget.strings('ads_first_offer_title')),
+            content: Text(widget.strings('ads_first_offer_body')),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialog, false),
+                child: Text(widget.strings('ads_first_offer_not_now')),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(dialog, true),
+                child: Text(widget.strings('ads_first_offer_continue')),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+    if (proceed) {
+      widget.controller.markAdOfferExplained();
+      _adsEnabled = true;
+      await widget.rewardedAds.setEnabled(true);
+    }
+    return proceed;
+  }
+
+  Future<void> _claimRewardedUpgrade(Upgrade upgrade) async {
+    if (_rewardedUpgradeInFlight) return;
+    if (!await _explainFirstAdOffer(context)) return;
+    final quote = widget.controller.beginRewardedUpgrade(upgrade);
     if (quote == null) return;
+    setState(() => _rewardedUpgradeInFlight = true);
     var rewarded = false;
     try {
       rewarded = await widget.audio.whileInterrupted(
-        () => rewardedAds.show(RewardedPlacement.auraComplement),
+        () => widget.rewardedAds.show(RewardedPlacement.shopUpgrade),
       );
     } catch (_) {}
-    final redeemed =
-        widget.controller.redeemComplement(quote, rewarded: rewarded);
+    final redeemed = widget.controller.redeemRewardedUpgrade(
+      quote,
+      rewarded: rewarded,
+    );
+    if (mounted) setState(() => _rewardedUpgradeInFlight = false);
     if (redeemed) {
-      final after = quote.level + 1;
+      final after = quote.level + quote.levelsGranted;
       _announcePurchase(upgrade, quote.level, after);
       unawaited(widget.audio.playPurchaseResult(
         success: true,
-        quantity: 1,
+        quantity: quote.levelsGranted,
         unlockedAppearance: !upgrade.isTechnique && quote.level == 0,
         levelMilestone: _crossedMilestone(quote.level, after),
       ));
@@ -1034,14 +1158,14 @@ class _Shop extends StatelessWidget {
     required this.art,
     required this.audio,
     required this.onPurchase,
-    required this.onComplement,
+    required this.onRewardedUpgrade,
   });
   final GameController controller;
   final Strings strings;
   final ArtCatalog? art;
   final AuraAudioController audio;
   final void Function(Upgrade, int) onPurchase;
-  final Future<void> Function(Upgrade) onComplement;
+  final Future<void> Function(Upgrade) onRewardedUpgrade;
 
   @override
   Widget build(BuildContext context) {
@@ -1066,7 +1190,7 @@ class _Shop extends StatelessWidget {
                 locale: s.locale,
                 art: art,
                 onPurchase: onPurchase,
-                onComplement: onComplement,
+                onRewardedUpgrade: onRewardedUpgrade,
                 onDetailsOpen: () async {
                   unawaited(audio.playUiOpen());
                   await audio.beginDuck();
@@ -1334,11 +1458,13 @@ class _Settings extends StatelessWidget {
     required this.strings,
     required this.art,
     required this.audio,
+    required this.rewardedAds,
   });
   final GameController controller;
   final Strings strings;
   final ArtCatalog? art;
   final AuraAudioController audio;
+  final RewardedAds rewardedAds;
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -1415,6 +1541,30 @@ class _Settings extends StatelessWidget {
               unawaited(audio.playToggle(v));
             }),
             Card(
+              child: ListTile(
+                leading: const Icon(Icons.privacy_tip_outlined),
+                title: Text(strings('settings_privacy_policy')),
+                subtitle: Text(strings('settings_privacy_policy_body')),
+                trailing: const Icon(Icons.open_in_new),
+                onTap: () => _openPrivacyPolicy(context),
+              ),
+            ),
+            AnimatedBuilder(
+              animation: rewardedAds,
+              builder: (context, _) => rewardedAds.privacyOptionsRequired
+                  ? Card(
+                      child: ListTile(
+                        leading: const Icon(Icons.tune_outlined),
+                        title: Text(strings('settings_ad_privacy_options')),
+                        subtitle:
+                            Text(strings('settings_ad_privacy_options_body')),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () => _showAdPrivacyOptions(context),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
+            Card(
                 child: ListTile(
                     leading: AuraAssetIcon(
                       catalog: art,
@@ -1428,10 +1578,31 @@ class _Settings extends StatelessWidget {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => _backup(context))),
             ListTile(
-                title: Text(strings('settings_version', {'version': '0.1.5'})),
-                subtitle:
-                    const Text('Development build · arith-v1 · balance-v0.3'))
+                title: Text(strings('settings_version', {'version': '0.1.6'})),
+                subtitle: const Text('arith-v1 · balance-v0.3'))
           ]);
+
+  Future<void> _openPrivacyPolicy(BuildContext context) async {
+    final opened = await launchUrl(
+      Uri.parse('https://sixseven.otaciliomaia.com/privacy/'),
+      mode: LaunchMode.externalApplication,
+    );
+    if (!opened && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(strings('system_external_link_failed'))),
+      );
+    }
+  }
+
+  Future<void> _showAdPrivacyOptions(BuildContext context) async {
+    final shown = await rewardedAds.showPrivacyOptions();
+    if (!shown && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(strings('settings_ad_privacy_failed'))),
+      );
+    }
+  }
+
   Future<void> _backup(BuildContext context) async {
     unawaited(audio.playUiOpen());
     await audio.beginDuck();

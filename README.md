@@ -13,14 +13,15 @@ Movimento Reduzido; o catálogo revisado usa humor sistêmico sem alterar a econ
 
 Os assets visuais, sonoros, de marca e fontes foram aprovados e incorporados ao
 runtime por manifests derivados, preservando os candidatos técnicos e seus
-hashes. Ainda dependem de aparelho ou configuração externa antes de uma
-publicação:
+hashes. A integração de anúncios recompensados está configurada com Google
+Mobile Ads, UMP, tratamento `TEEN`, anúncios não personalizados, Play Age
+Signals isolada e IDs separados para teste e produção. Ainda dependem de
+aparelho ou aprovação externa antes de uma publicação ampla:
 
 - teste em aparelho de loops, latência, retomada, ícone adaptativo e splash;
-- IDs/configurações de Google Mobile Ads, UMP e Play Age Signals;
-- configuração Firebase para Analytics opt-in e Crashlytics por ocorrência;
-- dispositivo e credenciais de assinatura para validar a experiência e o AAB
-  de release.
+- validação visual dos anúncios oficiais de teste em aparelho Android;
+- aprovação da conta e do app no AdMob após a página pública da Play Store;
+- configuração Firebase para Analytics opt-in e Crashlytics por ocorrência.
 
 Para executar localmente:
 
@@ -40,7 +41,8 @@ flutter run
   manifests, hashes, fontes editáveis/procedurais, proveniência e revisão
   automática; a aprovação humana é registrada sem alterar essa evidência e os
   derivados aprovados são os contratos consumidos pelo runtime;
-- políticas de plataforma, privacidade e anúncios devem ser verificadas antes da integração dos SDKs e novamente perto da publicação.
+- políticas de plataforma, privacidade e anúncios foram verificadas na
+  integração e devem ser revalidadas perto de cada publicação.
 
 ## Comece por aqui
 

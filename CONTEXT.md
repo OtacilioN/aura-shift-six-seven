@@ -148,9 +148,9 @@ _Evitar_: bônus temporário, multiplicador de anúncio
 Aura produzida desde o início do jogo ou desde a Ascensão de Aura mais recente. Ao Ascender, ela é acrescentada ao acumulado permanente usado para derivar o Multiplicador. É necessário acumular ao menos `1Qa` em cada jornada para Ascender novamente.
 _Evitar_: Aura Total, Aura Disponível
 
-**Complemento de Aura**:
-Benefício opcional de Anúncio Recompensado que cobre somente o valor faltante de uma compra, limitado a 30% de seu preço, quando o jogador já possui pelo menos 70%.
-_Evitar_: desconto de 70%, item grátis, compra por anúncio
+**Upgrade por Anúncio**:
+Benefício opcional de Anúncio Recompensado para um item desbloqueado já no nível 1: concede `+1` nos níveis 1–5, `+5` nos níveis 6–100 e `+25` a partir do nível 101, sem gastar Aura. Três itens distintos podem receber o benefício antes de um cooldown global de 15 minutos.
+_Evitar_: desconto de compra, Aura grátis, dois anúncios seguidos no mesmo item
 
 **Mascote**:
 Personagem fixo e original que representa o jogador, reconhecível pela silhueta estilizada e pelas mãos exageradamente grandes.
@@ -250,7 +250,7 @@ _Evitar_: saldo único, contagem visual
 
 **Compra em Lote**:
 Aquisição de vários Níveis de Melhoramento em uma única ação pelos modos `×10` ou `MÁX`, sempre usando o custo cumulativo real.
-_Evitar_: desconto em massa, Complemento de Aura em lote
+_Evitar_: desconto em massa, anúncio como financiamento de lote
 
 **Marco 67**:
 Conquista permanente disparada uma única vez quando a Aura Total cruza um valor da forma `67 × 1000ⁿ`.

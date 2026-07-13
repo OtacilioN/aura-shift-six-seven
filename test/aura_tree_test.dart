@@ -58,7 +58,7 @@ void main() {
                     art: null,
                     onPurchase: (upgrade, quantity) =>
                         controller.buy(upgrade, quantity),
-                    onComplement: (_) async {},
+                    onRewardedUpgrade: (_) async {},
                   ),
                 ),
               ),

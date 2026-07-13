@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'audio/aura_audio_controller.dart';
 import 'core/game_controller.dart';
+import 'core/rewarded_ads.dart';
 import 'ui/home.dart';
 
 Future<void> main() async {
@@ -12,7 +13,13 @@ Future<void> main() async {
   final controller = await GameController.load();
   final audio = await AuraAudioController.create();
   final strings = await Strings.load(controller.locale);
-  runApp(AuraApp(controller: controller, strings: strings, audio: audio));
+  final rewardedAds = GoogleRewardedAds();
+  runApp(AuraApp(
+    controller: controller,
+    strings: strings,
+    audio: audio,
+    rewardedAds: rewardedAds,
+  ));
 }
 
 class Strings extends ChangeNotifier {
@@ -59,10 +66,12 @@ class AuraApp extends StatelessWidget {
     required this.controller,
     required this.strings,
     required this.audio,
+    required this.rewardedAds,
   });
   final GameController controller;
   final Strings strings;
   final AuraAudioController audio;
+  final RewardedAds rewardedAds;
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
         animation: Listenable.merge([controller, strings]),
@@ -79,6 +88,7 @@ class AuraApp extends StatelessWidget {
             controller: controller,
             strings: strings,
             audio: audio,
+            rewardedAds: rewardedAds,
           ),
         ),
       );
