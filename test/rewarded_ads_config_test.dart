@@ -30,6 +30,18 @@ void main() {
     expect(config.isProduction, isTrue);
   });
 
+  test('closed-test release can opt into official Google test inventory', () {
+    final config = AdMobConfig.forBuild(
+      release: true,
+      explicitTestMode: true,
+    );
+
+    expect(config.appId, AdMobConfig.productionAppId);
+    expect(config.returnUnitId, AdMobConfig.testRewardedUnitId);
+    expect(config.shopUpgradeUnitId, AdMobConfig.testRewardedUnitId);
+    expect(config.isProduction, isFalse);
+  });
+
   test('production configuration rejects Google test inventory', () {
     const invalid = AdMobConfig(
       appId: AdMobConfig.testAppId,

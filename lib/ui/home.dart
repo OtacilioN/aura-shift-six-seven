@@ -468,7 +468,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   locale: widget.strings.locale);
               final bonusAvailable = widget.controller.returnBonusAvailable;
               return PopScope(
-                  canPop: !_returnAdInFlight,
+                  canPop: false,
+                  onPopInvokedWithResult: (didPop, _) {
+                    if (!didPop && !_returnAdInFlight) Navigator.pop(sheet);
+                  },
                   child: _Sheet(
                       title: widget.strings('return_title'),
                       body: bonusAvailable
@@ -491,6 +494,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                       onPressed: _returnAdInFlight
                                           ? null
                                           : () {
+                                              if (_returnAdInFlight) return;
                                               widget.controller
                                                   .claimReturnBase();
                                               Navigator.pop(sheet);
@@ -503,6 +507,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                       onPressed: _returnAdInFlight
                                           ? null
                                           : () async {
+                                              if (_returnAdInFlight) return;
                                               setSheetState(
                                                 () => _returnAdInFlight = true,
                                               );
@@ -516,12 +521,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                                     .returnBonusAvailable) {
                                                   return;
                                                 }
-                                                rewarded = await widget.audio
-                                                    .whileInterrupted(
-                                                  () => widget.rewardedAds.show(
-                                                    RewardedPlacement
-                                                        .returnBonus,
-                                                  ),
+                                                rewarded =
+                                                    await _showRewardedAd(
+                                                  RewardedPlacement.returnBonus,
                                                 );
                                                 if (rewarded) {
                                                   final credited = widget
@@ -564,9 +566,18 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                                 }
                                               }
                                             },
-                                      child: Text(widget.strings(
-                                          'return_watch_ad',
-                                          {'amount': bonus}))))
+                                      child: _returnAdInFlight
+                                          ? _AdLoadingLabel(
+                                              label: widget.strings(
+                                                'system_ad_loading',
+                                              ),
+                                              key: const ValueKey(
+                                                'return-ad-loading',
+                                              ),
+                                            )
+                                          : Text(widget.strings(
+                                              'return_watch_ad',
+                                              {'amount': bonus}))))
                             ])
                           : FilledButton(
                               style: FilledButton.styleFrom(
@@ -575,6 +586,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                               onPressed: _returnAdInFlight
                                   ? null
                                   : () {
+                                      if (_returnAdInFlight) return;
                                       widget.controller.claimReturnBase();
                                       Navigator.pop(sheet);
                                     },
@@ -613,35 +625,76 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   Future<void> _claimRewardedUpgrade(Upgrade upgrade) async {
     if (_rewardedUpgradeInFlight) return;
-    if (!await _explainFirstAdOffer(context)) return;
-    final quote = widget.controller.beginRewardedUpgrade(upgrade);
-    if (quote == null) return;
-    setState(() => _rewardedUpgradeInFlight = true);
-    var rewarded = false;
+    _rewardedUpgradeInFlight = true;
+    if (mounted) setState(() {});
     try {
-      rewarded = await widget.audio.whileInterrupted(
-        () => widget.rewardedAds.show(RewardedPlacement.shopUpgrade),
+      if (!await _explainFirstAdOffer(context)) return;
+      final quote = widget.controller.beginRewardedUpgrade(upgrade);
+      if (quote == null) return;
+      var rewarded = false;
+      try {
+        rewarded = await _showRewardedAd(RewardedPlacement.shopUpgrade);
+      } catch (_) {}
+      final redeemed = widget.controller.redeemRewardedUpgrade(
+        quote,
+        rewarded: rewarded,
       );
-    } catch (_) {}
-    final redeemed = widget.controller.redeemRewardedUpgrade(
-      quote,
-      rewarded: rewarded,
-    );
-    if (mounted) setState(() => _rewardedUpgradeInFlight = false);
-    if (redeemed) {
-      final after = quote.level + quote.levelsGranted;
-      _announcePurchase(upgrade, quote.level, after);
-      unawaited(widget.audio.playPurchaseResult(
-        success: true,
-        quantity: quote.levelsGranted,
-        unlockedAppearance: !upgrade.isTechnique && quote.level == 0,
-        levelMilestone: _crossedMilestone(quote.level, after),
-      ));
-    } else if (mounted) {
-      unawaited(widget.audio.playPurchaseResult(success: false, quantity: 1));
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(widget.strings('shop_ad_unavailable')),
-      ));
+      if (redeemed) {
+        final after = quote.level + quote.levelsGranted;
+        _announcePurchase(upgrade, quote.level, after);
+        unawaited(widget.audio.playPurchaseResult(
+          success: true,
+          quantity: quote.levelsGranted,
+          unlockedAppearance: !upgrade.isTechnique && quote.level == 0,
+          levelMilestone: _crossedMilestone(quote.level, after),
+        ));
+      } else if (mounted) {
+        unawaited(
+          widget.audio.playPurchaseResult(success: false, quantity: 1),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(widget.strings('shop_ad_unavailable')),
+        ));
+      }
+    } finally {
+      _rewardedUpgradeInFlight = false;
+      if (mounted) setState(() {});
+    }
+  }
+
+  Future<bool> _showRewardedAd(RewardedPlacement placement) async {
+    var audioTransition = Future<void>.value();
+    var interrupted = false;
+
+    void queueAudioTransition(Future<void> Function() transition) {
+      audioTransition = audioTransition
+          .catchError((_) {})
+          .then((_) => transition())
+          .catchError((_) {});
+    }
+
+    void pauseForFullscreen() {
+      if (interrupted) return;
+      interrupted = true;
+      queueAudioTransition(widget.audio.pauseForInterruption);
+    }
+
+    void resumeAfterFullscreen() {
+      if (!interrupted) return;
+      interrupted = false;
+      queueAudioTransition(widget.audio.resumeAfterInterruption);
+    }
+
+    try {
+      return await widget.rewardedAds.show(
+        placement,
+        onAdShowed: pauseForFullscreen,
+        onAdClosed: resumeAfterFullscreen,
+      );
+    } finally {
+      // Fail safe if the SDK throws after opening but before its close callback.
+      resumeAfterFullscreen();
+      await audioTransition;
     }
   }
 
@@ -1578,7 +1631,7 @@ class _Settings extends StatelessWidget {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => _backup(context))),
             ListTile(
-                title: Text(strings('settings_version', {'version': '0.1.6'})),
+                title: Text(strings('settings_version', {'version': '0.1.7'})),
                 subtitle: const Text('arith-v1 · balance-v0.3'))
           ]);
 
@@ -1820,4 +1873,24 @@ class _Sheet extends StatelessWidget {
                 const SizedBox(height: 20),
                 child
               ])));
+}
+
+class _AdLoadingLabel extends StatelessWidget {
+  const _AdLoadingLabel({super.key, required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox.square(
+            dimension: 18,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+          const SizedBox(width: 8),
+          Flexible(child: Text(label, textAlign: TextAlign.center)),
+        ],
+      );
 }

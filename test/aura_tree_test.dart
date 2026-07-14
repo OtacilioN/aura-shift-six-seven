@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:aura_shift_six_seven/core/game_controller.dart';
@@ -35,6 +36,7 @@ void main() {
     double height = 700,
     TextScaler textScaler = TextScaler.noScaling,
     TextDirection textDirection = TextDirection.ltr,
+    Future<void> Function(Upgrade upgrade)? onRewardedUpgrade,
   }) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -58,7 +60,7 @@ void main() {
                     art: null,
                     onPurchase: (upgrade, quantity) =>
                         controller.buy(upgrade, quantity),
-                    onRewardedUpgrade: (_) async {},
+                    onRewardedUpgrade: onRewardedUpgrade ?? (_) async {},
                   ),
                 ),
               ),
@@ -240,6 +242,111 @@ void main() {
       await tester.pump(const Duration(milliseconds: 400));
       await tester.pumpWidget(const SizedBox.shrink());
     } finally {
+      controller.dispose();
+    }
+  });
+
+  testWidgets(
+      'rewarded upgrade shows loading and blocks duplicate actions until done',
+      (tester) async {
+    final controller = await controllerWith({
+      'available': '10000',
+      'total': '10000',
+      'journey': '10000',
+      'levels': {'TECH-01': 1, 'ITEM-A-01': 1},
+      'normalTechniquePurchased': true,
+      'normalItemPurchased': true,
+      'tutorialCompleted': true,
+    });
+    final adGate = Completer<void>();
+    var rewardedCalls = 0;
+    try {
+      await pumpTree(
+        tester,
+        controller,
+        strings,
+        onRewardedUpgrade: (_) async {
+          rewardedCalls++;
+          await adGate.future;
+        },
+      );
+
+      await tester.tap(find.byKey(const ValueKey('aura-node-ITEM-A-01')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      final detailScroll = find.descendant(
+        of: find.byKey(const ValueKey('aura-detail-ITEM-A-01')),
+        matching: find.byType(Scrollable),
+      );
+      final rewardedButton =
+          find.byKey(const ValueKey('buy-rewarded-upgrade-ITEM-A-01'));
+      await tester.scrollUntilVisible(
+        rewardedButton,
+        180,
+        scrollable: detailScroll,
+      );
+      final closeButton = find.ancestor(
+        of: find.byIcon(Icons.close),
+        matching: find.byType(IconButton),
+      );
+      final buyOneButton = find.descendant(
+        of: find.byKey(const ValueKey('buy-x1-ITEM-A-01')),
+        matching: find.byType(FilledButton),
+      );
+      final staleCloseAction =
+          tester.widget<IconButton>(closeButton).onPressed!;
+      final staleBuyAction =
+          tester.widget<FilledButton>(buyOneButton).onPressed!;
+      final staleRewardedAction =
+          tester.widget<OutlinedButton>(rewardedButton).onPressed!;
+
+      staleRewardedAction();
+      staleRewardedAction();
+      staleCloseAction();
+      staleBuyAction();
+      await tester.pump();
+
+      expect(rewardedCalls, 1);
+      expect(controller.level('ITEM-A-01'), 1);
+      expect(
+        find.byKey(const ValueKey('aura-detail-ITEM-A-01')),
+        findsOneWidget,
+      );
+      expect(find.byKey(const ValueKey('shop-ad-loading')), findsOneWidget);
+      expect(find.text(strings('system_ad_loading')), findsOneWidget);
+      expect(
+        tester.widget<OutlinedButton>(rewardedButton).onPressed,
+        isNull,
+      );
+      expect(tester.widget<IconButton>(closeButton).onPressed, isNull);
+      expect(tester.widget<FilledButton>(buyOneButton).onPressed, isNull);
+
+      await tester.binding.handlePopRoute();
+      await tester.pump();
+      expect(
+        find.byKey(const ValueKey('aura-detail-ITEM-A-01')),
+        findsOneWidget,
+      );
+      expect(rewardedCalls, 1);
+
+      adGate.complete();
+      await tester.pumpAndSettle();
+      expect(find.byKey(const ValueKey('shop-ad-loading')), findsNothing);
+      expect(
+        find.byKey(const ValueKey('aura-detail-ITEM-A-01')),
+        findsOneWidget,
+      );
+      expect(tester.widget<IconButton>(closeButton).onPressed, isNotNull);
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(
+        find.byKey(const ValueKey('aura-detail-ITEM-A-01')),
+        findsNothing,
+      );
+      await tester.pumpWidget(const SizedBox.shrink());
+    } finally {
+      if (!adGate.isCompleted) adGate.complete();
       controller.dispose();
     }
   });

@@ -22,7 +22,12 @@ Todos os anúncios são recompensados e voluntários. O jogo não utiliza:
 - anúncios disparados por navegação, conclusão de ciclos ou compras.
 
 A rede configurada é o Google AdMob, com inventário oficial de teste em builds
-debug/profile e unidades próprias somente em release.
+debug/profile. Releases usam unidades próprias por padrão; um bundle destinado
+exclusivamente ao teste fechado pode usar o inventário oficial de teste com
+`--dart-define=ADMOB_TEST_MODE=true`. Esse modo mantém o App ID próprio no
+manifesto, para continuar exercitando a mensagem UMP do Aura Shift, e troca
+somente os blocos recompensados pelos IDs de demonstração do Google. Ele não
+gera receita e nunca deve ser usado em uma versão promovida à produção.
 
 Nenhuma oferta publicitária é apresentada durante o Tutorial Contextual.
 

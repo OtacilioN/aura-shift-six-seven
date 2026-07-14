@@ -135,6 +135,10 @@ class _AuraItemTreeState extends State<AuraItemTree> {
       await showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
+        // PopScope below keeps barrier/back dismissal disabled only while the
+        // rewarded request is in flight. Drag is route-scoped, so it remains
+        // off to prevent an in-progress swipe from closing behind an ad.
+        enableDrag: false,
         useSafeArea: true,
         backgroundColor: Colors.transparent,
         builder: (context) => Directionality(
@@ -1195,7 +1199,7 @@ class _AuraTreePainter extends CustomPainter {
       oldDelegate.geometry.branchLabelHeight != geometry.branchLabelHeight;
 }
 
-class AuraUpgradeDetailsSheet extends StatelessWidget {
+class AuraUpgradeDetailsSheet extends StatefulWidget {
   const AuraUpgradeDetailsSheet({
     super.key,
     required this.controller,
@@ -1216,17 +1220,43 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
   final Future<void> Function(Upgrade upgrade) onRewardedUpgrade;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: MediaQuery.sizeOf(context).height * .9,
-        child: Material(
-          color: const Color(0xFF10142F),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: AnimatedBuilder(
-            animation: controller,
-            builder: (context, _) => _buildContent(context),
+  State<AuraUpgradeDetailsSheet> createState() =>
+      _AuraUpgradeDetailsSheetState();
+}
+
+class _AuraUpgradeDetailsSheetState extends State<AuraUpgradeDetailsSheet> {
+  bool _rewardedInFlight = false;
+
+  GameController get controller => widget.controller;
+  Upgrade get upgrade => widget.upgrade;
+  AuraTranslate get translate => widget.translate;
+  String get locale => widget.locale;
+  ArtCatalog? get art => widget.art;
+  void Function(Upgrade upgrade, int quantity) get onPurchase =>
+      widget.onPurchase;
+  Future<void> Function(Upgrade upgrade) get onRewardedUpgrade =>
+      widget.onRewardedUpgrade;
+
+  @override
+  Widget build(BuildContext context) => PopScope(
+        // Always intercept the route pop, then decide from the live State.
+        // This also covers a second tap before Flutter renders the loading UI.
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop && !_rewardedInFlight) Navigator.pop(this.context);
+        },
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * .9,
+          child: Material(
+            color: const Color(0xFF10142F),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: AnimatedBuilder(
+              animation: controller,
+              builder: (context, _) => _buildContent(context),
+            ),
           ),
         ),
       );
@@ -1272,7 +1302,7 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
               Positioned(
                 left: 8,
                 child: IconButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: _rewardedInFlight ? null : _closeIfIdle,
                   tooltip: translate('action_close'),
                   icon: const Icon(Icons.close),
                 ),
@@ -1472,7 +1502,8 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
                       available: controller.available,
                       translate: translate,
                       locale: locale,
-                      onPurchase: onPurchase,
+                      onPurchase: _purchaseIfIdle,
+                      interactionsEnabled: !_rewardedInFlight,
                     ),
                     if (unlocked &&
                         rewardedUpgradeAvailability !=
@@ -1483,21 +1514,35 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
                           width: double.infinity,
                           child: OutlinedButton.icon(
                             key: ValueKey('buy-rewarded-upgrade-${upgrade.id}'),
-                            onPressed: () async {
-                              await onRewardedUpgrade(upgrade);
-                              if (context.mounted) Navigator.pop(context);
-                            },
-                            icon: AuraAssetIcon(
-                              catalog: art,
-                              role: AuraUiIcon.rewardedAd,
-                              fallbackIcon: Icons.play_circle_outline,
-                              semanticLabel: translate('shop_ad_upgrade_title'),
-                              decorative: true,
-                              size: 24,
+                            onPressed: _rewardedInFlight
+                                ? null
+                                : _claimRewardedUpgrade,
+                            icon: _rewardedInFlight
+                                ? const SizedBox.square(
+                                    key: ValueKey('shop-ad-loading'),
+                                    dimension: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : AuraAssetIcon(
+                                    catalog: art,
+                                    role: AuraUiIcon.rewardedAd,
+                                    fallbackIcon: Icons.play_circle_outline,
+                                    semanticLabel:
+                                        translate('shop_ad_upgrade_title'),
+                                    decorative: true,
+                                    size: 24,
+                                  ),
+                            label: Text(
+                              _rewardedInFlight
+                                  ? translate('system_ad_loading')
+                                  : translate('shop_ad_upgrade_watch', {
+                                      'levels':
+                                          '${rewardedUpgrade.levelsGranted}',
+                                    }),
+                              textAlign: TextAlign.center,
                             ),
-                            label: Text(translate('shop_ad_upgrade_watch', {
-                              'levels': '${rewardedUpgrade.levelsGranted}',
-                            })),
                           ),
                         )
                       else
@@ -1522,6 +1567,30 @@ class AuraUpgradeDetailsSheet extends StatelessWidget {
       upgrade.base20 *
       BigInt.from(level * controller.milestoneFactor(level)) *
       controller.multiplier;
+
+  void _closeIfIdle() {
+    if (!_rewardedInFlight) Navigator.pop(context);
+  }
+
+  void _purchaseIfIdle(Upgrade upgrade, int quantity) {
+    if (!_rewardedInFlight) onPurchase(upgrade, quantity);
+  }
+
+  Future<void> _claimRewardedUpgrade() async {
+    if (_rewardedInFlight) return;
+    final levelBefore = controller.level(upgrade.id);
+    setState(() => _rewardedInFlight = true);
+    try {
+      await onRewardedUpgrade(upgrade);
+      if (mounted && controller.level(upgrade.id) > levelBefore) {
+        Navigator.pop(context);
+      }
+    } catch (_) {
+      // The caller owns the failure message; keep this sheet retryable.
+    } finally {
+      if (mounted) setState(() => _rewardedInFlight = false);
+    }
+  }
 
   String _effectLabel(String key, String effectKind) {
     final label = translate(key, {'rate': ''})
@@ -1737,6 +1806,7 @@ class _PurchaseOptions extends StatelessWidget {
     required this.translate,
     required this.locale,
     required this.onPurchase,
+    this.interactionsEnabled = true,
   });
 
   final Upgrade upgrade;
@@ -1747,6 +1817,7 @@ class _PurchaseOptions extends StatelessWidget {
   final AuraTranslate translate;
   final String locale;
   final void Function(Upgrade upgrade, int quantity) onPurchase;
+  final bool interactionsEnabled;
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -1758,7 +1829,7 @@ class _PurchaseOptions extends StatelessWidget {
               key: ValueKey('buy-x1-${upgrade.id}'),
               label: translate('shop_buy_one'),
               cost: one.cost,
-              enabled: unlocked && one.affordable,
+              enabled: interactionsEnabled && unlocked && one.affordable,
               primary: true,
               locale: locale,
               missingLabel: _missingLabel(one),
@@ -1768,7 +1839,7 @@ class _PurchaseOptions extends StatelessWidget {
               key: ValueKey('buy-x10-${upgrade.id}'),
               label: translate('shop_buy_ten'),
               cost: ten.cost,
-              enabled: unlocked && ten.affordable,
+              enabled: interactionsEnabled && unlocked && ten.affordable,
               locale: locale,
               missingLabel: _missingLabel(ten),
               onPressed: () => _purchase(10),

@@ -61,9 +61,9 @@ android {
         release {
             signingConfig = signingConfigs.getByName("release")
             proguardFiles("proguard-rules.pro")
-            // AdMob identifiers are public application configuration. Keeping
-            // the production value explicit prevents a release from silently
-            // shipping with Google's test App ID.
+            // Release bundles always keep this app's ID so UMP resolves the
+            // privacy message configured for Aura Shift. Closed-test builds
+            // opt into Google's demo rewarded unit in Dart only.
             manifestPlaceholders["ADMOB_APP_ID"] = productionAdMobAppId
         }
     }
