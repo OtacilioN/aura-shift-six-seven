@@ -24,9 +24,9 @@ external image, font, model output, or network input.
 | `skins` | 90 |
 | `vfx` | 5 |
 
-- SVG source bytes: `285902`
-- PNG preview bytes: `10129225`
-- Runtime-included WebP bytes: `1565576`
+- SVG source bytes: `289688`
+- PNG preview bytes: `10244078`
+- Runtime-included WebP bytes: `1602388`
 - Runtime target budget: `25,165,824` bytes
 - Largest permitted runtime asset: `1,048,576` bytes
 - Background count, including reduced variants: `27`

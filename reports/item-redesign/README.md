@@ -8,7 +8,7 @@ revisão cruzada foram feitas depois, sobre o conjunto completo.
 | --- | --- | --- | --- |
 | `ITEM-A-01` | botão físico de quatro furos | peito esquerdo | pulso das costuras |
 | `ITEM-A-02` | recibo térmico luminoso | bolso direito | varredura do recibo |
-| `ITEM-A-03` | óculos com duas lentes | sobre os olhos | inspeção das lentes |
+| `ITEM-A-03` | óculos escuros angulares | sobre os olhos | reflexos diagonais e glow inferior |
 | `ITEM-A-04` | jaqueta aberta com zíper | sobre o torso, sob as mãos | faísca no zíper |
 | `ITEM-A-05` | coroa de três pontas remendada | sobre a cabeça | sequência dos patches |
 | `ITEM-B-01` | despertador clássico/digital `6:70` | chão direito, atrás do Mascote | toque e vibração dos sinos |

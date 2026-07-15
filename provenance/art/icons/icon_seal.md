@@ -9,8 +9,8 @@
 - External inputs: none
 - License: Original project-authored procedural vector geometry; no external art assets.
 - Source: `sources/art/icons/icon_seal.svg` — `96 × 96` — SHA-256 `f13db611d08ce600ffd245e55af88648b71bcf16119e7465a26f5c4dc2cab230`
-- PNG preview: `reports/art-previews/icons/icon_seal.png` — `48 × 48` — SHA-256 `525b2f00be9d24983aa2cacc796d8d8ba50341d3da1596712f6a7441ae8d3337`
-- WebP runtime: `assets/art/icons/icon_seal.webp` — `48 × 48` — SHA-256 `4421af1d699c92eb6faf82a286af3bf51d861a1236693c16f6c6f2b2a904e475`
+- PNG preview: `reports/art-previews/icons/icon_seal.png` — `192 × 192` — SHA-256 `6f97f9f69f34251b92629ed34d28084736e8bb0c87dee6f9eaa4dfade004c863`
+- WebP runtime: `assets/art/icons/icon_seal.webp` — `192 × 192` — SHA-256 `c28a496eb5edd8562a0e5e10b9041cf3b50384b90c035ca8cc5e29991428be57`
 - Slot: `none`
 - Z layer: `UI-FLUTTER`
 - Runtime included: `true`

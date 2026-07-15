@@ -68,6 +68,14 @@
 | `play_aura_details` | Aura details | Abre valores completos |
 | `play_exact_value` | Exact value: {amount} Aura | Leitura e cópia de inteiro |
 | `play_digits_count` | {count, plural, one {# digit} other {# digits}} | Apenas quando valor completo é muito longo |
+| `progress_title` | Next steps | Resumo central de orientação |
+| `progress_next_tier` | Next Aura tier | Próximo Patamar permanente |
+| `progress_tier_unlocks` | Main unlocks | Conteúdo associado ao próximo Patamar |
+| `progress_shop_unlocks` | Next Shop unlocks | Requisitos econômicos mais próximos |
+| `progress_item_milestones` | Item milestones | Marcos de nível mais próximos |
+| `progress_all_tiers` | All Aura tiers reached. | Estado terminal de Patamares |
+| `progress_no_pending_unlocks` | All Shop items are unlocked. | Estado terminal de desbloqueios |
+| `progress_no_item_milestones` | Buy an item level to start tracking its milestones. | Estado vazio antes da primeira compra |
 | `tutorial_first_touch` | Tap anywhere in the Aura area. | Coach mark não bloqueante |
 | `tutorial_second_touch` | One more tap. Complete the Six-Seven. | Segunda fase |
 | `tutorial_cycle_complete` | Six-Seven complete. You made your first Aura. | Após crédito real |
@@ -91,6 +99,15 @@
 | `analytics_setting` | Share product analytics | Toggle voluntário |
 | `analytics_setting_off` | Analytics are off on this device. | Estado |
 | `analytics_setting_on` | Future eligible events may be sent from this device. | Estado |
+
+## Primeiro contato com anúncios recompensados
+
+| ID | `en-US` | Contexto / observação |
+| --- | --- | --- |
+| `ads_first_offer_title` | Optional ad rewards | Explica a escolha antes do primeiro anúncio |
+| `ads_first_offer_body` | Rewarded ads are optional. Watching one grants the reward shown; skipping it never blocks progress, and you can keep playing or buy upgrades with Aura. | Voluntariedade e alternativa sem anúncio |
+| `ads_first_offer_continue` | Continue to ad | Confirma que a próxima ação abre o anúncio |
+| `ads_first_offer_not_now` | Not now | Recusa sem punição |
 
 ## Diagnóstico após falha
 
@@ -132,6 +149,12 @@
 | `shop_ad_topup_watch` | Watch ad | Início explícito |
 | `shop_ad_topup_remaining` | {count, plural, one {# top-up available} other {# top-ups available}} in this window | Cota visível |
 | `shop_ad_unavailable` | Rewarded ad unavailable. You can keep playing and buy normally. | Sem modal recorrente |
+| `shop_ad_upgrade_title` | Ad upgrade | Título da opção voluntária por anúncio |
+| `shop_ad_upgrade_watch` | Watch for +{levels} levels | Recompensa explícita antes do anúncio |
+| `shop_ad_upgrade_locked` | Finish the tutorial and buy at least one Technique and one Item normally to unlock ad upgrades. | Entrada protegida por progresso normal |
+| `shop_ad_upgrade_first_level` | Buy the first level to unlock ad upgrades for this item. | Evita usar anúncio como primeira compra |
+| `shop_ad_upgrade_item_used` | This item already received an ad upgrade in this streak. Choose another item. | Um uso por item na sequência |
+| `shop_ad_upgrade_cooldown` | You have completed 3 ads. More ad upgrades will be available in about {minutes} min. | Limite e espera visíveis |
 
 ## Coleção
 
@@ -158,6 +181,7 @@
 | --- | --- | --- |
 | `return_title` | Welcome back | Recompensa de ausência |
 | `return_away_time` | Away for {duration} | Duração localizada |
+| `return_credit_cap` | Offline Production is limited to 4 hours per absence. | Explica recompensa limitada após ausência longa |
 | `return_base_reward` | Offline Production: {amount} Aura | Base proporcional aguardando resgate |
 | `return_collect` | Collect {amount} Aura | Encerra oferta |
 | `return_bonus_title` | Claim a 20% return bonus? | Apenas ausência > 10 min e elegível |
@@ -226,6 +250,10 @@
 | `settings_screen_reader_hints` | Extra screen reader hints | Contexto econômico ampliado |
 | `settings_privacy` | Privacy | Analytics/política |
 | `settings_privacy_policy` | Privacy policy | Link externo com falha segura |
+| `settings_privacy_policy_body` | Learn how the game and its advertising partners handle data. | Explicação curta do link externo |
+| `settings_ad_privacy_options` | Ad privacy options | Entrada para consentimento regional |
+| `settings_ad_privacy_options_body` | Review consent and ad choices available in your region. | Escopo das opções disponíveis |
+| `settings_ad_privacy_failed` | Ad privacy options could not be opened. Try again. | Falha segura sem alterar preferências |
 | `settings_credits` | Credits and licenses | Ferramentas e proveniência |
 | `settings_version` | Version {version} | Diagnóstico |
 | `settings_system_default` | Device default | Opção tri-state quando aplicável |

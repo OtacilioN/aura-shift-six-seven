@@ -20,6 +20,21 @@ void main() {
     expect(AuraRuntimeArtCoverage.allConsumerIds, runtimeIds);
   });
 
+  test('functional icon rasters stay sharp in 64px artwork headings', () {
+    final source = File('assets/manifests/art-approved-manifest-v1.json')
+        .readAsStringSync();
+    final catalog = ArtCatalog.fromJson(source);
+    final icons = catalog.records.where((record) => record.family == 'icons');
+
+    expect(icons, hasLength(22));
+    for (final icon in icons) {
+      expect(icon.size.width, greaterThanOrEqualTo(192),
+          reason: '${icon.id} must provide a 3x raster at 64px');
+      expect(icon.size.height, greaterThanOrEqualTo(192),
+          reason: '${icon.id} must provide a 3x raster at 64px');
+    }
+  });
+
   test('approved schema rejects an unapproved manifest or runtime entry', () {
     String manifest({required String status, required String assetStatus}) =>
         '''

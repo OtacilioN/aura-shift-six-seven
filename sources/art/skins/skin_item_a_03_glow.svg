@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" color-interpolation="sRGB" shape-rendering="geometricPrecision">
   <title>skin_item_a_03_glow</title>
-  <desc>QA goggles paired transparent lenses with bridge and temple arms; glow layer. Original project-authored procedural vector, art-v1.</desc>
+  <desc>angular QA sunglasses with opaque dark lenses neon brow bridge and temple arms; glow layer. Original project-authored procedural vector, art-v1.</desc>
   <metadata>manifestId=skin_item_a_03_glow;style=art-v1;license=project-original</metadata>
   <defs></defs>
-  <g id="asset"><g id="glow"><g id="qa_glasses_eye_alignment_glow" transform="translate(0 34)"><rect x="402" y="292" width="112" height="96" rx="40" fill="none" stroke="#43E6FF" stroke-width="14" opacity="0.28"/><rect x="510" y="292" width="112" height="96" rx="40" fill="none" stroke="#43E6FF" stroke-width="14" opacity="0.28"/><path d="M430 354 H486 M538 354 H594" fill="none" stroke="#3478F6" stroke-width="9" stroke-linecap="round" opacity="0.34"/></g></g></g>
+  <g id="asset"><g id="glow"><g id="qa_glasses_eye_alignment_glow" transform="translate(0 26)"><path d="M386 316 L486 306 Q502 305 506 322 L500 366 Q497 386 478 391 L428 388 Q404 386 398 366 Z" fill="none" stroke="#43E6FF" stroke-width="24" stroke-linejoin="round" opacity="0.22"/><path d="M538 306 L638 316 L626 366 Q620 386 596 388 L546 391 Q527 386 524 366 L518 322 Q522 305 538 306 Z" fill="none" stroke="#43E6FF" stroke-width="24" stroke-linejoin="round" opacity="0.22"/><path d="M404 398 Q512 418 620 398" fill="none" stroke="#3478F6" stroke-width="16" stroke-linecap="round" opacity="0.34"/><path d="M372 288 L380 304 L397 312 L380 320 L372 336 L364 320 L347 312 L364 304 Z" fill="#43E6FF" opacity="0.78"/><path d="M652 298 L658 310 L671 316 L658 322 L652 334 L646 322 L633 316 L646 310 Z" fill="#F7F5FF" opacity="0.72"/></g></g></g>
 </svg>

@@ -9,8 +9,8 @@
 - External inputs: none
 - License: Original project-authored procedural vector geometry; no external art assets.
 - Source: `sources/art/icons/icon_aura_total.svg` — `96 × 96` — SHA-256 `0505aa98221ec941d18ebb4ec424c0c5c65540f0eab2d2b7db9530d5cc21fb1c`
-- PNG preview: `reports/art-previews/icons/icon_aura_total.png` — `48 × 48` — SHA-256 `6c917771853e7e49227eb9d56b285dcc53fccac8e4f5f5d2f171046a8908e324`
-- WebP runtime: `assets/art/icons/icon_aura_total.webp` — `48 × 48` — SHA-256 `0321b5c2d033b25a34cd50198d81c77e973bb092e64c9c20d23c482090b1be9d`
+- PNG preview: `reports/art-previews/icons/icon_aura_total.png` — `192 × 192` — SHA-256 `fe7591041de915a1eb2848274596529874307af6668377162ff03d50c59bbcb5`
+- WebP runtime: `assets/art/icons/icon_aura_total.webp` — `192 × 192` — SHA-256 `4c8eb8371e8c8b8938cd8912a7eb9f662a018d32a8dd5afd24d3f9f08bf9a9e6`
 - Slot: `none`
 - Z layer: `UI-FLUTTER`
 - Runtime included: `true`

@@ -16,12 +16,13 @@ Status: `candidate-reviewed`
 - PASS — `unique-background-pixels`
 - PASS — `normalized-48px-thumbnails`
 - PASS — `contact-sheet-all-entries-and-compositions`
+- PASS — `full-regeneration-byte-determinism`
 
 ## Budgets
 
-- Runtime WebP total: `1565576` / `25165824` bytes
+- Runtime WebP total: `1602388` / `25165824` bytes
 - Largest runtime entry: `form_03_ambient` at `209594` / `1048576` bytes
-- Byte-for-byte regeneration: `NOT RUN`
+- Byte-for-byte regeneration: `PASS`
 
 ## Residual review
 

@@ -9,8 +9,8 @@
 - External inputs: none
 - License: Original project-authored procedural vector geometry; no external art assets.
 - Source: `sources/art/icons/icon_passive_rate.svg` — `96 × 96` — SHA-256 `82d81478086e906f43755e440a0001a41109c88c8c3184255908b382dcfc889b`
-- PNG preview: `reports/art-previews/icons/icon_passive_rate.png` — `48 × 48` — SHA-256 `817ab246660b2fd9e506585006c8a356c604f37f7c8658e5a1f7ee3f9d4907ce`
-- WebP runtime: `assets/art/icons/icon_passive_rate.webp` — `48 × 48` — SHA-256 `d9a2204a777a90ce6c08c29581a6f0a3bdccc59dedb4dc7365fca36e37a35611`
+- PNG preview: `reports/art-previews/icons/icon_passive_rate.png` — `192 × 192` — SHA-256 `6d0219a496660fe2ba8a962b2ce2bce442382adf7ef5f017fc9d780b72f88921`
+- WebP runtime: `assets/art/icons/icon_passive_rate.webp` — `192 × 192` — SHA-256 `84065b4819ab1aef50eb0300381baf4de1ae43ade899f2dcc7d025e007cc4aa4`
 - Slot: `none`
 - Z layer: `UI-FLUTTER`
 - Runtime included: `true`

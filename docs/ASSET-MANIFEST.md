@@ -137,7 +137,7 @@ Cada linha representa uma aparência composta por até `base`, `accent` e `glow`
 | --- | --- | --- | --- | --- |
 | `ITEM-A-01` | `skin_item_a_01` | `CHEST` | botão físico de quatro furos costurado no peito | halo e costuras estáticos |
 | `ITEM-A-02` | `skin_item_a_02` | `HIP` | recibo térmico luminoso no bolso direito | picote e carimbo abstratos estáticos |
-| `ITEM-A-03` | `skin_item_a_03` | `FACE_WEAR` | óculos de QA frontais com duas lentes, ponte e hastes | reflexos fixos sem varredura |
+| `ITEM-A-03` | `skin_item_a_03` | `FACE_WEAR` | óculos escuros de QA angulares, envolventes, com lentes opacas, ponte e hastes neon | reflexos diagonais e glow inferior fixos |
 | `ITEM-A-04` | `skin_item_a_04` | `BODY_WEAR` | jaqueta aberta com lapelas, bolsos e zíper bipartido | sem pulso no zíper |
 | `ITEM-A-05` | `skin_item_a_05` | `HEAD_WEAR` | coroa de hotfix vestível com três pontas e placas remendadas | placas e rebites estáticos |
 | `ITEM-B-01` | `skin_item_b_01` | `GROUND_PROP` | despertador clássico/digital 6:70 no chão à direita | sinos e visor estáticos |

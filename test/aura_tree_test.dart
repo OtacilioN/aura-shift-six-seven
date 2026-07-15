@@ -37,6 +37,8 @@ void main() {
     TextScaler textScaler = TextScaler.noScaling,
     TextDirection textDirection = TextDirection.ltr,
     Future<void> Function(Upgrade upgrade)? onRewardedUpgrade,
+    String? focusUpgradeId,
+    int focusRequestToken = 0,
   }) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -61,6 +63,8 @@ void main() {
                     onPurchase: (upgrade, quantity) =>
                         controller.buy(upgrade, quantity),
                     onRewardedUpgrade: onRewardedUpgrade ?? (_) async {},
+                    focusUpgradeId: focusUpgradeId,
+                    focusRequestToken: focusRequestToken,
                   ),
                 ),
               ),
@@ -99,6 +103,35 @@ void main() {
           findsOneWidget,
         );
       }
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('aura-node-ITEM-A-01')),
+          matching: find.text('Botão Suspeito'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('aura-node-ITEM-A-02')),
+          matching: find.text('Nota Fiscal do Brilho'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('aura-node-ITEM-A-01')),
+          matching: find.textContaining(strings('content.branch_a.name')),
+        ),
+        findsNothing,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('aura-node-ITEM-CONV-01')),
+          matching: find.text('Nó de Reunião'),
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('Spectrum 1'), findsNothing);
 
       await tester.pumpWidget(const SizedBox.shrink());
     } finally {
@@ -383,7 +416,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
 
-      expect(find.textContaining('Botão Suspeito'), findsOneWidget);
+      expect(find.textContaining('Botão Suspeito'), findsWidgets);
       final requirementA = find.byKey(
         const ValueKey('requirement-ITEM-CONV-01-ITEM-A-01'),
       );
@@ -402,27 +435,39 @@ void main() {
         of: find.byKey(const ValueKey('aura-detail-ITEM-CONV-01')),
         matching: find.byType(Scrollable),
       );
+      final requirementB = find.byKey(
+        const ValueKey('requirement-ITEM-CONV-01-ITEM-B-01'),
+      );
       await tester.scrollUntilVisible(
-        find.textContaining('Despertador das 6:70'),
+        requirementB,
         130,
         scrollable: detailScroll,
       );
-      expect(find.textContaining('Despertador das 6:70'), findsOneWidget);
-      final requirementB = find.byKey(
-        const ValueKey('requirement-ITEM-CONV-01-ITEM-B-01'),
+      expect(
+        find.descendant(
+          of: requirementB,
+          matching: find.textContaining('Despertador das 6:70'),
+        ),
+        findsOneWidget,
       );
       expect(
         find.descendant(of: requirementB, matching: find.byIcon(Icons.check)),
         findsOneWidget,
       );
+      final requirementC = find.byKey(
+        const ValueKey('requirement-ITEM-CONV-01-ITEM-C-01'),
+      );
       await tester.scrollUntilVisible(
-        find.textContaining('Glitch Homologado'),
+        requirementC,
         130,
         scrollable: detailScroll,
       );
-      expect(find.textContaining('Glitch Homologado'), findsOneWidget);
-      final requirementC = find.byKey(
-        const ValueKey('requirement-ITEM-CONV-01-ITEM-C-01'),
+      expect(
+        find.descendant(
+          of: requirementC,
+          matching: find.textContaining('Glitch Homologado'),
+        ),
+        findsOneWidget,
       );
       expect(
         find.descendant(
@@ -686,6 +731,15 @@ void main() {
       expect(nodeC.right + 8, lessThanOrEqualTo(nodeB.left));
       expect(nodeB.right + 8, lessThanOrEqualTo(nodeA.left));
       expect(nodeA.height, greaterThan(120));
+      final nodeALabel = tester.widget<Text>(
+        find.descendant(
+          of: find.byKey(const ValueKey('aura-node-ITEM-A-01')),
+          matching: find.text(arStrings('content.item_a_01.name')),
+        ),
+      );
+      expect(nodeALabel.maxLines, 3);
+      expect(nodeALabel.overflow, TextOverflow.ellipsis);
+      expect(nodeALabel.textDirection, isNull);
       final branchLabelA = tester.getRect(
         find.byKey(const ValueKey('aura-branch-label-A')),
       );
@@ -716,6 +770,64 @@ void main() {
       await tester.tap(find.byTooltip(arStrings('action_close')));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
+
+      await tester.pumpWidget(const SizedBox.shrink());
+    } finally {
+      controller.dispose();
+    }
+  });
+
+  testWidgets('external focus request scrolls to and selects an upgrade',
+      (tester) async {
+    final controller = await controllerWith({});
+    try {
+      await pumpTree(
+        tester,
+        controller,
+        strings,
+        height: 420,
+      );
+      final treeScroll = find.descendant(
+        of: find.byKey(const PageStorageKey('aura-tree-scroll')),
+        matching: find.byType(Scrollable),
+      );
+      expect(tester.state<ScrollableState>(treeScroll).position.pixels, 0);
+
+      await pumpTree(
+        tester,
+        controller,
+        strings,
+        height: 420,
+        focusUpgradeId: 'ITEM-A-05',
+        focusRequestToken: 1,
+      );
+      await tester.pumpAndSettle();
+      var position = tester.state<ScrollableState>(treeScroll).position;
+      expect(position.pixels, greaterThan(0));
+      expect(
+        tester
+            .getSemantics(
+              find.byKey(const ValueKey('aura-node-ITEM-A-05')),
+            )
+            .flagsCollection
+            .isSelected
+            .toBoolOrNull(),
+        isTrue,
+      );
+
+      position.jumpTo(0);
+      await tester.pump();
+      await pumpTree(
+        tester,
+        controller,
+        strings,
+        height: 420,
+        focusUpgradeId: 'ITEM-A-05',
+        focusRequestToken: 2,
+      );
+      await tester.pumpAndSettle();
+      position = tester.state<ScrollableState>(treeScroll).position;
+      expect(position.pixels, greaterThan(0));
 
       await tester.pumpWidget(const SizedBox.shrink());
     } finally {

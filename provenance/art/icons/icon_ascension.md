@@ -9,8 +9,8 @@
 - External inputs: none
 - License: Original project-authored procedural vector geometry; no external art assets.
 - Source: `sources/art/icons/icon_ascension.svg` — `96 × 96` — SHA-256 `1f7862fac5b7cde044658bb5bb8115ec5871114d4eb8f8e25c97a8d96aba543a`
-- PNG preview: `reports/art-previews/icons/icon_ascension.png` — `48 × 48` — SHA-256 `3ae04cfe63e1ece38077517c0e19b72eab4fc26d1831c85e17e321dde25d0b11`
-- WebP runtime: `assets/art/icons/icon_ascension.webp` — `48 × 48` — SHA-256 `49bbd49caa6b3195e19030b9dbeadd0230f7119437cf0589665768fabe68a21c`
+- PNG preview: `reports/art-previews/icons/icon_ascension.png` — `192 × 192` — SHA-256 `56985988f10246eb88c35a4ec8d4260a3cb834fcc26fd1529510b09afe75371a`
+- WebP runtime: `assets/art/icons/icon_ascension.webp` — `192 × 192` — SHA-256 `810593230e55aec1afaa0519b0468957ea6d8613649434bc79d8d3c0da253c39`
 - Slot: `none`
 - Z layer: `UI-FLUTTER`
 - Runtime included: `true`

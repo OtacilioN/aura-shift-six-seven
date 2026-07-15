@@ -9,8 +9,8 @@
 - External inputs: none
 - License: Original project-authored procedural vector geometry; no external art assets.
 - Source: `sources/art/icons/icon_appearance.svg` — `96 × 96` — SHA-256 `cfd7991834836a088c5a00dad5e759cdd148ca12d4f57b4c0ed1f0288a74861e`
-- PNG preview: `reports/art-previews/icons/icon_appearance.png` — `48 × 48` — SHA-256 `d568771c38a84779c9c69172694a1b026e2e07fbe66f399ae13592c6c2c7de54`
-- WebP runtime: `assets/art/icons/icon_appearance.webp` — `48 × 48` — SHA-256 `ed7f006f637bb4f4d6fe404a3e9b3eff38e5c61ff32adb4503a5e855aaa13ea6`
+- PNG preview: `reports/art-previews/icons/icon_appearance.png` — `192 × 192` — SHA-256 `390daf7273126a0eee4a034036b25ba23d2146ed7607dfd7b89977af0ceddbe7`
+- WebP runtime: `assets/art/icons/icon_appearance.webp` — `192 × 192` — SHA-256 `7e11db45be21fab70b22a5cabb978691701d68c743f6b05122330034b42a612c`
 - Slot: `none`
 - Z layer: `UI-FLUTTER`
 - Runtime included: `true`

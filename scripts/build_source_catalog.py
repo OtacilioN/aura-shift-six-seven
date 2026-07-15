@@ -82,7 +82,7 @@ def extract_content(catalog: dict[str, str]) -> None:
             "app_title": "Aura Shift: Six Seven",
             "app_tagline": "Two taps. Infinite aura.",
             "store_short_description": "Two taps. Infinite Aura. Build your style and shift the whole scene.",
-            "store_full_description": "Tap twice to complete a Six-Seven Cycle and farm Aura. Build active Techniques, grow three equally strong Aura Tree paths, collect Appearances, unlock Transformations, and Ascend for permanent momentum.\n\nPlay your way:\n• Active and passive progress\n• Up to 8 hours of Offline Production\n• Optional rewarded ads only\n• No account, required connection, or in-app purchases\n• Manual Backup, accessibility controls, and 8 languages\n\nAura Shift: Six Seven is a trend-driven incremental game for ages 13 and up.",
+            "store_full_description": "Tap twice to complete a Six-Seven Cycle and farm Aura. Build active Techniques, grow three equally strong Aura Tree paths, collect Appearances, unlock Transformations, and Ascend for permanent momentum.\n\nPlay your way:\n• Active and passive progress\n• Up to 4 hours of Offline Production\n• Optional rewarded ads only\n• No account, required connection, or in-app purchases\n• Manual Backup, accessibility controls, and 8 languages\n\nAura Shift: Six Seven is a trend-driven incremental game for ages 13 and up.",
             "store_feature_graphic_alt": "Mascot switching oversized hands between Six and Seven as Aura fills the scene.",
             "content.branch_a.name": "Poise",
             "content.branch_a.description": "Quiet presence, clean lines, and visual weight.",

@@ -58,6 +58,15 @@ class AuraFormat {
     return fraction.isEmpty ? whole.toString() : '$whole.$fraction';
   }
 
+  static String duration(Duration value) {
+    final totalMinutes = max(1, value.inMinutes);
+    final hours = totalMinutes ~/ 60;
+    final minutes = totalMinutes % 60;
+    if (hours == 0) return '${minutes}min';
+    if (minutes == 0) return '${hours}h';
+    return '${hours}h ${minutes}min';
+  }
+
   static String _decimal(BigInt numerator, int places, String locale,
       {BigInt? divisor}) {
     divisor ??= BigInt.from(10).pow(places);

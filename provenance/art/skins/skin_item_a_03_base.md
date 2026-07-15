@@ -8,9 +8,9 @@
 - Construction: deterministic project-authored SVG primitives only
 - External inputs: none
 - License: Original project-authored procedural vector geometry; no external art assets.
-- Source: `sources/art/skins/skin_item_a_03_base.svg` — `1024 × 1024` — SHA-256 `96485351ffb1d15eb3c882a1e2efb921a45d180f6d8d483945f0ebef44925dd0`
-- PNG preview: `reports/art-previews/skins/skin_item_a_03_base.png` — `512 × 512` — SHA-256 `36e0b4b30647149e474e2607cbabb7e0e5ea9a99fcd04714cf8ae906bead4c2d`
-- WebP runtime: `assets/art/skins/skin_item_a_03_base.webp` — `512 × 512` — SHA-256 `27c6d9bfdfebb675386e6de75a6de015885b6ed595bf332cff6ba9086c4f0c37`
+- Source: `sources/art/skins/skin_item_a_03_base.svg` — `1024 × 1024` — SHA-256 `f1ec8bc0cfc29265e95a3c0e379d70dd29254eb8e5cfde1e0ee38a5be3d63f57`
+- PNG preview: `reports/art-previews/skins/skin_item_a_03_base.png` — `512 × 512` — SHA-256 `7a16d34b1afd1de4137687af74308d2af50a46c959c2b26a345c5298a678c143`
+- WebP runtime: `assets/art/skins/skin_item_a_03_base.webp` — `512 × 512` — SHA-256 `95fb9a7c1077c6a726587b0c2c8324e6979fc7c4756d667dcf39278cb78fc021`
 - Slot: `FACE_WEAR`
 - Z layer: `SLOT-FACE-WEAR`
 - Runtime included: `true`

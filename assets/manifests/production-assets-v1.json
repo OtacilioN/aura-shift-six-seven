@@ -11,7 +11,7 @@
       "approvalStatus": "approved",
       "integrationStatus": "integrated",
       "manifest": "assets/manifests/art-approved-manifest-v1.json",
-      "manifestSha256": "62d44744b67739c5271743de16be3077ad7a8d22e87cea693189743e719f2129",
+      "manifestSha256": "a9eda1c71741dd896fafc415f30cb737c37a4bcbd7bae8aca395711c6945dc00",
       "reviewOnlyEntries": 0,
       "revision": 3,
       "runtimeConsumers": {
@@ -21,7 +21,7 @@
       },
       "runtimeEntries": 203,
       "sourceManifest": "assets/manifests/art-manifest-v1.json",
-      "sourceManifestSha256": "58d4a54815c85b31668c17cf0f14bbd3ba66038cad2a1765aaf89df10e7c49e7"
+      "sourceManifestSha256": "91e5cb87c7680089af0747f810c58c7612464491bf7c389508c8b3f223666a61"
     },
     "audio": {
       "approvalStatus": "approved",

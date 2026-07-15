@@ -29,7 +29,7 @@ O lançamento salva o progresso somente no aparelho. Não há conta, backup em n
 
 ## Retorno ao jogo
 
-A tela de retorno aparece após ausência superior a dez minutos e apresenta a Produção Offline proporcional, limitada a quatro horas. Ela oferece resgatar a base ou assistir voluntariamente a um anúncio para resgatar a mesma base com Bônus de Retorno de 20%. Nenhum valor é creditado antes da escolha. Escolher a base encerra a oferta; concluir validamente o anúncio credita a base e o adicional. Em caso de falha, a interface permite tentar novamente ou continuar somente com a base. Reabrir o aplicativo recupera a pendência sem repetir créditos.
+A tela de retorno aparece após ausência superior a dez minutos e apresenta a duração real da ausência e a Produção Offline proporcional, limitada a quatro horas. Quando a ausência ultrapassa o limite, a folha explica explicitamente que somente quatro horas foram creditadas. Ela oferece resgatar a base ou assistir voluntariamente a um anúncio para resgatar a mesma base com Bônus de Retorno de 20%. Nenhum valor é creditado antes da escolha. Escolher a base encerra a oferta; concluir validamente o anúncio credita a base e o adicional. Em caso de falha, a interface permite tentar novamente ou continuar somente com a base. Reabrir o aplicativo recupera a pendência sem repetir créditos.
 
 Na abertura, fluxos persistentes são reconstruídos em ordem segura: recuperação do save, Recompensa de Retorno e bônus já escolhido, diagnóstico, tutorial/consentimento disparado, confirmação de Ascensão ainda válida e, por último, celebrações. Consentimentos e erros pausam apresentações; celebrações ficam enfileiradas e podem ser dispensadas sem perder registros.
 
@@ -63,7 +63,7 @@ O layout de referência é `360×800dp` e permanece utilizável desde `320×568d
 
 ### Jogar
 
-Contém Mascote, Área de Aura, contadores, progressão imediata e acesso a um painel de detalhes econômicos.
+Contém Mascote, Área de Aura, contadores, progressão imediata e acesso a um painel de detalhes econômicos. O cartão `Próximos passos` resume o próximo Patamar, o desbloqueio mais próximo da Loja e o Marco de Item mais próximo. Sua folha expandida centraliza os requisitos e abre diretamente o nó correspondente na Árvore de Aura, sem criar uma quinta área.
 
 ### Loja
 
@@ -77,7 +77,7 @@ A Árvore de Aura mostra as Técnicas intercaladas no eixo central e os três ra
 
 ### Coleção
 
-Contém personalização do Mascote, Coleção Visual, Transformações de Aura, 13 Conquistas e Selos 67. Esses sistemas compartilham a superfície, mas mantêm identidades e contagens separadas.
+Contém personalização do Mascote por Aparências, Transformações de Aura, 13 Conquistas e Selos 67. Um seletor interno `2×2`, com contagens, mantém cada seção em sua própria rolagem e torna Conquistas encontráveis sem exigir atravessar Aparências e Transformações. Esses sistemas compartilham a superfície, mas mantêm identidades e contagens separadas. Um editor completo de avatar não pertence a esta entrega.
 
 ### Ajustes
 
@@ -89,7 +89,7 @@ Voltar fecha primeiro diálogo, folha, detalhe ou subtela antes de sair. Trocar 
 
 O mapa completo é:
 
-- **Jogar:** indicadores, Área de Aura, Detalhes de Aura e acesso contextual à Ascensão;
+- **Jogar:** indicadores, Área de Aura, Próximos passos, Detalhes de Aura e acesso contextual à Ascensão;
 - **Loja:** uma única Árvore de Aura com Técnicas no tronco central, Ramos e Convergências; detalhe, requisitos e compra permanecem dentro da Loja;
 - **Coleção:** Aparências, Transformações, Conquistas e Selos 67 com estado econômico separado;
 - **Ajustes:** idioma, canais sensoriais, acessibilidade, Backup Manual, privacidade, tutorial, créditos e licenças.

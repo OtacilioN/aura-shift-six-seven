@@ -9,8 +9,8 @@
 - External inputs: none
 - License: Original project-authored procedural vector geometry; no external art assets.
 - Source: `sources/art/icons/icon_phase_six.svg` — `96 × 96` — SHA-256 `8de1a05a640173c1ba40ec86cd5a9a997cef7ed8dba45fa5e0f1c582a708d7e4`
-- PNG preview: `reports/art-previews/icons/icon_phase_six.png` — `48 × 48` — SHA-256 `6f03beb50ca3e82e715d7670e3916d0ba21343e4d7212c2a2fcc12f76b211507`
-- WebP runtime: `assets/art/icons/icon_phase_six.webp` — `48 × 48` — SHA-256 `6a62b096f2051815da54807abfa3568c4df2096ee01aae6f30f08ad78b9dffa1`
+- PNG preview: `reports/art-previews/icons/icon_phase_six.png` — `192 × 192` — SHA-256 `2ff6735df5cdd004383e39fc88ef0268e67c043f16ee8eae70f8919c8894da0b`
+- WebP runtime: `assets/art/icons/icon_phase_six.webp` — `192 × 192` — SHA-256 `b94e2961bec51808590e3ad0ff2f860a2365a616d6ff84fe6098da231b05956a`
 - Slot: `none`
 - Z layer: `UI-FLUTTER`
 - Runtime included: `true`

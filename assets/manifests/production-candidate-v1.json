@@ -3,10 +3,10 @@
     "art": {
       "entries": 203,
       "manifest": "assets/manifests/art-manifest-v1.json",
-      "manifestSha256": "58d4a54815c85b31668c17cf0f14bbd3ba66038cad2a1765aaf89df10e7c49e7",
+      "manifestSha256": "91e5cb87c7680089af0747f810c58c7612464491bf7c389508c8b3f223666a61",
       "reviewOnlyEntries": 0,
       "revision": 3,
-      "runtimeBytes": 1565576,
+      "runtimeBytes": 1602388,
       "runtimeEntries": 203
     },
     "audio": {

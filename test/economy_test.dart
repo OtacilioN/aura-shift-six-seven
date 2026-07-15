@@ -459,6 +459,17 @@ void main() {
     expect(controller.available, BigInt.zero);
     expect(controller.returnRewardAvailable, isTrue);
     expect(controller.returnBonusAvailable, isFalse);
+    expect(
+      controller.returnAwayMilliseconds,
+      inInclusiveRange(
+        const Duration(minutes: 20).inMilliseconds,
+        const Duration(minutes: 21).inMilliseconds,
+      ),
+    );
+    expect(
+      controller.returnCreditedMilliseconds,
+      controller.returnAwayMilliseconds,
+    );
     expect(controller.claimReturnBase(), isTrue);
     expect(controller.available, BigInt.from(16080));
     expect(controller.returnRewardAvailable, isFalse);
@@ -480,6 +491,14 @@ void main() {
     controller.resume();
     expect(controller.available, BigInt.zero);
     expect(controller.returnRewardAvailable, isTrue);
+    expect(
+      controller.returnAwayMilliseconds,
+      greaterThanOrEqualTo(const Duration(hours: 12).inMilliseconds),
+    );
+    expect(
+      controller.returnCreditedMilliseconds,
+      const Duration(hours: 4).inMilliseconds,
+    );
     expect(controller.resolveReturnBonus(rewarded: true), isTrue);
     expect(controller.available, BigInt.from(231552));
     expect(controller.resolveReturnBonus(rewarded: true), isFalse);

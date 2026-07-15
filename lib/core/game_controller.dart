@@ -475,6 +475,13 @@ class GameController extends ChangeNotifier {
       BigInt.tryParse(
           '${(_data['returnReward'] as Map?)?['bonusQuanta'] ?? '0'}') ??
       BigInt.zero;
+  int get returnAwayMilliseconds =>
+      ((_data['returnReward'] as Map?)?['awayMilliseconds'] as num?)?.toInt() ??
+      0;
+  int get returnCreditedMilliseconds =>
+      ((_data['returnReward'] as Map?)?['creditedMilliseconds'] as num?)
+          ?.toInt() ??
+      0;
 
   BigInt _big(String key, [String fallback = '0']) =>
       BigInt.tryParse('${_data[key] ?? fallback}') ?? BigInt.zero;
@@ -661,6 +668,8 @@ class GameController extends ChangeNotifier {
       if (elapsed > _offlineRewardMinimumMilliseconds) {
         _data['returnReward'] = <String, dynamic>{
           'id': '${leftAt}_$valid',
+          'awayMilliseconds': elapsed,
+          'creditedMilliseconds': valid,
           'baseQuanta': base.toString(),
           'bonusQuanta': (base ~/ BigInt.from(5)).toString(),
           'baseStatus': 'available',

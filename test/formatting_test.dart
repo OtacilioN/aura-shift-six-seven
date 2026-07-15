@@ -15,5 +15,13 @@ void main() {
       expect(AuraFormat.rate(BigInt.from(15000)), '7.5');
       expect(AuraFormat.exactRate(BigInt.from(21009)), '10.5045');
     });
+    test('formats return durations without second-level noise', () {
+      expect(AuraFormat.duration(const Duration(minutes: 9)), '9min');
+      expect(AuraFormat.duration(const Duration(hours: 4)), '4h');
+      expect(
+        AuraFormat.duration(const Duration(hours: 12, minutes: 7)),
+        '12h 7min',
+      );
+    });
   });
 }

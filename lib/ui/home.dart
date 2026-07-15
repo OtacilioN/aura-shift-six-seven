@@ -16,6 +16,7 @@ import '../game/aura_scene.dart';
 import '../main.dart';
 import 'art_widgets.dart';
 import 'aura_tree.dart';
+import 'progression_guidance.dart';
 
 class _VisualFeedback {
   const _VisualFeedback(this.artwork, this.title, this.body);
@@ -43,6 +44,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   int tab = 0;
+  String? _shopFocusUpgradeId;
+  int _shopFocusRequestToken = 0;
   bool promptedAnalytics = false;
   bool promptedReturn = false;
   final ListQueue<_VisualFeedback> _visualFeedback = ListQueue();
@@ -203,6 +206,17 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     unawaited(widget.audio.changeTab(value));
   }
 
+  void _openShopUpgrade(String upgradeId) {
+    final changedTab = tab != 1;
+    if (tab == 0) scene.pauseEngine();
+    setState(() {
+      tab = 1;
+      _shopFocusUpgradeId = upgradeId;
+      _shopFocusRequestToken++;
+    });
+    if (changedTab) unawaited(widget.audio.changeTab(1));
+  }
+
   @override
   Widget build(BuildContext context) {
     final c = widget.controller;
@@ -231,6 +245,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             art: art,
             audio: widget.audio,
             ascend: _ascensionDialog,
+            onOpenUpgrade: _openShopUpgrade,
           ),
           _Shop(
             controller: c,
@@ -239,8 +254,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             audio: widget.audio,
             onPurchase: _buyUpgrade,
             onRewardedUpgrade: _claimRewardedUpgrade,
+            focusUpgradeId: _shopFocusUpgradeId,
+            focusRequestToken: _shopFocusRequestToken,
           ),
-          _Collection(controller: c, strings: s, art: art, audio: widget.audio),
+          AuraCollectionView(
+            controller: c,
+            strings: s,
+            art: art,
+            audio: widget.audio,
+          ),
           _Settings(
             controller: c,
             strings: s,
@@ -467,6 +489,23 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   widget.controller.returnBonus ~/ BigInt.from(10000000),
                   locale: widget.strings.locale);
               final bonusAvailable = widget.controller.returnBonusAvailable;
+              final awayMilliseconds = widget.controller.returnAwayMilliseconds;
+              final creditedMilliseconds =
+                  widget.controller.returnCreditedMilliseconds;
+              final returnBody = <String>[
+                if (awayMilliseconds > 0)
+                  widget.strings('return_away_time', {
+                    'duration': AuraFormat.duration(
+                      Duration(milliseconds: awayMilliseconds),
+                    ),
+                  }),
+                widget.strings('return_base_reward', {'amount': base}),
+                if (creditedMilliseconds > 0 &&
+                    creditedMilliseconds < awayMilliseconds)
+                  widget.strings('return_credit_cap'),
+                if (bonusAvailable)
+                  widget.strings('return_bonus_body', {'amount': bonus}),
+              ].join('\n');
               return PopScope(
                   canPop: false,
                   onPopInvokedWithResult: (didPop, _) {
@@ -474,14 +513,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   },
                   child: _Sheet(
                       title: widget.strings('return_title'),
-                      body: bonusAvailable
-                          ? '${widget.strings('return_base_reward', {
-                                  'amount': base
-                                })}\n${widget.strings('return_bonus_body', {
-                                  'amount': bonus
-                                })}'
-                          : widget
-                              .strings('return_base_reward', {'amount': base}),
+                      body: returnBody,
                       artwork: _iconArtwork(
                         AuraUiIcon.rewardedAd,
                         widget.strings('return_title'),
@@ -735,6 +767,7 @@ class _Play extends StatelessWidget {
     required this.art,
     required this.audio,
     required this.ascend,
+    required this.onOpenUpgrade,
   });
   final GameController controller;
   final Strings strings;
@@ -742,6 +775,7 @@ class _Play extends StatelessWidget {
   final ArtCatalog? art;
   final AuraAudioController audio;
   final VoidCallback ascend;
+  final ValueChanged<String> onOpenUpgrade;
   @override
   Widget build(BuildContext context) => Column(children: [
         _AuraHud(
@@ -749,6 +783,11 @@ class _Play extends StatelessWidget {
           strings: strings,
           art: art,
           onDetails: () => _details(context),
+        ),
+        AuraNextStepsCard(
+          controller: controller,
+          strings: strings,
+          onTap: () => _showNextSteps(context),
         ),
         if (controller.canAscend)
           Padding(
@@ -771,6 +810,34 @@ class _Play extends StatelessWidget {
           ),
         ),
       ]);
+
+  Future<void> _showNextSteps(BuildContext context) async {
+    unawaited(audio.playUiOpen());
+    await audio.beginDuck();
+    if (!context.mounted) {
+      await audio.endDuck();
+      return;
+    }
+    try {
+      await showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        enableDrag: false,
+        builder: (sheet) => AuraNextStepsSheet(
+          controller: controller,
+          strings: strings,
+          onOpenUpgrade: (upgradeId) {
+            Navigator.pop(sheet);
+            onOpenUpgrade(upgradeId);
+          },
+        ),
+      );
+    } finally {
+      await audio.endDuck();
+      unawaited(audio.playUiClose());
+    }
+  }
+
   Future<void> _details(BuildContext context) async {
     unawaited(audio.playUiOpen());
     await audio.beginDuck();
@@ -1212,6 +1279,8 @@ class _Shop extends StatelessWidget {
     required this.audio,
     required this.onPurchase,
     required this.onRewardedUpgrade,
+    required this.focusUpgradeId,
+    required this.focusRequestToken,
   });
   final GameController controller;
   final Strings strings;
@@ -1219,6 +1288,8 @@ class _Shop extends StatelessWidget {
   final AuraAudioController audio;
   final void Function(Upgrade, int) onPurchase;
   final Future<void> Function(Upgrade) onRewardedUpgrade;
+  final String? focusUpgradeId;
+  final int focusRequestToken;
 
   @override
   Widget build(BuildContext context) {
@@ -1244,6 +1315,8 @@ class _Shop extends StatelessWidget {
                 art: art,
                 onPurchase: onPurchase,
                 onRewardedUpgrade: onRewardedUpgrade,
+                focusUpgradeId: focusUpgradeId,
+                focusRequestToken: focusRequestToken,
                 onDetailsOpen: () async {
                   unawaited(audio.playUiOpen());
                   await audio.beginDuck();
@@ -1259,50 +1332,167 @@ class _Shop extends StatelessWidget {
   }
 }
 
-class _Collection extends StatelessWidget {
-  const _Collection({
+enum _CollectionSection {
+  appearances,
+  transformations,
+  achievements,
+  seals,
+}
+
+class AuraCollectionView extends StatefulWidget {
+  const AuraCollectionView({
+    super.key,
     required this.controller,
     required this.strings,
     required this.art,
     required this.audio,
   });
+
   final GameController controller;
   final Strings strings;
   final ArtCatalog? art;
   final AuraAudioController audio;
 
   @override
+  State<AuraCollectionView> createState() => _AuraCollectionViewState();
+}
+
+class _AuraCollectionViewState extends State<AuraCollectionView> {
+  static const _forms = [
+    ('FORM-01', 1000),
+    ('FORM-02', 1000000),
+    ('FORM-03', 1000000000),
+    ('FORM-04', 1000000000000),
+    ('FORM-05', 1000000000000000),
+  ];
+
+  _CollectionSection _section = _CollectionSection.appearances;
+
+  GameController get controller => widget.controller;
+  Strings get strings => widget.strings;
+  ArtCatalog? get art => widget.art;
+  AuraAudioController get audio => widget.audio;
+
+  @override
   Widget build(BuildContext context) {
-    const forms = [
-      ('FORM-01', 1000),
-      ('FORM-02', 1000000),
-      ('FORM-03', 1000000000),
-      ('FORM-04', 1000000000000),
-      ('FORM-05', 1000000000000000)
-    ];
+    final appearanceItems =
+        upgrades.where((upgrade) => !upgrade.isTechnique).toList();
+    final appearanceIds = appearanceItems.map((upgrade) => upgrade.id).toSet();
+    final formIds = _forms.map((form) => form.$1).toSet();
     final seals = controller.seals.toList()..sort();
-    return ListView(
-        key: const PageStorageKey('collection-scroll'),
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
+
+    final sections = <_CollectionSection, _CollectionSectionData>{
+      _CollectionSection.appearances: _CollectionSectionData(
+        label: strings('collection_appearances'),
+        count:
+            '${controller.appearances.where(appearanceIds.contains).length}/${appearanceItems.length}',
+        assetId: AuraUiArt.icon(AuraUiIcon.appearance),
+        iconRole: AuraUiIcon.appearance,
+        fallbackIcon: Icons.face_retouching_natural,
+      ),
+      _CollectionSection.transformations: _CollectionSectionData(
+        label: strings('collection_transformations'),
+        count:
+            '${controller.transformations.where(formIds.contains).length}/${_forms.length}',
+        assetId: AuraUiArt.icon(AuraUiIcon.transformation),
+        iconRole: AuraUiIcon.transformation,
+        fallbackIcon: Icons.auto_awesome,
+      ),
+      _CollectionSection.achievements: _CollectionSectionData(
+        label: strings('collection_achievements'),
+        count:
+            '${controller.achievements.where(achievementIds.contains).length}/${achievementIds.length}',
+        assetId: AuraUiArt.icon(AuraUiIcon.achievement),
+        iconRole: AuraUiIcon.achievement,
+        fallbackIcon: Icons.verified_outlined,
+      ),
+      _CollectionSection.seals: _CollectionSectionData(
+        label: strings('collection_seals'),
+        count: '${seals.length}',
+        assetId: AuraUiArt.icon(AuraUiIcon.seal),
+        iconRole: AuraUiIcon.seal,
+        fallbackIcon: Icons.workspace_premium_outlined,
+      ),
+    };
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _ArtworkHeading(
+                catalog: art,
+                assetId: AuraUiArt.icon(AuraUiIcon.navCollection),
+                fallbackIcon: Icons.auto_awesome_outlined,
+                title: strings('nav_collection'),
+                semanticLabel: strings('nav_collection'),
+                large: true,
+              ),
+              const SizedBox(height: 18),
+              _CollectionSectionPicker(
+                sections: sections,
+                selected: _section,
+                art: art,
+                onSelected: (section) => setState(() => _section = section),
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+        Expanded(
+          child: IndexedStack(
+            index: _section.index,
+            children: [
+              _appearanceList(
+                appearanceItems,
+                sections[_CollectionSection.appearances]!,
+              ),
+              _transformationList(
+                sections[_CollectionSection.transformations]!,
+              ),
+              _achievementList(
+                sections[_CollectionSection.achievements]!,
+              ),
+              _sealList(seals, sections[_CollectionSection.seals]!),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _sectionList({
+    required String storageKey,
+    required _CollectionSectionData section,
+    required List<Widget> children,
+  }) =>
+      ListView(
+        key: PageStorageKey(storageKey),
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
         children: [
           _ArtworkHeading(
             catalog: art,
-            assetId: AuraUiArt.icon(AuraUiIcon.navCollection),
-            fallbackIcon: Icons.auto_awesome_outlined,
-            title: strings('nav_collection'),
-            semanticLabel: strings('nav_collection'),
-            large: true,
-          ),
-          const SizedBox(height: 20),
-          _ArtworkHeading(
-            catalog: art,
-            assetId: AuraUiArt.icon(AuraUiIcon.appearance),
-            fallbackIcon: Icons.face_retouching_natural,
-            title: strings('collection_appearances'),
-            semanticLabel: strings('collection_appearances'),
+            assetId: section.assetId,
+            fallbackIcon: section.fallbackIcon,
+            title: section.label,
+            semanticLabel: section.label,
           ),
           const SizedBox(height: 6),
-          ...upgrades.where((u) => !u.isTechnique).map((u) {
+          ...children,
+        ],
+      );
+
+  Widget _appearanceList(
+    List<Upgrade> appearanceItems,
+    _CollectionSectionData section,
+  ) =>
+      _sectionList(
+        storageKey: 'collection-appearances-scroll',
+        section: section,
+        children: [
+          ...appearanceItems.map((u) {
             final owns = controller.appearances.contains(u.id);
             final equipped = controller.equippedAppearances.contains(u.id);
             final title = strings(u.nameKey);
@@ -1364,16 +1554,14 @@ class _Collection extends StatelessWidget {
                     ),
             );
           }),
-          const Divider(height: 36),
-          _ArtworkHeading(
-            catalog: art,
-            assetId: AuraUiArt.icon(AuraUiIcon.transformation),
-            fallbackIcon: Icons.auto_awesome,
-            title: strings('collection_transformations'),
-            semanticLabel: strings('collection_transformations'),
-          ),
-          const SizedBox(height: 6),
-          ...forms.map((f) {
+        ],
+      );
+
+  Widget _transformationList(_CollectionSectionData section) => _sectionList(
+        storageKey: 'collection-transformations-scroll',
+        section: section,
+        children: [
+          ..._forms.map((f) {
             final unlocked = controller.transformations.contains(f.$1);
             final key = f.$1.toLowerCase().replaceAll('-', '_');
             final title = strings('content.$key.name');
@@ -1410,15 +1598,17 @@ class _Collection extends StatelessWidget {
               ),
             );
           }),
-          const Divider(height: 36),
-          _ArtworkHeading(
-            catalog: art,
-            assetId: AuraUiArt.icon(AuraUiIcon.seal),
-            fallbackIcon: Icons.workspace_premium_outlined,
-            title: strings('collection_seals'),
-            semanticLabel: strings('collection_seals'),
-          ),
-          const SizedBox(height: 6),
+        ],
+      );
+
+  Widget _sealList(
+    List<String> seals,
+    _CollectionSectionData section,
+  ) =>
+      _sectionList(
+        storageKey: 'collection-seals-scroll',
+        section: section,
+        children: [
           if (seals.isEmpty)
             Card(
               child: ListTile(
@@ -1451,15 +1641,13 @@ class _Collection extends StatelessWidget {
                   ),
                 ),
               )),
-          const Divider(height: 36),
-          _ArtworkHeading(
-            catalog: art,
-            assetId: AuraUiArt.icon(AuraUiIcon.achievement),
-            fallbackIcon: Icons.verified_outlined,
-            title: strings('collection_achievements'),
-            semanticLabel: strings('collection_achievements'),
-          ),
-          const SizedBox(height: 6),
+        ],
+      );
+
+  Widget _achievementList(_CollectionSectionData section) => _sectionList(
+        storageKey: 'collection-achievements-scroll',
+        section: section,
+        children: [
           ...achievementIds.map((id) {
             final unlocked = controller.achievements.contains(id);
             final secret = id.startsWith('ACH-S');
@@ -1500,8 +1688,170 @@ class _Collection extends StatelessWidget {
                     : null,
               ),
             );
-          })
-        ]);
+          }),
+        ],
+      );
+}
+
+class _CollectionSectionData {
+  const _CollectionSectionData({
+    required this.label,
+    required this.count,
+    required this.assetId,
+    required this.iconRole,
+    required this.fallbackIcon,
+  });
+
+  final String label;
+  final String count;
+  final String assetId;
+  final AuraUiIcon iconRole;
+  final IconData fallbackIcon;
+}
+
+class _CollectionSectionPicker extends StatelessWidget {
+  const _CollectionSectionPicker({
+    required this.sections,
+    required this.selected,
+    required this.art,
+    required this.onSelected,
+  });
+
+  final Map<_CollectionSection, _CollectionSectionData> sections;
+  final _CollectionSection selected;
+  final ArtCatalog? art;
+  final ValueChanged<_CollectionSection> onSelected;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (context, constraints) {
+          const gap = 8.0;
+          final columns = constraints.maxWidth >= 640 ? 4 : 2;
+          final width = (constraints.maxWidth - gap * (columns - 1)) / columns;
+          return Wrap(
+            spacing: gap,
+            runSpacing: gap,
+            children: [
+              for (final entry in sections.entries)
+                SizedBox(
+                  width: width,
+                  child: _CollectionSectionButton(
+                    key: ValueKey(
+                      'collection-section-${entry.key.name}',
+                    ),
+                    section: entry.value,
+                    selected: selected == entry.key,
+                    art: art,
+                    onTap: () => onSelected(entry.key),
+                  ),
+                ),
+            ],
+          );
+        },
+      );
+}
+
+class _CollectionSectionButton extends StatelessWidget {
+  const _CollectionSectionButton({
+    super.key,
+    required this.section,
+    required this.selected,
+    required this.art,
+    required this.onTap,
+  });
+
+  final _CollectionSectionData section;
+  final bool selected;
+  final ArtCatalog? art;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    const cyan = Color(0xFF43E6FF);
+    final borderColor = selected
+        ? cyan.withValues(alpha: .68)
+        : Colors.white.withValues(alpha: .09);
+    final backgroundColor = selected
+        ? cyan.withValues(alpha: .13)
+        : const Color(0xFF161B3A).withValues(alpha: .72);
+
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: section.label,
+      value: section.count,
+      onTap: onTap,
+      excludeSemantics: true,
+      child: Material(
+        color: backgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: borderColor),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 64),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(10, 9, 8, 9),
+              child: Row(
+                children: [
+                  AuraAssetIcon(
+                    catalog: art,
+                    role: section.iconRole,
+                    fallbackIcon: section.fallbackIcon,
+                    semanticLabel: section.label,
+                    decorative: true,
+                    size: 24,
+                    opacity: selected ? 1 : .68,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      section.label,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: selected
+                            ? const Color(0xFFF7F5FF)
+                            : const Color(0xFFC9C7D8),
+                        fontSize: 13,
+                        fontWeight:
+                            selected ? FontWeight.w800 : FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Container(
+                    key: ValueKey(
+                      'collection-count-${section.iconRole.name}',
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? cyan.withValues(alpha: .18)
+                          : Colors.white.withValues(alpha: .06),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      section.count,
+                      textDirection: TextDirection.ltr,
+                      style: TextStyle(
+                        color: selected ? cyan : const Color(0xFFC9C7D8),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -1631,7 +1981,8 @@ class _Settings extends StatelessWidget {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => _backup(context))),
             ListTile(
-                title: Text(strings('settings_version', {'version': '0.1.7'})),
+                title: Text(
+                    strings('settings_version', {'version': '1.1.8-vivi'})),
                 subtitle: const Text('arith-v1 · balance-v0.3'))
           ]);
 

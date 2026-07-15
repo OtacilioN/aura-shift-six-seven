@@ -125,7 +125,7 @@ def radial_gradient(gradient_id: str, stops: list[tuple[str, str, float]]) -> st
 SKIN_META = [
     ("item_a_01", "A", "CHEST", "suspicious button physical four-hole stitched shirt button"),
     ("item_a_02", "A", "HIP", "luminous thermal receipt tucked into right shorts pocket"),
-    ("item_a_03", "A", "FACE_WEAR", "QA goggles paired transparent lenses with bridge and temple arms"),
+    ("item_a_03", "A", "FACE_WEAR", "angular QA sunglasses with opaque dark lenses neon brow bridge and temple arms"),
     ("item_a_04", "A", "BODY_WEAR", "open gate coat with lapels split zipper and geometric pockets"),
     ("item_a_05", "A", "HEAD_WEAR", "segmented technological hotfix crown worn above the cap"),
     ("item_b_01", "B", "GROUND_PROP", "6:70 twin-bell digital alarm clock ground prop"),
@@ -266,27 +266,37 @@ def _skin_layers(item_id: str, primary: str, secondary: str) -> tuple[list[str],
             tag("path", d="M758 574 L768 594 L790 604 L768 614 L758 636 L748 614 L726 604 L748 594 Z", fill=primary, opacity="0.82"),
         ]
     elif item_id == "item_a_03":
-        temples = "M414 326 L382 316 Q366 314 356 330 M610 326 L642 316 Q658 314 668 330"
-        bridge = "M502 330 Q512 316 522 330"
+        left_lens = "M386 316 L486 306 Q502 305 506 322 L500 366 Q497 386 478 391 L428 388 Q404 386 398 366 Z"
+        right_lens = "M538 306 L638 316 L626 366 Q620 386 596 388 L546 391 Q527 386 524 366 L518 322 Q522 305 538 306 Z"
+        temples = "M398 326 L356 312 Q338 308 326 328 M626 326 L668 312 Q686 308 698 328"
+        bridge = "M500 326 Q512 314 524 326"
         base += [
-            tag("path", d=temples, fill="none", stroke=I9, stroke_width=18, stroke_linecap="round", stroke_linejoin="round"),
-            tag("path", d=temples, fill="none", stroke=primary, stroke_width=7, stroke_linecap="round", stroke_linejoin="round"),
-            tag("rect", x=414, y=304, width=88, height=72, rx=28, fill=primary, opacity="0.22", stroke=I9, stroke_width=18),
-            tag("rect", x=522, y=304, width=88, height=72, rx=28, fill=primary, opacity="0.22", stroke=I9, stroke_width=18),
-            tag("path", d=bridge, fill="none", stroke=I9, stroke_width=18, stroke_linecap="round"),
+            tag("path", d=temples, fill="none", stroke=I9, stroke_width=24, stroke_linecap="round", stroke_linejoin="round"),
+            tag("path", d=temples, fill="none", stroke=primary, stroke_width=9, stroke_linecap="round", stroke_linejoin="round"),
+            tag("path", d=left_lens, fill=I9, stroke=I9, stroke_width=26, stroke_linejoin="round"),
+            tag("path", d=right_lens, fill=I9, stroke=I9, stroke_width=26, stroke_linejoin="round"),
+            tag("path", d=left_lens, fill=I7, stroke=primary, stroke_width=9, stroke_linejoin="round"),
+            tag("path", d=right_lens, fill=I7, stroke=primary, stroke_width=9, stroke_linejoin="round"),
+            tag("path", d="M390 317 L486 307 M538 307 L634 317", fill="none", stroke=secondary, stroke_width=12, stroke_linecap="round", stroke_linejoin="round"),
+            tag("path", d=bridge, fill="none", stroke=I9, stroke_width=24, stroke_linecap="round"),
+            tag("path", d=bridge, fill="none", stroke=primary, stroke_width=9, stroke_linecap="round"),
         ]
         accent += [
-            tag("rect", x=414, y=304, width=88, height=72, rx=28, fill="none", stroke=primary, stroke_width=8),
-            tag("rect", x=522, y=304, width=88, height=72, rx=28, fill="none", stroke=primary, stroke_width=8),
-            tag("path", d=bridge, fill="none", stroke=secondary, stroke_width=7, stroke_linecap="round"),
-            tag("path", d="M433 326 L449 312 M541 326 L557 312", fill="none", stroke=PAPER, stroke_width=7, stroke_linecap="round"),
+            tag("path", d="M403 329 L491 321 L486 354 Q483 371 469 376 L432 374 Q417 372 412 357 Z", fill=secondary, opacity="0.22"),
+            tag("path", d="M533 321 L621 329 L612 357 Q607 372 592 374 L555 376 Q541 371 538 354 Z", fill=secondary, opacity="0.22"),
+            tag("path", d="M414 343 L446 326 M426 361 L471 337 M552 341 L583 326 M565 361 L606 340", fill="none", stroke=PAPER, stroke_width=7, stroke_linecap="round", opacity="0.92"),
+            tag("path", d="M433 379 Q455 385 478 379 M546 379 Q569 385 591 379", fill="none", stroke=primary, stroke_width=7, stroke_linecap="round"),
+            tag("circle", cx=401, cy=327, r=6, fill=PAPER, stroke=I9, stroke_width=4),
+            tag("circle", cx=623, cy=327, r=6, fill=PAPER, stroke=I9, stroke_width=4),
         ]
         glow += [
-            tag("rect", x=402, y=292, width=112, height=96, rx=40, fill="none", stroke=primary, stroke_width=14, opacity="0.28"),
-            tag("rect", x=510, y=292, width=112, height=96, rx=40, fill="none", stroke=primary, stroke_width=14, opacity="0.28"),
-            tag("path", d="M430 354 H486 M538 354 H594", fill="none", stroke=secondary, stroke_width=9, stroke_linecap="round", opacity="0.34"),
+            tag("path", d=left_lens, fill="none", stroke=primary, stroke_width=24, stroke_linejoin="round", opacity="0.22"),
+            tag("path", d=right_lens, fill="none", stroke=primary, stroke_width=24, stroke_linejoin="round", opacity="0.22"),
+            tag("path", d="M404 398 Q512 418 620 398", fill="none", stroke=secondary, stroke_width=16, stroke_linecap="round", opacity="0.34"),
+            tag("path", d="M372 288 L380 304 L397 312 L380 320 L372 336 L364 320 L347 312 L364 304 Z", fill=primary, opacity="0.78"),
+            tag("path", d="M652 298 L658 310 L671 316 L658 322 L652 334 L646 322 L633 316 L646 310 Z", fill=PAPER, opacity="0.72"),
         ]
-        face_fit = "translate(0 34)"
+        face_fit = "translate(0 26)"
         base[:] = [group("qa_glasses_eye_alignment", base, transform=face_fit)]
         accent[:] = [group("qa_glasses_eye_alignment_accent", accent, transform=face_fit)]
         glow[:] = [group("qa_glasses_eye_alignment_glow", glow, transform=face_fit)]
@@ -1321,7 +1331,27 @@ def _icon_builder(asset_id: str) -> Callable[[AssetSpec], str]:
 
 
 def icon_specs() -> list[AssetSpec]:
-    return [AssetSpec(asset_id, "icons", (96, 96), (48, 48), (0.50, 0.50), None, "UI-FLUTTER", "base", "lossless", f"Essential rounded functional glyph {asset_id}", _icon_builder(asset_id)) for asset_id in ICON_IDS]
+    # Several prominent headings render these glyphs at 64 logical pixels, so
+    # the former 48 px export had to be upscaled before Flutter could account
+    # for device density. A 192 px lossless raster is a native 3x source for
+    # that largest consumer and stays crisp at both 46 px and 64 px without
+    # introducing a second asset ID or changing semantics.
+    return [
+        AssetSpec(
+            asset_id,
+            "icons",
+            (96, 96),
+            (192, 192),
+            (0.50, 0.50),
+            None,
+            "UI-FLUTTER",
+            "base",
+            "lossless",
+            f"Essential rounded functional glyph {asset_id}",
+            _icon_builder(asset_id),
+        )
+        for asset_id in ICON_IDS
+    ]
 
 
 def all_specs() -> list[AssetSpec]:

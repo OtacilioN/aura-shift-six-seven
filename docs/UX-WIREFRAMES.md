@@ -27,6 +27,7 @@ Aplicativo
 │   ├── [Detalhes de Aura] — folha, não área
 │   ├── Mascote + Área de Aura
 │   ├── progresso do próximo Patamar
+│   ├── [Próximos passos] — resumo + folha com atalhos para a Loja
 │   └── [Ascensão] — folha quando descoberta
 ├── Loja
 │   └── Árvore de Aura única
@@ -75,6 +76,7 @@ Folhas de retorno offline, consentimento, diagnóstico, anúncio, confirmação,
 │ +6,7K/ciclo   +3,35K/s       │
 │ próximo Patamar   67%        │
 │ ━━━━━━━━━━━━━░░░░░░░         │
+│ Próximos passos          [›]  │
 ├──────────────────────────────┤
 │                              │
 │          MASCOTE             │
@@ -93,6 +95,7 @@ Folhas de retorno offline, consentimento, diagnóstico, anúncio, confirmação,
 Regras:
 
 - `[ⓘ]` abre Detalhes de Aura com Aura Disponível, Aura Total, Aura da Jornada, Potência de Ciclo e Produção Passiva; cada valor oferece representação completa e cópia canônica.
+- `[Próximos passos]` abre uma folha com próximo Patamar, até três desbloqueios da Loja e até três Marcos de Item; tocar em um objetivo fecha a folha, abre a Loja e posiciona o nó correspondente.
 - A faixa de Ascensão só aparece depois de descoberta. Antes da Aura da Jornada mínima, informa a falta exata e abre a prévia desabilitada.
 - Coach marks e banners de estado nunca cobrem toda a Área de Aura. Um toque em controles não avança o Ciclo.
 - Com TalkBack, a Área de Aura é um único controle com rótulo, fase vigente e ação. Um duplo toque avança exatamente uma fase; o anúncio de Aura ocorre somente na Fase Seven.
@@ -224,6 +227,7 @@ Convergências listam os três requisitos separadamente, nunca apenas uma porcen
 └───────────────────────────────┘
 ```
 
+- O seletor interno mostra a contagem de cada categoria, adapta-se à largura e preserva uma rolagem independente por seção; não adiciona um quinto destino à navegação principal.
 - Aparência preservada e Efeito de Item ativo são apresentados em linhas e ícones diferentes. Após Ascensão, uma aparência pode continuar `Em uso`, enquanto a linha nomeada “Efeito de Item” mostra `Bloqueado` até a readquisição; esses estados reutilizam `collection_equipped` e `collection_locked` sem sugerir perda da aparência.
 - Conquistas secretas bloqueadas exibem placeholder sem revelar nome/condição. Selos 67 têm contagem e grade distintas.
 - Ativar ou ocultar uma Aparência não desativa as demais e não abre confirmação porque não afeta economia; o resultado é reversível e recebe feedback imediato. A prévia suporta as 18 Aparências simultâneas e usa o mesmo relayout sem sobreposição da Área de Aura.
@@ -284,8 +288,8 @@ Rever tutorial usa demonstrações textuais/visuais sobre o estado atual, sem re
 | Caso | Apresentação | Ação e persistência | Falha/retomada |
 | --- | --- | --- | --- |
 | ausência válida até 10 min | sem folha de retorno | segue para o jogo | não cria Recompensa de Retorno pendente |
-| ausência válida >10 min antes de monetização | folha com duração, taxa registrada e base proporcional até 4h | `[Resgatar]` credita base uma vez | reabre a mesma recompensa se não concluída |
-| ausência válida >10 min com monetização | base proporcional até 4h + opção de 20% | escolher base a credita; anúncio concluído credita base + bônus | falha/cancelamento mantém a recompensa pendente |
+| ausência válida >10 min antes de monetização | folha com duração real, taxa registrada e base proporcional até 4h; se exceder, informa o limite | `[Resgatar]` credita base uma vez | reabre a mesma recompensa se não concluída |
+| ausência válida >10 min com monetização | duração real, base proporcional até 4h + opção de 20%; se exceder, informa o limite | escolher base a credita; anúncio concluído credita base + bônus | falha/cancelamento mantém a recompensa pendente |
 | intervalo incoerente | mensagem discreta de zero para a ausência e nova referência | `[Continuar]`; sem bônus | não bane, não apaga e não repete o aviso |
 
 Escolher somente a base encerra a oportunidade. Escolher anúncio permite `[Tentar novamente]` ou `[Continuar com a base]`. Fechar o app preserva a decisão pendente sem duplicar crédito.

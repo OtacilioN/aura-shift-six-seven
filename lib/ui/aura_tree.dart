@@ -102,6 +102,8 @@ class AuraItemTree extends StatefulWidget {
     required this.onRewardedUpgrade,
     this.onDetailsOpen,
     this.onDetailsClose,
+    this.focusUpgradeId,
+    this.focusRequestToken = 0,
   });
 
   final GameController controller;
@@ -113,13 +115,65 @@ class AuraItemTree extends StatefulWidget {
   final Future<void> Function()? onDetailsOpen;
   final Future<void> Function()? onDetailsClose;
 
+  /// Upgrade that should be brought into view and highlighted.
+  ///
+  /// Increment [focusRequestToken] to repeat the request for the same upgrade.
+  final String? focusUpgradeId;
+  final int focusRequestToken;
+
   @override
   State<AuraItemTree> createState() => _AuraItemTreeState();
 }
 
 class _AuraItemTreeState extends State<AuraItemTree> {
   final ScrollController _scrollController = ScrollController();
+  final Map<String, GlobalKey> _upgradeFocusKeys = {
+    for (final upgrade in upgrades)
+      upgrade.id: GlobalKey(debugLabel: 'aura-focus-${upgrade.id}'),
+  };
   String? _selectedId;
+  int _focusScheduleGeneration = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_upgradeFocusKeys.containsKey(widget.focusUpgradeId)) {
+      _selectedId = widget.focusUpgradeId;
+    }
+    _scheduleUpgradeFocus();
+  }
+
+  @override
+  void didUpdateWidget(covariant AuraItemTree oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.focusUpgradeId != oldWidget.focusUpgradeId ||
+        widget.focusRequestToken != oldWidget.focusRequestToken) {
+      if (_upgradeFocusKeys.containsKey(widget.focusUpgradeId)) {
+        _selectedId = widget.focusUpgradeId;
+      }
+      _scheduleUpgradeFocus();
+    }
+  }
+
+  void _scheduleUpgradeFocus() {
+    final upgradeId = widget.focusUpgradeId;
+    final targetKey = _upgradeFocusKeys[upgradeId];
+    if (targetKey == null) return;
+    final generation = ++_focusScheduleGeneration;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted || generation != _focusScheduleGeneration) return;
+      final targetContext = targetKey.currentContext;
+      if (targetContext == null) return;
+      await Scrollable.ensureVisible(
+        targetContext,
+        alignment: .4,
+        duration: widget.controller.reduceMotion
+            ? Duration.zero
+            : const Duration(milliseconds: 280),
+        curve: Curves.easeOutCubic,
+      );
+    });
+  }
 
   @override
   void dispose() {
@@ -212,6 +266,7 @@ class _AuraItemTreeState extends State<AuraItemTree> {
                                 art: widget.art,
                                 selectedId: _selectedId,
                                 onSelected: _showDetails,
+                                focusKeys: _upgradeFocusKeys,
                               ),
                             ),
                           ),
@@ -347,6 +402,7 @@ class _AuraTreeCanvas extends StatelessWidget {
     required this.art,
     required this.selectedId,
     required this.onSelected,
+    required this.focusKeys,
   });
 
   final double width;
@@ -356,6 +412,7 @@ class _AuraTreeCanvas extends StatelessWidget {
   final ArtCatalog? art;
   final String? selectedId;
   final ValueChanged<Upgrade> onSelected;
+  final Map<String, GlobalKey> focusKeys;
 
   @override
   Widget build(BuildContext context) {
@@ -405,22 +462,24 @@ class _AuraTreeCanvas extends StatelessWidget {
             _positionedNode(
               geometry.technique(index + 1),
               geometry.nodeWidth,
-              _AuraTreeNode(
-                key: ValueKey(
-                  index == 0
-                      ? 'aura-root-TECH-01'
-                      : 'aura-technique-${techniques[index].id}',
+              KeyedSubtree(
+                key: focusKeys[techniques[index].id],
+                child: _AuraTreeNode(
+                  key: ValueKey(
+                    index == 0
+                        ? 'aura-root-TECH-01'
+                        : 'aura-technique-${techniques[index].id}',
+                  ),
+                  upgrade: techniques[index],
+                  controller: controller,
+                  translate: translate,
+                  locale: locale,
+                  art: art,
+                  height: geometry.nodeHeight,
+                  sortOrder: const [0, 20, 40, 60, 80, 100][index],
+                  selected: selectedId == techniques[index].id,
+                  onTap: () => onSelected(techniques[index]),
                 ),
-                upgrade: techniques[index],
-                controller: controller,
-                translate: translate,
-                locale: locale,
-                art: art,
-                shortLabel: translate(techniques[index].nameKey),
-                height: geometry.nodeHeight,
-                sortOrder: const [0, 20, 40, 60, 80, 100][index],
-                selected: selectedId == techniques[index].id,
-                onTap: () => onSelected(techniques[index]),
               ),
             ),
           for (final branch in const ['A', 'B', 'C'])
@@ -428,38 +487,45 @@ class _AuraTreeCanvas extends StatelessWidget {
               _positionedNode(
                 geometry.item(branch, depth),
                 geometry.nodeWidth,
-                _AuraTreeNode(
-                  key: ValueKey('aura-node-ITEM-$branch-0$depth'),
-                  upgrade: branchUpgrades[branch]![depth - 1],
-                  controller: controller,
-                  translate: translate,
-                  locale: locale,
-                  art: art,
-                  shortLabel:
-                      '${_branchTitle(translate, branch)} \u2066$depth\u2069',
-                  height: geometry.nodeHeight,
-                  sortOrder: const [10, 30, 50, 70, 90][depth - 1] +
-                      const ['A', 'B', 'C'].indexOf(branch),
-                  selected: selectedId == branchUpgrades[branch]![depth - 1].id,
-                  onTap: () => onSelected(branchUpgrades[branch]![depth - 1]),
+                KeyedSubtree(
+                  key: focusKeys[branchUpgrades[branch]![depth - 1].id],
+                  child: _AuraTreeNode(
+                    key: ValueKey('aura-node-ITEM-$branch-0$depth'),
+                    upgrade: branchUpgrades[branch]![depth - 1],
+                    controller: controller,
+                    translate: translate,
+                    locale: locale,
+                    art: art,
+                    contextLabel:
+                        '${_branchTitle(translate, branch)} \u2066$depth\u2069',
+                    height: geometry.nodeHeight,
+                    sortOrder: const [10, 30, 50, 70, 90][depth - 1] +
+                        const ['A', 'B', 'C'].indexOf(branch),
+                    selected:
+                        selectedId == branchUpgrades[branch]![depth - 1].id,
+                    onTap: () => onSelected(branchUpgrades[branch]![depth - 1]),
+                  ),
                 ),
               ),
           for (var index = 0; index < convergenceUpgrades.length; index++)
             _positionedNode(
               geometry.convergence(index + 1),
               geometry.nodeWidth,
-              _AuraTreeNode(
-                key: ValueKey('aura-node-ITEM-CONV-0${index + 1}'),
-                upgrade: convergenceUpgrades[index],
-                controller: controller,
-                translate: translate,
-                locale: locale,
-                art: art,
-                shortLabel: 'Spectrum ${index + 1}',
-                height: geometry.nodeHeight,
-                sortOrder: const [14, 54, 94][index],
-                selected: selectedId == convergenceUpgrades[index].id,
-                onTap: () => onSelected(convergenceUpgrades[index]),
+              KeyedSubtree(
+                key: focusKeys[convergenceUpgrades[index].id],
+                child: _AuraTreeNode(
+                  key: ValueKey('aura-node-ITEM-CONV-0${index + 1}'),
+                  upgrade: convergenceUpgrades[index],
+                  controller: controller,
+                  translate: translate,
+                  locale: locale,
+                  art: art,
+                  contextLabel: 'Spectrum \u2066${index + 1}\u2069',
+                  height: geometry.nodeHeight,
+                  sortOrder: const [14, 54, 94][index],
+                  selected: selectedId == convergenceUpgrades[index].id,
+                  onTap: () => onSelected(convergenceUpgrades[index]),
+                ),
               ),
             ),
         ],
@@ -527,7 +593,7 @@ class _AuraTreeNode extends StatelessWidget {
     required this.translate,
     required this.locale,
     required this.art,
-    required this.shortLabel,
+    this.contextLabel,
     required this.height,
     required this.sortOrder,
     required this.selected,
@@ -539,7 +605,7 @@ class _AuraTreeNode extends StatelessWidget {
   final AuraTranslate translate;
   final String locale;
   final ArtCatalog? art;
-  final String shortLabel;
+  final String? contextLabel;
   final double height;
   final int sortOrder;
   final bool selected;
@@ -568,7 +634,7 @@ class _AuraTreeNode extends StatelessWidget {
     );
     final semantics = [
       title,
-      if (shortLabel != title) shortLabel,
+      if (contextLabel != null && contextLabel != title) contextLabel!,
       status,
       if (unlocked && !purchasable)
         translate('shop_missing', {
@@ -783,11 +849,10 @@ class _AuraTreeNode extends StatelessWidget {
                 const SizedBox(height: 6),
                 Expanded(
                   child: Text(
-                    shortLabel,
-                    maxLines: 2,
+                    title,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    textDirection:
-                        upgrade.branch == 'Spectrum' ? TextDirection.ltr : null,
                     style: TextStyle(
                       color: selected
                           ? const Color(0xFFF7F5FF)
@@ -1289,16 +1354,7 @@ class _AuraUpgradeDetailsSheetState extends State<AuraUpgradeDetailsSheet> {
         SizedBox(
           height: 48,
           child: Stack(
-            alignment: Alignment.center,
             children: [
-              Container(
-                width: 42,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: .2),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
               Positioned(
                 left: 8,
                 child: IconButton(
