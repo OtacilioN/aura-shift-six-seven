@@ -132,6 +132,11 @@ void main() {
         findsOneWidget,
       );
       expect(find.text('Spectrum 1'), findsNothing);
+      expect(find.text(strings('shop_aura_tree')), findsNothing);
+      expect(
+        find.text(strings('play_available_aura_short').toUpperCase()),
+        findsOneWidget,
+      );
 
       await tester.pumpWidget(const SizedBox.shrink());
     } finally {

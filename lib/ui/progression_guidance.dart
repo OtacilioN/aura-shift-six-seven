@@ -211,123 +211,53 @@ int _progressionIndex(String id) {
   return _visualProgressionOrder.length + (fallback < 0 ? 999 : fallback);
 }
 
-class AuraNextStepsCard extends StatelessWidget {
-  const AuraNextStepsCard({
+class AuraNextStepsTrigger extends StatelessWidget {
+  const AuraNextStepsTrigger({
     super.key,
-    required this.controller,
     required this.strings,
     required this.onTap,
   });
 
-  final GameController controller;
   final Strings strings;
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
-    final plan = buildAuraProgressionPlan(controller);
-    final compact = MediaQuery.sizeOf(context).height < 700 ||
-        MediaQuery.textScalerOf(context).scale(14) > 21;
-    final tier = plan.tier;
-    final primaryUnlock = plan.unlockGoals.firstOrNull;
-    final primaryMilestone = plan.milestoneGoals.firstOrNull;
-    final primaryTitle = primaryUnlock != null
-        ? strings(primaryUnlock.upgrade.nameKey)
-        : primaryMilestone != null
-            ? strings(primaryMilestone.upgrade.nameKey)
-            : strings('progress_no_pending_unlocks');
-    final primaryDetail = primaryUnlock != null
-        ? _requirementLabel(
-            primaryUnlock.pending.first,
-            controller: controller,
-            strings: strings,
-          )
-        : primaryMilestone != null
-            ? '${strings('shop_next_milestone', {
-                    'level': '${primaryMilestone.targetLevel}',
-                  })} (${primaryMilestone.level}/${primaryMilestone.targetLevel})'
-            : null;
-
-    return Card(
-      key: const ValueKey('next-steps-card'),
-      margin: const EdgeInsets.fromLTRB(14, 8, 14, 0),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(14, 12, 10, 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.flag_outlined,
-                      color: Color(0xFFFFD166), size: 22),
-                  const SizedBox(width: 9),
-                  Expanded(
-                    child: Text(
-                      strings('progress_title'),
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w800,
-                          ),
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right),
-                ],
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(14, 2, 14, 0),
+        child: Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: TextButton.icon(
+            key: const ValueKey('next-steps-trigger'),
+            style: TextButton.styleFrom(
+              foregroundColor: const Color(0xFFF7F5FF),
+              backgroundColor: Colors.white.withValues(alpha: .045),
+              minimumSize: const Size(0, 40),
+              padding: const EdgeInsetsDirectional.fromSTEB(10, 6, 12, 6),
+              visualDensity: VisualDensity.compact,
+              tapTargetSize: MaterialTapTargetSize.padded,
+              shape: const StadiumBorder(
+                side: BorderSide(color: Color(0x1FFFFFFF)),
               ),
-              if (tier != null) ...[
-                const SizedBox(height: 9),
-                Text(
-                  strings('shop_tier_required', {
-                    'amount': _ltr(AuraFormat.integer(
-                      tier.threshold,
-                      locale: strings.locale,
-                    )),
-                  }),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 6),
-                Semantics(
-                  label:
-                      '${strings('progress_next_tier')} ${(tier.progress * 100).floor()}%',
-                  child: LinearProgressIndicator(
-                    value: tier.progress,
-                    minHeight: 6,
-                    borderRadius: BorderRadius.circular(6),
-                    color: const Color(0xFF43E6FF),
-                  ),
-                ),
-              ] else ...[
-                const SizedBox(height: 8),
-                Text(strings('progress_all_tiers')),
-              ],
-              if (!compact) ...[
-                const SizedBox(height: 9),
-                Text(
-                  primaryTitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
-                if (primaryDetail != null)
-                  Text(
-                    primaryDetail,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: .64),
-                      fontSize: 12,
-                    ),
-                  ),
-              ],
-            ],
+            ),
+            onPressed: onTap,
+            icon: const Icon(
+              Icons.flag_outlined,
+              color: Color(0xFFFFD166),
+              size: 18,
+            ),
+            label: Text(
+              strings('progress_title'),
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class AuraNextStepsSheet extends StatelessWidget {

@@ -296,100 +296,57 @@ class _TreeBalanceBar extends StatelessWidget {
   final ArtCatalog? art;
 
   @override
-  Widget build(BuildContext context) => LayoutBuilder(
-        builder: (context, constraints) {
-          final stacked = constraints.maxWidth < 360 ||
-              MediaQuery.textScalerOf(context).scale(12) > 18;
-          final amount = Row(
-            children: [
-              AuraAssetIcon(
-                catalog: art,
-                role: AuraUiIcon.auraAvailable,
-                fallbackIcon: Icons.auto_awesome,
-                semanticLabel: translate('play_available_aura'),
-                decorative: true,
-                size: 28,
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      translate('play_available_aura_short').toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: .55),
-                        fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 1.2,
-                      ),
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFF151A3A),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: controller.highContrast
+                ? const Color(0xFFF7F5FF)
+                : Colors.white.withValues(alpha: .07),
+            width: controller.highContrast ? 2 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            AuraAssetIcon(
+              catalog: art,
+              role: AuraUiIcon.auraAvailable,
+              fallbackIcon: Icons.auto_awesome,
+              semanticLabel: translate('play_available_aura'),
+              decorative: true,
+              size: 28,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    translate('play_available_aura_short').toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: .55),
+                      fontSize: 10,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1.2,
                     ),
-                    Text(
-                      AuraFormat.integer(controller.available, locale: locale),
-                      textDirection: TextDirection.ltr,
-                      style: const TextStyle(
-                        color: Color(0xFFF7F5FF),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                        fontFeatures: [FontFeature.tabularFigures()],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-          final badge = Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-            decoration: BoxDecoration(
-              color: const Color(0xFF8B7CFF).withValues(alpha: .12),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: const Color(0xFF8B7CFF).withValues(alpha: .28),
-              ),
-            ),
-            child: Text(
-              translate('shop_aura_tree'),
-              style: const TextStyle(
-                color: Color(0xFFD8D2FF),
-                fontSize: 12,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          );
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(
-              color: const Color(0xFF151A3A),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: controller.highContrast
-                    ? const Color(0xFFF7F5FF)
-                    : Colors.white.withValues(alpha: .07),
-                width: controller.highContrast ? 2 : 1,
-              ),
-            ),
-            child: stacked
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      amount,
-                      const SizedBox(height: 8),
-                      Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: badge,
-                      ),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      Expanded(child: amount),
-                      const SizedBox(width: 10),
-                      badge,
-                    ],
                   ),
-          );
-        },
+                  Text(
+                    AuraFormat.integer(controller.available, locale: locale),
+                    textDirection: TextDirection.ltr,
+                    style: const TextStyle(
+                      color: Color(0xFFF7F5FF),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      fontFeatures: [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       );
 }
 

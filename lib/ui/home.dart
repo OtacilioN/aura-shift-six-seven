@@ -784,8 +784,7 @@ class _Play extends StatelessWidget {
           art: art,
           onDetails: () => _details(context),
         ),
-        AuraNextStepsCard(
-          controller: controller,
+        AuraNextStepsTrigger(
           strings: strings,
           onTap: () => _showNextSteps(context),
         ),
@@ -1768,6 +1767,8 @@ class _CollectionSectionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const cyan = Color(0xFF43E6FF);
+    final titleLineHeight =
+        (MediaQuery.textScalerOf(context).scale(13) * 1.35).clamp(18.0, 30.0);
     final borderColor = selected
         ? cyan.withValues(alpha: .68)
         : Colors.white.withValues(alpha: .09);
@@ -1795,55 +1796,68 @@ class _CollectionSectionButton extends StatelessWidget {
             constraints: const BoxConstraints(minHeight: 64),
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(10, 9, 8, 9),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  AuraAssetIcon(
-                    catalog: art,
-                    role: section.iconRole,
-                    fallbackIcon: section.fallbackIcon,
-                    semanticLabel: section.label,
-                    decorative: true,
-                    size: 24,
-                    opacity: selected ? 1 : .68,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      section.label,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: selected
-                            ? const Color(0xFFF7F5FF)
-                            : const Color(0xFFC9C7D8),
-                        fontSize: 13,
-                        fontWeight:
-                            selected ? FontWeight.w800 : FontWeight.w700,
+                  SizedBox(
+                    height: titleLineHeight,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        section.label,
+                        maxLines: 1,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: selected
+                              ? const Color(0xFFF7F5FF)
+                              : const Color(0xFFC9C7D8),
+                          fontSize: 13,
+                          fontWeight:
+                              selected ? FontWeight.w800 : FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 6),
-                  Container(
-                    key: ValueKey(
-                      'collection-count-${section.iconRole.name}',
-                    ),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: selected
-                          ? cyan.withValues(alpha: .18)
-                          : Colors.white.withValues(alpha: .06),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      section.count,
-                      textDirection: TextDirection.ltr,
-                      style: TextStyle(
-                        color: selected ? cyan : const Color(0xFFC9C7D8),
-                        fontSize: 11,
-                        fontWeight: FontWeight.w800,
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      AuraAssetIcon(
+                        catalog: art,
+                        role: section.iconRole,
+                        fallbackIcon: section.fallbackIcon,
+                        semanticLabel: section.label,
+                        decorative: true,
+                        size: 24,
+                        opacity: selected ? 1 : .68,
                       ),
-                    ),
+                      const Spacer(),
+                      Container(
+                        key: ValueKey(
+                          'collection-count-${section.iconRole.name}',
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 7,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: selected
+                              ? cyan.withValues(alpha: .18)
+                              : Colors.white.withValues(alpha: .06),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          section.count,
+                          textDirection: TextDirection.ltr,
+                          style: TextStyle(
+                            color: selected ? cyan : const Color(0xFFC9C7D8),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -1982,7 +1996,7 @@ class _Settings extends StatelessWidget {
                     onTap: () => _backup(context))),
             ListTile(
                 title: Text(
-                    strings('settings_version', {'version': '1.1.8-vivi'})),
+                    strings('settings_version', {'version': '1.1.9-vivi'})),
                 subtitle: const Text('arith-v1 · balance-v0.3'))
           ]);
 

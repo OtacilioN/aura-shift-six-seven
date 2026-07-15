@@ -85,6 +85,30 @@ void main() {
         _expectCount(tester, 'transformation', '1/5');
         _expectCount(tester, 'achievement', '2/13');
         _expectCount(tester, 'seal', '1');
+        _expectSingleLineSectionTitle(
+          tester,
+          section: 'appearances',
+          count: 'appearance',
+          label: strings('collection_appearances'),
+        );
+        _expectSingleLineSectionTitle(
+          tester,
+          section: 'transformations',
+          count: 'transformation',
+          label: strings('collection_transformations'),
+        );
+        _expectSingleLineSectionTitle(
+          tester,
+          section: 'achievements',
+          count: 'achievement',
+          label: strings('collection_achievements'),
+        );
+        _expectSingleLineSectionTitle(
+          tester,
+          section: 'seals',
+          count: 'seal',
+          label: strings('collection_seals'),
+        );
         expect(find.text('Botão Suspeito'), findsOneWidget);
         expect(find.text('Primeira Virada'), findsNothing);
 
@@ -159,6 +183,12 @@ void main() {
           findsOneWidget,
         );
       }
+      _expectSingleLineSectionTitle(
+        tester,
+        section: 'transformations',
+        count: 'transformation',
+        label: arStrings('collection_transformations'),
+      );
 
       await tester.tap(
         find.byKey(const ValueKey('collection-section-achievements')),
@@ -184,6 +214,25 @@ void _expectCount(WidgetTester tester, String section, String value) {
   );
   expect(count, findsOneWidget);
   expect(tester.widget<Text>(count).data, value);
+}
+
+void _expectSingleLineSectionTitle(
+  WidgetTester tester, {
+  required String section,
+  required String count,
+  required String label,
+}) {
+  final button = find.byKey(ValueKey('collection-section-$section'));
+  final title = find.descendant(of: button, matching: find.text(label));
+  final countBadge = find.byKey(ValueKey('collection-count-$count'));
+  expect(title, findsOneWidget);
+  final titleWidget = tester.widget<Text>(title);
+  expect(titleWidget.maxLines, 1);
+  expect(titleWidget.softWrap, isFalse);
+  expect(
+    tester.getTopLeft(title).dy,
+    lessThan(tester.getTopLeft(countBadge).dy),
+  );
 }
 
 class _MemoryAudioStore implements AudioSettingsStore {

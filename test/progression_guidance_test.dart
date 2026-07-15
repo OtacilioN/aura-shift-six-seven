@@ -9,6 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  late Strings strings;
+
+  setUpAll(() async {
+    strings = await Strings.load('pt-BR');
+  });
 
   test('central plan exposes the next tier and earliest shop requirements',
       () async {
@@ -48,9 +53,50 @@ void main() {
     }
   });
 
+  testWidgets('next steps trigger stays compact and forwards its tap',
+      (tester) async {
+    var taps = 0;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: auraTheme(false, strings.locale),
+        home: Scaffold(
+          body: AuraNextStepsTrigger(
+            strings: strings,
+            onTap: () => taps++,
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    final trigger = find.byKey(const ValueKey('next-steps-trigger'));
+    expect(trigger, findsOneWidget);
+    expect(
+      find.descendant(
+        of: trigger,
+        matching: find.byIcon(Icons.flag_outlined),
+      ),
+      findsOneWidget,
+    );
+    final label = find.descendant(
+      of: trigger,
+      matching: find.text('Próximos passos'),
+    );
+    expect(label, findsOneWidget);
+    expect(tester.widget<Text>(label).style?.fontSize, 12);
+    expect(tester.widget<Text>(label).maxLines, 1);
+    expect(find.byIcon(Icons.chevron_right), findsNothing);
+    expect(find.byType(LinearProgressIndicator), findsNothing);
+
+    await tester.tap(trigger);
+    expect(taps, 1);
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
   testWidgets('next steps sheet centralizes goals and opens their tree node',
       (tester) async {
-    final strings = await Strings.load('pt-BR');
     final controller = await _controllerWith({});
     String? openedUpgrade;
     try {
