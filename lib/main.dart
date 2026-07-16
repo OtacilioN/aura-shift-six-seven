@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'audio/aura_audio_controller.dart';
 import 'core/game_controller.dart';
 import 'core/rewarded_ads.dart';
+import 'core/return_reminder_notifications.dart';
+import 'core/store_review.dart';
 import 'ui/home.dart';
 
 Future<void> main() async {
@@ -14,11 +16,15 @@ Future<void> main() async {
   final audio = await AuraAudioController.create();
   final strings = await Strings.load(controller.locale);
   final rewardedAds = GoogleRewardedAds();
+  final returnReminders = await ReturnReminderNotifications.create();
+  final storeReview = StoreReview();
   runApp(AuraApp(
     controller: controller,
     strings: strings,
     audio: audio,
     rewardedAds: rewardedAds,
+    returnReminders: returnReminders,
+    storeReview: storeReview,
   ));
 }
 
@@ -67,11 +73,15 @@ class AuraApp extends StatelessWidget {
     required this.strings,
     required this.audio,
     required this.rewardedAds,
+    required this.returnReminders,
+    required this.storeReview,
   });
   final GameController controller;
   final Strings strings;
   final AuraAudioController audio;
   final RewardedAds rewardedAds;
+  final ReturnReminderNotifications returnReminders;
+  final StoreReview storeReview;
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
         animation: Listenable.merge([controller, strings]),
@@ -89,6 +99,8 @@ class AuraApp extends StatelessWidget {
             strings: strings,
             audio: audio,
             rewardedAds: rewardedAds,
+            returnReminders: returnReminders,
+            storeReview: storeReview,
           ),
         ),
       );

@@ -11,6 +11,9 @@ import '../core/backup_service.dart';
 import '../core/formatting.dart';
 import '../core/game_controller.dart';
 import '../core/rewarded_ads.dart';
+import '../core/return_reminder_notifications.dart';
+import '../core/return_reminder_schedule.dart';
+import '../core/store_review.dart';
 import '../game/art_catalog.dart';
 import '../game/aura_scene.dart';
 import '../main.dart';
@@ -33,11 +36,15 @@ class Home extends StatefulWidget {
     required this.strings,
     required this.audio,
     required this.rewardedAds,
+    required this.returnReminders,
+    required this.storeReview,
   });
   final GameController controller;
   final Strings strings;
   final AuraAudioController audio;
   final RewardedAds rewardedAds;
+  final ReturnReminderNotifications returnReminders;
+  final StoreReview storeReview;
   @override
   State<Home> createState() => _HomeState();
 }
@@ -57,6 +64,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   bool _showingVisualFeedback = false;
   bool _returnAdInFlight = false;
   bool _rewardedUpgradeInFlight = false;
+  bool _storeReviewInFlight = false;
+  bool _storeReviewCheckQueued = false;
   late bool _adsEnabled;
 
   @override
@@ -74,6 +83,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     widget.controller.addListener(_detectUnlocks);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unawaited(widget.rewardedAds.setEnabled(_adsEnabled));
+      _queueStoreReview();
     });
   }
 
@@ -130,6 +140,46 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       );
     }
     _knownAchievements = nextAchievements;
+    _queueStoreReview();
+  }
+
+  void _queueStoreReview() {
+    if (!widget.controller.storeReviewEligible ||
+        widget.controller.returnRewardAvailable ||
+        _storeReviewInFlight ||
+        _storeReviewCheckQueued) {
+      return;
+    }
+    _storeReviewCheckQueued = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _storeReviewCheckQueued = false;
+      unawaited(_requestStoreReviewWhenClear());
+    });
+  }
+
+  Future<void> _requestStoreReviewWhenClear() async {
+    if (_storeReviewInFlight ||
+        !widget.controller.storeReviewEligible ||
+        widget.controller.returnRewardAvailable) {
+      return;
+    }
+    while (mounted && (_showingVisualFeedback || _visualFeedback.isNotEmpty)) {
+      await Future<void>.delayed(const Duration(milliseconds: 250));
+    }
+    if (!mounted ||
+        !widget.controller.storeReviewEligible ||
+        widget.controller.returnRewardAvailable) {
+      return;
+    }
+    _storeReviewInFlight = true;
+    widget.controller.markStoreReviewRequested();
+    try {
+      await widget.storeReview.request();
+    } catch (_) {
+      // Store review availability and quota are owned by the platform.
+    } finally {
+      _storeReviewInFlight = false;
+    }
   }
 
   void _enqueueVisualFeedback(
@@ -191,11 +241,58 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused) {
       widget.controller.pause();
       scene.pauseEngine();
+      unawaited(_scheduleReturnReminder());
     }
     if (state == AppLifecycleState.resumed) {
+      unawaited(widget.returnReminders.cancel());
       widget.controller.resume();
       if (tab == 0) scene.resumeEngine();
     }
+  }
+
+  Future<void> _scheduleReturnReminder() async {
+    final controller = widget.controller;
+    if (!controller.returnReminderEnabled || controller.returnRewardAvailable) {
+      return;
+    }
+    try {
+      await widget.returnReminders.schedule(
+        scheduledAt: ReturnReminderSchedule.afterLeaving(DateTime.now()),
+        title: widget.strings('return_reminder_notification_title'),
+        body: widget.strings('return_reminder_notification_body'),
+      );
+    } catch (_) {
+      // This optional convenience must not affect saving the offline reward.
+    }
+  }
+
+  Future<void> _maybePromptReturnReminder() async {
+    final controller = widget.controller;
+    if (!mounted || controller.returnReminderPrompted) return;
+    final wantsReminder = await showDialog<bool>(
+      context: context,
+      builder: (dialog) => AlertDialog(
+        title: Text(widget.strings('return_reminder_prompt_title')),
+        content: Text(widget.strings('return_reminder_prompt_body')),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialog, false),
+            child: Text(widget.strings('return_reminder_not_now')),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialog, true),
+            child: Text(widget.strings('return_reminder_enable')),
+          ),
+        ],
+      ),
+    );
+    if (!mounted) return;
+    if (wantsReminder != true) {
+      controller.chooseReturnReminder(false);
+      return;
+    }
+    final granted = await widget.returnReminders.requestPermission();
+    if (mounted) controller.chooseReturnReminder(granted);
   }
 
   void _selectTab(int value) {
@@ -228,7 +325,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     if (c.returnRewardAvailable && !promptedReturn) {
       promptedReturn = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _returnRewardDialog().whenComplete(() {
+        _returnRewardDialog().whenComplete(() async {
+          await _maybePromptReturnReminder();
           if (mounted) setState(() => promptedReturn = false);
         });
       });
@@ -269,6 +367,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             art: art,
             audio: widget.audio,
             rewardedAds: widget.rewardedAds,
+            returnReminders: widget.returnReminders,
           ),
         ];
         return Scaffold(
@@ -1876,12 +1975,14 @@ class _Settings extends StatelessWidget {
     required this.art,
     required this.audio,
     required this.rewardedAds,
+    required this.returnReminders,
   });
   final GameController controller;
   final Strings strings;
   final ArtCatalog? art;
   final AuraAudioController audio;
   final RewardedAds rewardedAds;
+  final ReturnReminderNotifications returnReminders;
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -1942,6 +2043,32 @@ class _Settings extends StatelessWidget {
                 ),
               ]),
             ),
+            _Switch(
+              strings('return_reminder_settings'),
+              controller.returnReminderEnabled,
+              (enabled) async {
+                if (!enabled) {
+                  controller.setReturnReminderEnabled(false);
+                  await returnReminders.cancel();
+                  unawaited(audio.playToggle(false));
+                  return;
+                }
+                final granted = await returnReminders.requestPermission();
+                if (!context.mounted) return;
+                controller.setReturnReminderEnabled(granted);
+                if (granted) {
+                  unawaited(audio.playToggle(true));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        strings('return_reminder_permission_denied'),
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
             _Switch(strings('settings_reduce_motion'), controller.reduceMotion,
                 (v) {
               controller.setBool('reduceMotion', v);
@@ -1996,7 +2123,7 @@ class _Settings extends StatelessWidget {
                     onTap: () => _backup(context))),
             ListTile(
                 title: Text(
-                    strings('settings_version', {'version': '1.1.9-vivi'})),
+                    strings('settings_version', {'version': '1.1.10-vivi'})),
                 subtitle: const Text('arith-v1 · balance-v0.3'))
           ]);
 

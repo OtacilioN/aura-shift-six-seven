@@ -477,6 +477,49 @@ void main() {
     controller.dispose();
   });
 
+  test(
+      'return-reminder preference is explicit and remains device-local on import',
+      () async {
+    final controller = await controllerWith({});
+    expect(controller.returnReminderPrompted, isFalse);
+    expect(controller.returnReminderEnabled, isFalse);
+
+    controller.chooseReturnReminder(true);
+    expect(controller.returnReminderPrompted, isTrue);
+    expect(controller.returnReminderEnabled, isTrue);
+
+    final backup = controller.exportState();
+    controller.setReturnReminderEnabled(false);
+    expect(await controller.restoreState(backup), isTrue);
+    expect(controller.returnReminderPrompted, isTrue);
+    expect(controller.returnReminderEnabled, isFalse);
+    controller.dispose();
+  });
+
+  test('store review becomes eligible at 67k Aura and is requested once',
+      () async {
+    final below = await controllerWith({'total': '66999'});
+    expect(below.storeReviewEligible, isFalse);
+    below.dispose();
+
+    final controller = await controllerWith({'total': '67000'});
+    expect(controller.storeReviewEligible, isTrue);
+    controller.markStoreReviewRequested();
+    expect(controller.storeReviewRequested, isTrue);
+    expect(controller.storeReviewEligible, isFalse);
+    controller.dispose();
+  });
+
+  test('store review request remains device-local on import', () async {
+    final controller = await controllerWith({'total': '67000'});
+    final backup = controller.exportState();
+    controller.markStoreReviewRequested();
+    expect(await controller.restoreState(backup), isTrue);
+    expect(controller.storeReviewRequested, isTrue);
+    expect(controller.storeReviewEligible, isFalse);
+    controller.dispose();
+  });
+
   test('offline return caps at four hours and ad claims base plus bonus once',
       () async {
     final controller = await controllerWith({

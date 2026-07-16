@@ -10,6 +10,7 @@ const _ascensionScale = 100000000000;
 const _offlineRewardMinimumMilliseconds = 10 * 60 * 1000;
 const _offlineRewardMaximumMilliseconds = 4 * 60 * 60 * 1000;
 const _rewardedUpgradeCooldownMilliseconds = 15 * 60 * 1000;
+final _storeReviewThreshold = BigInt.from(67000);
 const balanceVersion = 'balance-v0.3';
 const achievementIds = <String>[
   'ACH-V-01',
@@ -436,6 +437,11 @@ class GameController extends ChangeNotifier {
   bool get adsUnlocked =>
       tutorialCompleted && normalTechniquePurchased && normalItemPurchased;
   bool get adOfferExplained => _data['firstAdOfferExplained'] == true;
+  bool get returnReminderPrompted => _data['returnReminderPrompted'] == true;
+  bool get returnReminderEnabled => _data['returnReminderEnabled'] == true;
+  bool get storeReviewRequested => _data['storeReviewRequested'] == true;
+  bool get storeReviewEligible =>
+      !storeReviewRequested && total >= _storeReviewThreshold;
   Set<String> get achievements => Set<String>.from(
       (_data['achievements'] as List? ?? const []).whereType<String>());
   Map<String, int> get levels => Map<String, int>.fromEntries((_data['levels']
@@ -861,6 +867,27 @@ class GameController extends ChangeNotifier {
     _persist(notify: true);
   }
 
+  /// Records the result of the contextual local-notification prompt.
+  void chooseReturnReminder(bool enabled) {
+    _data['returnReminderPrompted'] = true;
+    _data['returnReminderEnabled'] = enabled;
+    _persist(notify: true);
+  }
+
+  /// Changes the reminder from Settings without showing the contextual prompt.
+  void setReturnReminderEnabled(bool enabled) {
+    _data['returnReminderPrompted'] = true;
+    _data['returnReminderEnabled'] = enabled;
+    _persist(notify: true);
+  }
+
+  /// Records the one native store-review request for this device.
+  void markStoreReviewRequested() {
+    if (storeReviewRequested) return;
+    _data['storeReviewRequested'] = true;
+    _persist(notify: true);
+  }
+
   bool setAppearanceEquipped(String item, {required bool equipped}) {
     if (!appearances.contains(item)) return false;
     final next = equippedAppearances.toSet();
@@ -1002,7 +1029,10 @@ class GameController extends ChangeNotifier {
   String exportState() {
     final portable = Map<String, dynamic>.from(_data)
       ..remove('analyticsEnabled')
-      ..remove('analyticsDecided');
+      ..remove('analyticsDecided')
+      ..remove('returnReminderEnabled')
+      ..remove('returnReminderPrompted')
+      ..remove('storeReviewRequested');
     return jsonEncode({
       ...portable,
       'saveVersion': 1,
@@ -1104,17 +1134,23 @@ class GameController extends ChangeNotifier {
               !ownedAppearanceIds.contains(legacyEquipped))) {
         return false;
       }
-      final analyticsDevicePreference = <String, dynamic>{
+      final devicePreferences = <String, dynamic>{
         if (_data.containsKey('analyticsEnabled'))
           'analyticsEnabled': _data['analyticsEnabled'],
         if (_data.containsKey('analyticsDecided'))
           'analyticsDecided': _data['analyticsDecided'],
+        if (_data.containsKey('returnReminderEnabled'))
+          'returnReminderEnabled': _data['returnReminderEnabled'],
+        if (_data.containsKey('returnReminderPrompted'))
+          'returnReminderPrompted': _data['returnReminderPrompted'],
+        if (_data.containsKey('storeReviewRequested'))
+          'storeReviewRequested': _data['storeReviewRequested'],
       };
       _data
         ..clear()
         ..addAll(candidate)
         ..remove('exportedAt')
-        ..addAll(analyticsDevicePreference);
+        ..addAll(devicePreferences);
       _migrateBalanceState();
       _migrateAppearanceState();
       _migrateRewardedUpgradeState();
