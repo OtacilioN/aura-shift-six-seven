@@ -2123,7 +2123,7 @@ class _Settings extends StatelessWidget {
                     onTap: () => _backup(context))),
             ListTile(
                 title: Text(
-                    strings('settings_version', {'version': '1.1.10-vivi'})),
+                    strings('settings_version', {'version': '1.1.10'})),
                 subtitle: const Text('arith-v1 · balance-v0.3'))
           ]);
 

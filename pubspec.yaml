@@ -1,7 +1,7 @@
 name: aura_shift_six_seven
 description: "Aura Shift: Six Seven — offline-first incremental mobile game."
 publish_to: none
-version: 1.1.10-vivi+11
+version: 1.1.10+11
 
 environment:
   sdk: ^3.5.0
