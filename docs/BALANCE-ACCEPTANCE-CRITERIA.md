@@ -1,10 +1,10 @@
 # Aura Shift: Six Seven — Critérios de Aceitação do Balanceamento
 
-> Status: especificação de `balance-gate-v1` definida para validar `balance-v0.3` com `arith-v1`; aprovação pendente da execução integral em simulador reproduzível.
+> Status: especificação de `balance-gate-v1` definida para validar `balance-v0.4` com `arith-v1`; aprovação pendente da execução integral em simulador reproduzível.
 
 ## Regra de decisão
 
-O gate é binário. Não existe média, nota geral ou compensação entre critérios obrigatórios: qualquer falha reprova a versão de balanceamento testada. O relatório pode recomendar novos parâmetros, mas não pode sobrescrever `balance-v0.3` sem criar uma versão identificada e repetir toda a matriz.
+O gate é binário. Não existe média, nota geral ou compensação entre critérios obrigatórios: qualquer falha reprova a versão de balanceamento testada. O relatório pode recomendar novos parâmetros, mas não pode sobrescrever `balance-v0.4` sem criar uma versão identificada e repetir toda a matriz.
 
 Antes do balanceamento, o simulador precisa passar todas as fixtures e provas de particionamento de `ECONOMIC-ARITHMETIC.md`. Divergência determinística reprova o simulador, não os parâmetros.
 
@@ -79,7 +79,7 @@ O perfil Passivo continua sem Janela de Patamar obrigatória. Mesmo assim, o rel
 
 - adoção de cada Convergência;
 - percentual de jornadas que compram `TECH-06`;
-- tempo e Aura sacrificados ao esperar `ITEM-CONV-03` em vez de Ascender;
+- custo de oportunidade em tempo e Aura ao esperar `ITEM-CONV-03` em vez de Ascender;
 - distribuição de gasto por entrada;
 - distância de cada compra até o Marco de Nível seguinte;
 - quantidade de Complementos usada por entrada e magnitude.

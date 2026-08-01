@@ -7,7 +7,7 @@ Revision: `3` — `runtime-compositor-golden-corrections-v3`
 
 ## Result
 
-The deterministic pipeline generated **203** editable
+The deterministic pipeline generated **202** editable
 SVG runtime sources. Each has matching PNG/WebP review exports and one provenance
 record per manifest entry. All geometry is original to this repository and uses no
 external image, font, model output, or network input.
@@ -19,14 +19,14 @@ external image, font, model output, or network input.
 | `branches` | 15 |
 | `events` | 6 |
 | `forms` | 21 |
-| `icons` | 22 |
+| `icons` | 21 |
 | `seals` | 4 |
 | `skins` | 90 |
 | `vfx` | 5 |
 
-- SVG source bytes: `289688`
-- PNG preview bytes: `10244078`
-- Runtime-included WebP bytes: `1602388`
+- SVG source bytes: `289213`
+- PNG preview bytes: `10247761`
+- Runtime-included WebP bytes: `1605574`
 - Runtime target budget: `25,165,824` bytes
 - Largest permitted runtime asset: `1,048,576` bytes
 - Background count, including reduced variants: `27`

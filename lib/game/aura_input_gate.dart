@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 /// Maximum number of accepted Six/Seven contacts in any rolling second.
-const maxAuraContactsPerSecond = 8;
+const maxAuraContactsPerSecond = 13;
 
 /// Deterministic input gate shared by direct touch and accessibility actions.
 ///

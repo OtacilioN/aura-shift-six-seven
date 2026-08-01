@@ -32,7 +32,7 @@ Usar uma única base capaz de entregar rapidamente o jogo no Android, preservar 
 - Consentimento de Analytics e ativação ou desativação da coleta;
 - detecção local, apresentação, envio autorizado ou exclusão de Relatórios de Diagnóstico;
 - tratamento `TEEN` e isolamento da Play Age Signals;
-- salvamento, exportação e importação;
+- salvamento local, sincronização e resolução de conflitos;
 - política de privacidade, créditos e licenças.
 
 ### Flame possui
@@ -108,7 +108,7 @@ Antes da produção extensa de conteúdo, o milestone de fatia vertical deverá 
 4. árabe RTL e escala textual;
 5. áudio base, groove e hype;
 6. anúncio recompensado de teste com cancelamento e retorno;
-7. save local e Backup Manual;
+7. save local e sincronização Saved Games;
 8. AAB API 36 com páginas de 16 KB;
 9. retomada após segundo plano;
 10. ausência de analytics antes do opt-in e depois do opt-out;
@@ -118,7 +118,7 @@ Antes da produção extensa de conteúdo, o milestone de fatia vertical deverá 
 14. retenção GA4 de dois meses, sem renovação por atividade e sem BigQuery;
 15. desempenho em aparelho Android modesto.
 
-Para isolar causas de falha, o milestone é executado em duas fatias coordenadas sob um único gate: primeiro a fatia de gameplay valida interação, domínio, save, apresentação, áudio, RTL, acessibilidade e desempenho; depois a fatia de plataforma valida anúncios, backup, Analytics, diagnóstico, configurações de console e empacotamento. Nenhuma delas autoriza produção integral isoladamente.
+Para isolar causas de falha, o milestone é executado em duas fatias coordenadas sob um único gate: primeiro a fatia de gameplay valida interação, domínio, save, apresentação, áudio, RTL, acessibilidade e desempenho; depois a fatia de plataforma valida anúncios, Saved Games, Analytics, diagnóstico, configurações de console e empacotamento. Nenhuma delas autoriza produção integral isoladamente.
 
 Essa prova pertence à fase de implementação, não à sessão atual de documentação.
 

@@ -39,7 +39,7 @@ Transformações de Aura podem combinar paleta, partículas, iluminação, rastr
 
 O jogo utiliza uma composição principal em orientação vertical: indicadores de progressão no topo, Mascote e interação central no meio e navegação na região inferior. A experiência prioriza uso confortável com uma mão e não possui uma composição horizontal dedicada no primeiro lançamento.
 
-A navegação inferior possui quatro áreas: **Jogar**, **Loja**, **Coleção** e **Ajustes**. Jogar concentra Mascote e produção; Loja apresenta uma única Árvore de Aura com as Técnicas no tronco central; Coleção reúne personalização, Transformações, Conquistas e Selos 67; Ajustes reúne idioma, canais sensoriais, acessibilidade, backup, privacidade e créditos. Detalhes econômicos abrem como painel sobre Jogar.
+A navegação inferior possui quatro áreas: **Jogar**, **Loja**, **Coleção** e **Ajustes**. Jogar concentra Mascote e produção; Loja apresenta uma única Árvore de Aura com as Técnicas no tronco central; Coleção reúne personalização, Transformações, Conquistas e Selos 67; Ajustes reúne idioma, canais sensoriais, acessibilidade, sincronização, privacidade e créditos. Detalhes econômicos abrem como painel sobre Jogar.
 
 A interação ativa ocorre em uma **Área de Aura** ampla na região central. Qualquer toque nessa área avança a fase vigente, sem exigir que o jogador acerte o Mascote, uma mão específica ou lados alternados. O ponto tocado e o Mascote respondem visualmente; regiões ocupadas por controles não contam para o ciclo.
 
@@ -118,7 +118,7 @@ Cada Marco 67 executa uma animação especial das duas mãos, apresenta `67` em 
 
 ### Conquistas
 
-O lançamento possui 13 Conquistas locais: seis visíveis e sete secretas. Elas reconhecem Ciclos Six-Seven, Loja, Transformações, Ascensão, retornos e easter eggs, concedendo somente emblema e texto comemorativo. Conquistas permanecem após Ascensões e no Backup Manual. Selos 67 usam uma coleção separada.
+O lançamento possui 13 Conquistas locais: seis visíveis e sete secretas. Elas reconhecem Ciclos Six-Seven, Loja, Transformações, Ascensão, retornos e easter eggs, concedendo somente emblema e texto comemorativo. Conquistas permanecem após Ascensões e integram o save sincronizado. Selos 67 usam uma coleção separada.
 
 ## Produção passiva e retorno
 
@@ -153,7 +153,12 @@ O lançamento não possui compras dentro do aplicativo. Aura, multiplicadores, n
 
 A experiência principal é offline-first. Ciclo Six-Seven, Produção Passiva, Loja, Árvore de Aura, personalização e Ascensão funcionam sem conexão e sem login. Serviços conectados são opcionais; quando anúncios estiverem indisponíveis, suas ofertas ficam inativas sem bloquear recompensas-base ou outras funções.
 
-Verificações de integridade, incluindo relógio do aparelho, devem ser moderadas e não podem transformar o jogo em dependente de servidor. O lançamento usa salvamento local automático, sem conta, backup em nuvem ou sincronização entre aparelhos. Um Backup Manual pode ser exportado para arquivo e posteriormente importado. O jogador continua responsável por guardar essa cópia; sem ela, desinstalação, limpeza dos dados ou perda do aparelho pode eliminar o progresso.
+Verificações de integridade, incluindo relógio do aparelho, devem ser moderadas
+e não podem transformar o jogo em dependente de servidor. O salvamento local é
+imediato e a sincronização com Saved Games é automática quando o perfil Gamer
+está disponível. Sem autenticação ou antes da ativação do recurso no Play
+Console, reinstalação ou limpeza de dados ainda pode eliminar o progresso
+exclusivamente local.
 
 Uma ausência com intervalo de tempo incoerente concede zero Produção Offline e não oferece Bônus de Retorno, mas apenas para aquela ocorrência. O jogo estabelece uma nova referência e continua normalmente, sem banir, apagar ou bloquear o progresso. Voltar o relógio não renova a cota de Complementos de Aura.
 
@@ -161,7 +166,9 @@ Uma ausência com intervalo de tempo incoerente concede zero Produção Offline 
 
 O produto usa Flutter e Dart como estrutura multiplataforma. A área Jogar incorpora uma cena Flame para Mascote, entrada, animações, partículas e efeitos, enquanto navegação, Loja, Coleção, Ajustes, localização, acessibilidade e arquivos permanecem em widgets Flutter. Rive não pertence ao MVP Android v1.0.
 
-Existe somente uma jornada ativa por instalação. Importar um Backup Manual substitui essa jornada após validação, prévia e confirmação; arquivos externos adicionais não são administrados pelo jogo.
+Existe somente uma jornada ativa por perfil Gamer, no slot
+`aura_shift_primary`. Conflitos ambíguos substituem a jornada somente após
+validação, comparação e confirmação explícita.
 
 ## Famílias de melhoramentos
 
@@ -186,7 +193,7 @@ Cada ramo possui cinco nós. Os itens posteriores ao Item-raiz exigem o predeces
 
 As Convergências custam `6.700`, `26,8M` e `670T Aura` e produzem `7,5`, `3.350` e `13,4B Aura/s` por nível. No primeiro nível, cada uma acrescenta exatamente `1/6` da produção somada dos três nós diretamente exigidos. O preço adicional permanece material, e a terceira Convergência funciona como objetivo opcional para uma jornada prolongada depois de `1Qa`, em vez de atrasar obrigatoriamente a Ascensão.
 
-No conjunto atual `balance-v0.3`, os custos-base espelhados das cinco profundidades são `270`, `2.350`, `67.000`, `67.000` e `67 bilhões de Aura`. A repetição de `67.000` é intencional: exigir nível `100` em vez de `50` já transforma centenas de milhões em centenas de bilhões de investimento. Esses números são uma hipótese controlada para simulação, não motivo para permitir compras antes do Patamar correspondente.
+No conjunto atual `balance-v0.4`, os custos-base espelhados das cinco profundidades são `270`, `2.350`, `67.000`, `67.000` e `67 bilhões de Aura`. A repetição de `67.000` é intencional: exigir nível `100` em vez de `50` já transforma centenas de milhões em centenas de bilhões de investimento. Esses números são uma hipótese controlada para simulação, não motivo para permitir compras antes do Patamar correspondente.
 
 As contribuições-base passivas dessas profundidades, expressas em `Aura/s por nível`, são `0,75`, `6,7`, `67`, `6.700` e `67.000.000` antes dos Marcos. A escada não usa um multiplicador uniforme: ela acompanha os diferentes gates e preserva espaço entre `1K`, `1M`, `1B`, `1T` e `1Qa`. O último salto é deliberadamente tratado como o ponto mais sensível da simulação.
 
@@ -194,7 +201,7 @@ Os Patamares permanentes seguem `1K`, `1M`, `1B`, `1T` e `1Qa` de Aura Total. Ca
 
 O catálogo fechado do MVP possui exatamente 18 Itens de Aura: cinco itens próprios em cada um dos três Ramos de Aura e três Itens de Convergência que exigem progresso em mais de um ramo. Uma progressão separada contém exatamente seis Técnicas Six-Seven, e a Aura Total desbloqueia exatamente cinco Transformações de Aura. Conteúdo excedente não entra na primeira publicação.
 
-`TECH-01` começa disponível; `TECH-02` a `TECH-06` são liberadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa`. Seus custos-base são `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`; suas Contribuições-base em `balance-v0.3` são `1`, `5`, `500`, `500K`, `500M` e `500B Aura/ciclo por nível`. Depois da primeira Técnica, cada custo corresponde a `6,7%` do Patamar associado. `TECH-03` a `TECH-06` crescem `1.000×` entre si e têm eficiência-base constante de `1/134`, enquanto `TECH-02` permanece em `5/67`. Elas não exigem níveis umas das outras. Ascensão reinicia seus níveis, mas a Aura Total preservada mantém a trilha inteira já descoberta.
+`TECH-01` começa disponível; `TECH-02` a `TECH-06` são liberadas permanentemente em `1K`, `1M`, `1B`, `1T` e `1Qa`. Seus custos-base são `45`, `67`, `67K`, `67M`, `67B` e `67T Aura`; suas Contribuições-base em `balance-v0.4` são `1`, `5`, `500`, `500K`, `500M` e `500B Aura/ciclo por nível`. Depois da primeira Técnica, cada custo corresponde a `6,7%` do Patamar associado. `TECH-03` a `TECH-06` crescem `1.000×` entre si e têm eficiência-base constante de `1/134`, enquanto `TECH-02` permanece em `5/67`. Elas não exigem níveis umas das outras. Ascensão reinicia seus níveis, mas a Aura Total preservada mantém a trilha inteira já descoberta.
 
 ## Progressão de longo prazo
 
@@ -206,8 +213,8 @@ A Coleção Visual e a personalização equipada também são preservadas. Somen
 
 Antes da confirmação, a interface deve informar exatamente o que será reiniciado, preservado e recebido. A Ascensão nunca é obrigatória e não exige anúncio ou pagamento. **Aura Ascension** é o nome-fonte final; `Ascensão de Aura` permanece o termo canônico em português.
 
-O ganho de cada Ascensão é calculado acrescentando a **Aura da Jornada** ao acumulado permanente `L` de Aura sacrificada. Cada Ascensão exige ao menos `1Qa` nessa jornada. O multiplicador em centésimos segue `A(L)=100+floor(√(L÷10¹¹))`, de modo que acumulados de `1Qa`, `2Qa`, `4Qa` e `9Qa` resultam em `2,00×`, `2,41×`, `3,00×` e `4,00×`. A Aura da Jornada volta a zero após a Ascensão sem reduzir Aura Total nem `L`.
+O ganho de cada Ascensão é calculado acrescentando a **Aura da Jornada** ao acumulado permanente `L` de **Aura Ascendida**. Cada Ascensão exige ao menos `1Qa` nessa jornada. Em `balance-v0.4`, passar de `n×` para `(n+1)×` custa `n² Qa`: `1×→2×` exige `1Qa`, `10×→11×` exige `100Qa`, e os limiares acumulados desses dois últimos multiplicadores são `285Qa` e `385Qa`. A Aura da Jornada volta a zero após a Ascensão sem reduzir Aura Total nem `L`.
 
 O Multiplicador de Ascensão é global: ele amplia tanto a Potência de Ciclo quanto a Produção Passiva. A Produção Offline utiliza a taxa passiva já multiplicada. O Bônus de Retorno acrescenta 20% à recompensa offline resultante, sem uma segunda aplicação exclusiva do Multiplicador de Ascensão.
 
-Ganhos de Ascensões diferentes não são compostos nem somados como parcelas fixas: o total é sempre derivado da Aura sacrificada acumulada. Quatro Ascensões de `1Qa` e uma de `4Qa` resultam igualmente em `3×`. O total é aplicado uma única vez às fontes ativa e passiva.
+Ganhos de Ascensões diferentes não são compostos nem somados como parcelas fixas: o total é sempre derivado da Aura Ascendida acumulada. Particionar a mesma Aura entre várias Ascensões ou concentrá-la numa jornada resulta no mesmo multiplicador. O total é aplicado uma única vez às fontes ativa e passiva.

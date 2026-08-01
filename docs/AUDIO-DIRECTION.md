@@ -139,7 +139,7 @@ As seis Técnicas reutilizam as 12 variações Six/Seven e presets versionados; 
 | `TECH-03` Ghost Timing | uma early reflection até `-18 dB`, cauda total dentro do limite da variação | versão reduzida/mono mantém contorno visual |
 | `TECH-04` Double Take | ataque visual duplo; áudio usa um pré-transiente leve e uma única resolução Seven | QA deve impedir impressão de duas recompensas |
 | `TECH-05` Zero-Drag | envelope 10% mais curto, sem antecipar o crédito | não promete reduzir limite técnico |
-| `TECH-06` Perfect Shift | harmônico filtrado do próprio Seven, sem novo acorde ou hook | arco visual confirma o estado |
+| `TECH-06` FortyTwo | harmônico filtrado do próprio Seven, sem novo acorde ou hook | arco visual confirma o estado |
 
 Os presets são parâmetros de runtime a registrar no manifesto técnico. Desbloquear uma Técnica nunca troca música nem dispara stinger por si só; o evento de desbloqueio continua usando a família comum aprovada.
 

@@ -242,6 +242,40 @@ class AuraCurledFingerGeometry {
   final double angleRadians;
 }
 
+/// Finger assignments shared by the two articulated hand appearances.
+///
+/// The union buttons use the index fingers while the remainder ring uses the
+/// right ring finger. Keeping these assignments explicit guarantees that both
+/// items can be equipped without stacking accessories on the same digit.
+abstract final class AuraHandAccessoryPlacement {
+  static const unionFingerIndex = 0;
+  static const remainderRingFingerIndex = 2;
+
+  static AuraFingerAccessoryAnchor onFinger(
+    AuraHandRigPose pose, {
+    required bool isLeft,
+    required int fingerIndex,
+    double handPulseScale = 1,
+  }) {
+    final geometry = AuraCuppedHandGeometry.fromPose(pose, isLeft: isLeft);
+    final finger = geometry.fingers[fingerIndex];
+    final scale = pose.scale * handPulseScale;
+    final localCenter = finger.tip * (122 * scale);
+    final cosAngle = cos(pose.angleRadians);
+    final sinAngle = sin(pose.angleRadians);
+    final rotatedCenter = Offset(
+      localCenter.dx * cosAngle - localCenter.dy * sinAngle,
+      localCenter.dx * sinAngle + localCenter.dy * cosAngle,
+    );
+    return AuraFingerAccessoryAnchor(
+      center: pose.center + rotatedCenter,
+      angleRadians: pose.angleRadians + finger.angleRadians,
+      fingerWidth: finger.width * 122 * scale,
+      fingerHeight: finger.height * 122 * scale,
+    );
+  }
+}
+
 class AuraArmRigPose {
   const AuraArmRigPose({
     required this.shoulder,
@@ -556,13 +590,18 @@ class AuraScene extends FlameGame {
 
   Set<String> _currentAppearanceLayerIds() => <String>{
         for (final contentId in _activeAppearanceIds)
-          if (contentId != 'ITEM-B-04')
+          if (!_articulatedHandAppearanceIds.contains(contentId))
             ...AuraArtSelection.skinLayerIds(
               contentId,
               level: controller.level(contentId),
               reduceMotion: controller.reduceMotion,
             ),
       };
+
+  static const _articulatedHandAppearanceIds = <String>{
+    'ITEM-B-03',
+    'ITEM-B-04',
+  };
 
   Future<void> _loadEquippedAppearances([Set<String>? requested]) async {
     final catalog = _artCatalog;
@@ -643,6 +682,7 @@ class AuraScene extends FlameGame {
   // Input
   // ---------------------------------------------------------------------------
   void contactDown(int pointerId) {
+    if (paused) return;
     if (_inputGate.pointerDown(
       pointerId,
       _inputClock.elapsedMilliseconds,
@@ -654,6 +694,7 @@ class AuraScene extends FlameGame {
   void contactEnded(int pointerId) => _inputGate.pointerUp(pointerId);
 
   void activateCycle() {
+    if (paused) return;
     if (!_inputGate.accessibilityAction(_inputClock.elapsedMilliseconds)) {
       return;
     }
@@ -2283,6 +2324,24 @@ class AuraScene extends FlameGame {
         rightHand: rig.rightHand.center,
         leftWrist: rig.leftHand.wrist,
         rightWrist: rig.rightHand.wrist,
+        leftUnionTouch: AuraHandAccessoryPlacement.onFinger(
+          rig.leftHand,
+          isLeft: true,
+          fingerIndex: AuraHandAccessoryPlacement.unionFingerIndex,
+          handPulseScale: 1 + pulse * 0.045,
+        ),
+        rightUnionTouch: AuraHandAccessoryPlacement.onFinger(
+          rig.rightHand,
+          isLeft: false,
+          fingerIndex: AuraHandAccessoryPlacement.unionFingerIndex,
+          handPulseScale: 1 + pulse * 0.045,
+        ),
+        remainderRing: AuraHandAccessoryPlacement.onFinger(
+          rig.rightHand,
+          isLeft: false,
+          fingerIndex: AuraHandAccessoryPlacement.remainderRingFingerIndex,
+          handPulseScale: 1 + pulse * 0.045,
+        ),
       );
 
       canvas.save();
@@ -2336,11 +2395,10 @@ class AuraScene extends FlameGame {
                 ? _AuraAppearanceLayer.overHands
                 : _AuraAppearanceLayer.underHands;
         if (recordLayer != layer) continue;
-        // The collection thumbnail for the two-touch union is authored as a
-        // neutral-pose pair. In the live scene the equivalent buttons and link
-        // are painted from the articulated hand anchors so they never float
-        // away from a fast Six/Seven pose.
-        if (contentId == 'ITEM-B-04' && record.slot == 'HANDS_WEAR') continue;
+        // The collection thumbnails for the hand items are authored in a
+        // neutral pose. Their live equivalents are painted from articulated
+        // finger anchors so they follow every Six/Seven pose and can combine.
+        if (_articulatedHandAppearanceIds.contains(contentId)) continue;
 
         canvas.save();
         if (AuraAppearancePlacement.followsCharacter(record.slot)) {
@@ -2374,7 +2432,7 @@ class AuraScene extends FlameGame {
   }
 
   bool _appearanceIsReady(String contentId) {
-    if (contentId == 'ITEM-B-04') return true;
+    if (_articulatedHandAppearanceIds.contains(contentId)) return true;
     final ids = AuraArtSelection.skinLayerIds(
       contentId,
       level: controller.level(contentId),

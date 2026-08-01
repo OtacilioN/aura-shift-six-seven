@@ -22,7 +22,7 @@
 | `collection_achievements` | comemorativo local | Achievements | Conquistas | Logros | Succès | Erfolge | Pencapaian | 実績 | الإنجازات |
 | `collection_seals` | coleção separada | 67 Seals | Selos 67 | Sellos 67 | Sceaux 67 | 67-Siegel | Segel 67 | 67のシール | أختام 67 |
 | `ascension_title` | reset voluntário + ganho permanente | Aura Ascension | Ascensão de Aura | Ascensión de Aura | Ascension d’Aura | Aura-Aufstieg | Ascensi Aura | オーラ・アセンション | ارتقاء الهالة |
-| `backup_title` | arquivo local controlado pelo jogador | Manual Backup | Backup Manual | Copia de seguridad manual | Sauvegarde manuelle | Manuelle Sicherung | Cadangan Manual | 手動バックアップ | النسخ الاحتياطي اليدوي |
+| `cloud_save_title` | sincronização de progresso via Google Play Games | Progress sync | Sincronização do progresso | Sincronización del progreso | Synchronisation de la progression | Fortschritt synchronisieren | Sinkronisasi progres | 進行状況の同期 | مزامنة التقدم |
 | `settings_accessibility` | grupo de ajustes | Accessibility | Acessibilidade | Accesibilidad | Accessibilité | Barrierefreiheit | Aksesibilitas | アクセシビリティ | إمكانية الوصول |
 | `content.branch_a.name` | território Poise | Poise | Postura | Porte | Prestance | Haltung | Ketenangan | 静謐 | اتزان |
 | `content.branch_b.name` | território Motion | Motion | Movimento | Movimiento | Mouvement | Bewegung | Gerak | 躍動 | حركة |

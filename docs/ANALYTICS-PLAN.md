@@ -17,7 +17,7 @@ Usar Firebase Analytics para compreender, na parcela que consentir, se o jogador
 - nenhum Android Advertising ID;
 - nenhuma propriedade personalizada de usuário no lançamento;
 - nenhum Play Age Signals;
-- nenhum conteúdo do save, Backup Manual ou texto livre;
+- nenhum conteúdo do save local/cloud ou texto livre;
 - valores econômicos e temporais somente em faixas;
 - revisão da integração real antes da publicação.
 
@@ -34,7 +34,7 @@ O Firebase pode processar identificadores técnicos da instalação e endereço 
 7. Recusar mantém a coleta desativada, não muda a experiência e não provoca novos convites automáticos.
 8. Configurações permite aceitar posteriormente ou interromper coletas futuras sem prometer exclusão retroativa no fornecedor.
 
-O consentimento pertence ao aparelho e não acompanha exportação ou importação do Backup Manual.
+O consentimento pertence ao aparelho e não acompanha a sincronização do save.
 
 ## Retenção e exportação
 
@@ -97,7 +97,7 @@ Analytics e diagnóstico possuem autorizações independentes. Enviar um Relató
 4. Aceite habilita somente eventos futuros permitidos e o tutorial continua normalmente.
 5. Configurações permite aceitar depois de uma recusa ou executar opt-out.
 6. Opt-out interrompe novos eventos.
-7. Exportar e importar save não transfere consentimento.
+7. Sincronizar ou restaurar o save não transfere consentimento.
 8. Payloads não contêm Aura exata, save, texto livre, `User ID`, Advertising ID ou Play Age Signals.
 9. Eventos automáticos e dados técnicos são inventariados e declarados.
 10. Cada um dos oito locales exibe o consentimento sem truncamento, coerção ou diferença semântica.

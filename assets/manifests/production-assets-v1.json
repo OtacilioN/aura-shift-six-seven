@@ -11,17 +11,17 @@
       "approvalStatus": "approved",
       "integrationStatus": "integrated",
       "manifest": "assets/manifests/art-approved-manifest-v1.json",
-      "manifestSha256": "a9eda1c71741dd896fafc415f30cb737c37a4bcbd7bae8aca395711c6945dc00",
+      "manifestSha256": "5cc08014e1c4d452db9f6d5589d8bc604521dcb39b6557aaa9afcff1a12951b2",
       "reviewOnlyEntries": 0,
       "revision": 3,
       "runtimeConsumers": {
         "scene": 120,
-        "total": 203,
-        "ui": 83
+        "total": 202,
+        "ui": 82
       },
-      "runtimeEntries": 203,
+      "runtimeEntries": 202,
       "sourceManifest": "assets/manifests/art-manifest-v1.json",
-      "sourceManifestSha256": "91e5cb87c7680089af0747f810c58c7612464491bf7c389508c8b3f223666a61"
+      "sourceManifestSha256": "4371dcae8f01faa5b0a56593f1caada7beeb69129bcee270427bcfa51bf18333"
     },
     "audio": {
       "approvalStatus": "approved",

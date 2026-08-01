@@ -28,7 +28,7 @@ TERMS = (
     ("collection_achievements", "comemorativo local"),
     ("collection_seals", "coleção separada"),
     ("ascension_title", "reset voluntário + ganho permanente"),
-    ("backup_title", "arquivo local controlado pelo jogador"),
+    ("cloud_save_title", "sincronização de progresso via Google Play Games"),
     ("settings_accessibility", "grupo de ajustes"),
     ("content.branch_a.name", "território Poise"),
     ("content.branch_b.name", "território Motion"),

@@ -1,0 +1,13 @@
+Stat ID,Stat Display Name,Language Code,Localized Stat Name,Localized Stat Description
+aura_level,Aura Level,en-US,Aura Level,Represents the power level reached by farming Aura.
+aura_level,Aura Level,pt-BR,Nível de Aura,Representa o nível de poder alcançado ao farmar aura.
+aura_total,Total Aura Farmed,en-US,Total Aura Farmed,All Aura produced across the player's lifetime.
+aura_total,Total Aura Farmed,pt-BR,Aura total farmada,Toda a aura produzida ao longo da vida do jogador.
+manual_movements,Manual Movements,en-US,Manual Movements,Completed manual Six-Seven movements.
+manual_movements,Manual Movements,pt-BR,Movimentos manuais,Movimentos manuais Six-Seven concluídos.
+max_aura_production,Highest Aura Production,en-US,Highest Aura Production,Highest passive Aura production score reached.
+max_aura_production,Highest Aura Production,pt-BR,Maior produção de aura,Maior pontuação de produção passiva de aura alcançada.
+prestiges,Prestiges Completed,en-US,Prestiges Completed,Total Aura ascensions completed.
+prestiges,Prestiges Completed,pt-BR,Prestígios realizados,Total de ascensões de aura realizadas.
+items_unlocked,Items Unlocked,en-US,Items Unlocked,Unique Aura items acquired at least once.
+items_unlocked,Items Unlocked,pt-BR,Itens desbloqueados,Itens de aura únicos adquiridos ao menos uma vez.

@@ -80,7 +80,7 @@ P01 e P02 podem começar imediatamente em paralelo. As demais rodadas seguem as 
 ### P02 — Arquitetura de UX, fluxos e wireframes
 
 - **Objetivo:** fechar como todas as regras já definidas serão apresentadas e operadas.
-- **Entregáveis:** mapa das quatro áreas — Jogar, Loja, Coleção e Ajustes —, incluindo a Árvore dentro da Loja, além de wireframes e estados para tutorial, retorno offline, anúncios, Ascensão, backup, consentimentos, diagnóstico, erros e retomadas.
+- **Entregáveis:** mapa das quatro áreas — Jogar, Loja, Coleção e Ajustes —, incluindo a Árvore dentro da Loja, além de wireframes e estados para tutorial, retorno offline, anúncios, Ascensão, sincronização/conflito, consentimentos, diagnóstico, erros e retomadas.
 - **Critério de saída:** caminhos felizes, bloqueios, falhas, cancelamentos e reaberturas possuem comportamento documentado e utilizável com uma mão.
 - **Dependências:** pode avançar com IDs neutros enquanto P01 acontece.
 - **Documentos:** `UX-DESIGN.md`, `ONBOARDING.md` e documentos dos fluxos integrados.
@@ -150,7 +150,7 @@ P01 e P02 podem começar imediatamente em paralelo. As demais rodadas seguem as 
 ### P10 — Copy-fonte, onboarding e microcopy
 
 - **Objetivo:** produzir todo o texto canônico em `en-US`.
-- **Entregáveis:** inventário de strings com IDs e contexto para tutorial, catálogo, Loja, bloqueios, Ascensão, retorno, anúncios, backup, erros, consentimentos, diagnóstico, configurações, acessibilidade e mensagens de sistema.
+- **Entregáveis:** inventário de strings com IDs e contexto para tutorial, catálogo, Loja, bloqueios, Ascensão, retorno, anúncios, sincronização/conflito, erros, consentimentos, diagnóstico, configurações, acessibilidade e mensagens de sistema.
 - **Critério de saída:** todos os estados documentados possuem texto; placeholders, plurais e variantes curtas estão definidos; nenhum texto essencial existe apenas em imagem.
 - **Dependências:** P02, P03, P04 e P08.
 - **Documentos:** `ONBOARDING.md`, `UX-DESIGN.md`, documentos de conteúdo e novo copy deck.
@@ -183,6 +183,6 @@ O planejamento criativo e de experiência está pronto quando:
 1. Iniciar desenvolvimento usando contratos e inventários estáveis.
 2. Arte e áudio avançam de especificação para produção; nenhum arquivo recebe status final sem proveniência, QA e aprovação.
 3. A build comprova reflow, RTL, TalkBack, contraste, performance, áudio/haptics e os oito idiomas em tela.
-4. `balance-v0.3` substitui `balance-v0.2`, continua separado e só é aprovado como balanceamento final depois de passar por `balance-gate-v1`.
+4. `balance-v0.4` substitui `balance-v0.3`, continua separado e só é aprovado como balanceamento final depois de passar por `balance-gate-v1`.
 
 O roadmap não considera stubs, placeholders ou afirmações sem evidência como conclusão de asset, master, revisão nativa, clearance jurídico ou QA de build.

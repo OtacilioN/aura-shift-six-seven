@@ -2,7 +2,7 @@
 
 Result: **PASS**
 Manifest: `assets/manifests/art-manifest-v1.json`
-Entries: `203`
+Entries: `202`
 Status: `candidate-reviewed`
 
 - PASS — `manifest-schema-counts-and-unique-ids`
@@ -20,7 +20,7 @@ Status: `candidate-reviewed`
 
 ## Budgets
 
-- Runtime WebP total: `1602388` / `25165824` bytes
+- Runtime WebP total: `1605574` / `25165824` bytes
 - Largest runtime entry: `form_03_ambient` at `209594` / `1048576` bytes
 - Byte-for-byte regeneration: `PASS`
 

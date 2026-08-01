@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Parâmetros de Balanceamento
 
-> Status: parâmetros candidatos `balance-v0.3` substituem `balance-v0.2`; a aritmética `arith-v1` e os critérios de `balance-gate-v1` estão definidos, mas a matriz integral ainda não possui execução nem resultado.
+> Status: parâmetros candidatos `balance-v0.4` substituem `balance-v0.3`; a aritmética `arith-v1` e os critérios de `balance-gate-v1` estão definidos, mas a matriz integral ainda não possui execução nem resultado.
 
 ## Constantes globais aprovadas
 
@@ -58,7 +58,7 @@ O baseline guarda Aura para sua melhor candidata, compra somente durante sessõe
 | `ITEM-B-01` | Item-raiz | `270 Aura` | `+0,75 Aura/s` por nível | primeiro nível de `TECH-01` |
 | `ITEM-C-01` | Item-raiz | `270 Aura` | `+0,75 Aura/s` por nível | primeiro nível de `TECH-01` |
 
-## Escada econômica dos Ramos de Aura — `balance-v0.3`
+## Escada econômica dos Ramos de Aura — `balance-v0.4`
 
 | Profundidade | IDs espelhados | Custo-base | Contribuição-base por nível | Nível-gate | Orçamento de Gate exato | Contribuição no gate |
 | ---: | --- | ---: | ---: | ---: | ---: | ---: |
@@ -114,7 +114,7 @@ Depois de `TECH-02`, o custo-base continua crescendo `1.000×` por Técnica. `TE
 
 Cada nó também exige seu Patamar de Aura conforme a tabela anterior. Convergências são opcionais e não participam dos requisitos de Ascensão; `1Qa` libera a Ascensão independentemente de terem sido adquiridas.
 
-## Economia das Convergências — `balance-v0.3`
+## Economia das Convergências — `balance-v0.4`
 
 | Entrada | Custo-base | Contribuição-base por nível | Orçamento de Amplitude | Soma dos três requisitos | Parcela adicionada em L1 |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -152,22 +152,26 @@ Esse cálculo pressupõe Cadência de Referência, compra imediata de um nível 
 
 ## Recompensa de Ascensão
 
-Para `L = Aura vitalícia já sacrificada em Ascensões`, `J = Aura da Jornada atual` e `L' = L + J`:
+Para `L = Aura Ascendida acumulada`, `J = Aura da Jornada atual`, `L' = L + J` e um multiplicador candidato `A` em centésimos:
 
-`A(L) = 100 + floor(√(L ÷ 10¹¹))`
+`L_req(A) = ceil(1Qa × (A − 100) × A × (2A − 100) ÷ 6.000.000)`
+
+`A(L) = maior A inteiro ≥ 100 para o qual L_req(A) ≤ L`
 
 `Ganho = A(L') − A(L)`
-
-`Multiplicador total em centésimos = A(L')`
 
 | `L'` | `A(L')` | Total |
 | ---: | ---: | ---: |
 | `1Qa` | `200` | `2,00×` |
-| `2Qa` | `241` | `2,41×` |
-| `4Qa` | `300` | `3,00×` |
-| `9Qa` | `400` | `4,00×` |
+| `2Qa` | `236` | `2,36×` |
+| `4Qa` | `282` | `2,82×` |
+| `9Qa` | `352` | `3,52×` |
+| `285Qa` | `1.000` | `10,00×` |
+| `385Qa` | `1.100` | `11,00×` |
 
-Elegibilidade por jornada: `J ≥ 1Qa`. Não existe teto. O cálculo e a persistência usam inteiros. Dividir `4Qa` em quatro Ascensões mínimas ou sacrificá-la em uma única Ascensão resulta no mesmo total `3,00×`.
+Nos multiplicadores inteiros, `L_req(100n) = 1Qa × Σ(k²), k=1..n−1`. Portanto, passar de `n×` para `(n+1)×` custa exatamente `n² Qa`: `1×→2×` custa `1Qa` e `10×→11×` custa `100Qa`. Como a produção no segundo caso já recebe `10×`, o tempo ideal da passagem fica aproximadamente dez vezes maior que o primeiro.
+
+Elegibilidade por jornada: `J ≥ 1Qa`. Não existe teto. O cálculo e a persistência usam somente inteiros. Particionar a mesma Aura entre várias Ascensões ou consolidá-la em uma única Ascensão produz o mesmo total.
 
 ### Políticas simuladas
 

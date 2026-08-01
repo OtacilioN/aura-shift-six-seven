@@ -17,6 +17,8 @@ ACCENTS = str.maketrans(
     "áƀçđëƒğħïĵķľɱñöþɋřşŧüṽŵẋÿžÁƁÇĐËƑĞĦÏĴĶĽṀÑÖÞɊŘŞŦÜṼŴẊŸŽ",
 )
 
+INVARIANT_KEYS = {"content.tech_06.name"}
+
 
 def transform_text(text: str) -> str:
     parts: list[str] = []
@@ -33,7 +35,10 @@ def transform_text(text: str) -> str:
 
 def main() -> None:
     source = json.loads(SOURCE.read_text(encoding="utf-8"))
-    pseudo = {key: transform_text(value) for key, value in source.items()}
+    pseudo = {
+        key: value if key in INVARIANT_KEYS else transform_text(value)
+        for key, value in source.items()
+    }
     OUTPUT.write_text(json.dumps(pseudo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"wrote {len(pseudo)} pseudo-localized strings to {OUTPUT.relative_to(ROOT)}")
 

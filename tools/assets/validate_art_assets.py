@@ -282,8 +282,8 @@ def validate_manifest(root: Path, manifest: dict[str, Any]) -> list[str]:
 
     if any(item.get("family") == "qa" for item in records):
         raise ValidationError("legacy character QA sheets must not remain in art-v1")
-    if sum(1 for item in records if item.get("runtimeIncluded")) != 203 or manifest.get("runtimeAssetCount") != 203:
-        raise ValidationError("runtime asset count changed; expected 203 current IDs")
+    if sum(1 for item in records if item.get("runtimeIncluded")) != 202 or manifest.get("runtimeAssetCount") != 202:
+        raise ValidationError("runtime asset count changed; expected 202 current IDs")
 
     total_runtime = 0
     records_by_id = {item["manifestId"]: item for item in records}
@@ -345,9 +345,9 @@ def validate_manifest(root: Path, manifest: dict[str, Any]) -> list[str]:
         raise ValidationError(f"total runtime art exceeds budget: {total_runtime}")
     packaged_art = root / "assets" / "art"
     packaged_files = [path for path in packaged_art.rglob("*") if path.is_file()]
-    if len(packaged_files) != 203 or any(path.suffix != ".webp" or "qa" in path.parts for path in packaged_files):
+    if len(packaged_files) != 202 or any(path.suffix != ".webp" or "qa" in path.parts for path in packaged_files):
         invalid = [str(path.relative_to(root)) for path in packaged_files if path.suffix != ".webp" or "qa" in path.parts]
-        raise ValidationError(f"assets/art must contain exactly 203 runtime WebPs and no previews/QA; invalid={invalid}")
+        raise ValidationError(f"assets/art must contain exactly 202 runtime WebPs and no previews/QA; invalid={invalid}")
     if any(not str(item.get("previewPath", "")).startswith("reports/art-previews/") for item in records):
         raise ValidationError("PNG previews must live under reports/art-previews")
     background_hashes = [item["pngSha256"] for item in records if item["family"] == "backgrounds"]

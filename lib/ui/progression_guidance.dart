@@ -222,40 +222,14 @@ class AuraNextStepsTrigger extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(14, 2, 14, 0),
-        child: Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: TextButton.icon(
-            key: const ValueKey('next-steps-trigger'),
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xFFF7F5FF),
-              backgroundColor: Colors.white.withValues(alpha: .045),
-              minimumSize: const Size(0, 40),
-              padding: const EdgeInsetsDirectional.fromSTEB(10, 6, 12, 6),
-              visualDensity: VisualDensity.compact,
-              tapTargetSize: MaterialTapTargetSize.padded,
-              shape: const StadiumBorder(
-                side: BorderSide(color: Color(0x1FFFFFFF)),
-              ),
-            ),
-            onPressed: onTap,
-            icon: const Icon(
-              Icons.flag_outlined,
-              color: Color(0xFFFFD166),
-              size: 18,
-            ),
-            label: Text(
-              strings('progress_title'),
-              maxLines: 1,
-              softWrap: false,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
+  Widget build(BuildContext context) => IconButton(
+        key: const ValueKey('next-steps-trigger'),
+        tooltip: strings('progress_title'),
+        onPressed: onTap,
+        icon: const Icon(
+          Icons.flag_outlined,
+          color: Color(0xFFFFD166),
+          size: 22,
         ),
       );
 }

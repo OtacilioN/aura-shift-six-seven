@@ -7,7 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../audio/aura_audio_controller.dart';
-import '../core/backup_service.dart';
+import '../achievements/achievement_sync_service.dart';
+import '../cloud_save/cloud_save_coordinator.dart';
+import '../cloud_save/cloud_save_models.dart';
 import '../core/formatting.dart';
 import '../core/game_controller.dart';
 import '../core/rewarded_ads.dart';
@@ -17,9 +19,16 @@ import '../core/store_review.dart';
 import '../game/art_catalog.dart';
 import '../game/aura_scene.dart';
 import '../main.dart';
+import '../play_games/play_games_coordinator.dart';
 import 'art_widgets.dart';
+import 'aura_details_sheet.dart';
+import 'aura_achievements.dart';
+import 'aura_rankings.dart';
+import 'ascension_sheet.dart';
 import 'aura_tree.dart';
+import 'cloud_save_section.dart';
 import 'progression_guidance.dart';
+import 'return_reward_sheet.dart';
 
 class _VisualFeedback {
   const _VisualFeedback(this.artwork, this.title, this.body);
@@ -38,6 +47,9 @@ class Home extends StatefulWidget {
     required this.rewardedAds,
     required this.returnReminders,
     required this.storeReview,
+    required this.playGames,
+    required this.achievements,
+    required this.cloudSave,
   });
   final GameController controller;
   final Strings strings;
@@ -45,6 +57,9 @@ class Home extends StatefulWidget {
   final RewardedAds rewardedAds;
   final ReturnReminderNotifications returnReminders;
   final StoreReview storeReview;
+  final PlayGamesCoordinator playGames;
+  final AchievementSyncService achievements;
+  final CloudSaveCoordinator cloudSave;
   @override
   State<Home> createState() => _HomeState();
 }
@@ -60,12 +75,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   late final Future<ArtCatalog?> artCatalog;
   late Set<String> _knownTransformations;
   late Set<String> _knownSeals;
-  late Set<String> _knownAchievements;
   bool _showingVisualFeedback = false;
-  bool _returnAdInFlight = false;
   bool _rewardedUpgradeInFlight = false;
   bool _storeReviewInFlight = false;
   bool _storeReviewCheckQueued = false;
+  bool _showingCloudConflict = false;
+  String? _lastPromptedCloudConflict;
   late bool _adsEnabled;
 
   @override
@@ -77,13 +92,14 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     artCatalog = _loadArtCatalog();
     _knownTransformations = widget.controller.transformations;
     _knownSeals = widget.controller.seals;
-    _knownAchievements = widget.controller.achievements;
     _adsEnabled =
         widget.controller.adsUnlocked && widget.controller.adOfferExplained;
     widget.controller.addListener(_detectUnlocks);
+    widget.cloudSave.addListener(_handleCloudSave);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unawaited(widget.rewardedAds.setEnabled(_adsEnabled));
       _queueStoreReview();
+      _handleCloudSave();
     });
   }
 
@@ -98,6 +114,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   void dispose() {
     widget.controller.removeListener(_detectUnlocks);
+    widget.cloudSave.removeListener(_handleCloudSave);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -130,16 +147,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     }
     _knownSeals = nextSeals;
 
-    final nextAchievements = widget.controller.achievements;
-    for (final id in nextAchievements.difference(_knownAchievements)) {
-      final key = id.toLowerCase().replaceAll('-', '_');
-      _enqueueVisualFeedback(
-        AuraEventArtwork.achievement,
-        widget.strings('collection_achievements'),
-        widget.strings('content.$key.name'),
-      );
-    }
-    _knownAchievements = nextAchievements;
     _queueStoreReview();
   }
 
@@ -240,14 +247,79 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     unawaited(widget.audio.handleLifecycleState(state));
     if (state == AppLifecycleState.paused) {
       widget.controller.pause();
+      unawaited(widget.cloudSave.onAppPaused());
+      unawaited(widget.playGames.onPaused());
+      unawaited(widget.achievements.onPaused());
       scene.pauseEngine();
       unawaited(_scheduleReturnReminder());
     }
     if (state == AppLifecycleState.resumed) {
-      unawaited(widget.returnReminders.cancel());
+      // Local gameplay must never wait for optional platform integrations.
+      // In particular, notification cancellation and cloud/Play Games calls
+      // can be delayed while Android is leaving Doze after the screen unlocks.
       widget.controller.resume();
       if (tab == 0) scene.resumeEngine();
+      unawaited(_resumeFromBackground());
     }
+  }
+
+  Future<void> _resumeFromBackground() async {
+    await _runBestEffortLifecycleTask(
+      'while cancelling the return reminder',
+      widget.returnReminders.cancel,
+    );
+    await _runBestEffortLifecycleTask(
+      'while resuming cloud save',
+      widget.cloudSave.onAppResumed,
+    );
+    await _runBestEffortLifecycleTask(
+      'while resuming Play Games',
+      widget.playGames.onResumed,
+    );
+    await _runBestEffortLifecycleTask(
+      'while resuming achievement sync',
+      widget.achievements.onResumed,
+    );
+  }
+
+  Future<void> _runBestEffortLifecycleTask(
+    String context,
+    Future<void> Function() task,
+  ) async {
+    try {
+      await task();
+    } catch (error, stack) {
+      FlutterError.reportError(FlutterErrorDetails(
+        exception: error,
+        stack: stack,
+        library: 'Aura Shift lifecycle',
+        context: ErrorDescription(context),
+      ));
+    }
+  }
+
+  void _handleCloudSave() {
+    final state = widget.cloudSave.state;
+    if (state is! CloudSaveConflictPending || _showingCloudConflict) return;
+    final conflict = state.conflict;
+    final identity = conflict.nativeConflictToken ??
+        '${conflict.playerId}:${conflict.first.envelope.payloadHash}:'
+            '${conflict.second?.envelope.payloadHash ?? 'account-switch'}';
+    if (_lastPromptedCloudConflict == identity) return;
+    _lastPromptedCloudConflict = identity;
+    _showingCloudConflict = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) {
+        _showingCloudConflict = false;
+        return;
+      }
+      await showCloudSaveConflictDialog(
+        context,
+        coordinator: widget.cloudSave,
+        strings: widget.strings,
+      );
+      _showingCloudConflict = false;
+    });
   }
 
   Future<void> _scheduleReturnReminder() async {
@@ -368,6 +440,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             audio: widget.audio,
             rewardedAds: widget.rewardedAds,
             returnReminders: widget.returnReminders,
+            playGames: widget.playGames,
+            achievements: widget.achievements,
+            cloudSave: widget.cloudSave,
           ),
         ];
         return Scaffold(
@@ -469,7 +544,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
         ),
       );
 
-  Widget _iconArtwork(AuraUiIcon role, String label, IconData fallback) =>
+  Widget _iconArtwork(
+    AuraUiIcon role,
+    String label,
+    IconData fallback, {
+    double size = 56,
+  }) =>
       FutureBuilder<ArtCatalog?>(
         future: artCatalog,
         builder: (_, snapshot) => AuraAssetIcon(
@@ -477,7 +557,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           role: role,
           fallbackIcon: fallback,
           semanticLabel: label,
-          size: 56,
+          size: size,
         ),
       );
 
@@ -525,6 +605,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   Future<void> _ascensionDialog() =>
       _withSheetAudio(() => showModalBottomSheet<void>(
           context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          barrierColor: const Color(0xFF03040C).withValues(alpha: .78),
           builder: (sheet) {
             final c = widget.controller;
             final s = widget.strings;
@@ -533,197 +616,119 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               builder: (context, _) {
                 final gain = c.ascensionGain();
                 final resultingMultiplier = c.multiplier + gain;
-                return _Sheet(
-                    title: s('ascension_title'),
-                    body: '${s('ascension_journey_used', {
-                          'amount':
-                              AuraFormat.integer(c.journey, locale: s.locale)
-                        })}\n${s('ascension_gain', {
-                          'multiplier': '${AuraFormat.multiplier(gain)}×'
-                        })}\n${s('ascension_multiplier_now', {
-                          'multiplier':
-                              '${AuraFormat.multiplier(c.multiplier)}×'
-                        })}\n${s('ascension_multiplier_after', {
-                          'multiplier':
-                              '${AuraFormat.multiplier(resultingMultiplier)}×'
-                        })}',
-                    artwork: _eventArtwork(
+                return AscensionSheet(
+                  strings: s,
+                  artwork: _eventArtwork(
+                    AuraEventArtwork.ascension,
+                    s('ascension_title'),
+                    fallback: Icons.upgrade,
+                  ),
+                  currentMultiplier: AuraFormat.multiplier(c.multiplier),
+                  gainedMultiplier: AuraFormat.multiplier(gain),
+                  resultingMultiplier:
+                      AuraFormat.multiplier(resultingMultiplier),
+                  journeyAura: AuraFormat.integer(c.journey, locale: s.locale),
+                  highContrast: c.highContrast,
+                  reduceMotion: c.reduceMotion,
+                  onAscend: () {
+                    widget.audio.prepareAscension();
+                    c.ascend();
+                    widget.cloudSave.requestPrioritySync();
+                    unawaited(widget.audio.playAscension());
+                    _enqueueVisualFeedback(
                       AuraEventArtwork.ascension,
                       s('ascension_title'),
-                      fallback: Icons.upgrade,
-                    ),
-                    child: FilledButton(
-                        onPressed: c.canAscend
-                            ? () {
-                                widget.audio.prepareAscension();
-                                c.ascend();
-                                unawaited(widget.audio.playAscension());
-                                _enqueueVisualFeedback(
-                                  AuraEventArtwork.ascension,
-                                  s('ascension_title'),
-                                  s('ascension_complete', {
-                                    'multiplier':
-                                        '${AuraFormat.multiplier(c.multiplier)}×',
-                                  }),
-                                );
-                                Navigator.pop(sheet);
-                              }
-                            : null,
-                        child: Text(s('ascension_confirm_action'))));
+                      s('ascension_complete', {
+                        'multiplier': '${AuraFormat.multiplier(c.multiplier)}×',
+                      }),
+                    );
+                    Navigator.pop(sheet);
+                  },
+                );
               },
             );
           }));
 
   Future<void> _returnRewardDialog() {
-    _returnAdInFlight = false;
     return _withSheetAudio(() => showModalBottomSheet<void>(
         context: context,
+        isScrollControlled: true,
         isDismissible: false,
         enableDrag: false,
-        builder: (sheet) => StatefulBuilder(builder: (sheet, setSheetState) {
-              final base = AuraFormat.integer(
-                  widget.controller.returnBase ~/ BigInt.from(10000000),
-                  locale: widget.strings.locale);
-              final bonus = AuraFormat.integer(
-                  widget.controller.returnBonus ~/ BigInt.from(10000000),
-                  locale: widget.strings.locale);
-              final bonusAvailable = widget.controller.returnBonusAvailable;
-              final awayMilliseconds = widget.controller.returnAwayMilliseconds;
-              final creditedMilliseconds =
-                  widget.controller.returnCreditedMilliseconds;
-              final returnBody = <String>[
-                if (awayMilliseconds > 0)
-                  widget.strings('return_away_time', {
-                    'duration': AuraFormat.duration(
-                      Duration(milliseconds: awayMilliseconds),
-                    ),
-                  }),
-                widget.strings('return_base_reward', {'amount': base}),
-                if (creditedMilliseconds > 0 &&
-                    creditedMilliseconds < awayMilliseconds)
-                  widget.strings('return_credit_cap'),
-                if (bonusAvailable)
-                  widget.strings('return_bonus_body', {'amount': bonus}),
-              ].join('\n');
-              return PopScope(
-                  canPop: false,
-                  onPopInvokedWithResult: (didPop, _) {
-                    if (!didPop && !_returnAdInFlight) Navigator.pop(sheet);
-                  },
-                  child: _Sheet(
-                      title: widget.strings('return_title'),
-                      body: returnBody,
-                      artwork: _iconArtwork(
-                        AuraUiIcon.rewardedAd,
-                        widget.strings('return_title'),
-                        Icons.card_giftcard,
-                      ),
-                      child: bonusAvailable
-                          ? Row(children: [
-                              Expanded(
-                                  child: OutlinedButton(
-                                      onPressed: _returnAdInFlight
-                                          ? null
-                                          : () {
-                                              if (_returnAdInFlight) return;
-                                              widget.controller
-                                                  .claimReturnBase();
-                                              Navigator.pop(sheet);
-                                            },
-                                      child: Text(
-                                          widget.strings('return_base_only')))),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                  child: FilledButton(
-                                      onPressed: _returnAdInFlight
-                                          ? null
-                                          : () async {
-                                              if (_returnAdInFlight) return;
-                                              setSheetState(
-                                                () => _returnAdInFlight = true,
-                                              );
-                                              var rewarded = false;
-                                              try {
-                                                if (!await _explainFirstAdOffer(
-                                                    sheet)) {
-                                                  return;
-                                                }
-                                                if (!widget.controller
-                                                    .returnBonusAvailable) {
-                                                  return;
-                                                }
-                                                rewarded =
-                                                    await _showRewardedAd(
-                                                  RewardedPlacement.returnBonus,
-                                                );
-                                                if (rewarded) {
-                                                  final credited = widget
-                                                      .controller
-                                                      .resolveReturnBonus(
-                                                    rewarded: true,
-                                                  );
-                                                  if (credited) {
-                                                    unawaited(widget.audio
-                                                        .playReturnBonus());
-                                                    if (sheet.mounted) {
-                                                      Navigator.pop(sheet);
-                                                    }
-                                                  }
-                                                }
-                                                if (!rewarded &&
-                                                    sheet.mounted) {
-                                                  unawaited(widget.audio
-                                                      .playUiError());
-                                                  ScaffoldMessenger.of(sheet)
-                                                      .showSnackBar(SnackBar(
-                                                    content: Text(widget.strings(
-                                                        'return_ad_failed')),
-                                                  ));
-                                                }
-                                              } catch (_) {
-                                                if (sheet.mounted) {
-                                                  unawaited(widget.audio
-                                                      .playUiError());
-                                                  ScaffoldMessenger.of(sheet)
-                                                      .showSnackBar(SnackBar(
-                                                    content: Text(widget.strings(
-                                                        'return_ad_failed')),
-                                                  ));
-                                                }
-                                              } finally {
-                                                _returnAdInFlight = false;
-                                                if (sheet.mounted) {
-                                                  setSheetState(() {});
-                                                }
-                                              }
-                                            },
-                                      child: _returnAdInFlight
-                                          ? _AdLoadingLabel(
-                                              label: widget.strings(
-                                                'system_ad_loading',
-                                              ),
-                                              key: const ValueKey(
-                                                'return-ad-loading',
-                                              ),
-                                            )
-                                          : Text(widget.strings(
-                                              'return_watch_ad',
-                                              {'amount': bonus}))))
-                            ])
-                          : FilledButton(
-                              style: FilledButton.styleFrom(
-                                minimumSize: const Size.fromHeight(52),
-                              ),
-                              onPressed: _returnAdInFlight
-                                  ? null
-                                  : () {
-                                      if (_returnAdInFlight) return;
-                                      widget.controller.claimReturnBase();
-                                      Navigator.pop(sheet);
-                                    },
-                              child:
-                                  Text(widget.strings('return_base_only')))));
-            })));
+        backgroundColor: Colors.transparent,
+        builder: (sheet) {
+          final base = AuraFormat.integer(
+            widget.controller.returnBase ~/ BigInt.from(10000000),
+            locale: widget.strings.locale,
+          );
+          final bonus = AuraFormat.integer(
+            widget.controller.returnBonus ~/ BigInt.from(10000000),
+            locale: widget.strings.locale,
+          );
+          final awayMilliseconds = widget.controller.returnAwayMilliseconds;
+          final creditedMilliseconds =
+              widget.controller.returnCreditedMilliseconds;
+          return ReturnRewardSheet(
+            strings: widget.strings,
+            baseAmount: base,
+            bonusAmount: bonus,
+            awayDuration: awayMilliseconds > 0
+                ? Duration(milliseconds: awayMilliseconds)
+                : null,
+            creditCapped: creditedMilliseconds > 0 &&
+                creditedMilliseconds < awayMilliseconds,
+            bonusAvailable: widget.controller.returnBonusAvailable,
+            highContrast: widget.controller.highContrast,
+            reduceMotion: widget.controller.reduceMotion,
+            auraArtwork: _iconArtwork(
+              AuraUiIcon.auraAvailable,
+              widget.strings('return_title'),
+              Icons.auto_awesome_rounded,
+            ),
+            timeArtwork: _iconArtwork(
+              AuraUiIcon.passiveRate,
+              widget.strings('return_away_time'),
+              Icons.schedule_rounded,
+              size: 18,
+            ),
+            bonusArtwork: _iconArtwork(
+              AuraUiIcon.rewardedAd,
+              widget.strings('return_bonus_title'),
+              Icons.smart_display_rounded,
+              size: 32,
+            ),
+            onClaimBase: widget.controller.claimReturnBase,
+            onClaimBonus: () async {
+              if (!await _explainFirstAdOffer(sheet)) {
+                return ReturnBonusOutcome.cancelled;
+              }
+              if (!widget.controller.returnBonusAvailable) {
+                return ReturnBonusOutcome.cancelled;
+              }
+              try {
+                final rewarded = await _showRewardedAd(
+                  RewardedPlacement.returnBonus,
+                );
+                if (!rewarded) {
+                  unawaited(widget.audio.playUiError());
+                  return ReturnBonusOutcome.failed;
+                }
+                final credited = widget.controller.resolveReturnBonus(
+                  rewarded: true,
+                );
+                if (!credited) {
+                  unawaited(widget.audio.playUiError());
+                  return ReturnBonusOutcome.failed;
+                }
+                unawaited(widget.audio.playReturnBonus());
+                return ReturnBonusOutcome.claimed;
+              } catch (_) {
+                unawaited(widget.audio.playUiError());
+                return ReturnBonusOutcome.failed;
+              }
+            },
+          );
+        }));
   }
 
   Future<bool> _explainFirstAdOffer(BuildContext dialogContext) async {
@@ -882,29 +887,34 @@ class _Play extends StatelessWidget {
           strings: strings,
           art: art,
           onDetails: () => _details(context),
+          onNextSteps: () => _showNextSteps(context),
         ),
-        AuraNextStepsTrigger(
-          strings: strings,
-          onTap: () => _showNextSteps(context),
-        ),
-        if (controller.canAscend)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 2, 16, 0),
-            child: _AscendButton(
-              strings: strings,
-              art: art,
-              gain: AuraFormat.multiplier(controller.ascensionGain()),
-              onTap: ascend,
-            ),
-          ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(14, 10, 14, 14),
-            child: _AuraArena(
-              scene: scene,
-              controller: controller,
-              strings: strings,
-            ),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(14, 10, 14, 14),
+                  child: _AuraArena(
+                    scene: scene,
+                    controller: controller,
+                    strings: strings,
+                  ),
+                ),
+              ),
+              if (controller.canAscend)
+                PositionedDirectional(
+                  top: 20,
+                  end: 24,
+                  child: _AscendButton(
+                    strings: strings,
+                    art: art,
+                    gain: AuraFormat.multiplier(controller.ascensionGain()),
+                    highContrast: controller.highContrast,
+                    onTap: ascend,
+                  ),
+                ),
+            ],
           ),
         ),
       ]);
@@ -937,6 +947,7 @@ class _Play extends StatelessWidget {
   }
 
   Future<void> _details(BuildContext context) async {
+    final snapshot = AuraDetailsSnapshot.fromController(controller);
     unawaited(audio.playUiOpen());
     await audio.beginDuck();
     if (!context.mounted) {
@@ -946,18 +957,17 @@ class _Play extends StatelessWidget {
     try {
       await showModalBottomSheet<void>(
           context: context,
-          builder: (_) => _Sheet(
-              title: strings('play_aura_details'),
-              body:
-                  '${strings('play_available_aura')}: ${controller.available}\n${strings('play_total_aura')}: ${controller.total}\n${strings('play_journey_aura')}: ${controller.journey}\n${strings('play_cycle_power')}: ${AuraFormat.exactRate(controller.powerNumerator)}\n${strings('play_passive_rate')}: ${AuraFormat.exactRate(controller.passiveNumerator)}/s',
+          isScrollControlled: true,
+          builder: (_) => AuraDetailsSheet(
+              snapshot: snapshot,
+              strings: strings,
               artwork: AuraAssetIcon(
                 catalog: art,
                 role: AuraUiIcon.cyclePower,
                 fallbackIcon: Icons.bolt,
                 semanticLabel: strings('play_cycle_power'),
                 size: 56,
-              ),
-              child: const SizedBox()));
+              )));
     } finally {
       await audio.endDuck();
       unawaited(audio.playUiClose());
@@ -971,18 +981,20 @@ class _AuraHud extends StatelessWidget {
     required this.strings,
     required this.art,
     required this.onDetails,
+    required this.onNextSteps,
   });
   final GameController controller;
   final Strings strings;
   final ArtCatalog? art;
   final VoidCallback onDetails;
+  final VoidCallback onNextSteps;
 
   @override
   Widget build(BuildContext context) {
     final s = strings;
     return Container(
       margin: const EdgeInsets.fromLTRB(14, 14, 14, 0),
-      padding: const EdgeInsets.fromLTRB(18, 14, 8, 14),
+      padding: const EdgeInsets.fromLTRB(18, 12, 8, 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         gradient: const LinearGradient(
@@ -1044,19 +1056,28 @@ class _AuraHud extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            tooltip: s('play_aura_details'),
-            onPressed: onDetails,
-            icon: AuraAssetIcon(
-              catalog: art,
-              role: AuraUiIcon.info,
-              fallbackIcon: Icons.info_outline,
-              semanticLabel: s('play_aura_details'),
-              decorative: true,
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AuraNextStepsTrigger(
+                strings: s,
+                onTap: onNextSteps,
+              ),
+              IconButton(
+                tooltip: s('play_aura_details'),
+                onPressed: onDetails,
+                icon: AuraAssetIcon(
+                  catalog: art,
+                  role: AuraUiIcon.info,
+                  fallbackIcon: Icons.info_outline,
+                  semanticLabel: s('play_aura_details'),
+                  decorative: true,
+                ),
+              ),
+            ],
           ),
         ]),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
         Row(children: [
           Expanded(
             child: _StatChip(
@@ -1095,7 +1116,7 @@ class _StatChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.045),
           borderRadius: BorderRadius.circular(16),
@@ -1151,66 +1172,117 @@ class _AscendButton extends StatelessWidget {
     required this.strings,
     required this.art,
     required this.gain,
+    required this.highContrast,
     required this.onTap,
   });
   final Strings strings;
   final ArtCatalog? art;
   final String gain;
+  final bool highContrast;
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) => Material(
+  Widget build(BuildContext context) {
+    const gold = Color(0xFFFFCE73);
+    return Semantics(
+      button: true,
+      label: strings('ascension_title'),
+      value: strings(
+        'ascension_gain',
+        {'multiplier': '$gain×'},
+      ),
+      child: Material(
         color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(18),
-          onTap: onTap,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              gradient: const LinearGradient(
-                colors: [Color(0xFFFFD166), Color(0xFFFF7A18)],
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFFFF7A18).withValues(alpha: 0.5),
-                  blurRadius: 20,
-                  spreadRadius: 1,
-                ),
-              ],
+        borderRadius: BorderRadius.circular(24),
+        clipBehavior: Clip.antiAlias,
+        child: Ink(
+          decoration: BoxDecoration(
+            color: const Color(0xE6131630),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: highContrast ? Colors.white : gold.withValues(alpha: .62),
+              width: highContrast ? 2 : 1,
             ),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              AuraAssetIcon(
-                catalog: art,
-                role: AuraUiIcon.ascension,
-                fallbackIcon: Icons.auto_awesome,
-                semanticLabel: strings('ascension_title'),
-                decorative: true,
-                size: 24,
+            boxShadow: [
+              BoxShadow(
+                color: gold.withValues(alpha: .22),
+                blurRadius: 18,
+                spreadRadius: 1,
               ),
-              const SizedBox(width: 10),
-              Text(
-                strings('ascension_title'),
-                style: const TextStyle(
-                  color: Color(0xFF20130A),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
+            ],
+          ),
+          child: InkWell(
+            key: const ValueKey('ascension-trigger'),
+            borderRadius: BorderRadius.circular(24),
+            onTap: onTap,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 48),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(7, 6, 12, 6),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 34,
+                      height: 34,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            gold.withValues(alpha: .28),
+                            const Color(0xFFFF8A3D).withValues(alpha: .12),
+                          ],
+                        ),
+                      ),
+                      child: Center(
+                        child: AuraAssetIcon(
+                          catalog: art,
+                          role: AuraUiIcon.ascension,
+                          fallbackIcon: Icons.auto_awesome,
+                          semanticLabel: strings('ascension_title'),
+                          decorative: true,
+                          size: 23,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          strings('ascension_confirm_action'),
+                          style: const TextStyle(
+                            color: Color(0xFFF7F5FF),
+                            fontSize: 11,
+                            height: 1,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          '+$gain×',
+                          textDirection: TextDirection.ltr,
+                          style: const TextStyle(
+                            color: gold,
+                            fontSize: 12,
+                            height: 1,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: 10),
-              Text(
-                '×$gain',
-                textDirection: TextDirection.ltr,
-                style: const TextStyle(
-                  color: Color(0xFF20130A),
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
-                ),
-              ),
-            ]),
+            ),
           ),
         ),
-      );
+      ),
+    );
+  }
 }
 
 class _AuraArena extends StatelessWidget {
@@ -1433,7 +1505,6 @@ class _Shop extends StatelessWidget {
 enum _CollectionSection {
   appearances,
   transformations,
-  achievements,
   seals,
 }
 
@@ -1496,14 +1567,6 @@ class _AuraCollectionViewState extends State<AuraCollectionView> {
         iconRole: AuraUiIcon.transformation,
         fallbackIcon: Icons.auto_awesome,
       ),
-      _CollectionSection.achievements: _CollectionSectionData(
-        label: strings('collection_achievements'),
-        count:
-            '${controller.achievements.where(achievementIds.contains).length}/${achievementIds.length}',
-        assetId: AuraUiArt.icon(AuraUiIcon.achievement),
-        iconRole: AuraUiIcon.achievement,
-        fallbackIcon: Icons.verified_outlined,
-      ),
       _CollectionSection.seals: _CollectionSectionData(
         label: strings('collection_seals'),
         count: '${seals.length}',
@@ -1549,9 +1612,6 @@ class _AuraCollectionViewState extends State<AuraCollectionView> {
               ),
               _transformationList(
                 sections[_CollectionSection.transformations]!,
-              ),
-              _achievementList(
-                sections[_CollectionSection.achievements]!,
               ),
               _sealList(seals, sections[_CollectionSection.seals]!),
             ],
@@ -1741,54 +1801,6 @@ class _AuraCollectionViewState extends State<AuraCollectionView> {
               )),
         ],
       );
-
-  Widget _achievementList(_CollectionSectionData section) => _sectionList(
-        storageKey: 'collection-achievements-scroll',
-        section: section,
-        children: [
-          ...achievementIds.map((id) {
-            final unlocked = controller.achievements.contains(id);
-            final secret = id.startsWith('ACH-S');
-            final key = id.toLowerCase().replaceAll('-', '_');
-            final revealed = unlocked || !secret;
-            final title = revealed
-                ? strings('content.$key.name')
-                : strings('collection_secret');
-            return Card(
-              margin: const EdgeInsets.symmetric(vertical: 4),
-              child: ListTile(
-                leading: AuraAssetArt(
-                  catalog: art,
-                  assetId: revealed
-                      ? AuraUiArt.achievementBadge(id)
-                      : AuraUiArt.icon(AuraUiIcon.lock),
-                  fallback: Icon(unlocked ? Icons.verified : Icons.lock_outline,
-                      color: unlocked ? const Color(0xFFB7F171) : null),
-                  width: 56,
-                  height: 56,
-                  semanticLabel: title,
-                  decorative: true,
-                  opacity: unlocked ? 1 : .42,
-                ),
-                title: Text(title),
-                subtitle: Text(revealed
-                    ? strings('content.$key.description')
-                    : strings('collection_locked')),
-                trailing: unlocked
-                    ? AuraAssetIcon(
-                        catalog: art,
-                        role: AuraUiIcon.achievement,
-                        fallbackIcon: Icons.verified,
-                        semanticLabel: strings(
-                            'collection_achievement_unlocked', {'name': title}),
-                        size: 26,
-                      )
-                    : null,
-              ),
-            );
-          }),
-        ],
-      );
 }
 
 class _CollectionSectionData {
@@ -1976,6 +1988,9 @@ class _Settings extends StatelessWidget {
     required this.audio,
     required this.rewardedAds,
     required this.returnReminders,
+    required this.playGames,
+    required this.achievements,
+    required this.cloudSave,
   });
   final GameController controller;
   final Strings strings;
@@ -1983,6 +1998,9 @@ class _Settings extends StatelessWidget {
   final AuraAudioController audio;
   final RewardedAds rewardedAds;
   final ReturnReminderNotifications returnReminders;
+  final PlayGamesCoordinator playGames;
+  final AchievementSyncService achievements;
+  final CloudSaveCoordinator cloudSave;
 
   @override
   Widget build(BuildContext context) => ListView(
@@ -2086,6 +2104,30 @@ class _Settings extends StatelessWidget {
             }),
             Card(
               child: ListTile(
+                key: const ValueKey('open-aura-achievements'),
+                leading: const Icon(Icons.emoji_events_outlined),
+                title: Text(
+                  strings.locale == 'pt-BR' ? 'Conquistas' : 'Achievements',
+                ),
+                subtitle: Text(
+                  strings.locale == 'pt-BR'
+                      ? 'Sincronize seu progresso com o Google Play Games.'
+                      : 'Sync your progress with Google Play Games.',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  unawaited(audio.playUiOpen());
+                  Navigator.of(context).push(MaterialPageRoute<void>(
+                    builder: (_) => AuraAchievementsScreen(
+                      coordinator: achievements,
+                      locale: strings.locale,
+                    ),
+                  ));
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
                 leading: const Icon(Icons.privacy_tip_outlined),
                 title: Text(strings('settings_privacy_policy')),
                 subtitle: Text(strings('settings_privacy_policy_body')),
@@ -2109,22 +2151,34 @@ class _Settings extends StatelessWidget {
                   : const SizedBox.shrink(),
             ),
             Card(
-                child: ListTile(
-                    leading: AuraAssetIcon(
-                      catalog: art,
-                      role: AuraUiIcon.backup,
-                      fallbackIcon: Icons.save_outlined,
-                      semanticLabel: strings('backup_title'),
-                      size: 32,
+              child: ListTile(
+                key: const ValueKey('open-aura-rankings'),
+                leading: const Icon(Icons.leaderboard_outlined),
+                title: Text(strings.locale == 'pt-BR'
+                    ? 'Rankings de Aura'
+                    : 'Aura Leaderboards'),
+                subtitle: Text(strings.locale == 'pt-BR'
+                    ? 'Compare sua produção global e com amigos.'
+                    : 'Compare your production globally and with friends.'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  unawaited(audio.playUiOpen());
+                  Navigator.of(context).push(MaterialPageRoute<void>(
+                    builder: (_) => AuraRankingsScreen(
+                      coordinator: playGames,
+                      strings: strings,
                     ),
-                    title: Text(strings('backup_title')),
-                    subtitle: Text(strings('backup_explain')),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () => _backup(context))),
+                  ));
+                },
+              ),
+            ),
+            CloudSaveSection(
+              coordinator: cloudSave,
+              strings: strings,
+            ),
             ListTile(
-                title: Text(
-                    strings('settings_version', {'version': '1.1.10'})),
-                subtitle: const Text('arith-v1 · balance-v0.3'))
+                title: Text(strings('settings_version', {'version': '6.7.0'})),
+                subtitle: const Text('arith-v1 · balance-v0.4'))
           ]);
 
   Future<void> _openPrivacyPolicy(BuildContext context) async {
@@ -2145,95 +2199,6 @@ class _Settings extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(strings('settings_ad_privacy_failed'))),
       );
-    }
-  }
-
-  Future<void> _backup(BuildContext context) async {
-    unawaited(audio.playUiOpen());
-    await audio.beginDuck();
-    if (!context.mounted) {
-      await audio.endDuck();
-      return;
-    }
-    try {
-      await showModalBottomSheet<void>(
-          context: context,
-          builder: (sheet) => _Sheet(
-              title: strings('backup_title'),
-              body: strings('backup_explain'),
-              artwork: AuraAssetIcon(
-                catalog: art,
-                role: AuraUiIcon.backup,
-                fallbackIcon: Icons.save_outlined,
-                semanticLabel: strings('backup_title'),
-                size: 58,
-              ),
-              child: Row(children: [
-                Expanded(
-                    child: OutlinedButton(
-                        onPressed: () async {
-                          try {
-                            await BackupService.exportAndShare(controller);
-                            if (sheet.mounted) {
-                              ScaffoldMessenger.of(sheet).showSnackBar(SnackBar(
-                                  content:
-                                      Text(strings('backup_export_success'))));
-                            }
-                          } catch (_) {
-                            unawaited(audio.playUiError());
-                            if (sheet.mounted) {
-                              ScaffoldMessenger.of(sheet).showSnackBar(SnackBar(
-                                  content:
-                                      Text(strings('backup_export_failed'))));
-                            }
-                          }
-                        },
-                        child: Text(strings('backup_export')))),
-                const SizedBox(width: 12),
-                Expanded(
-                    child: FilledButton(
-                        onPressed: () async {
-                          final payload = await BackupService.pickPayload();
-                          if (payload == null || !sheet.mounted) return;
-                          final approve = await showDialog<bool>(
-                              context: sheet,
-                              builder: (dialog) => AlertDialog(
-                                      title:
-                                          Text(strings('backup_preview_title')),
-                                      content: Text(
-                                          strings('backup_replace_warning')),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(dialog, false),
-                                            child:
-                                                Text(strings('action_cancel'))),
-                                        FilledButton(
-                                            onPressed: () =>
-                                                Navigator.pop(dialog, true),
-                                            child:
-                                                Text(strings('backup_restore')))
-                                      ]));
-                          if (approve == true) {
-                            final restored =
-                                await controller.restoreState(payload);
-                            if (!restored) {
-                              unawaited(audio.playUiError());
-                              if (sheet.mounted) {
-                                ScaffoldMessenger.of(sheet)
-                                    .showSnackBar(SnackBar(
-                                  content:
-                                      Text(strings('backup_restore_failed')),
-                                ));
-                              }
-                            }
-                          }
-                        },
-                        child: Text(strings('backup_import'))))
-              ])));
-    } finally {
-      await audio.endDuck();
-      unawaited(audio.playUiClose());
     }
   }
 }
@@ -2365,24 +2330,4 @@ class _Sheet extends StatelessWidget {
                 const SizedBox(height: 20),
                 child
               ])));
-}
-
-class _AdLoadingLabel extends StatelessWidget {
-  const _AdLoadingLabel({super.key, required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) => Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox.square(
-            dimension: 18,
-            child: CircularProgressIndicator(strokeWidth: 2),
-          ),
-          const SizedBox(width: 8),
-          Flexible(child: Text(label, textAlign: TextAlign.center)),
-        ],
-      );
 }

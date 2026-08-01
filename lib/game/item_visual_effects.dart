@@ -11,7 +11,7 @@ enum AuraItemEffectKind {
   hotfixOrbit,
   alarmRing,
   lagTrail,
-  remainderOrbit,
+  remainderRing,
   unionLink,
   statementTick,
   glitchSplit,
@@ -24,7 +24,27 @@ enum AuraItemEffectKind {
   canonicalTorque,
 }
 
-enum AuraItemEffectAnchor { authored, raisedHand, bothHands }
+enum AuraItemEffectAnchor {
+  authored,
+  raisedHand,
+  bothHands,
+  rightHandFinger,
+}
+
+/// Stage-space placement for an accessory that must stay attached to a finger.
+class AuraFingerAccessoryAnchor {
+  const AuraFingerAccessoryAnchor({
+    required this.center,
+    required this.angleRadians,
+    required this.fingerWidth,
+    required this.fingerHeight,
+  });
+
+  final Offset center;
+  final double angleRadians;
+  final double fingerWidth;
+  final double fingerHeight;
+}
 
 class AuraItemVisualProfile {
   const AuraItemVisualProfile({
@@ -57,6 +77,9 @@ class AuraItemEffectFrame {
     required this.rightHand,
     required this.leftWrist,
     required this.rightWrist,
+    required this.leftUnionTouch,
+    required this.rightUnionTouch,
+    required this.remainderRing,
   });
 
   final double elapsed;
@@ -68,6 +91,9 @@ class AuraItemEffectFrame {
   final Offset rightHand;
   final Offset leftWrist;
   final Offset rightWrist;
+  final AuraFingerAccessoryAnchor leftUnionTouch;
+  final AuraFingerAccessoryAnchor rightUnionTouch;
+  final AuraFingerAccessoryAnchor remainderRing;
 }
 
 /// Testable route for the two-touch union cable.
@@ -200,9 +226,10 @@ abstract final class AuraItemVisualEffects {
     ),
     'ITEM-B-03': AuraItemVisualProfile(
       contentId: 'ITEM-B-03',
-      kind: AuraItemEffectKind.remainderOrbit,
+      kind: AuraItemEffectKind.remainderRing,
       layer: AuraItemEffectLayer.front,
-      anchor: Offset(790, 370),
+      anchor: Offset.zero,
+      anchorMode: AuraItemEffectAnchor.rightHandFinger,
       followsCharacter: true,
     ),
     'ITEM-B-04': AuraItemVisualProfile(
@@ -365,20 +392,12 @@ abstract final class AuraItemVisualEffects {
             );
           }
         }
-      case AuraItemEffectKind.remainderOrbit:
-        final center = anchor + const Offset(0, -110);
-        final angle = frame.reduceMotion ? -math.pi / 2 : -math.pi / 2 + motion;
-        final point =
-            center + Offset(math.cos(angle) * 82, math.sin(angle) * 112);
-        canvas.drawCircle(
-          point,
-          18,
-          Paint()..color = magenta.withValues(alpha: alpha * 0.28),
-        );
-        canvas.drawCircle(
-          point,
-          8,
-          Paint()..color = coral.withValues(alpha: alpha),
+      case AuraItemEffectKind.remainderRing:
+        _remainderRing(
+          canvas,
+          anchor: frame.remainderRing,
+          pulse: pulse,
+          alpha: alpha,
         );
       case AuraItemEffectKind.unionLink:
         final route = AuraUnionLinkGeometry.fromWrists(
@@ -408,6 +427,7 @@ abstract final class AuraItemVisualEffects {
         _touchDevice(
           canvas,
           hand: frame.leftHand,
+          touch: frame.leftUnionTouch.center,
           wrist: frame.leftWrist,
           socket: route.leftSocket,
           color: magenta,
@@ -416,6 +436,7 @@ abstract final class AuraItemVisualEffects {
         _touchDevice(
           canvas,
           hand: frame.rightHand,
+          touch: frame.rightUnionTouch.center,
           wrist: frame.rightWrist,
           socket: route.rightSocket,
           color: coral,
@@ -563,6 +584,7 @@ abstract final class AuraItemVisualEffects {
           )!,
         AuraItemEffectAnchor.bothHands =>
           Offset.lerp(frame.leftHand, frame.rightHand, 0.5)!,
+        AuraItemEffectAnchor.rightHandFinger => frame.remainderRing.center,
       };
 
   static Paint _stroke(Color color, double width, double alpha) => Paint()
@@ -575,6 +597,7 @@ abstract final class AuraItemVisualEffects {
   static void _touchDevice(
     Canvas canvas, {
     required Offset hand,
+    required Offset touch,
     required Offset wrist,
     required Offset socket,
     required Color color,
@@ -600,14 +623,14 @@ abstract final class AuraItemVisualEffects {
     );
     canvas.restore();
 
-    canvas.drawCircle(hand, 43, Paint()..color = ink);
+    canvas.drawCircle(touch, 43, Paint()..color = ink);
     canvas.drawCircle(
-      hand,
+      touch,
       31,
       Paint()..color = color.withValues(alpha: 0.90),
     );
     canvas.drawCircle(
-      hand.translate(-7, -9),
+      touch.translate(-7, -9),
       9,
       Paint()..color = paper.withValues(alpha: alpha),
     );
@@ -617,6 +640,63 @@ abstract final class AuraItemVisualEffects {
       8,
       Paint()..color = paper.withValues(alpha: alpha),
     );
+  }
+
+  static void _remainderRing(
+    Canvas canvas, {
+    required AuraFingerAccessoryAnchor anchor,
+    required double pulse,
+    required double alpha,
+  }) {
+    final width = anchor.fingerWidth * 0.82;
+    final height = math.max(18.0, anchor.fingerHeight * 0.42);
+    final bandRect = Rect.fromCenter(
+      center: Offset.zero,
+      width: width,
+      height: height,
+    );
+    final solidAlpha = (0.76 + alpha * 0.32).clamp(0.0, 1.0);
+
+    canvas.save();
+    canvas.translate(anchor.center.dx, anchor.center.dy);
+    canvas.rotate(anchor.angleRadians);
+
+    // Only the near half is painted over the fingertip. The hidden half is
+    // implied by the two side catches, so the jewel reads as a worn ring and
+    // never as another foreground orbit.
+    final shadow = _stroke(ink, 16, 0.96)..strokeCap = StrokeCap.round;
+    final band = _stroke(magenta, 8, solidAlpha)..strokeCap = StrokeCap.round;
+    canvas.drawArc(bandRect, 0.03, math.pi - 0.06, false, shadow);
+    canvas.drawArc(bandRect, 0.03, math.pi - 0.06, false, band);
+
+    for (final side in const [-1.0, 1.0]) {
+      final catchPoint = Offset(side * width * 0.49, 0);
+      canvas.drawCircle(catchPoint, 7, Paint()..color = ink);
+      canvas.drawCircle(
+        catchPoint,
+        4,
+        Paint()..color = coral.withValues(alpha: solidAlpha),
+      );
+    }
+
+    final gem = Offset(0, height * 0.49);
+    canvas.drawCircle(
+      gem,
+      15 + pulse * 2,
+      Paint()..color = magenta.withValues(alpha: alpha * 0.20),
+    );
+    canvas.drawCircle(gem, 10, Paint()..color = ink);
+    canvas.drawCircle(
+      gem,
+      6,
+      Paint()..color = coral.withValues(alpha: solidAlpha),
+    );
+    canvas.drawCircle(
+      gem.translate(-2, -2),
+      2,
+      Paint()..color = paper.withValues(alpha: solidAlpha),
+    );
+    canvas.restore();
   }
 
   static void _ring(

@@ -1,0 +1,8 @@
+Event Name,Property Name,Property Type
+auraActivityDelta,auraEarnedDelta,DOUBLE
+auraActivityDelta,manualActionsDelta,INT
+auraActivityDelta,maxAuraPerSecond,INT
+auraActivityDelta,prestigesDelta,INT
+auraActivityDelta,itemsUnlockedDelta,INT
+progressUpdate,currentProgress,INT
+progressUpdate,auraTier,STRING

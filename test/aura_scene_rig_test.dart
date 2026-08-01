@@ -312,6 +312,37 @@ void main() {
     });
   });
 
+  group('AuraHandAccessoryPlacement', () {
+    test('assigns the union and remainder ring to different fingers', () {
+      expect(
+        AuraHandAccessoryPlacement.unionFingerIndex,
+        isNot(AuraHandAccessoryPlacement.remainderRingFingerIndex),
+      );
+    });
+
+    test('keeps combined hand items separated throughout the gesture', () {
+      for (final swing in sampledSwings) {
+        final pose = AuraCharacterRigPose.forSwing(swing);
+        final union = AuraHandAccessoryPlacement.onFinger(
+          pose.rightHand,
+          isLeft: false,
+          fingerIndex: AuraHandAccessoryPlacement.unionFingerIndex,
+        );
+        final ring = AuraHandAccessoryPlacement.onFinger(
+          pose.rightHand,
+          isLeft: false,
+          fingerIndex: AuraHandAccessoryPlacement.remainderRingFingerIndex,
+        );
+
+        expect(
+          (union.center - ring.center).distance,
+          greaterThan(43 + ring.fingerWidth * 0.41),
+          reason: 'hand accessories overlap at swing $swing',
+        );
+      }
+    });
+  });
+
   group('AuraCharacterRigPose Six-Seven rig', () {
     test('Six raises the screen-right hand and Seven raises screen-left', () {
       final six = AuraCharacterRigPose.forSwing(-1);

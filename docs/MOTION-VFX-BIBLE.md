@@ -178,7 +178,7 @@ Haptics são semânticos e independentes do áudio. O runtime solicita capacidad
 
 Da maior para a menor prioridade:
 
-1. diálogo do sistema, consentimento, diagnóstico, anúncio e restauração de Backup;
+1. diálogo do sistema, consentimento, diagnóstico, anúncio e conflito de sincronização;
 2. erro de persistência ou confirmação destrutiva;
 3. resultado econômico que exige decisão;
 4. Transformação e Ascensão;

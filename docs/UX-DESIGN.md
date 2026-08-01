@@ -19,13 +19,20 @@
 - `ACCESSIBILITY.md` define a matriz mensurável `a11y-matrix-v1` para contraste, escala, toque, foco, TalkBack e modos reduzidos;
 - `number-format-v1` continua sendo a única fonte da apresentação econômica; UI nunca infere valor pelo token compacto.
 
-As quatro áreas são as únicas raízes. Detalhes, anúncios, consentimentos, diagnóstico, retorno offline, Ascensão, backup e erros usam folhas, diálogos ou subtelas do contexto que os abriu e nunca criam uma quinta área.
+As quatro áreas são as únicas raízes. Detalhes, anúncios, consentimentos,
+diagnóstico, retorno offline, Ascensão, sincronização/conflito e erros usam
+folhas, diálogos ou subtelas do contexto que os abriu e nunca criam uma quinta
+área.
 
 ## Estados de conectividade
 
 A experiência principal permanece funcional offline e sem login. Ofertas de Anúncio Recompensado ficam discretamente indisponíveis quando não houver conexão ou inventário, sem modal de erro recorrente e sem bloquear a alternativa-base.
 
-O lançamento salva o progresso somente no aparelho. Não há conta, backup em nuvem ou sincronização automática. O jogador pode exportar um Backup Manual para arquivo e importá-lo posteriormente. Antes da restauração, a interface apresenta data, versão e resumo do backup e exige confirmação de que o progresso atual será substituído. Qualquer falha de validação mantém o estado ativo intacto.
+O progresso é salvo imediatamente no aparelho e sincronizado automaticamente
+com Saved Games quando o perfil Gamer está autenticado. A experiência continua
+offline; falha de rede apenas deixa alterações pendentes. Conflitos ambíguos
+apresentam data, origem e resumo de cada jornada antes de uma escolha explícita.
+Qualquer falha de validação mantém o estado ativo intacto.
 
 ## Retorno ao jogo
 
@@ -81,7 +88,10 @@ Contém personalização do Mascote por Aparências, Transformações de Aura, 1
 
 ### Ajustes
 
-Contém idioma, música, efeitos sonoros, vibração, opções de acessibilidade, Backup Manual, privacidade, analytics e créditos. Depois de uma recusa, Analytics só pode ser ativado voluntariamente nessa área; o jogo não repete o convite.
+Contém idioma, música, efeitos sonoros, vibração, opções de acessibilidade,
+estado da sincronização, privacidade, analytics e créditos. Depois de uma
+recusa, Analytics só pode ser ativado voluntariamente nessa área; o jogo não
+repete o convite.
 
 As quatro áreas ficam na barra inferior e são acessíveis com uma mão. O painel de detalhes da Aura aparece sobre Jogar e não constitui uma área adicional.
 
@@ -92,7 +102,7 @@ O mapa completo é:
 - **Jogar:** indicadores, Área de Aura, Próximos passos, Detalhes de Aura e acesso contextual à Ascensão;
 - **Loja:** uma única Árvore de Aura com Técnicas no tronco central, Ramos e Convergências; detalhe, requisitos e compra permanecem dentro da Loja;
 - **Coleção:** Aparências, Transformações, Conquistas e Selos 67 com estado econômico separado;
-- **Ajustes:** idioma, canais sensoriais, acessibilidade, Backup Manual, privacidade, tutorial, créditos e licenças.
+- **Ajustes:** idioma, canais sensoriais, acessibilidade, sincronização, privacidade, tutorial, créditos e licenças.
 
 ## Retorno após falha
 
@@ -156,7 +166,7 @@ Se existir uma Recompensa de Retorno pendente, a confirmação de Ascensão perm
 Quando elegível, a prévia apresenta:
 
 - Aura da Jornada usada no cálculo;
-- ganho permanente projetado a partir do acumulado de Aura sacrificada, com precisão de `0,01×`;
+- ganho permanente projetado a partir do acumulado de Aura Ascendida, com precisão de `0,01×`;
 - Multiplicador de Ascensão atual e resultante;
 - Aura Disponível, Aura da Jornada, Técnicas, Itens, níveis e efeitos que serão reiniciados;
 - Aura Total, Patamares, Transformações, Conquistas e Coleção Visual preservados.

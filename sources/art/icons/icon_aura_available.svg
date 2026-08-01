@@ -4,5 +4,5 @@
   <desc>Essential rounded functional glyph icon_aura_available. Original project-authored procedural vector, art-v1.</desc>
   <metadata>manifestId=icon_aura_available;style=art-v1;license=project-original</metadata>
   <defs></defs>
-  <g id="asset"><g id="icon_aura_available"><path d="M48 8 C72 28 80 48 72 68 C64 88 32 88 24 68 C16 48 24 28 48 8 Z" fill="#8B7CFF" stroke="#090B1A" stroke-width="5"/><path d="M48 28 V66" stroke="#F7F5FF" stroke-width="6" stroke-linecap="round"/></g></g>
+  <g id="asset"><g id="icon_aura_available"><path d="M45 8 C60 22 65 38 58 51 C51 65 35 68 31 82 C22 70 21 57 27 45 C33 33 40 24 45 8 Z" fill="#43E6FF" stroke="#090B1A" stroke-width="5"/><path d="M59 26 C75 42 81 61 75 74 C69 87 56 91 43 86 C57 80 65 70 63 59 C60 47 56 39 59 26 Z" fill="#FF4FA3" stroke="#090B1A" stroke-width="5"/><path d="M45 18 C53 31 53 42 46 52 C40 61 34 68 34 76" fill="none" stroke="#F7F5FF" stroke-width="4" stroke-linecap="round"/><path d="M58 35 C66 49 66 60 60 69 C55 77 49 81 43 83" fill="none" stroke="#8B7CFF" stroke-width="4" stroke-linecap="round"/><circle cx="48" cy="62" r="5" fill="#F7F5FF" stroke="#43E6FF" stroke-width="3"/></g></g>
 </svg>

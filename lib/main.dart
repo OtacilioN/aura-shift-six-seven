@@ -1,23 +1,57 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'audio/aura_audio_controller.dart';
+import 'achievements/achievement_progress_repository.dart';
+import 'achievements/achievement_sync_service.dart';
+import 'achievements/play_games_achievements_service.dart';
+import 'cloud_save/cloud_game_save_repository.dart';
+import 'cloud_save/cloud_save_coordinator.dart';
+import 'cloud_save/local_game_save_repository.dart';
 import 'core/game_controller.dart';
 import 'core/rewarded_ads.dart';
 import 'core/return_reminder_notifications.dart';
 import 'core/store_review.dart';
+import 'play_games/play_games_coordinator.dart';
+import 'play_games/play_games_service.dart';
+import 'play_games/play_games_store.dart';
 import 'ui/home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final controller = await GameController.load();
+  final controller = await GameController.load(deferOfflineProgress: true);
   final audio = await AuraAudioController.create();
   final strings = await Strings.load(controller.locale);
   final rewardedAds = GoogleRewardedAds();
   final returnReminders = await ReturnReminderNotifications.create();
   final storeReview = StoreReview();
+  final playGamesService = createPlayGamesService();
+  final playGames = PlayGamesCoordinator(
+    controller: controller,
+    service: playGamesService,
+    store: await SharedPreferencesPlayGamesStore.create(),
+  );
+  final cloudSave = CloudSaveCoordinator(
+    controller: controller,
+    localRepository: LocalGameSaveRepository(
+      controller: controller,
+      preferences: await SharedPreferences.getInstance(),
+    ),
+    cloudRepository: createCloudGameSaveRepository(),
+    playGamesService: playGamesService,
+  );
+  await cloudSave.initialize();
+  final achievements = AchievementSyncService(
+    controller: controller,
+    service: createPlayGamesAchievementsService(),
+    repository: await SharedPreferencesAchievementProgressRepository.create(),
+  );
+  unawaited(achievements.initialize());
+  unawaited(playGames.initialize());
   runApp(AuraApp(
     controller: controller,
     strings: strings,
@@ -25,6 +59,9 @@ Future<void> main() async {
     rewardedAds: rewardedAds,
     returnReminders: returnReminders,
     storeReview: storeReview,
+    playGames: playGames,
+    achievements: achievements,
+    cloudSave: cloudSave,
   ));
 }
 
@@ -75,6 +112,9 @@ class AuraApp extends StatelessWidget {
     required this.rewardedAds,
     required this.returnReminders,
     required this.storeReview,
+    required this.playGames,
+    required this.achievements,
+    required this.cloudSave,
   });
   final GameController controller;
   final Strings strings;
@@ -82,6 +122,9 @@ class AuraApp extends StatelessWidget {
   final RewardedAds rewardedAds;
   final ReturnReminderNotifications returnReminders;
   final StoreReview storeReview;
+  final PlayGamesCoordinator playGames;
+  final AchievementSyncService achievements;
+  final CloudSaveCoordinator cloudSave;
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
         animation: Listenable.merge([controller, strings]),
@@ -101,6 +144,9 @@ class AuraApp extends StatelessWidget {
             rewardedAds: rewardedAds,
             returnReminders: returnReminders,
             storeReview: storeReview,
+            playGames: playGames,
+            achievements: achievements,
+            cloudSave: cloudSave,
           ),
         ),
       );

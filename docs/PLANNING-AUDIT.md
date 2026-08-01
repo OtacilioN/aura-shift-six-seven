@@ -6,7 +6,7 @@
 
 A auditoria aplicou `AGENT-REVIEW-PIPELINE.md`: produção por frente, revisão independente, correção, verificação mecânica e consolidação. O escopo é planejamento criativo, conteúdo e experiência; não declara que código, assets visuais finais, masters sonoros ou QA de build existem.
 
-Entradas normativas: `PLANNING-TO-DEVELOPMENT-ROADMAP.md`, `REQUIREMENTS.md`, `MVP-SCOPE.md`, `CONTEXT.md`, contratos econômicos `balance-v0.3`/`arith-v1`/`number-format-v1` e todos os artefatos listados abaixo.
+Entradas normativas: `PLANNING-TO-DEVELOPMENT-ROADMAP.md`, `REQUIREMENTS.md`, `MVP-SCOPE.md`, `CONTEXT.md`, contratos econômicos atuais `balance-v0.4`/`arith-v1`/`number-format-v1` e todos os artefatos listados abaixo.
 
 ## Matriz P01–P11
 
@@ -81,7 +81,7 @@ Além do gate global, cada grupo tradutor/revisor confirmou ordem, JSON `string:
 3. **Áudio:** 40 masters obrigatórios e quatro contingências estão especificados, mas nenhum master deve sair de `planned` sem fonte, licença, hash, QA técnico e similaridade.
 4. **Build:** reflow, RTL/shaping, fontes, contraste composto, TalkBack, haptics, latência, anúncios e aparelhos físicos só podem ser aprovados durante desenvolvimento.
 5. **Linguagem:** houve revisão multiagente e comparação semântica, não revisão humana nativa.
-6. **Economia:** `balance-v0.3` substituiu o baseline anterior e continua candidato até passar por `balance-gate-v1`; esse gate não pertence às rodadas criativas P01–P11.
+6. **Economia:** `balance-v0.4` substituiu o baseline anterior e continua candidato até passar por `balance-gate-v1`; esse gate não pertence às rodadas criativas P01–P11.
 
 ## Conclusão
 

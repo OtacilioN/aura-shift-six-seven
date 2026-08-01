@@ -35,7 +35,7 @@ Para cumprir requisitos aplicáveis no Brasil, o jogo planeja integrar a Play Ag
 
 - somente podem apoiar experiências adequadas à idade;
 - não podem orientar anúncios, marketing, perfilamento ou analytics;
-- não entram no save, Backup Manual ou logs de produto;
+- não entram no save local/cloud ou logs de produto;
 - não são usados para criar uma identidade do jogador.
 
 O conteúdo-base é apropriado ao público declarado e não depende de personalização etária para funcionar.
@@ -53,9 +53,9 @@ As proteções obrigatórias são:
 - nenhum `User ID`, e-mail, conta, nome, data de nascimento ou propriedade personalizada identificável;
 - coleta do Android Advertising ID e personalização publicitária desativadas;
 - nenhum uso ou envio de Play Age Signals;
-- nenhum conteúdo do save, Backup Manual, texto livre ou valor exato de Aura;
+- nenhum conteúdo do save local/cloud, texto livre ou valor exato de Aura;
 - medidas econômicas e temporais somente em faixas documentadas;
-- consentimento local ao aparelho, excluído do Backup Manual.
+- consentimento local ao aparelho, excluído do save sincronizado.
 
 O Firebase ainda pode processar automaticamente dados técnicos, identificadores de instância e informações como endereço IP depois do opt-in. A política de privacidade e o formulário Data safety devem refletir o comportamento real do SDK, sem prometer anonimato absoluto. Desativar a opção impede coletas futuras; a interface não deve prometer apagar retroativamente dados que já tenham sido transmitidos.
 
@@ -77,7 +77,7 @@ A oferta deve:
 - apagar o lote local quando o jogador recusar ou dispensar;
 - não conceder recompensa nem persistir autorização para falhas futuras.
 
-O lançamento não define `User ID`, chaves ou logs personalizados, não registra manualmente exceções não fatais e não inclui save, Backup Manual, Aura exata ou Play Age Signals. Autorizar um relatório não habilita Analytics.
+O lançamento não define `User ID`, chaves ou logs personalizados, não registra manualmente exceções não fatais e não inclui conteúdo do save local/cloud, Aura exata ou Play Age Signals. Autorizar um relatório não habilita Analytics.
 
 Segundo a documentação consultada em 10 de julho de 2026, o Crashlytics pode processar stack traces, horário da falha, versão do aplicativo, sistema e modelo do aparelho, estado de root, arquitetura, memória, armazenamento e identificadores de instalação. A retenção publicada é de 90 dias antes do início do processo de remoção dos sistemas ativos e de backup. Esses dados e prazos devem ser conferidos novamente antes da publicação.
 

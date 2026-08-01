@@ -165,8 +165,8 @@ def main() -> None:
             "reviewOnlyEntries": len(art_review),
             "runtimeConsumers": {
                 "scene": 120,
-                "ui": 83,
-                "total": 203,
+                "ui": 82,
+                "total": 202,
             },
         },
         "audio": {

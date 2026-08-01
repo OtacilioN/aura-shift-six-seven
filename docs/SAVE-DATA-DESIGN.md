@@ -1,20 +1,25 @@
 # Aura Shift: Six Seven — Design de Salvamento
 
-> Status: estratégia e contrato econômico `arith-v1` aprovados; contêiner, versionamento geral e mecanismos de integridade serão definidos na fase técnica.
+> Status: estratégia e contrato econômico `arith-v1` aprovados; contêiner
+> versionado de Saved Games implementado, com ativação manual ainda pendente no
+> Play Console.
 
 ## Objetivos
 
 - preservar automaticamente o progresso entre sessões;
-- manter a experiência principal independente de conta e conexão;
-- permitir recuperação voluntária sem infraestrutura de nuvem;
-- impedir que falhas de exportação ou importação destruam o estado válido;
+- manter a experiência principal independente de conexão;
+- permitir recuperação automática pelo perfil Gamer autenticado;
+- impedir que falhas de sincronização ou restauração destruam o estado válido;
 - permitir evolução compatível do formato ao longo das versões.
 
 ## Salvamento ativo
 
-O progresso é salvo automaticamente no armazenamento local. O lançamento não utiliza conta, backup em nuvem ou sincronização automática entre aparelhos.
+O progresso é salvo imediatamente no armazenamento local. Quando o Google Play
+Games estiver autenticado e Saved Games estiver habilitado no Console, o mesmo
+estado é sincronizado automaticamente entre aparelhos.
 
-Cada instalação mantém uma única jornada ativa. Não existem perfis ou espaços paralelos. A importação substitui essa jornada após confirmação; o jogador pode guardar múltiplos arquivos externamente, mas eles não são slots gerenciados pelo jogo.
+Cada perfil Gamer mantém uma única jornada no slot `aura_shift_primary`. Não
+existem perfis internos, espaços paralelos ou seletor de slots.
 
 O estado persistente deve abranger, no mínimo:
 
@@ -37,55 +42,53 @@ O estado persistente deve abranger, no mínimo:
 - referências temporais necessárias para preservar cotas publicitárias diante de mudanças de relógio;
 - configurações e idioma escolhido.
 
-Aura Disponível, Aura Total, Aura da Jornada, `L`, níveis e demais inteiros econômicos arbitrariamente grandes são serializados como texto decimal integral. O Resto de Produção satisfaz `0 ≤ R < 10.000.000` e permanece em fechamento, exportação, importação e Ascensão. `P20`, `T20` e `A(L)` são derivados verificáveis e reconciliáveis a partir de níveis, parâmetros e `L`. `F_registrado` é um snapshot canônico congelado até materializar a Recompensa de Retorno e nunca é recalculado com estado ou parâmetros posteriores. Taxas decimais pós-multiplicador nunca são fonte canônica.
+Aura Disponível, Aura Total, Aura da Jornada, `L`, níveis e demais inteiros econômicos arbitrariamente grandes são serializados como texto decimal integral. O Resto de Produção satisfaz `0 ≤ R < 10.000.000` e permanece em fechamento, sincronização, restauração e Ascensão. `P20`, `T20` e `A(L)` são derivados verificáveis e reconciliáveis a partir de níveis, parâmetros e `L`. `F_registrado` é um snapshot canônico congelado até materializar a Recompensa de Retorno e nunca é recalculado com estado ou parâmetros posteriores. Taxas decimais pós-multiplicador nunca são fonte canônica.
 
-Backups `balance-v0.1` sem `L` permanecem importáveis. A migração para `balance-v0.2` deriva `L` uma única vez da contagem de Ascensões e do multiplicador anterior. `balance-v0.3` também aceita backups `balance-v0.2`: preserva saldo, Aura Total, Resto, níveis, coleção e snapshot offline, recalcula os efeitos de Técnica pelos parâmetros novos e passa a exportar o marcador atual.
+Saves `balance-v0.1` sem `L` permanecem migráveis. A migração para `balance-v0.2` deriva `L` uma única vez da contagem de Ascensões e do multiplicador anterior. `balance-v0.3` também aceita saves `balance-v0.2` e recalcula os efeitos de Técnica. Ao migrar para `balance-v0.4`, saves `balance-v0.2` e `balance-v0.3` preservam saldo, Aura Total, Resto, níveis, coleção, snapshot offline e o `L` de Aura efetivamente Ascendida; o Multiplicador é reconciliado pela curva nova, sem aumentar `L` artificialmente.
 
 Uma Ascensão deve ser uma transação atômica do save. O novo total inteiro do Multiplicador de Ascensão, a contagem de Ascensões, o zero da Aura da Jornada e todos os estados econômicos reiniciados precisam pertencer à mesma gravação válida. Uma falha não pode produzir metade da transação.
 
 Recompensas de Retorno e cotações de Complemento de Aura carregam identificador e estados idempotentes. Base offline, bônus, saldo comprometido e falta coberta são representados exatamente conforme `ECONOMIC-ARITHMETIC.md`; repetir uma conclusão já aplicada não pode criar novo crédito ou nova compra.
 
-## Exportação manual
+## Sincronização pelo perfil Gamer
 
-O jogador pode exportar um Backup Manual para um arquivo e escolher onde armazená-lo ou compartilhá-lo usando os recursos do aparelho. A exportação não modifica o salvamento ativo e não depende de internet.
-
-O arquivo deve carregar metadados suficientes para apresentar sua data, versão e resumo antes de uma restauração. O mecanismo de integridade será definido tecnicamente sem prometer inviolabilidade absoluta em um jogo offline.
-
-## Importação manual
-
-O fluxo de importação deve:
-
-1. ler o arquivo sem alterar o estado ativo;
-2. validar integridade e compatibilidade;
-3. apresentar data, versão e resumo do progresso encontrado;
-4. explicar que o estado atual será substituído;
-5. exigir confirmação explícita;
-6. gravar a restauração de forma segura;
-7. manter o progresso anterior intacto se qualquer etapa falhar.
+O save local é envolvido em um envelope versionado, determinístico e validado
+por SHA-256. A sincronização automática usa o slot único
+`aura_shift_primary`; falhas mantêm alterações pendentes e nunca impedem a
+partida offline. Conflitos equivalentes, ancestrais ou dominantes podem ser
+resolvidos automaticamente; conflitos ambíguos exigem escolha entre estados
+completos. Consulte `docs/play-games/cloud-save.md`.
 
 ## Limitações assumidas
 
-- o jogador é responsável por guardar o arquivo exportado;
-- sem Backup Manual externo, perda do aparelho, limpeza de dados ou desinstalação pode apagar o progresso;
-- não existe resolução automática de conflitos entre dispositivos;
-- proteção contra edição intencional de saves será moderada e compatível com a natureza offline-first.
+- sem autenticação ou antes de Saved Games ser habilitado no Play Console, a
+  recuperação após limpeza de dados ou desinstalação não é garantida;
+- sincronização depende do perfil Gamer e de eventual conectividade, mas a
+  sessão permanece offline-first;
+- SHA-256 detecta corrupção acidental, não prova autoria nem impede edição
+  intencional no cliente.
 
 ## Compartilhamento, corrupção e manipulação
 
 São problemas diferentes:
 
 - **Corrupção acidental:** pode ser detectada de forma confiável por validação estrutural, versão e verificação de integridade.
-- **Compartilhamento:** um arquivo portátil pode ser copiado e publicado. Sem identidade de jogador ou vínculo de servidor, o jogo não consegue provar quem o criou.
-- **Manipulação intencional:** assinatura ou ofuscação local dificulta edições casuais, mas uma pessoa determinada pode extrair segredos incluídos no aplicativo, alterar o arquivo ou modificar o próprio cliente.
+- **Associação:** o remoto pertence ao Player ID autenticado; troca de perfil
+  nunca mistura silenciosamente duas jornadas.
+- **Manipulação intencional:** o hash local detecta corrupção, mas uma pessoa
+  determinada pode alterar o estado ou o próprio cliente.
 
-Vincular o backup a uma chave exclusiva do aparelho impediria sua restauração legítima em outro dispositivo. Vinculá-lo a uma conta ou assinatura emitida por servidor contrariaria o escopo atual sem conta e offline-first. Portanto, impedir compartilhamento ou fraude de forma forte exigiria abrir mão de alguma decisão já tomada.
+O vínculo ao perfil Gamer permite restauração legítima em outro aparelho, mas
+não transforma o cliente em autoridade competitiva nem cria uma assinatura
+secreta verificável.
 
-Enquanto o jogo for individual, sem compras de progresso, competição ou ranking confiável, o save local é tratado como estado controlado pelo jogador: o produto valida corrupção, dificulta adulteração casual e aceita que proteção absoluta não existe. Backups permanecem portáteis entre instalações compatíveis e não são vinculados ao aparelho. Qualquer futura função competitiva ou economia de valor real não poderá confiar nesses números locais como fonte de verdade.
+Enquanto a economia permanecer no cliente, o produto valida corrupção,
+dificulta adulteração casual e aceita que proteção absoluta não existe.
+Placares e qualquer futura economia de valor real não podem confiar nesses
+números locais como única fonte de verdade.
 
 ## Decisões pendentes
 
-- eventos e frequência exata de salvamento automático;
-- formato e versionamento do arquivo;
-- verificação de integridade e eventual confidencialidade;
-- tamanho máximo e política de compatibilidade entre versões;
-- tratamento de backups originados em Android quando a versão de iOS existir.
+- ativação e publicação de Saved Games no Play Console;
+- validação em faixa de teste com reinstalação e dois aparelhos;
+- estratégia para uma futura versão iOS.

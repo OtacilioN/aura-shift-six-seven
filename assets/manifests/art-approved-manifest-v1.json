@@ -1,5 +1,5 @@
 {
-  "assetCount": 203,
+  "assetCount": 202,
   "assets": [
     {
       "alphaMode": "straight",
@@ -3275,24 +3275,24 @@
         0.5,
         0.5
       ],
-      "pngBytes": 7379,
-      "pngSha256": "86a8a77ac0f064f68c1435afd5ddecff3ecb835a3aefb25003ee2bbac8b76ab8",
+      "pngBytes": 13036,
+      "pngSha256": "b4dd7e65eadd6942d6aae0df122a3d69d75c5921e6be4150739f4d10792846be",
       "previewPath": "reports/art-previews/icons/icon_aura_available.png",
       "reviewWebpPath": null,
       "revision": 3,
-      "runtimeBytes": 2760,
+      "runtimeBytes": 6282,
       "runtimeIncluded": true,
       "runtimePath": "assets/art/icons/icon_aura_available.webp",
-      "sha256": "2dd768699d08ae98da5d4b8a5b105ebfb750435ebe4eac04635f5942eed984c3",
+      "sha256": "7cc074520cfa8b3af3fe7a2c1fbc5f7dc8a4a93b0742d54bf291424fad500318",
       "sizePx": [
         192,
         192
       ],
       "slot": null,
-      "sourceBytes": 719,
+      "sourceBytes": 1134,
       "sourceFormat": "svg",
       "sourcePath": "sources/art/icons/icon_aura_available.svg",
-      "sourceSha256": "04905440db61fc50234f28dc05fba5eec2d71edd1a905b7ee078d403e43c5dc2",
+      "sourceSha256": "5257c47603091d887d1142abc7253b209e055f0282f0785fe9e3335f0a0f7bac",
       "sourceSizePx": [
         96,
         96
@@ -3369,44 +3369,6 @@
       "sourceFormat": "svg",
       "sourcePath": "sources/art/icons/icon_aura_total.svg",
       "sourceSha256": "0505aa98221ec941d18ebb4ec424c0c5c65540f0eab2d2b7db9530d5cc21fb1c",
-      "sourceSizePx": [
-        96,
-        96
-      ],
-      "status": "approved",
-      "variant": "base",
-      "zLayer": "UI-FLUTTER"
-    },
-    {
-      "alphaMode": "straight",
-      "colorSpace": "sRGB",
-      "description": "Essential rounded functional glyph icon_backup",
-      "exportMode": "WebP lossless + PNG preview",
-      "family": "icons",
-      "licenseRecord": "provenance/art/icons/icon_backup.md",
-      "manifestId": "icon_backup",
-      "pivot": [
-        0.5,
-        0.5
-      ],
-      "pngBytes": 1974,
-      "pngSha256": "b7c6987f3a5380e7cbd97a38ace63a68b3a6c010025e685a67b93ef5bc7579fa",
-      "previewPath": "reports/art-previews/icons/icon_backup.png",
-      "reviewWebpPath": null,
-      "revision": 3,
-      "runtimeBytes": 336,
-      "runtimeIncluded": true,
-      "runtimePath": "assets/art/icons/icon_backup.webp",
-      "sha256": "7ddc4c0b6142704210a85497e6ac1da780df40bafff08848929fdb119615e385",
-      "sizePx": [
-        192,
-        192
-      ],
-      "slot": null,
-      "sourceBytes": 890,
-      "sourceFormat": "svg",
-      "sourcePath": "sources/art/icons/icon_backup.svg",
-      "sourceSha256": "70cf26d17b4a3c05519c8b4f69eb352edb6ba418150329f6d0f28622120dd97a",
       "sourceSizePx": [
         96,
         96
@@ -8624,7 +8586,7 @@
     "branches": 15,
     "events": 6,
     "forms": 21,
-    "icons": 22,
+    "icons": 21,
     "seals": 4,
     "skins": 90,
     "vfx": 5
@@ -8663,7 +8625,7 @@
     "approvalDecision": "assets/manifests/asset-approval-v1.json",
     "approvalDecisionSha256": "4c04247dfe80ff1fb6fe8a4853c1f8c9f547524b920838e97fa34ecf187bcb6a",
     "candidateManifest": "assets/manifests/art-manifest-v1.json",
-    "candidateManifestSha256": "91e5cb87c7680089af0747f810c58c7612464491bf7c389508c8b3f223666a61",
+    "candidateManifestSha256": "4371dcae8f01faa5b0a56593f1caada7beeb69129bcee270427bcfa51bf18333",
     "decisionDate": "2026-07-10",
     "integrationStatus": "integrated-in-build"
   },
@@ -8683,7 +8645,7 @@
   ],
   "reviewBatch": "runtime-compositor-golden-corrections-v3",
   "revision": 3,
-  "runtimeAssetCount": 203,
+  "runtimeAssetCount": 202,
   "runtimeBudget": {
     "degradedFloorFps": 30,
     "maxAtlasPagePx": [

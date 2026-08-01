@@ -1,8 +1,11 @@
 package com.otaciliomaia.aurashiftsixseven
 
+import android.content.Intent
+import android.os.Bundle
 import com.google.android.gms.ads.AgeRestrictedTreatment
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
+import com.google.android.gms.games.PlayGamesSdk
 import com.google.android.play.agesignals.AgeSignalsManagerFactory
 import com.google.android.play.agesignals.AgeSignalsRequest
 import io.flutter.embedding.android.FlutterActivity
@@ -15,8 +18,25 @@ class MainActivity : FlutterActivity() {
             "com.otaciliomaia.aurashiftsixseven/ad_privacy"
     }
 
+    private var playGamesBridge: PlayGamesBridge? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (
+            getString(R.string.game_services_project_id).isNotBlank() &&
+            getString(R.string.game_services_project_id) != "0"
+        ) {
+            PlayGamesSdk.initialize(this)
+        }
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        playGamesBridge =
+            PlayGamesBridge(
+                this,
+                flutterEngine.dartExecutor.binaryMessenger,
+            )
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             AD_PRIVACY_CHANNEL,
@@ -44,6 +64,24 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+    }
+
+    @Deprecated("FlutterActivity still dispatches legacy activity results.")
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
+        if (playGamesBridge?.onActivityResult(requestCode, resultCode) == true) {
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onDestroy() {
+        playGamesBridge?.dispose()
+        playGamesBridge = null
+        super.onDestroy()
     }
 
     private fun refreshAgeSignals(result: MethodChannel.Result) {

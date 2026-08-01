@@ -200,11 +200,13 @@
 | `ascension_locked` | Produce {amount} more Journey Aura to Ascend. | Usa diferença exata |
 | `ascension_preview` | Ascension preview | Antes da confirmação |
 | `ascension_journey_used` | Journey Aura used: {amount} | Valor canônico |
+| `ascension_lore_body` | When your Aura outgrows its current form, it can cross the threshold and return transformed. Ascension turns the force of this journey into power that follows every journey to come. | Explicação de lore antes da troca mecânica |
 | `ascension_gain` | Permanent gain: +{multiplier} | Parcela projetada |
+| `ascension_permanent_bonus` | Permanent power | Rótulo curto do ganho permanente |
 | `ascension_multiplier_now` | Current multiplier: {multiplier} | Precisão 0,01× |
 | `ascension_multiplier_after` | After Ascension: {multiplier} | Precisão 0,01× |
 | `ascension_resets_title` | Starts over | Lista de estados reiniciados |
-| `ascension_resets_body` | Available Aura, Journey Aura, Technique levels, Aura Item levels, and their current production. | Resumo; a lista dinâmica também explicita aquisições, Pré-requisitos e Efeitos reiniciados conforme `UX-WIREFRAMES.md` |
+| `ascension_resets_body` | Every Technique and Aura Item upgrade returns to level zero, together with Available Aura, Journey Aura, and their current production. | Explicita o reset de todos os upgrades; a lista dinâmica também explicita aquisições, Pré-requisitos e Efeitos reiniciados conforme `UX-WIREFRAMES.md` |
 | `ascension_keeps_title` | Stays with you | Lista preservada |
 | `ascension_keeps_body` | Total Aura, tiers, Transformations, Achievements, 67 Seals, Appearances, and your permanent Ascension multiplier. | Resumo; a lista dinâmica inclui o Resto de Produção preservado conforme `UX-WIREFRAMES.md` |
 | `ascension_pending_return` | Finish the pending return choice before Ascending. The base reward is already safe. | Bloqueio legítimo |
@@ -213,26 +215,20 @@
 | `ascension_confirm_action` | Ascend | Sem anúncio/pagamento |
 | `ascension_complete` | Ascension complete. Permanent multiplier: {multiplier}. | Após persistência |
 
-## Backup Manual
+## Save na nuvem
 
 | ID | `en-US` | Contexto / observação |
 | --- | --- | --- |
-| `backup_title` | Manual Backup | Sem conta/nuvem |
-| `backup_explain` | Export your progress to a file you control. This game does not sync or recover saves automatically. | Limite claro |
-| `backup_export` | Export backup | Abre seletor do sistema |
-| `backup_import` | Import backup | Valida antes de mutar |
-| `backup_export_success` | Backup exported. Keep the file somewhere safe. | Sem prometer recuperação |
-| `backup_export_failed` | Backup could not be exported. Your current progress is unchanged. | Erro seguro |
-| `backup_invalid` | This file is not a valid supported backup. Your current progress is unchanged. | Validação |
-| `backup_too_new` | This backup was made by a newer game version and cannot be restored here. | Compatibilidade |
-| `backup_preview_title` | Review backup | Antes da restauração |
-| `backup_preview_date` | Created: {date} | Data local |
-| `backup_preview_version` | Game version: {version} | LTR em RTL |
-| `backup_preview_total` | Total Aura: {amount} | Resumo minimizado |
-| `backup_replace_warning` | Restoring replaces the progress currently on this device. This cannot be undone. | Perda explícita |
-| `backup_restore` | Restore this backup | Confirmação destrutiva |
-| `backup_restore_success` | Backup restored. | Após gravação atômica |
-| `backup_restore_failed` | The backup could not be restored. Your previous progress is still active. | Rollback |
+| `cloud_save_title` | Progress sync | Cabeçalho em Ajustes |
+| `cloud_save_sync_now` | Sync now | Retry/manual sem sugerir arquivo |
+| `cloud_save_syncing` | Syncing… | Operação única em andamento |
+| `cloud_save_synced` | Synced with Google Play Games | Confirmação remota |
+| `cloud_save_pending` | Sync pending | Save local seguro |
+| `cloud_save_offline` | Offline. Progress saved on this device. | Não bloqueante |
+| `cloud_save_unauthenticated` | Connect to Google Play Games to sync your progress. | Perfil Gamer |
+| `cloud_save_conflict_title` | We found two different progress saves | Conflito ambíguo |
+| `cloud_save_later` | Decide later | Preserva os candidatos |
+| `cloud_save_retry` | Try again | Falha recuperável |
 
 ## Ajustes e acessibilidade
 
@@ -282,7 +278,7 @@
 | ID | `en-US` | Contexto / observação |
 | --- | --- | --- |
 | `store_short_description` | Two taps. Infinite Aura. Build your style and shift the whole scene. | Até 80 caracteres na fonte; revalidar limite por locale |
-| `store_full_description` | Tap twice to complete a Six-Seven Cycle and farm Aura. Build active Techniques, grow three equally strong Aura Tree paths, collect Appearances, unlock Transformations, and Ascend for permanent momentum.\n\nPlay your way:\n• Active and passive progress\n• Up to 4 hours of Offline Production\n• Optional rewarded ads only\n• No account, required connection, or in-app purchases\n• Manual Backup, accessibility controls, and 8 languages\n\nAura Shift: Six Seven is a trend-driven incremental game for ages 13 and up. | Corpo da ficha Google Play; quebras são semânticas |
+| `store_full_description` | Tap twice to complete a Six-Seven Cycle and farm Aura. Build active Techniques, grow three equally strong Aura Tree paths, collect Appearances, unlock Transformations, and Ascend for permanent momentum.\n\nPlay your way:\n• Active and passive progress\n• Up to 4 hours of Offline Production\n• Optional rewarded ads only\n• No required connection or in-app purchases\n• Play Games cloud save, accessibility controls, and 8 languages\n\nAura Shift: Six Seven is a trend-driven incremental game for ages 13 and up. | Corpo da ficha Google Play; quebras são semânticas |
 | `store_feature_graphic_alt` | Mascot switching oversized hands between Six and Seven as Aura fills the scene. | Alt-text/briefing de asset promocional |
 
 ## Conteúdo cultural integrado

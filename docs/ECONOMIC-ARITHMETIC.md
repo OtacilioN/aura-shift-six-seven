@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Aritmética Econômica Exata
 
-> Status: representação e ordem econômica `arith-v1` implementadas; `balance-v0.3` reutiliza a mesma precisão inteira e mantém a fórmula de Ascensão introduzida em `balance-v0.2`.
+> Status: representação e ordem econômica `arith-v1` implementadas; `balance-v0.4` reutiliza a mesma precisão inteira e substitui a curva de Ascensão de `balance-v0.3`.
 
 ## Objetivo
 
@@ -122,17 +122,17 @@ O cálculo não usa `0,7` em ponto flutuante. Ao iniciar o anúncio, a transaç�
 
 ## Ascensão
 
-A transação de Ascensão somente é elegível quando `J ≥ Jmín = 10¹⁵`. `L` é a Aura acumulada sacrificada em todas as Ascensões confirmadas e `L' = L + J`. Para qualquer acumulado inteiro, o bônus em centésimos é o maior inteiro `B` que satisfaz:
+A transação de Ascensão somente é elegível quando `J ≥ Jmín = 10¹⁵`. `L` é a Aura Ascendida acumulada em todas as Ascensões confirmadas e `L' = L + J`. Para qualquer multiplicador candidato inteiro `A ≥ 100`, em centésimos, seu requisito é:
 
-`B² × 10¹¹ ≤ L`
+`L_req(A) = ceil(10¹⁵ × (A−100) × A × (2A−100) ÷ 6.000.000)`
 
-O Multiplicador total é derivado diretamente do acumulado:
+O Multiplicador total é derivado diretamente do acumulado como:
 
-`A(L) = 100 + B(L)`
+`A(L) = max { A inteiro ≥ 100 | L_req(A) ≤ L }`
 
 O ganho apresentado pela próxima Ascensão é `G = A(L') − A(L)`. A prévia e a confirmação usam o mesmo cálculo inteiro. Antes de confirmar, o jogo integra a produção aberta até o timestamp da ação, atualiza `J` e recalcula a prévia. A transação persiste `L'`, `A(L')`, reinícios e contagem atomicamente. Aura Total e `R` permanecem; Aura Disponível e Aura da Jornada voltam a zero.
 
-Essa definição é invariável à partição: quatro Ascensões de `1Qa` e uma Ascensão de `4Qa` acumulam o mesmo `L=4Qa` e resultam em `A=300`. Saves anteriores sem `L` são migrados uma vez. Para `N>0` Ascensões antigas e bônus anterior `B_antigo=max(0,A_antigo−100)`, usa-se `L=max(N×1Qa, floor(B_antigo²×10¹¹/N))`; para `N=0`, usa-se `B_antigo²×10¹¹`. O snapshot offline já registrado não é recalculado.
+Para multiplicadores inteiros `n×`, o requisito equivale a `10¹⁵ × Σ(k²), k=1..n−1`; assim, `n×→(n+1)×` custa exatamente `n² Qa`. A definição continua invariável à partição. Saves `balance-v0.2` e `balance-v0.3` preservam o `L` registrado e reconciliam `A` pela curva nova. Saves anteriores sem `L` derivam esse acumulado uma única vez pela regra histórica. O snapshot offline já registrado não é recalculado.
 
 ## Ordem econômica normativa
 

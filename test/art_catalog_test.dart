@@ -10,9 +10,9 @@ void main() {
         .readAsStringSync();
     final catalog = ArtCatalog.fromJson(source);
     final runtimeIds = catalog.records.map((record) => record.id).toSet();
-    expect(runtimeIds, hasLength(203));
+    expect(runtimeIds, hasLength(202));
     expect(AuraArtSelection.sceneRuntimeIds, hasLength(120));
-    expect(AuraUiArt.mappedRuntimeIds, hasLength(83));
+    expect(AuraUiArt.mappedRuntimeIds, hasLength(82));
     expect(
       AuraArtSelection.sceneRuntimeIds.intersection(AuraUiArt.mappedRuntimeIds),
       isEmpty,
@@ -26,7 +26,7 @@ void main() {
     final catalog = ArtCatalog.fromJson(source);
     final icons = catalog.records.where((record) => record.family == 'icons');
 
-    expect(icons, hasLength(22));
+    expect(icons, hasLength(21));
     for (final icon in icons) {
       expect(icon.size.width, greaterThanOrEqualTo(192),
           reason: '${icon.id} must provide a 3x raster at 64px');

@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Catálogo Cultural do MVP
 
-> Status: catálogo revisado em 11 de julho de 2026 com humor sistêmico e feedback visual; economia atualizada para `balance-v0.3`. Nomes são `en-US` e podem ser transcriados sem alterar IDs ou função.
+> Status: catálogo revisado em 11 de julho de 2026 com humor sistêmico e feedback visual; economia atualizada para `balance-v0.4`. Nomes são `en-US` e podem ser transcriados sem alterar IDs ou função.
 
 ## Contratos invariáveis
 
@@ -81,7 +81,7 @@ Os Orçamentos de Amplitude permanecem `16.461`, `44.288.124` e `1.452.336.002.6
 | `TECH-03` | **Ghost Timing** | `The next move leaves an echo behind.` | `1M` | `67.000`; `+500 Aura/ciclo` | afterimage único e eco tonal; versão reduzida usa contorno | baixo; `ghost` pode exigir equivalente não sobrenatural |
 | `TECH-04` | **Double Take** | `The motion lands twice. The reward lands once.` | `1B` | `67.000.000`; `+500.000 Aura/ciclo` | dois impactos visuais, um crédito claramente na Seven | médio: QA obrigatório para não sugerir recompensa dupla |
 | `TECH-05` | **Zero-Drag** | `Nothing slows the shift.` | `1T` | `67.000.000.000`; `+500.000.000 Aura/ciclo` | smear curto e ataque sonoro limpo, sem acelerar economia | baixo; não prometer remoção de limite técnico |
-| `TECH-06` | **Perfect Shift** | `Six moves. Seven closes the signal.` | `1Qa` | `67.000.000.000.000`; `+500.000.000.000 Aura/ciclo` | arco total Six→Seven, acorde original e haptic médio | baixo; “perfect” descreve ficção, não precisão exigida |
+| `TECH-06` | **FortyTwo** | `You finally found the answer. Unfortunately, it doesn't explain how to stop farming aura.` | `1Qa` | `67.000.000.000.000`; `+500.000.000.000 Aura/ciclo` | arco total Six→Seven, acorde original e haptic médio | baixo; `FortyTwo` é referência cultural invariável e não deve ser localizado |
 
 Técnicas não possuem pré-requisito entre si. Ascensão reinicia níveis, preserva desbloqueios. Os Marcos alteram apresentação, nunca a quantidade de toques, o limite de entrada ou a regra de crédito.
 

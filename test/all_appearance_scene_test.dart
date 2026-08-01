@@ -83,12 +83,12 @@ void main() {
           ),
         );
         await tester.pump();
-        await pumpAppearanceLayers(tester, scene, 51);
+        await pumpAppearanceLayers(tester, scene, 48);
         await tester.pump(const Duration(milliseconds: 200));
 
         expect(tester.takeException(), isNull);
         expect(scene.debugActiveAppearanceCount, itemIds.length);
-        expect(scene.debugLoadedAppearanceLayerCount, 51);
+        expect(scene.debugLoadedAppearanceLayerCount, 48);
         await expectLater(
           find.byKey(boundaryKey),
           matchesGoldenFile('goldens/item_scenes/all_appearances.png'),
@@ -97,13 +97,13 @@ void main() {
         controller.setBool('reduceMotion', true);
         tester.view.physicalSize = const Size(512, 640);
         await tester.pump();
-        await pumpAppearanceLayers(tester, scene, 17);
+        await pumpAppearanceLayers(tester, scene, 16);
         await tester.pump(const Duration(milliseconds: 200));
 
         expect(tester.takeException(), isNull);
         expect(scene.debugActiveAppearanceCount, itemIds.length);
-        expect(scene.debugLoadedAppearanceLayerCount, 17);
-        expect(scene.debugRequestedAppearanceLayerCount, 17);
+        expect(scene.debugLoadedAppearanceLayerCount, 16);
+        expect(scene.debugRequestedAppearanceLayerCount, 16);
       } finally {
         await tester.pumpWidget(const SizedBox.shrink());
         audio.dispose();

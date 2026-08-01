@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Topologia da Árvore de Aura
 
-> Status: grafo, Pré-requisitos e Patamares preservados em `balance-v0.3`; composição visual única com Técnicas integrada em 12 de julho de 2026.
+> Status: grafo, Pré-requisitos e Patamares preservados em `balance-v0.4`; composição visual única com Técnicas integrada em 12 de julho de 2026.
 
 ## Visão geral
 

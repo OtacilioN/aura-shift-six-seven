@@ -48,6 +48,7 @@ CONTENT_IDS = (
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_]*)\b")
 LOCAL_LINK = re.compile(r"\[[^\]]+\]\((?!https?://|mailto:|#)([^)#]+)(?:#[^)]+)?\)")
 BIDI_MARK = re.compile("[\u202a-\u202e\u2066-\u2069]")
+INVARIANT_COPY = {"content.tech_06.name": "FortyTwo"}
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -118,6 +119,9 @@ def check_catalogs(errors: list[str]) -> None:
                 fail(errors, f"{locale}:{key}: string vazia")
             if BIDI_MARK.search(catalog[key]):
                 fail(errors, f"{locale}:{key}: marca bidi persistida; isolamento pertence à UI")
+        for key, expected_value in INVARIANT_COPY.items():
+            if catalog.get(key) != expected_value:
+                fail(errors, f"{locale}:{key}: deve permanecer `{expected_value}`")
         short_description = catalog.get("store_short_description", "")
         if len(short_description) > 80:
             fail(errors, f"{locale}: store_short_description excede 80 caracteres ({len(short_description)})")
@@ -131,6 +135,9 @@ def check_catalogs(errors: list[str]) -> None:
             actual = sorted(PLACEHOLDER.findall(pseudo[key]))
             if actual != expected:
                 fail(errors, f"{PSEUDO_LOCALE}:{key}: placeholders {actual} != {expected}")
+        for key, expected_value in INVARIANT_COPY.items():
+            if pseudo.get(key) != expected_value:
+                fail(errors, f"{PSEUDO_LOCALE}:{key}: deve permanecer `{expected_value}`")
 
     for locale in (*LOCALES, PSEUDO_LOCALE):
         source_path = L10N / f"{locale}.json"

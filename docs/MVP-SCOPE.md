@@ -47,7 +47,7 @@ Definir uma fronteira verificável para lançar o jogo sem ampliar silenciosamen
 - oito locales: `en-US`, `pt-BR`, `es-419`, `fr-FR`, `de-DE`, `id`, `ja-JP` e `ar`;
 - suporte RTL completo para árabe;
 - pacote de acessibilidade aprovado;
-- save local automático e Backup Manual;
+- save local automático e sincronização por Saved Games;
 - experiência principal offline e sem conta;
 - Google Mobile Ads exclusivamente recompensado nos placements Bônus de Retorno e Complemento de Aura;
 - tratamento publicitário `TEEN`, consentimento aplicável e Play Age Signals isolado;
@@ -93,7 +93,7 @@ O MVP somente está pronto para candidatura à produção quando:
 4. os oito idiomas passam pelo pipeline multiagente e QA de layout;
 5. acessibilidade e alternativas reduzidas funcionam;
 6. anúncios, consentimentos, Analytics e diagnóstico respeitam suas regras;
-7. save, Backup Manual, migração e retomada não perdem progresso;
+7. save, sincronização, migração e retomada não perdem progresso;
 8. o AAB candidato passa nas verificações de API, 16 KB, desempenho e políticas;
 9. o teste fechado obrigatório é concluído e seus problemas bloqueadores são resolvidos;
 10. o usuário aprova explicitamente a submissão.

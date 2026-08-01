@@ -1,6 +1,6 @@
 # Aura Shift: Six Seven — Design de Economia
 
-> Status: estrutura e precisão `arith-v1` aprovadas; parâmetros candidatos `balance-v0.3` substituem `balance-v0.2` e ainda aguardam a matriz de simulação.
+> Status: estrutura e precisão `arith-v1` aprovadas; parâmetros candidatos `balance-v0.4` substituem `balance-v0.3` e ainda aguardam a matriz de simulação.
 
 ## Objetivos
 
@@ -185,7 +185,7 @@ O Multiplicador de Ascensão é aplicado uma única vez depois de cada soma. Cá
 
 Esse modelo combina custos geométricos, ganhos aditivos e saltos de marco. Ele evita tanto a dominância permanente causada por custos lineares quanto a instabilidade de ganhos exponenciais puros por nível. Se uma Compra em Lote atravessar vários marcos, todos os fatores são aplicados, mas a interface usa uma celebração consolidada.
 
-### Escada econômica dos ramos — `balance-v0.3`
+### Escada econômica dos ramos — `balance-v0.4`
 
 | Profundidade | Custo-base de `A/B/C` | Contribuição-base | Gate | Investimento exato | Contribuição no gate |
 | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -203,7 +203,7 @@ A escada de contribuição, expressa em `Aura/s por nível`, é deliberadamente 
 
 No último item, as contribuições antes da Ascensão são `67.000.000 Aura/s` no nível `1`, `1.340.000.000 Aura/s` no nível `10`, `6.700.000.000 Aura/s` no nível `25`, `26.800.000.000 Aura/s` no nível `50` e `107.200.000.000 Aura/s` no nível `100`. Essas fixtures tornam explícito o salto mais sensível da escada e devem ser confrontadas com a janela `1T→1Qa`.
 
-Os números são o baseline identificado `balance-v0.3`, não constantes imunes a teste. Uma mudança posterior só é aceita em nova versão e deve atualizar conjuntamente todas as tabelas e fixtures numéricas.
+Os números são o baseline identificado `balance-v0.4`, não constantes imunes a teste. Uma mudança posterior só é aceita em nova versão e deve atualizar conjuntamente todas as tabelas e fixtures numéricas.
 
 ## Progressão da Loja
 
@@ -222,7 +222,7 @@ As seis Técnicas formam uma trilha paralela sem Pré-requisitos internos: `TECH
 
 Depois da exceção inicial de `TECH-01`, cada custo-base equivale exatamente a `6,7%` do Patamar que revelou a Técnica. Isso a torna uma recompensa economicamente próxima, mas não gratuita. Em jornadas posteriores, o desbloqueio permanente permite vê-la desde cedo, enquanto o custo crescente ainda controla o momento da recompra.
 
-Em `balance-v0.3`, o custo-base continua crescendo `1.000×` por Técnica depois de `TECH-02`. A contribuição de `TECH-03` a `TECH-06` é `500`, `500.000`, `500.000.000` e `500.000.000.000 Aura/ciclo` por nível: a partir de `TECH-03`, ela também cresce `1.000×` entre entradas. Em relação a `balance-v0.2`, é um nerf uniforme de `10×` dessas quatro Técnicas, sem alterar custos, desbloqueios ou saves. A eficiência-base de cada uma é exatamente `1/134`, metade da eficiência `5/67` de `TECH-02`, preservando espaço para a Produção Passiva.
+Em `balance-v0.4`, o custo-base continua crescendo `1.000×` por Técnica depois de `TECH-02`. A contribuição de `TECH-03` a `TECH-06` é `500`, `500.000`, `500.000.000` e `500.000.000.000 Aura/ciclo` por nível: a partir de `TECH-03`, ela também cresce `1.000×` entre entradas. Os valores de Técnica introduzidos em `balance-v0.3` permanecem inalterados. A eficiência-base de cada uma é exatamente `1/134`, metade da eficiência `5/67` de `TECH-02`, preservando espaço para a Produção Passiva.
 
 Níveis não possuem limite econômico planejado. A Loja permite `×1`, `×10` e `MÁX`. O custo de `×10` é a soma real dos próximos dez níveis; `MÁX` compra a maior quantidade inteira pagável. O Complemento de Aura é restrito a uma aquisição ou nível em `×1` e nunca cobre Compra em Lote.
 
@@ -269,26 +269,30 @@ A progressão de longo prazo inclui uma Ascensão de Aura voluntária, disponív
 
 A Coleção Visual e a personalização equipada também permanecem; efeitos econômicos dos itens ficam inativos até a readquisição.
 
-Cada Ascensão acrescenta a Aura da Jornada sacrificada a um acumulado permanente `L`. O Multiplicador de Ascensão derivado desse acumulado é aplicado às jornadas seguintes. A confirmação deve deixar perdas, preservações e ganhos explícitos. A ação não depende de anúncio ou pagamento.
+Cada Ascensão consolida a Aura da Jornada como Aura Ascendida em um acumulado permanente `L`. O Multiplicador de Ascensão derivado desse acumulado é aplicado às jornadas seguintes. A confirmação deve deixar reinícios, preservações e ganhos explícitos. A ação não depende de anúncio ou pagamento.
 
-Toda Ascensão exige ao menos `1Qa` de Aura da Jornada. Para `J` igual à Aura da Jornada atual, a transação calcula `L' = L + J`. O multiplicador em centésimos é:
+Toda Ascensão exige ao menos `1Qa` de Aura da Jornada. Para `J` igual à Aura da Jornada atual, a transação calcula `L' = L + J`. Para um multiplicador candidato inteiro `A ≥ 100`, em centésimos, o requisito é:
 
-`A(L) = 100 + floor(√(L ÷ 10¹¹))`
+`L_req(A) = ceil(1Qa × (A−100) × A × (2A−100) ÷ 6.000.000)`
 
-O ganho mostrado e persistido na Ascensão é:
+O multiplicador e o ganho mostrado são:
+
+`A(L) = max { A inteiro ≥ 100 | L_req(A) ≤ L }`
 
 `G = A(L') − A(L)`
 
-`100` unidades correspondem a `1,00×`. A implementação usa raiz quadrada inteira equivalente, sem ponto flutuante. A mesma Aura vitalícia sacrificada produz o mesmo multiplicador independentemente de ser dividida entre muitas Ascensões ou concentrada em jornadas longas.
+`100` unidades correspondem a `1,00×`. A implementação usa somente inteiros e busca binária, sem ponto flutuante. A mesma Aura Ascendida produz o mesmo multiplicador independentemente de ser dividida entre muitas Ascensões ou concentrada em jornadas longas.
 
-| Aura da Jornada | Parcela | Total após primeira Ascensão |
-| ---: | ---: | ---: |
-| `1Qa` | `+1,00×` | `2,00×` |
-| `2Qa` | `+1,41×` | `2,41×` |
-| `4Qa` | `+2,00×` | `3,00×` |
-| `9Qa` | `+3,00×` | `4,00×` |
+| Aura Ascendida acumulada | Total |
+| ---: | ---: |
+| `1Qa` | `2,00×` |
+| `2Qa` | `2,36×` |
+| `4Qa` | `2,82×` |
+| `9Qa` | `3,52×` |
+| `285Qa` | `10,00×` |
+| `385Qa` | `11,00×` |
 
-A raiz quadrada aumenta a recompensa acumulada de forma sublinear e não possui teto. Depois da confirmação, a Aura da Jornada volta a zero e uma nova Ascensão exige produzir outro `1Qa`. Em jornadas mínimas, os totais após `1`, `2`, `3`, `5` e `10` Ascensões são `2,00×`, `2,41×`, `2,73×`, `3,23×` e `4,16×`; no modelo anterior seriam `2×`, `3×`, `4×`, `6×` e `11×`.
+Nos multiplicadores inteiros, o requisito acumulado é a soma dos quadrados: `L_req(100n)=1Qa×Σ(k²), k=1..n−1`. Logo, `n×→(n+1)×` custa `n² Qa`. `1×→2×` continua em `1Qa`; `10×→11×` passa a exigir `100Qa`, cerca de dez vezes o tempo-base quando a produção já está multiplicada por dez. Depois da confirmação, a Aura da Jornada volta a zero e uma nova Ascensão exige produzir outro `1Qa`. Em jornadas mínimas, os totais após `1`, `2`, `3`, `5` e `10` Ascensões são `2,00×`, `2,36×`, `2,62×`, `3,00×` e `3,63×`.
 
 Nas simulações, a política-base Ascende em `1Qa`; sensibilidades esperam `2Qa`, `4Qa` e `9Qa`. Cada uma percorre pelo menos três Ascensões para medir a troca entre bônus por Aura, frequência de reinício e tempo de reconstrução. Essas políticas não orientam automaticamente jogadores reais.
 
@@ -298,4 +302,4 @@ O multiplicador é sempre recalculado a partir de `L`, nunca multiplicado por si
 
 ## Estado do modelo
 
-Parâmetros do catálogo, aritmética e apresentação numérica estão definidos e versionados como `balance-v0.3`, `arith-v1` e `number-format-v1`. A próxima etapa econômica é executar `balance-v0.3` contra `balance-gate-v1`; ajustes posteriores somente podem entrar em uma nova versão identificada.
+Parâmetros do catálogo, aritmética e apresentação numérica estão definidos e versionados como `balance-v0.4`, `arith-v1` e `number-format-v1`. A próxima etapa econômica é executar `balance-v0.4` contra `balance-gate-v1`; ajustes posteriores somente podem entrar em uma nova versão identificada.

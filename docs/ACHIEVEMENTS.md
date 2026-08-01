@@ -7,7 +7,7 @@
 - seis Conquistas são visíveis desde o início e sete permanecem ocultas até o desbloqueio;
 - Conquistas são locais, permanentes, idempotentes e puramente comemorativas;
 - não concedem Aura, itens, aparência, multiplicador ou desbloqueio;
-- permanecem após Ascensões e integram save e Backup Manual;
+- permanecem após Ascensões e integram o save sincronizado;
 - Selos 67 continuam em coleção separada.
 
 ## Visíveis
@@ -37,7 +37,7 @@ Antes do desbloqueio, UI e tecnologia assistiva mostram apenas `Secret achieveme
 
 ## Ordem e idempotência
 
-Cada gatilho registra primeiro `achievementId`, instante monotônico/lógico aplicável e versão da regra; só então agenda a apresentação. Reabrir, importar Backup Manual ou repetir o evento não cria duplicata.
+Cada gatilho registra primeiro `achievementId`, instante monotônico/lógico aplicável e versão da regra; só então agenda a apresentação. Reabrir, restaurar da nuvem ou repetir o evento não cria duplicata.
 
 Quando vários eventos ocorrem na mesma transação:
 
@@ -67,7 +67,7 @@ Quando vários eventos ocorrem na mesma transação:
 ## QA obrigatório
 
 1. disparo único antes e depois de Ascensão;
-2. importação de save já desbloqueado;
+2. restauração cloud de save já desbloqueado;
 3. compra em lote e Complemento não acionando `Exact Balance` indevidamente;
 4. relógio civil alterado não acionando `Held the Pose`, que usa tempo monotônico;
 5. ausência inválida não acionando `Quiet Hours`;

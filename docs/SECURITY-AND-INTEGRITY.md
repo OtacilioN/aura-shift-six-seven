@@ -17,7 +17,7 @@ O aparelho e o jogador controlam o ambiente em que a experiência principal e o 
 
 ## Fora do escopo inicial
 
-- impedir compartilhamento de Backup Manual;
+- impedir que um cliente modificado adultere o próprio save;
 - garantir que o jogador não modificou o próprio save ou cliente;
 - banir jogadores por alterações locais;
 - sustentar rankings competitivos a partir de dados locais;
@@ -30,9 +30,12 @@ O aparelho e o jogador controlam o ambiente em que a experiência principal e o 
 
 Falhas de gravação, arquivos incompletos ou versões incompatíveis podem impedir leitura ou causar perda. O planejamento exige validação antes da substituição, gravação segura e preservação do estado anterior quando uma operação falhar.
 
-### Compartilhamento de saves
+### Associação do save
 
-Um Backup Manual portátil pode ser copiado e publicado. Como não existe identidade vinculada, duas instalações não podem provar qual jogador originou o arquivo.
+O remoto é associado ao Player ID do perfil Gamer, nunca ao nome visível.
+Trocar de conta não autoriza copiar silenciosamente a jornada anterior para a
+nova conta. Essa associação ajuda a evitar mistura acidental, mas não prova que
+o cliente não foi modificado.
 
 ### Manipulação do save ou aplicativo
 
@@ -51,7 +54,7 @@ Em um cliente modificado, cotas ou recompensas locais podem ser falsificadas. Va
 - formato de save versionado;
 - validação estrutural e limites plausíveis;
 - verificação de integridade contra corrupção e edição casual;
-- importação com prévia e confirmação;
+- conflito ambíguo com comparação e confirmação;
 - gravações recuperáveis que preservem o último estado válido;
 - tratamento moderado de mudanças de relógio;
 - separação futura entre estado local e qualquer dado competitivo autoritativo.

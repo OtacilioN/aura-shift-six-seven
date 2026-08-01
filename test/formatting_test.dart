@@ -15,6 +15,26 @@ void main() {
       expect(AuraFormat.rate(BigInt.from(15000)), '7.5');
       expect(AuraFormat.exactRate(BigInt.from(21009)), '10.5045');
     });
+    test('groups complete values and exact rates for their locale', () {
+      expect(
+        AuraFormat.exactInteger(
+          BigInt.parse('1000000000000'),
+          locale: 'pt-BR',
+        ),
+        '1.000.000.000.000',
+      );
+      expect(
+        AuraFormat.exactInteger(BigInt.parse('1000000000000')),
+        '1,000,000,000,000',
+      );
+      expect(
+        AuraFormat.exactRate(
+          BigInt.parse('2000001000'),
+          locale: 'pt-BR',
+        ),
+        '1.000.000,5',
+      );
+    });
     test('formats return durations without second-level noise', () {
       expect(AuraFormat.duration(const Duration(minutes: 9)), '9min');
       expect(AuraFormat.duration(const Duration(hours: 4)), '4h');

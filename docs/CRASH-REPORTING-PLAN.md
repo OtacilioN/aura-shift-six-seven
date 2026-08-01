@@ -38,7 +38,7 @@ O lançamento proíbe:
 - chaves e logs personalizados;
 - mensagens arbitrárias ou texto livre;
 - registro manual de exceções não fatais;
-- conteúdo do save ou Backup Manual;
+- conteúdo do save local/cloud;
 - valores exatos de Aura ou preços;
 - Play Age Signals;
 - habilitação silenciosa de Analytics.
@@ -96,7 +96,7 @@ A configuração vive no console e deve integrar o checklist de teste fechado e 
 7. Payload não contém campos proibidos.
 8. Analytics desativado não produz breadcrumbs de produto.
 9. Analytics ativado inclui, no máximo, breadcrumbs da taxonomia permitida.
-10. Backup Manual não contém relatório nem decisão de diagnóstico.
+10. O save sincronizado não contém relatório nem decisão de diagnóstico.
 11. Os oito idiomas apresentam escolhas equivalentes, legíveis e sem coerção.
 12. Métricas de estabilidade são rotuladas como cobertura autorizada incompleta.
 13. Crash Insights aparece desativado no console e relatórios próprios continuam funcionais.

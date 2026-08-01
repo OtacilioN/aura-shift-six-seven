@@ -10,6 +10,8 @@ val uploadKeyPassword = System.getenv("AURA_SHIFT_UPLOAD_KEY_PASSWORD")
 val uploadKeyAlias = System.getenv("AURA_SHIFT_UPLOAD_KEY_ALIAS") ?: "aura-shift-upload"
 val testAdMobAppId = "ca-app-pub-3940256099942544~3347511713"
 val productionAdMobAppId = "ca-app-pub-1879801690271355~3301040623"
+val playGamesProjectId =
+    System.getenv("PGS_GAME_PROJECT_ID")?.takeIf { it.isNotBlank() } ?: "293539263998"
 val hasUploadSigning = listOf(
     uploadStoreFile,
     uploadStorePassword,
@@ -28,6 +30,9 @@ if (
 android {
     namespace = "com.otaciliomaia.aurashiftsixseven"
     compileSdk = flutter.compileSdkVersion
+    buildFeatures {
+        resValues = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -46,6 +51,7 @@ android {
         versionName = flutter.versionName
         // Debug/profile builds use Google's official test inventory.
         manifestPlaceholders["ADMOB_APP_ID"] = testAdMobAppId
+        resValue("string", "game_services_project_id", playGamesProjectId)
     }
 
     signingConfigs {
@@ -73,6 +79,7 @@ android {
 
 dependencies {
     implementation("com.google.android.play:age-signals:0.0.3")
+    implementation("com.google.android.gms:play-services-games-v2:21.0.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 

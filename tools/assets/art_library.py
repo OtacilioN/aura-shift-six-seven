@@ -1273,7 +1273,7 @@ ICON_IDS = (
     "icon_phase_six", "icon_phase_seven", "icon_technique", "icon_aura_item",
     "icon_appearance", "icon_item_effect", "icon_transformation", "icon_seal",
     "icon_achievement", "icon_ascension", "icon_lock", "icon_info",
-    "icon_backup", "icon_rewarded_ad",
+    "icon_rewarded_ad",
 )
 
 
@@ -1291,7 +1291,15 @@ def _icon_builder(asset_id: str) -> Callable[[AssetSpec], str]:
         elif name == "nav_settings":
             shapes = [tag("path", d="M18 24 H78 M18 48 H78 M18 72 H78", **base_attrs), tag("circle", cx=34, cy=24, r=8, fill=CYAN), tag("circle", cx=62, cy=48, r=8, fill=MAGENTA), tag("circle", cx=42, cy=72, r=8, fill=GOLD)]
         elif name == "aura_available":
-            shapes = [tag("path", d="M48 8 C72 28 80 48 72 68 C64 88 32 88 24 68 C16 48 24 28 48 8 Z", fill=VIOLET, stroke=I9, stroke_width=5), tag("path", d="M48 28 V66", stroke=PAPER, stroke_width=6, stroke_linecap="round")]
+            # Two interlocking flame ribbons keep the supplied reference's
+            # cyan/violet aura read, but remain distinct and crisp at 34 px.
+            shapes = [
+                tag("path", d="M45 8 C60 22 65 38 58 51 C51 65 35 68 31 82 C22 70 21 57 27 45 C33 33 40 24 45 8 Z", fill=CYAN, stroke=I9, stroke_width=5),
+                tag("path", d="M59 26 C75 42 81 61 75 74 C69 87 56 91 43 86 C57 80 65 70 63 59 C60 47 56 39 59 26 Z", fill=MAGENTA, stroke=I9, stroke_width=5),
+                tag("path", d="M45 18 C53 31 53 42 46 52 C40 61 34 68 34 76", fill="none", stroke=PAPER, stroke_width=4, stroke_linecap="round"),
+                tag("path", d="M58 35 C66 49 66 60 60 69 C55 77 49 81 43 83", fill="none", stroke=VIOLET, stroke_width=4, stroke_linecap="round"),
+                tag("circle", cx=48, cy=62, r=5, fill=PAPER, stroke=CYAN, stroke_width=3),
+            ]
         elif name == "aura_total":
             shapes = [tag("circle", cx=48, cy=48, r=34, **base_attrs), tag("path", d="M48 24 V72 M24 48 H72", stroke=GOLD, stroke_width=6, stroke_linecap="round")]
         elif name == "passive_rate":
@@ -1321,8 +1329,6 @@ def _icon_builder(asset_id: str) -> Callable[[AssetSpec], str]:
             shapes = [tag("rect", x=20, y=42, width=56, height=42, rx=10, **base_attrs), tag("path", d="M32 42 V30 Q32 14 48 14 Q64 14 64 30 V42", **base_attrs)]
         elif name == "info":
             shapes = [tag("circle", cx=48, cy=48, r=36, **base_attrs), tag("circle", cx=48, cy=30, r=4, fill=CYAN), tag("path", d="M48 44 V68", stroke=PAPER, stroke_width=6, stroke_linecap="round")]
-        elif name == "backup":
-            shapes = [tag("path", d="M18 18 H68 L80 30 V78 H18 Z", **base_attrs), tag("rect", x=30, y=18, width=30, height=22, **base_attrs), tag("rect", x=30, y=56, width=36, height=22, **base_attrs)]
         else:
             shapes = [tag("rect", x=12, y=22, width=72, height=52, rx=14, **base_attrs), tag("path", d="M40 34 L66 48 L40 62 Z", fill=CYAN, stroke=I9, stroke_width=4), tag("path", d="M18 16 L30 6 M78 16 L66 6", stroke=GOLD, stroke_width=6, stroke_linecap="round")]
         return svg_document(spec, group(asset_id, shapes))
@@ -1382,5 +1388,5 @@ EXPECTED_FAMILY_COUNTS = {
     "seals": 4,
     "events": 6,
     "badges": 13,
-    "icons": 22,
+    "icons": 21,
 }

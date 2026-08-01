@@ -58,7 +58,10 @@ class ReturnReminderNotifications {
     required String title,
     required String body,
   }) async {
-    await cancel();
+    // The fixed notification ID already makes the platform replace an older
+    // reminder. Avoid a separate cancel round-trip here: this method is called
+    // while the app is moving to the background and the Dart isolate may be
+    // suspended before a second platform call can register the new alarm.
     await _plugin.zonedSchedule(
       _notificationId,
       title,
@@ -71,6 +74,10 @@ class ReturnReminderNotifications {
           channelDescription: _channelDescription,
           importance: Importance.defaultImportance,
           priority: Priority.defaultPriority,
+        ),
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentSound: true,
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,

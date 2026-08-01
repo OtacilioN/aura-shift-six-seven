@@ -24,7 +24,7 @@ python3 tools/assets/generate_art_assets.py
 python3 tools/assets/validate_art_assets.py --determinism
 ```
 
-The full determinism check regenerates all 203 runtime manifest entries under a
+The full determinism check regenerates all 202 runtime manifest entries under a
 temporary root and compares the manifest, SVG sources, PNG, WebP, and provenance
 files byte for byte.
 

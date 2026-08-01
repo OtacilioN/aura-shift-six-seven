@@ -6,7 +6,8 @@ Repositório de planejamento de **Aura Shift: Six Seven**, um jogo incremental m
 
 O repositório agora contém a fundação executável do MVP em Flutter/Flame. O
 domínio econômico (`arith-v1`), Ciclo Six-Seven, produção passiva/offline,
-Loja, Árvore de Aura, Coleção, Ascensão, save local, Backup Manual e os oito
+Loja, Árvore de Aura, Coleção, Ascensão, save local, sincronização pelo Google
+Play Games e os oito
 catálogos de localização estão implementados e possuem análise/testes locais.
 As 18 Aparências equipáveis também são compostas na arena conforme slot, nível e
 Movimento Reduzido; o catálogo revisado usa humor sistêmico sem alterar a economia.
@@ -33,7 +34,7 @@ flutter run
 
 - o conceito, o escopo do MVP e os sistemas centrais estão aprovados;
 - a economia possui parâmetros candidatos e contratos exatos prontos para simulação;
-- `balance-v0.3` substitui `balance-v0.2` com nerf uniforme de `10×` em `TECH-03` a `TECH-06`, preserva os ajustes de entrada e Ascensão anteriores e ainda precisa passar integralmente por `balance-gate-v1` para ser considerado balanceamento final;
+- `balance-v0.4` preserva o nerf de Técnicas de `balance-v0.3` e torna o custo de `n×→(n+1)×` igual a `n² Qa`; ainda precisa passar integralmente por `balance-gate-v1` para ser considerado balanceamento final;
 - P01–P11 possuem artefatos documentais auditados: título/voz, 42 slots, UX/UI, arte, motion, áudio, acessibilidade, copy e oito catálogos de 261 strings;
 - o estado `APPROVED` do pacote histórico refere-se ao planejamento registrado
   em `docs/USER-APPROVAL-PACKET.md`, não à aprovação dos assets produzidos;
@@ -57,7 +58,8 @@ flutter run
 
 | Contrato | Papel | Estado |
 | --- | --- | --- |
-| `balance-v0.3` | parâmetros econômicos candidatos; substitui `balance-v0.2` | implementado, pronto para simulação, ainda não validado |
+| `balance-v0.4` | parâmetros econômicos candidatos; substitui `balance-v0.3` | implementado, pronto para simulação, ainda não validado |
+| `balance-v0.3` | nerf uniforme de Técnicas tardias; substituiu `balance-v0.2` | histórico, migrável |
 | `arith-v1` | aritmética inteira exata e ordem transacional | aprovado para planejamento e simulação |
 | `number-format-v1` | apresentação de inteiros, taxas e grandes magnitudes | aprovado |
 | `balance-gate-v1` | critérios binários de aceitação da economia | definido; execução integral pendente |
@@ -109,7 +111,8 @@ flutter run
 - [Privacidade e proteção etária](docs/PRIVACY-AND-YOUTH-SAFETY.md)
 - [Analytics](docs/ANALYTICS-PLAN.md)
 - [Relatórios de falha](docs/CRASH-REPORTING-PLAN.md)
-- [Salvamento e backup manual](docs/SAVE-DATA-DESIGN.md)
+- [Salvamento local e em nuvem](docs/SAVE-DATA-DESIGN.md)
+- [Implementação de Saved Games](docs/play-games/cloud-save.md)
 - [Segurança e integridade](docs/SECURITY-AND-INTEGRITY.md)
 - [Plano de lançamento na Google Play](docs/GOOGLE-PLAY-LAUNCH-PLAN.md)
 - [Equipe e produção](docs/TEAM-AND-PRODUCTION.md)

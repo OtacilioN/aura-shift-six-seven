@@ -148,7 +148,7 @@ void main() {
     controller.dispose();
   });
 
-  test('Techniques use the balance-v0.3 base contributions', () async {
+  test('Techniques use the balance-v0.4 base contributions', () async {
     expect(
       upgrades.where((upgrade) => upgrade.isTechnique).map((u) => u.base20),
       [
@@ -231,7 +231,7 @@ void main() {
     controller.dispose();
   });
 
-  test('Ascension uses cumulative sacrificed Aura with diminishing returns',
+  test('Ascension uses quadratic marginal effort with diminishing returns',
       () async {
     final secondAscension = await controllerWith({
       'journey': '1000000000000000',
@@ -240,23 +240,23 @@ void main() {
       'ascensions': 1,
     });
     expect(secondAscension.ascensionAura, BigInt.parse('1000000000000000'));
-    expect(secondAscension.ascensionGain(), BigInt.from(41));
+    expect(secondAscension.ascensionGain(), BigInt.from(36));
     secondAscension.ascend();
-    expect(secondAscension.multiplier, BigInt.from(241));
+    expect(secondAscension.multiplier, BigInt.from(236));
     expect(secondAscension.ascensionAura, BigInt.parse('2000000000000000'));
     secondAscension.dispose();
 
     const expectedMultipliers = [
       200,
-      241,
-      273,
+      236,
+      262,
+      282,
       300,
-      323,
-      344,
-      364,
-      382,
-      400,
-      416
+      315,
+      328,
+      341,
+      352,
+      363
     ];
     for (var ascension = 1;
         ascension <= expectedMultipliers.length;
@@ -287,21 +287,21 @@ void main() {
       'journey': '4000000000000000',
       'total': '4000000000000000',
     });
-    expect(oneLongJourney.ascensionGain(), BigInt.from(200));
+    expect(oneLongJourney.ascensionGain(), BigInt.from(182));
 
     final fourthShortJourney = await controllerWith({
       'journey': '1000000000000000',
       'total': '4000000000000000',
-      'multiplier': '273',
+      'multiplier': '262',
       'ascensions': 3,
       'ascensionAura': '3000000000000000',
     });
-    expect(fourthShortJourney.ascensionGain(), BigInt.from(27));
+    expect(fourthShortJourney.ascensionGain(), BigInt.from(20));
 
     oneLongJourney.ascend();
     fourthShortJourney.ascend();
-    expect(oneLongJourney.multiplier, BigInt.from(300));
-    expect(fourthShortJourney.multiplier, BigInt.from(300));
+    expect(oneLongJourney.multiplier, BigInt.from(282));
+    expect(fourthShortJourney.multiplier, BigInt.from(282));
     oneLongJourney.dispose();
     fourthShortJourney.dispose();
   });
@@ -317,10 +317,9 @@ void main() {
     });
 
     expect(controller.ascensionAura, BigInt.parse('10000000000000000'));
-    expect(controller.multiplier, BigInt.from(416));
+    expect(controller.multiplier, BigInt.from(363));
 
-    final exported =
-        jsonDecode(controller.exportState()) as Map<String, dynamic>;
+    final exported = controller.captureSaveState();
     expect(exported['balanceVersion'], balanceVersion);
     expect(exported['ascensionAura'], '10000000000000000');
     controller.dispose();
@@ -331,13 +330,13 @@ void main() {
       'ascensions': 2,
     });
     expect(longerJourneys.ascensionAura, BigInt.parse('8000000000000000'));
-    expect(longerJourneys.multiplier, BigInt.from(382));
+    expect(longerJourneys.multiplier, BigInt.from(341));
     longerJourneys.dispose();
   });
 
-  test('balance-v0.1 backups remain importable and migrate once', () async {
+  test('balance-v0.1 saves remain migratable once', () async {
     final controller = await controllerWith({});
-    final imported = await controller.restoreState(jsonEncode({
+    final imported = await controller.replaceAuthoritativeState({
       'saveVersion': 1,
       'arithVersion': 'arith-v1',
       'balanceVersion': 'balance-v0.1',
@@ -350,30 +349,28 @@ void main() {
       'levels': {'TECH-01': 2},
       'appearances': ['ITEM-A-01'],
       'achievements': ['ACH-V-01'],
-    }));
+    });
 
     expect(imported, isTrue);
     expect(controller.ascensionAura, BigInt.parse('2000000000000000'));
-    expect(controller.multiplier, BigInt.from(241));
+    expect(controller.multiplier, BigInt.from(236));
     expect(controller.available, BigInt.from(123));
     expect(controller.journey, BigInt.from(456));
     expect(controller.remainder, BigInt.from(999));
     expect(controller.level('TECH-01'), 2);
     expect(controller.appearances, ['ITEM-A-01']);
     expect(controller.achievements, {'ACH-V-01'});
-    final reexported =
-        jsonDecode(controller.exportState()) as Map<String, dynamic>;
+    final reexported = controller.captureSaveState();
     expect(reexported['balanceVersion'], balanceVersion);
-    expect(await controller.restoreState(jsonEncode(reexported)), isTrue);
+    expect(await controller.replaceAuthoritativeState(reexported), isTrue);
     expect(controller.ascensionAura, BigInt.parse('2000000000000000'));
-    expect(controller.multiplier, BigInt.from(241));
+    expect(controller.multiplier, BigInt.from(236));
     controller.dispose();
   });
 
-  test('balance-v0.2 backups remain importable and migrate to balance-v0.3',
-      () async {
+  test('balance-v0.2 saves remain migratable to balance-v0.4', () async {
     final controller = await controllerWith({});
-    final imported = await controller.restoreState(jsonEncode({
+    final imported = await controller.replaceAuthoritativeState({
       'saveVersion': 1,
       'arithVersion': 'arith-v1',
       'balanceVersion': 'balance-v0.2',
@@ -385,7 +382,7 @@ void main() {
       'ascensions': 2,
       'ascensionAura': '2000000000000000',
       'levels': {'TECH-03': 2},
-    }));
+    });
 
     expect(imported, isTrue);
     expect(controller.available, BigInt.from(123));
@@ -393,27 +390,48 @@ void main() {
     expect(controller.total, BigInt.parse('2000000000000456'));
     expect(controller.remainder, BigInt.from(999));
     expect(controller.ascensionAura, BigInt.parse('2000000000000000'));
-    expect(controller.multiplier, BigInt.from(241));
+    expect(controller.multiplier, BigInt.from(236));
     expect(controller.level('TECH-03'), 2);
     expect(controller.power20, BigInt.from(20020));
     expect(
-      (jsonDecode(controller.exportState())
-          as Map<String, dynamic>)['balanceVersion'],
+      controller.captureSaveState()['balanceVersion'],
       balanceVersion,
     );
     controller.dispose();
   });
 
-  test('current-balance backups require their canonical Ascension pool',
+  test('balance-v0.3 saves preserve Ascended Aura under balance-v0.4',
+      () async {
+    final controller = await controllerWith({});
+    final imported = await controller.replaceAuthoritativeState({
+      'saveVersion': 1,
+      'arithVersion': 'arith-v1',
+      'balanceVersion': 'balance-v0.3',
+      'available': '0',
+      'journey': '0',
+      'total': '81000000000000000',
+      'remainder': '0',
+      'multiplier': '1000',
+      'ascensions': 10,
+      'ascensionAura': '81000000000000000',
+    });
+
+    expect(imported, isTrue);
+    expect(controller.ascensionAura, BigInt.parse('81000000000000000'));
+    expect(controller.multiplier, BigInt.from(675));
+    expect(controller.captureSaveState()['balanceVersion'], balanceVersion);
+    controller.dispose();
+  });
+
+  test('current-balance saves require their canonical Ascension pool',
       () async {
     final controller = await controllerWith({
       'available': '7',
       'journey': '7',
       'total': '7',
     });
-    final before = jsonDecode(controller.exportState()) as Map<String, dynamic>
-      ..remove('exportedAt');
-    final imported = await controller.restoreState(jsonEncode({
+    final before = controller.captureSaveState();
+    final imported = await controller.replaceAuthoritativeState({
       'saveVersion': 1,
       'arithVersion': 'arith-v1',
       'balanceVersion': balanceVersion,
@@ -423,28 +441,60 @@ void main() {
       'remainder': '0',
       'multiplier': '241',
       'ascensions': 2,
-    }));
-    final after = jsonDecode(controller.exportState()) as Map<String, dynamic>
-      ..remove('exportedAt');
+    });
+    final after = controller.captureSaveState();
 
     expect(imported, isFalse);
     expect(after, before);
     controller.dispose();
   });
 
-  test('cumulative Ascension square-root boundaries are exact', () async {
+  test('Ascension cent boundaries are exact inside a multiplier band',
+      () async {
     final below = await controllerWith({
-      'journey': '2016399999999999',
-      'total': '2016399999999999',
+      'journey': '1021816999999999',
+      'total': '1021816999999999',
     });
     final exact = await controllerWith({
-      'journey': '2016400000000000',
-      'total': '2016400000000000',
+      'journey': '1021817000000000',
+      'total': '1021817000000000',
     });
 
-    expect(below.ascensionGain(), BigInt.from(141));
-    expect(exact.ascensionGain(), BigInt.from(142));
+    expect(below.ascensionGain(), BigInt.from(100));
+    expect(exact.ascensionGain(), BigInt.from(101));
     below.dispose();
+    exact.dispose();
+  });
+
+  test('10x to 11x costs one hundred times the first multiplier', () async {
+    final atTen = await controllerWith({
+      'total': '285000000000000000',
+      'multiplier': '1000',
+      'ascensions': 1,
+      'ascensionAura': '285000000000000000',
+    });
+    expect(atTen.multiplier, BigInt.from(1000));
+    expect(atTen.ascensionGain(), BigInt.zero);
+    atTen.dispose();
+
+    final oneCentShort = await controllerWith({
+      'journey': '99999999999999999',
+      'total': '384999999999999999',
+      'multiplier': '1000',
+      'ascensions': 1,
+      'ascensionAura': '285000000000000000',
+    });
+    expect(oneCentShort.ascensionGain(), BigInt.from(99));
+    oneCentShort.dispose();
+
+    final exact = await controllerWith({
+      'journey': '100000000000000000',
+      'total': '385000000000000000',
+      'multiplier': '1000',
+      'ascensions': 1,
+      'ascensionAura': '285000000000000000',
+    });
+    expect(exact.ascensionGain(), BigInt.from(100));
     exact.dispose();
   });
 
@@ -477,8 +527,7 @@ void main() {
     controller.dispose();
   });
 
-  test(
-      'return-reminder preference is explicit and remains device-local on import',
+  test('return-reminder preference stays device-local on cloud restore',
       () async {
     final controller = await controllerWith({});
     expect(controller.returnReminderPrompted, isFalse);
@@ -488,9 +537,9 @@ void main() {
     expect(controller.returnReminderPrompted, isTrue);
     expect(controller.returnReminderEnabled, isTrue);
 
-    final backup = controller.exportState();
+    final cloudState = controller.captureSaveState();
     controller.setReturnReminderEnabled(false);
-    expect(await controller.restoreState(backup), isTrue);
+    expect(await controller.replaceAuthoritativeState(cloudState), isTrue);
     expect(controller.returnReminderPrompted, isTrue);
     expect(controller.returnReminderEnabled, isFalse);
     controller.dispose();
@@ -510,11 +559,11 @@ void main() {
     controller.dispose();
   });
 
-  test('store review request remains device-local on import', () async {
+  test('store review request remains device-local on cloud restore', () async {
     final controller = await controllerWith({'total': '67000'});
-    final backup = controller.exportState();
+    final cloudState = controller.captureSaveState();
     controller.markStoreReviewRequested();
-    expect(await controller.restoreState(backup), isTrue);
+    expect(await controller.replaceAuthoritativeState(cloudState), isTrue);
     expect(controller.storeReviewRequested, isTrue);
     expect(controller.storeReviewEligible, isFalse);
     controller.dispose();
@@ -573,7 +622,7 @@ void main() {
       'remainder': '0',
     });
 
-    expect(controller.multiplier, BigInt.from(416));
+    expect(controller.multiplier, BigInt.from(363));
     expect(controller.available, BigInt.zero);
     expect(controller.returnRewardAvailable, isTrue);
     expect(controller.returnBonusAvailable, isFalse);
@@ -724,7 +773,10 @@ void main() {
       const Duration(minutes: 15),
     );
     final restored = await controllerWith({});
-    expect(await restored.restoreState(controller.exportState()), isTrue);
+    expect(
+      await restored.replaceAuthoritativeState(controller.captureSaveState()),
+      isTrue,
+    );
     expect(
       restored.rewardedUpgradeAvailability(itemA, nowMillis: now),
       RewardedUpgradeAvailability.cooldown,

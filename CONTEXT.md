@@ -141,11 +141,15 @@ Reinício voluntário disponibilizado pela primeira vez em `1Qa` de Aura Total, 
 _Evitar_: reset obrigatório, apagar progresso, prestígio
 
 **Multiplicador de Ascensão**:
-Benefício permanente derivado de toda Aura sacrificada em Ascensões e aplicado à produção das jornadas seguintes. Sua base é `1×`; para Aura sacrificada acumulada `L`, o total em centésimos é `100 + floor(√(L ÷ 10¹¹))`. A mesma Aura acumulada produz o mesmo total independentemente de quantas Ascensões a dividiram.
+Benefício permanente derivado de toda Aura Ascendida e aplicado à produção das jornadas seguintes. Sua base é `1×`; em `balance-v0.4`, passar de `n×` para `(n+1)×` custa `n² Qa`, e o total em centésimos é o maior `A` cujo requisito `ceil(1Qa×(A−100)×A×(2A−100)/6.000.000)` não supera o acumulado `L`. A mesma Aura Ascendida produz o mesmo total independentemente de quantas Ascensões a consolidaram.
 _Evitar_: bônus temporário, multiplicador de anúncio
 
+**Aura Ascendida**:
+Acumulado permanente `L` de toda Aura da Jornada consolidada ao confirmar Ascensões anteriores. Compras reduzem somente a Aura Disponível e não diminuem a Aura da Jornada nem a Aura Ascendida. O termo não representa saldo destruído ou moeda removida pela Ascensão.
+_Evitar_: saldo consumido, moeda destruída, Aura Disponível, Aura Total
+
 **Aura da Jornada**:
-Aura produzida desde o início do jogo ou desde a Ascensão de Aura mais recente. Ao Ascender, ela é acrescentada ao acumulado permanente usado para derivar o Multiplicador. É necessário acumular ao menos `1Qa` em cada jornada para Ascender novamente.
+Aura produzida desde o início do jogo ou desde a Ascensão de Aura mais recente. Ao Ascender, ela é consolidada como Aura Ascendida e acrescentada ao acumulado permanente usado para derivar o Multiplicador. É necessário acumular ao menos `1Qa` em cada jornada para Ascender novamente.
 _Evitar_: Aura Total, Aura Disponível
 
 **Upgrade por Anúncio**:
@@ -176,9 +180,9 @@ _Evitar_: Aparência de Item, bônus temporário, nível do item
 Superfície ampla da região central em que qualquer toque fora dos controles avança a fase atual do Ciclo Six-Seven.
 _Evitar_: botão de clique, mão clicável, alvo
 
-**Backup Manual**:
-Cópia do progresso exportada voluntariamente para um arquivo e restaurável sem conta, nuvem ou sincronização automática.
-_Evitar_: salvamento em nuvem, sincronização, conta
+**Sincronização do Progresso**:
+Salvamento automático do estado completo no slot canônico do Google Play Games, mantendo a persistência local imediata e o jogo offline.
+_Evitar_: arquivo exportável, merge campo a campo, soma de recursos
 
 **Notação Compacta de Aura**:
 Representação universal truncada de grandes valores com até três algarismos significativos, sufixos fixos de K a Dc e notação científica a partir de `10³⁶`.
@@ -278,7 +282,7 @@ _Evitar_: rastreamento obrigatório, perfil do jogador, vigilância, upload do s
 
 **Consentimento de Analytics**:
 Escolha explícita e específica do jogador que autoriza coletas futuras da Telemetria de Produto naquele aparelho, independente do consentimento necessário para anúncios. Seu único convite automático ocorre após o primeiro Ciclo Six-Seven conceder a primeira Aura; uma recusa somente pode ser revista voluntariamente em Configurações.
-_Evitar_: consentimento presumido, consentimento publicitário, permissão herdada do Backup Manual
+_Evitar_: consentimento presumido, consentimento publicitário, permissão herdada da Sincronização do Progresso
 
 **Relatório de Diagnóstico**:
 Registro técnico de uma falha fatal ou ANR mantido inicialmente no aparelho e enviado ao Firebase Crashlytics somente após autorização específica na abertura seguinte. Pode conter stack trace, versão, dados técnicos do aparelho, horário, identificadores de instalação e, quando analytics já estiver habilitado, breadcrumbs permitidos.

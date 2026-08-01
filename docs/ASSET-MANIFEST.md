@@ -8,7 +8,7 @@
 
 ## Estado e escopo
 
-O manifesto cobre as 203 artes consumidas pela cena Flame: 18 Aparências de Item, cinco Transformações, três identidades de Ramo, Aura, fundos, Selos 67, emblemas de eventos, badges e ícones do MVP Android v1.0. O Mascote atual é desenho procedural em Canvas e não pertence ao inventário de sprites. Componentes de UI, fontes e materiais da Google Play pertencem a inventários próprios.
+O manifesto cobre as 202 artes consumidas pela cena Flame: 18 Aparências de Item, cinco Transformações, três identidades de Ramo, Aura, fundos, Selos 67, emblemas de eventos, badges e ícones do MVP Android v1.0. O Mascote atual é desenho procedural em Canvas e não pertence ao inventário de sprites. Componentes de UI, fontes e materiais da Google Play pertencem a inventários próprios.
 
 Os IDs são estáveis e independem do nome exibido ao jogador. Renomear conteúdo cultural não renomeia arquivos integrados.
 

@@ -1,3 +1,7 @@
 # Save local portátil não é autoridade competitiva
 
-Como o jogo é offline-first, sem conta e permite Backup Manual entre aparelhos, aceitamos que compartilhamento e manipulação intencional de saves não podem ser impedidos de forma confiável; controles locais protegerão contra corrupção e adulteração casual, não provarão propriedade. Essa escolha preserva portabilidade e baixo escopo enquanto a experiência for individual, mas qualquer futuro ranking, competição ou economia com valor real deverá manter sua própria verdade validada por servidor.
+Como o jogo é offline-first e mantém a economia no cliente, aceitamos que
+manipulação intencional não pode ser impedida de forma confiável. A associação
+ao Player ID e o SHA-256 do envelope protegem contra mistura acidental de conta
+e corrupção, mas não provam honestidade do cliente. Rankings, competição ou
+economia com valor real devem manter sua própria verdade validada por servidor.

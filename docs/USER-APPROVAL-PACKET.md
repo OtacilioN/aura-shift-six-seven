@@ -26,7 +26,7 @@ O usuário aprovou o conjunto abaixo como identidade e experiência do MVP Andro
 
 O aceite congela as decisões acima para iniciar desenvolvimento. Não aprova automaticamente:
 
-- `balance-v0.3`, que substituiu `balance-v0.2` com o nerf uniforme das Técnicas tardias e ainda precisa passar por simulação e `balance-gate-v1`;
+- `balance-v0.4`, que preserva o nerf das Técnicas tardias e acrescenta a curva quadrática de esforço da Ascensão, ainda pendente de simulação e `balance-gate-v1`;
 - direitos de marca, que exigem clearance em bases e territórios aplicáveis antes da publicação;
 - assets visuais ou 40 masters sonoros ainda não produzidos;
 - conformidade de uma build, que exige QA em aparelho, TalkBack, RTL, performance, SDKs e políticas vigentes;

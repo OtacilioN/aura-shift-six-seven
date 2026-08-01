@@ -1,0 +1,2 @@
+Stat ID,Stat Display Name,Stat Description,Icon File Name,Good value direction,unit
+aura_level,Aura Level,Represents the power level reached by farming Aura.,aura_level.png,Increasing,level

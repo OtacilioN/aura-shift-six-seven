@@ -21,7 +21,10 @@ As opções são independentes:
 - **Dicas extras para leitor de tela:** desativadas ou ativadas; acrescentam contexto opcional sem repetir nome, papel, estado ou valor;
 - **Escala textual:** segue o aparelho; não existe controle que limite a escala do sistema.
 
-Mudar uma opção atualiza a prévia imediatamente, persiste localmente e não requer reinício. Backup Manual inclui configurações gerais, mas preferências vinculadas à instalação ou ao sistema devem ser reconciliadas com segurança no aparelho de destino.
+Mudar uma opção atualiza a prévia imediatamente, persiste localmente e não
+requer reinício. Configurações gerais podem integrar o save sincronizado, mas
+consentimentos e preferências vinculadas à instalação ou ao sistema permanecem
+locais.
 
 ## Contraste e independência de cor
 
@@ -56,7 +59,10 @@ Contraste aumentado troca superfícies translúcidas por equivalentes opacas, el
 - não há limite mínimo de velocidade, erro de ritmo, gesto complexo obrigatório ou timeout para completar Fase Seven;
 - ações destrutivas/irreversíveis exigem ativação explícita e confirmação; não dependem de swipe ou pressão prolongada.
 
-Roteiro: executar Jogar, compra `×1`, equipar Aparência, alterar canal sensorial, exportar e cancelar importação usando apenas o polegar direito e depois o esquerdo em `360×800dp`, sem mudança de pega obrigatória para a ação recorrente.
+Roteiro: executar Jogar, compra `×1`, equipar Aparência, alterar canal
+sensorial, sincronizar e cancelar uma escolha de conflito usando apenas o
+polegar direito e depois o esquerdo em `360×800dp`, sem mudança de pega
+obrigatória para a ação recorrente.
 
 ## Foco, teclado e Switch Access
 
@@ -71,7 +77,9 @@ Embora o MVP seja touch-first, widgets Flutter devem preservar foco lógico:
 - sliders oferecem incremento/decremento sem exigir arraste;
 - nenhum foco fica oculto por barra, teclado, folha ou safe area.
 
-O gate percorre as quatro áreas, todas as folhas e o fluxo de importação com teclado e Android Switch Access ou equivalente disponível no ambiente de teste.
+O gate percorre as quatro áreas, todas as folhas e o fluxo de resolução de
+conflito com teclado e Android Switch Access ou equivalente disponível no
+ambiente de teste.
 
 ## TalkBack e semântica
 
@@ -100,7 +108,7 @@ Roteiro TalkBack obrigatório, com tela oculta quando possível:
 5. equipar Aparência e distinguir Efeito ativo/inativo;
 6. alterar idioma e opções sensoriais;
 7. aceitar e recusar, em execuções separadas, Analytics e diagnóstico;
-8. cancelar anúncio, importar arquivo inválido e retornar ao controle de origem;
+8. cancelar anúncio, adiar conflito de sincronização e retornar ao controle de origem;
 9. revisar a prévia de Ascensão sem confirmá-la.
 
 Nenhuma etapa pode encontrar elemento sem label, foco preso, ordem incoerente ou mutação econômica diferente da interação visual.
@@ -151,7 +159,8 @@ QA analisa gravação a `60fps` das Fases Six/Seven em cadência máxima humana 
 - **Retorno offline:** duração, base proporcional, limite de quatro horas, bônus, alternativas de resgate e estado pendente ou concluído são lidos separadamente; nenhum valor é anunciado como creditado antes da escolha.
 - **Anúncio:** benefício é conhecido antes; indisponibilidade não abre loop de erro; cancelamento retorna à ação.
 - **Ascensão:** grupos “recebe”, “reinicia” e “permanece” usam headings; confirmar anuncia irreversibilidade e multiplicador resultante.
-- **Backup:** picker cancelado não é erro; prévia válida é lida antes da substituição; falha mantém progresso e foco.
+- **Sincronização:** estados pendente/offline são anunciados; comparação de
+  conflito lê cada resumo antes da escolha; falha mantém progresso e foco.
 - **Consentimentos:** escolhas equivalentes, fechar = recusar quando documentado, sem dark pattern ou tempo limite.
 - **Diagnóstico:** quantidade e categorias de dados são legíveis; envio não se confunde com Analytics.
 - **Erros/retomadas:** mensagem identifica estado preservado e próxima ação; foco retorna ao ponto de interrupção.
@@ -164,7 +173,7 @@ Cada roteiro é executado em `en-US`, `pt-BR`, `es-419`, `fr-FR`, `de-DE`, `id`,
 | --- | --- |
 | largura/escala | `320dp` e `360dp`; texto `100%`, `150%`, `200%` |
 | direção | LTR nos sete locales; RTL completo e bidi misto em `ar` |
-| conteúdo | tutorial, Loja/Árvore, consentimentos, erros, backup, Ascensão |
+| conteúdo | tutorial, Loja/Árvore, consentimentos, erros, sincronização/conflito, Ascensão |
 | números | `0`, `999`, `1K`, `999K`, `1Dc`, `1e36`, expoente extremo, taxa com quatro casas, colisão compacta |
 | canais | som off, vibração off, ambos off, movimento reduzido, flashes reduzidos, todos reduzidos |
 | entrada | toque, TalkBack, foco/teclado e Switch Access quando disponível |

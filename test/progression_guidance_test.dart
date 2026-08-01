@@ -53,7 +53,8 @@ void main() {
     }
   });
 
-  testWidgets('next steps trigger stays compact and forwards its tap',
+  testWidgets(
+      'next steps trigger is an accessible compact action and forwards its tap',
       (tester) async {
     var taps = 0;
 
@@ -79,13 +80,7 @@ void main() {
       ),
       findsOneWidget,
     );
-    final label = find.descendant(
-      of: trigger,
-      matching: find.text('Próximos passos'),
-    );
-    expect(label, findsOneWidget);
-    expect(tester.widget<Text>(label).style?.fontSize, 12);
-    expect(tester.widget<Text>(label).maxLines, 1);
+    expect(find.byTooltip('Próximos passos'), findsOneWidget);
     expect(find.byIcon(Icons.chevron_right), findsNothing);
     expect(find.byType(LinearProgressIndicator), findsNothing);
 

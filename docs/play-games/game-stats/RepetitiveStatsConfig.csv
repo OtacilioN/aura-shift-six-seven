@@ -1,0 +1,6 @@
+Stat ID,Event Name,Property Name,Aggregation,Stat Display Name,Stat Description,Filter Property,Filter Operator,Filter Value,Is Competitive,minLimit,maxLimit,Icon File Name,Sequence Number,Good value direction,unit
+aura_total,auraActivityDelta,auraEarnedDelta,SUM,Total Aura Farmed,All Aura produced across the player's lifetime.,,,,TRUE,0,1e308,aura_total.png,1,Increasing,Aura
+manual_movements,auraActivityDelta,manualActionsDelta,SUM,Manual Movements,Completed manual Six-Seven movements.,,,,FALSE,,,manual_movements.png,2,Increasing,movements
+max_aura_production,auraActivityDelta,maxAuraPerSecond,MAX,Highest Aura Production,Highest passive Aura production score reached.,,,,TRUE,0,9223372036854775807,aura_production.png,3,Increasing,Aura score
+prestiges,auraActivityDelta,prestigesDelta,SUM,Prestiges Completed,Total Aura ascensions completed.,,,,TRUE,0,1000000,prestiges.png,4,Increasing,prestiges
+items_unlocked,auraActivityDelta,itemsUnlockedDelta,SUM,Items Unlocked,Unique Aura items acquired at least once.,,,,FALSE,,,items_unlocked.png,5,Increasing,items

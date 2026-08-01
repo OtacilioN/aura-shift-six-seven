@@ -10,7 +10,7 @@
 - oito idiomas e árabe RTL;
 - acessibilidade;
 - AdMob recompensado;
-- save local e Backup Manual;
+- save local e Saved Games via bridge nativo;
 - Android API 36 e páginas de 16 KB;
 - futura publicação iOS;
 - áudio em camadas;

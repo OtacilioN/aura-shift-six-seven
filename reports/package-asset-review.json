@@ -2,13 +2,13 @@
   "androidBrandFiles": 8,
   "androidBrandTransformed": 1,
   "apk": "build/app/outputs/bundle/release/app-release.aab",
-  "apkBytes": 76424432,
-  "apkSha256": "62b886433c4d721ad8222d563319bf959f6f65afff682a53d2b8678b0e317ea2",
+  "apkBytes": 78077168,
+  "apkSha256": "f0630339986d0cf2e6f385dcccde4d668e3ec477fd31635ce2f1f8b6d99aec28",
   "approvalStatus": {
     "art": "approved",
     "audio": "approved"
   },
-  "artRuntime": 203,
+  "artRuntime": 202,
   "audioFormats": {
     "ogg": 7,
     "wav": 35

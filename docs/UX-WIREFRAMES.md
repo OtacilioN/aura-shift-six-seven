@@ -48,7 +48,7 @@ Aplicativo
     ├── idioma
     ├── música / efeitos / vibração
     ├── acessibilidade
-    ├── Backup Manual: exportar / importar
+    ├── sincronização: estado / sincronizar agora
     ├── privacidade e consentimentos
     ├── política de privacidade
     ├── rever tutorial
@@ -241,7 +241,7 @@ Convergências listam os três requisitos separadamente, nunca apenas uma porcen
 │ Efeitos sonoros    [slider]   │
 │ Vibração            [on/off]  │
 │ Acessibilidade         [›]    │
-│ Backup Manual          [›]    │
+│ Save na nuvem          [›]    │
 │ Privacidade            [›]    │
 │ Rever tutorial         [›]    │
 │ Créditos e licenças    [›]    │
@@ -332,28 +332,21 @@ A prévia agrupa, sem esconder itens:
 
 Voltar antes da confirmação final cancela sem mutação. Fechar durante a gravação executa recuperação atômica: estado inteiro anterior ou inteiro posterior, nunca combinação.
 
-## Máquina de estados — Backup Manual
+## Máquina de estados — Save na nuvem
 
-### Exportar
+1. Ajustes mostra sincronizando, sincronizado, pendente, offline, não autenticado,
+   indisponível ou falha recuperável.
+2. `[Sincronizar agora]` agrupa as mudanças locais e tenta o slot canônico.
+3. Cancelar/fechar não interrompe o save local nem descarta a dirty flag.
+4. Conflito automaticamente seguro escolhe um estado completo.
+5. Conflito ambíguo mostra data, origem, Aura Total, produção, Ascensões, itens
+   e tempo de cada candidato.
+6. `[Decidir depois]` preserva ambos e bloqueia somente novos uploads.
+7. A escolha explícita resolve o conflito, persiste localmente e sincroniza a
+   nova revisão.
 
-1. Ajustes → Backup Manual → `[Exportar]`.
-2. O jogo cria snapshot consistente sem pausar ou alterar progresso econômico.
-3. Abre compartilhamento/arquivos do sistema.
-4. Cancelar retorna silenciosamente a Ajustes, sem confirmação de sucesso e sem tratar como erro.
-5. Falha de escrita mantém save ativo e oferece tentar novamente.
-6. Retorno do sistema confirma apenas quando houver resultado verificável; não promete onde um app externo guardou o arquivo.
-
-### Importar
-
-1. `[Escolher arquivo]` abre picker do sistema.
-2. Cancelar retorna sem mensagem de erro.
-3. O arquivo é lido em área temporária e validado sem tocar no save ativo.
-4. Inválido/corrompido/incompatível: explica a categoria, preserva o progresso e oferece escolher outro.
-5. Válido: prévia mostra data, versão, Aura Total, jornada/Ascensões e resumo de coleção.
-6. Confirmação avisa que o único progresso ativo será substituído; exige ação final explícita.
-7. Falha de gravação restaura o estado anterior; sucesso reinicia as superfícies a partir do save importado.
-
-Consentimento de Analytics, relatórios pendentes e autorizações de diagnóstico não aparecem na prévia porque não integram o Backup Manual.
+Consentimento de Analytics, relatórios pendentes e autorizações de diagnóstico
+não aparecem na comparação porque não integram o save sincronizado.
 
 ## Máquina de estados — Consentimentos e diagnóstico
 
@@ -374,8 +367,8 @@ O diagnóstico informa quantidade, finalidade e categorias de dados em linguagem
 | nó bloqueado | listar cada requisito ausente | ir ao predecessor ou Jogar para Patamar |
 | coleção vazia em categoria | explicar como desbloquear sem vender atalho | ir à Loja/Jogar |
 | anúncio indisponível | estado inline, sem erro recorrente | continuar sem anúncio |
-| arquivo incompatível | versão de origem e compatibilidade quando legíveis | escolher outro; progresso intacto |
-| sem espaço para exportar | erro do sistema resumido | liberar espaço/tentar outro destino |
+| schema cloud incompatível | versão de origem quando legível | atualizar o jogo; progresso local intacto |
+| payload acima de 3 MB | estado técnico sem expor conteúdo | manter local e corrigir o schema; não truncar |
 | troca de idioma interrompida | manter o último catálogo completo | tentar novamente; nunca misturar locales na mesma tela |
 | conteúdo excedeu layout | permitir quebra/rolagem; registrar defeito de QA | nunca truncar ação ou significado essencial |
 | retorno após processo morto | reconstruir a fila persistente pela prioridade | não repetir recompensa, consentimento ou compra |
@@ -391,4 +384,4 @@ O diagnóstico informa quantidade, finalidade e categorias de dados em linguagem
 7. Todos os controles têm destino de foco determinístico e retorno ao controle de origem.
 8. Valores extremos seguem `number-format-v1`; comparação, compra e leitura assistiva usam o valor canônico.
 9. Com som, vibração, movimento e flashes reduzidos/desativados, todo estado e resultado permanece compreensível.
-10. Tutorial revisto, retomada offline, anúncio, Ascensão e importação nunca simulam ou repetem efeitos econômicos.
+10. Tutorial revisto, retomada offline, anúncio, Ascensão e restauração cloud nunca simulam ou repetem efeitos econômicos.

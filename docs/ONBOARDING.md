@@ -53,8 +53,8 @@ A Transformação surge pela Aura Total aproximadamente aos cinco minutos. Ela n
 - o jogador pode dispensar cada orientação;
 - Ajustes permite rever o tutorial;
 - orientações ignoradas reaparecem apenas em contexto apropriado, sem insistência constante;
-- o estado do tutorial é salvo localmente e incluído no Backup Manual;
-- a preferência de Analytics pertence ao aparelho e não é incluída no Backup Manual.
+- o estado do tutorial é salvo localmente e incluído no save sincronizado;
+- a preferência de Analytics pertence ao aparelho e não é incluída no save sincronizado.
 
 O estado persistido distingue `não iniciado`, `primeiro toque/Fase Six`, `primeira Aura`, `consentimento decidido`, `Técnica orientada`, `Item orientado` e `concluído`. Reabrir retoma o primeiro estado ainda aplicável, sem repetir crédito, compra ou consentimento. Orientação que deixou de ser aplicável por progresso posterior é marcada como concluída, não exibida fora de contexto.
 

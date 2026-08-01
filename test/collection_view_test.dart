@@ -73,7 +73,6 @@ void main() {
         for (final section in const [
           'appearances',
           'transformations',
-          'achievements',
           'seals',
         ]) {
           expect(
@@ -83,7 +82,6 @@ void main() {
         }
         _expectCount(tester, 'appearance', '2/18');
         _expectCount(tester, 'transformation', '1/5');
-        _expectCount(tester, 'achievement', '2/13');
         _expectCount(tester, 'seal', '1');
         _expectSingleLineSectionTitle(
           tester,
@@ -99,12 +97,6 @@ void main() {
         );
         _expectSingleLineSectionTitle(
           tester,
-          section: 'achievements',
-          count: 'achievement',
-          label: strings('collection_achievements'),
-        );
-        _expectSingleLineSectionTitle(
-          tester,
           section: 'seals',
           count: 'seal',
           label: strings('collection_seals'),
@@ -112,12 +104,17 @@ void main() {
         expect(find.text('Botão Suspeito'), findsOneWidget);
         expect(find.text('Primeira Virada'), findsNothing);
 
-        await tester.tap(
+        expect(
           find.byKey(const ValueKey('collection-section-achievements')),
+          findsNothing,
+        );
+
+        await tester.tap(
+          find.byKey(const ValueKey('collection-section-transformations')),
         );
         await tester.pump();
 
-        expect(find.text('Primeira Virada'), findsOneWidget);
+        expect(find.text(strings('collection_transformations')), findsWidgets);
         expect(find.text('Botão Suspeito'), findsNothing);
         expect(tester.takeException(), isNull);
       } finally {
@@ -175,7 +172,6 @@ void main() {
       for (final section in const [
         'appearances',
         'transformations',
-        'achievements',
         'seals',
       ]) {
         expect(
@@ -190,12 +186,17 @@ void main() {
         label: arStrings('collection_transformations'),
       );
 
-      await tester.tap(
+      expect(
         find.byKey(const ValueKey('collection-section-achievements')),
+        findsNothing,
+      );
+
+      await tester.tap(
+        find.byKey(const ValueKey('collection-section-seals')),
       );
       await tester.pump();
 
-      expect(find.text(arStrings('collection_achievements')), findsWidgets);
+      expect(find.text(arStrings('collection_seals')), findsWidgets);
       expect(tester.takeException(), isNull);
     } finally {
       await tester.pumpWidget(const SizedBox.shrink());

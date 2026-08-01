@@ -4,14 +4,15 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'ascension_curve.dart';
+
 const _quanta = 10000000;
-const _ascensionThreshold = 1000000000000000;
 const _ascensionScale = 100000000000;
 const _offlineRewardMinimumMilliseconds = 10 * 60 * 1000;
 const _offlineRewardMaximumMilliseconds = 4 * 60 * 60 * 1000;
 const _rewardedUpgradeCooldownMilliseconds = 15 * 60 * 1000;
 final _storeReviewThreshold = BigInt.from(67000);
-const balanceVersion = 'balance-v0.3';
+const balanceVersion = 'balance-v0.4';
 const achievementIds = <String>[
   'ACH-V-01',
   'ACH-V-02',
@@ -161,7 +162,7 @@ final upgrades = <Upgrade>[
       baseCost: BigInt.from(67000000000000),
       base20: BigInt.from(10000000000000),
       isTechnique: true,
-      requiredTotal: BigInt.from(_ascensionThreshold),
+      requiredTotal: BigInt.from(ascensionThreshold),
       prerequisite: 'ITEM-CONV-03',
       prerequisiteLevel: 10),
   ..._branch('A', 'item_a', 270, 15),
@@ -196,7 +197,7 @@ final upgrades = <Upgrade>[
       baseCost: BigInt.from(670000000000000),
       base20: BigInt.from(268000000000),
       isTechnique: false,
-      requiredTotal: BigInt.from(_ascensionThreshold),
+      requiredTotal: BigInt.from(ascensionThreshold),
       prerequisite: 'DEPTH-05',
       prerequisiteLevel: 50,
       branch: 'Spectrum'),
@@ -233,13 +234,30 @@ class GameController extends ChangeNotifier {
   bool _disposed = false;
   bool _returnAudioCuePending = false;
   Future<void> _writeQueue = Future.value();
+  int _restorationRevision = 0;
+  bool _startupCompleted = false;
 
-  static Future<GameController> load() => _load(startTicker: true);
+  static Future<GameController> load({
+    bool deferOfflineProgress = false,
+  }) =>
+      _load(
+        startTicker: true,
+        deferOfflineProgress: deferOfflineProgress,
+      );
 
   @visibleForTesting
-  static Future<GameController> loadForTesting() => _load(startTicker: false);
+  static Future<GameController> loadForTesting({
+    bool deferOfflineProgress = false,
+  }) =>
+      _load(
+        startTicker: false,
+        deferOfflineProgress: deferOfflineProgress,
+      );
 
-  static Future<GameController> _load({required bool startTicker}) async {
+  static Future<GameController> _load({
+    required bool startTicker,
+    required bool deferOfflineProgress,
+  }) async {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString('save-v1');
     Map<String, dynamic> data = <String, dynamic>{};
@@ -247,7 +265,17 @@ class GameController extends ChangeNotifier {
       try {
         data = (jsonDecode(raw) as Map).cast<String, dynamic>();
       } catch (_) {
-        await prefs.remove('save-v1');
+        final lastValid = prefs.getString('save-v1-last-valid');
+        if (lastValid != null) {
+          try {
+            data = (jsonDecode(lastValid) as Map).cast<String, dynamic>();
+            await prefs.setString('save-v1', lastValid);
+          } catch (_) {
+            await prefs.remove('save-v1');
+          }
+        } else {
+          await prefs.remove('save-v1');
+        }
       }
     }
     final controller = GameController._(prefs, data);
@@ -255,11 +283,23 @@ class GameController extends ChangeNotifier {
     controller._migrateAppearanceState();
     controller._migrateRewardedUpgradeState();
     controller._migrateMonetizationState();
+    controller._migrateAchievementMetricsState(
+      addSessionDay: true,
+      now: DateTime.now(),
+    );
     controller._lastTick = controller._foregroundClock.elapsedMilliseconds;
-    // Process a persisted background interval before the first frame. The
-    // operation is idempotent, so a later platform `resumed` callback cannot
-    // credit the same interval twice.
-    controller.resume();
+    if (deferOfflineProgress) {
+      controller._foregroundClock
+        ..stop()
+        ..reset();
+      controller._lastTick = 0;
+    } else {
+      // Process a persisted background interval before the first frame. The
+      // operation is idempotent, so a later platform `resumed` callback cannot
+      // credit the same interval twice.
+      controller._startupCompleted = true;
+      controller.resume();
+    }
     if (startTicker) {
       controller._ticker = Timer.periodic(
           const Duration(milliseconds: 500), (_) => controller.integrate());
@@ -273,6 +313,7 @@ class GameController extends ChangeNotifier {
   BigInt get remainder => _big('remainder');
   BigInt get multiplier => _big('multiplier', '100');
   BigInt get ascensionAura => _big('ascensionAura');
+  BigInt get maxAuraPerMovement => _big('maxAuraPerMovement');
 
   void _migrateBalanceState() {
     if (_int('ascensions') < 0) {
@@ -287,7 +328,7 @@ class GameController extends ChangeNotifier {
             : _data['balanceVersion'] == balanceVersion
                 ? _ascensionAuraForMultiplier(multiplier)
                 : _legacyAscensionAura();
-    final minimum = BigInt.from(ascensions) * BigInt.from(_ascensionThreshold);
+    final minimum = BigInt.from(ascensions) * BigInt.from(ascensionThreshold);
     if (migratedAscensionAura < minimum) {
       migratedAscensionAura = minimum;
     }
@@ -379,6 +420,81 @@ class GameController extends ChangeNotifier {
     }
   }
 
+  void _migrateAchievementMetricsState({
+    required bool addSessionDay,
+    required DateTime now,
+  }) {
+    final completedCycles = cycles < 0 ? 0 : cycles;
+    final derivedSix = completedCycles + (phase == CyclePhase.seven ? 1 : 0);
+    final derivedSeven = completedCycles;
+    _data['sixMovements'] = _monotonicInt('sixMovements', fallback: derivedSix);
+    _data['sevenMovements'] =
+        _monotonicInt('sevenMovements', fallback: derivedSeven);
+    _data['manualMovements'] = _monotonicInt(
+      'manualMovements',
+      fallback: derivedSix + derivedSeven,
+    );
+    _data['auraProducingMovements'] = _monotonicInt(
+      'auraProducingMovements',
+      fallback: derivedSeven,
+    );
+    _data['purchaseCount'] = _monotonicInt(
+      'purchaseCount',
+      fallback: normalTechniquePurchased ||
+              normalItemPurchased ||
+              appearances.isNotEmpty
+          ? 1
+          : 0,
+    );
+    _data['offlineRewardsCollected'] = _monotonicInt('offlineRewardsCollected');
+
+    final knownTechniques = upgrades
+        .where((upgrade) => upgrade.isTechnique)
+        .map((e) => e.id)
+        .toSet();
+    final unlockedTechniques = <String>{
+      ...(_data['unlockedTechniqueIds'] as List? ?? const [])
+          .whereType<String>()
+          .where(knownTechniques.contains),
+      for (final upgrade in upgrades)
+        if (upgrade.isTechnique && level(upgrade.id) > 0) upgrade.id,
+    };
+    _data['unlockedTechniqueIds'] = unlockedTechniques.toList()..sort();
+
+    final validDays = <String>{
+      ...(_data['distinctPlayDays'] as List? ?? const [])
+          .whereType<String>()
+          .where(_isValidLocalDayKey),
+      if (addSessionDay) localDayKey(now),
+    };
+    _data['distinctPlayDays'] = validDays.toList()..sort();
+    _data['achievementMetricsVersion'] = 1;
+  }
+
+  int _monotonicInt(String key, {int fallback = 0}) {
+    final stored = _data[key];
+    if (stored is num && stored.isFinite && stored.toInt() >= 0) {
+      return stored.toInt();
+    }
+    return fallback < 0 ? 0 : fallback;
+  }
+
+  static String localDayKey(DateTime value) =>
+      '${value.year.toString().padLeft(4, '0')}-'
+      '${value.month.toString().padLeft(2, '0')}-'
+      '${value.day.toString().padLeft(2, '0')}';
+
+  static bool _isValidLocalDayKey(String value) {
+    final match = RegExp(r'^(\d{4})-(\d{2})-(\d{2})$').firstMatch(value);
+    if (match == null) return false;
+    final year = int.tryParse(match.group(1)!);
+    final month = int.tryParse(match.group(2)!);
+    final day = int.tryParse(match.group(3)!);
+    if (year == null || month == null || day == null) return false;
+    final parsed = DateTime(year, month, day);
+    return parsed.year == year && parsed.month == month && parsed.day == day;
+  }
+
   List<String> _orderedAppearanceIds(Iterable<String> ids) {
     final requested = ids.toSet();
     return upgrades
@@ -402,25 +518,37 @@ class GameController extends ChangeNotifier {
             BigInt.from(_ascensionScale) ~/
             BigInt.from(ascensions)
         : bonus * bonus * BigInt.from(_ascensionScale);
-    final minimum = BigInt.from(ascensions) * BigInt.from(_ascensionThreshold);
+    final minimum = BigInt.from(ascensions) * BigInt.from(ascensionThreshold);
     return estimate > minimum ? estimate : minimum;
   }
 
   BigInt _ascensionAuraForMultiplier(BigInt value) {
-    final bonus =
-        value > BigInt.from(100) ? value - BigInt.from(100) : BigInt.zero;
-    return bonus * bonus * BigInt.from(_ascensionScale);
+    return AscensionCurve.auraForMultiplier(value);
   }
 
   BigInt _multiplierForAscensionAura(BigInt aura) {
-    if (aura <= BigInt.zero) {
-      return BigInt.from(100);
-    }
+    return AscensionCurve.multiplierForAura(aura);
+  }
+
+  BigInt _legacyMultiplierForAscensionAura(BigInt aura) {
+    if (aura <= BigInt.zero) return BigInt.from(100);
     return BigInt.from(100) +
         _integerSqrt(aura ~/ BigInt.from(_ascensionScale));
   }
 
   int get cycles => _int('cycles');
+  int get manualMovements => _int('manualMovements');
+  int get auraProducingMovements => _int('auraProducingMovements');
+  int get sixMovements => _int('sixMovements');
+  int get sevenMovements => _int('sevenMovements');
+  int get purchaseCount => _int('purchaseCount');
+  int get offlineRewardsCollected => _int('offlineRewardsCollected');
+  int get ascensions => _int('ascensions');
+  int get restorationRevision => _restorationRevision;
+  int get unlockedItemCount => appearances.length;
+  int get totalPlayTimeMilliseconds =>
+      _int('totalPlayTimeMillis') +
+      (_foregroundClock.isRunning ? _foregroundClock.elapsedMilliseconds : 0);
   CyclePhase get phase =>
       _data['phase'] == 'seven' ? CyclePhase.seven : CyclePhase.six;
   String get locale =>
@@ -452,6 +580,26 @@ class GameController extends ChangeNotifier {
       .map((entry) => MapEntry('${entry.key}', (entry.value as num).toInt())));
   List<String> get appearances => List<String>.from(
       (_data['appearances'] as List? ?? const []).whereType<String>());
+  Set<String> get unlockedTechniqueIds => Set<String>.unmodifiable(
+        (_data['unlockedTechniqueIds'] as List? ?? const [])
+            .whereType<String>(),
+      );
+  Set<String> get distinctPlayDays => Set<String>.unmodifiable(
+        (_data['distinctPlayDays'] as List? ?? const []).whereType<String>(),
+      );
+  String? get maximumAuraStateId {
+    for (final id in const [
+      'FORM-05',
+      'FORM-04',
+      'FORM-03',
+      'FORM-02',
+      'FORM-01',
+    ]) {
+      if (transformations.contains(id)) return id;
+    }
+    return null;
+  }
+
   Set<String> get equippedAppearances => Set<String>.unmodifiable(
         (_data['equippedAppearances'] as List? ?? const []).whereType<String>(),
       );
@@ -635,6 +783,7 @@ class GameController extends ChangeNotifier {
   void pause() {
     if (!_foregroundClock.isRunning) return;
     integrate();
+    _data['totalPlayTimeMillis'] = totalPlayTimeMilliseconds;
     _foregroundClock.stop();
     if (returnRewardAvailable) {
       _persist();
@@ -691,12 +840,23 @@ class GameController extends ChangeNotifier {
     _persist(notify: true);
   }
 
+  /// Completes startup only after cloud reconciliation has selected the
+  /// authoritative save. This prevents granting the same offline interval from
+  /// a provisional local save and then again from a restored remote save.
+  Future<void> completeDeferredStartup() async {
+    if (_startupCompleted) return;
+    _startupCompleted = true;
+    resume();
+    await flushLocal();
+  }
+
   /// Claims the base return reward and declines its optional bonus.
   bool claimReturnBase() {
     final reward = (_data['returnReward'] as Map?)?.cast<String, dynamic>();
     if (reward == null || reward['baseStatus'] != 'available') return false;
     final base = BigInt.tryParse('${reward['baseQuanta']}') ?? BigInt.zero;
     _credit(base);
+    _recordOfflineRewardCollected(reward, base);
     if (base > BigInt.zero) _returnAudioCuePending = true;
     reward['baseStatus'] = 'credited';
     reward['bonusStatus'] = 'declined';
@@ -718,6 +878,7 @@ class GameController extends ChangeNotifier {
     if (basePending) {
       final base = BigInt.tryParse('${reward['baseQuanta']}') ?? BigInt.zero;
       _credit(base);
+      _recordOfflineRewardCollected(reward, base);
       if (base > BigInt.zero) _returnAudioCuePending = true;
       reward['baseStatus'] = 'credited';
     } else if (reward['baseStatus'] != 'credited') {
@@ -746,16 +907,28 @@ class GameController extends ChangeNotifier {
   /// less, down to a 10% floor.
   void tap([double quality = 1.0]) {
     integrate();
+    _data['manualMovements'] = manualMovements + 1;
     if (phase == CyclePhase.six) {
+      _data['sixMovements'] = sixMovements + 1;
       _data['phase'] = 'seven';
       _data['sixStartedAt'] = _foregroundClock.elapsedMilliseconds;
     } else {
+      _data['sevenMovements'] = sevenMovements + 1;
       final sixAt = (_data['sixStartedAt'] as num?)?.toInt();
       _data['phase'] = 'six';
       _data.remove('sixStartedAt');
       _data['cycles'] = cycles + 1;
       final factor = (5000 * quality.clamp(0.1, 1.0)).round();
-      _credit(power20 * multiplier * BigInt.from(factor));
+      final movementQuanta = power20 * multiplier * BigInt.from(factor);
+      final totalBeforeMovement = total;
+      _credit(movementQuanta);
+      final movementAura = total - totalBeforeMovement;
+      if (movementAura > maxAuraPerMovement) {
+        _setBig('maxAuraPerMovement', movementAura);
+      }
+      if (movementAura > BigInt.zero) {
+        _data['auraProducingMovements'] = auraProducingMovements + 1;
+      }
       _unlock('ACH-V-01');
       if (cycles >= 67) _unlock('ACH-V-02');
       if (sixAt != null &&
@@ -784,7 +957,7 @@ class GameController extends ChangeNotifier {
       'FORM-02': 1000000,
       'FORM-03': 1000000000,
       'FORM-04': 1000000000000,
-      'FORM-05': _ascensionThreshold
+      'FORM-05': ascensionThreshold
     };
     final nextForms = transformations;
     for (final entry in forms.entries) {
@@ -817,6 +990,7 @@ class GameController extends ChangeNotifier {
     if (!quote.affordable || quote.quantity == 0) return false;
     _setBig('available', available - quote.cost);
     _grantUpgradeLevels(u, quote.quantity);
+    _data['purchaseCount'] = purchaseCount + 1;
     if (u.isTechnique) {
       _data['normalTechniquePurchased'] = true;
     } else {
@@ -836,6 +1010,10 @@ class GameController extends ChangeNotifier {
   void _grantUpgradeLevels(Upgrade upgrade, int quantity) {
     final next = levels..[upgrade.id] = level(upgrade.id) + quantity;
     _data['levels'] = next;
+    if (upgrade.isTechnique) {
+      final unlocked = unlockedTechniqueIds.toSet()..add(upgrade.id);
+      _data['unlockedTechniqueIds'] = unlocked.toList()..sort();
+    }
     if (!upgrade.isTechnique) {
       _collectAppearance(upgrade.id);
       _unlock('ACH-V-03');
@@ -905,6 +1083,19 @@ class GameController extends ChangeNotifier {
     if (!firstAcquisition) return;
     _data['equippedAppearances'] =
         _orderedAppearanceIds({...equippedAppearances, item});
+  }
+
+  void _recordOfflineRewardCollected(
+    Map<String, dynamic> reward,
+    BigInt base,
+  ) {
+    if (base <= BigInt.zero ||
+        reward['achievementCollected'] == true ||
+        (reward['creditedMilliseconds'] as num?)?.toInt() == null) {
+      return;
+    }
+    reward['achievementCollected'] = true;
+    _data['offlineRewardsCollected'] = offlineRewardsCollected + 1;
   }
 
   int rewardedUpgradeLevelsFor(int currentLevel) {
@@ -1025,34 +1216,46 @@ class GameController extends ChangeNotifier {
       (_data['rewardedUpgradeStreakItems'] as List? ?? const [])
           .whereType<String>());
 
-  /// The save body is intentionally portable: every economic integer is decimal text.
-  String exportState() {
-    final portable = Map<String, dynamic>.from(_data)
-      ..remove('analyticsEnabled')
-      ..remove('analyticsDecided')
-      ..remove('returnReminderEnabled')
-      ..remove('returnReminderPrompted')
-      ..remove('storeReviewRequested');
-    return jsonEncode({
+  /// Returns the internal, portable game state used by the cloud-save codec.
+  ///
+  /// Device consent, notification preferences, transient UI state and process
+  /// stopwatch values deliberately stay local to the installation.
+  Map<String, dynamic> captureSaveState() {
+    final portable =
+        (jsonDecode(jsonEncode(_data)) as Map).cast<String, dynamic>()
+          ..remove('analyticsEnabled')
+          ..remove('analyticsDecided')
+          ..remove('returnReminderEnabled')
+          ..remove('returnReminderPrompted')
+          ..remove('storeReviewRequested')
+          ..remove('rewardedUpgradeQuote')
+          ..remove('sixStartedAt');
+    return <String, dynamic>{
       ...portable,
       'saveVersion': 1,
       'arithVersion': 'arith-v1',
       'balanceVersion': balanceVersion,
       'ascensionAura': ascensionAura.toString(),
-      'exportedAt': DateTime.now().toUtc().toIso8601String()
-    });
+      'totalPlayTimeMillis': totalPlayTimeMilliseconds,
+    };
   }
 
-  Future<bool> restoreState(String body) async {
+  /// Replaces the active journey with an already decoded cloud-save state.
+  /// Validation and rollback keep corrupt or unsupported remote data from
+  /// replacing the last valid local journey.
+  Future<bool> replaceAuthoritativeState(
+    Map<String, dynamic> candidate,
+  ) async {
     final previous = Map<String, dynamic>.from(_data);
+    final wasRunning = _foregroundClock.isRunning;
     try {
-      final candidate = (jsonDecode(body) as Map).cast<String, dynamic>();
       final importedBalance = candidate['balanceVersion'];
       if (candidate['saveVersion'] != 1 ||
           candidate['arithVersion'] != 'arith-v1' ||
           (importedBalance != null &&
               importedBalance != 'balance-v0.1' &&
               importedBalance != 'balance-v0.2' &&
+              importedBalance != 'balance-v0.3' &&
               importedBalance != balanceVersion)) {
         return false;
       }
@@ -1086,23 +1289,75 @@ class GameController extends ChangeNotifier {
                   candidateAscensionAura < BigInt.zero))) {
         return false;
       }
+      for (final key in const [
+        'cycles',
+        'manualMovements',
+        'auraProducingMovements',
+        'sixMovements',
+        'sevenMovements',
+        'purchaseCount',
+        'offlineRewardsCollected',
+        'achievementMetricsVersion',
+      ]) {
+        final value = candidate[key] ?? 0;
+        if (value is! int || value < 0) return false;
+      }
+      final candidateDays = candidate['distinctPlayDays'] ?? const <String>[];
+      if (candidateDays is! List ||
+          candidateDays.any(
+            (value) => value is! String || !_isValidLocalDayKey(value),
+          ) ||
+          candidateDays.toSet().length != candidateDays.length) {
+        return false;
+      }
+      final knownTechniqueIds = upgrades
+          .where((upgrade) => upgrade.isTechnique)
+          .map((upgrade) => upgrade.id)
+          .toSet();
+      final candidateTechniques =
+          candidate['unlockedTechniqueIds'] ?? const <String>[];
+      if (candidateTechniques is! List ||
+          candidateTechniques.any(
+            (value) => value is! String || !knownTechniqueIds.contains(value),
+          )) {
+        return false;
+      }
       if (importedBalance == 'balance-v0.2' ||
+          importedBalance == 'balance-v0.3' ||
           importedBalance == balanceVersion) {
-        if (candidateAscensionAura == null ||
-            candidateAscensionAura + candidateJourney > candidateTotal ||
+        if (candidateAscensionAura == null) return false;
+        final expectedMultiplier = importedBalance == balanceVersion
+            ? _multiplierForAscensionAura(candidateAscensionAura)
+            : _legacyMultiplierForAscensionAura(candidateAscensionAura);
+        if (candidateAscensionAura + candidateJourney > candidateTotal ||
             candidateAscensionAura <
                 BigInt.from(candidateAscensions) *
-                    BigInt.from(_ascensionThreshold) ||
-            _multiplierForAscensionAura(candidateAscensionAura) !=
-                candidateMultiplier) {
+                    BigInt.from(ascensionThreshold) ||
+            expectedMultiplier != candidateMultiplier) {
           return false;
         }
       }
       if (candidate['levels'] != null && candidate['levels'] is! Map) {
         return false;
       }
+      final candidateLevels =
+          (candidate['levels'] as Map? ?? const <String, int>{});
+      if (candidateLevels.entries.any((entry) =>
+          entry.key is! String ||
+          !upgrades.any((upgrade) => upgrade.id == entry.key) ||
+          entry.value is! int ||
+          (entry.value as int) < 0)) {
+        return false;
+      }
       if (candidate['achievements'] != null &&
           candidate['achievements'] is! List) {
+        return false;
+      }
+      final candidateAchievements =
+          candidate['achievements'] as List? ?? const <Object?>[];
+      if (candidateAchievements.any(
+        (id) => id is! String || !achievementIds.contains(id),
+      )) {
         return false;
       }
       final candidateAppearances = candidate['appearances'];
@@ -1149,16 +1404,21 @@ class GameController extends ChangeNotifier {
       _data
         ..clear()
         ..addAll(candidate)
-        ..remove('exportedAt')
         ..addAll(devicePreferences);
       _migrateBalanceState();
       _migrateAppearanceState();
       _migrateRewardedUpgradeState();
       _migrateMonetizationState();
-      _foregroundClock
-        ..reset()
-        ..start();
+      _migrateAchievementMetricsState(
+        addSessionDay: true,
+        now: DateTime.now(),
+      );
+      _foregroundClock.reset();
+      if (wasRunning) {
+        _foregroundClock.start();
+      }
       _lastTick = _foregroundClock.elapsedMilliseconds;
+      _restorationRevision++;
       await _persist(notify: true);
       return true;
     } catch (_) {
@@ -1170,7 +1430,7 @@ class GameController extends ChangeNotifier {
   }
 
   bool get canAscend =>
-      !returnRewardAvailable && journey >= BigInt.from(_ascensionThreshold);
+      !returnRewardAvailable && journey >= BigInt.from(ascensionThreshold);
   BigInt ascensionGain() {
     final projectedMultiplier =
         _multiplierForAscensionAura(ascensionAura + journey);
@@ -1211,11 +1471,18 @@ class GameController extends ChangeNotifier {
 
   Future<void> _persist({bool notify = false}) async {
     final serialized = jsonEncode(_data);
-    _writeQueue =
-        _writeQueue.then((_) => _prefs.setString('save-v1', serialized));
+    _writeQueue = _writeQueue.then((_) async {
+      final current = _prefs.getString('save-v1');
+      if (current != null && current != serialized) {
+        await _prefs.setString('save-v1-last-valid', current);
+      }
+      await _prefs.setString('save-v1', serialized);
+    });
     await _writeQueue;
     if (notify && !_disposed) notifyListeners();
   }
+
+  Future<void> flushLocal() => _writeQueue;
 
   @override
   void dispose() {

@@ -52,8 +52,7 @@ void main() {
 
     expect(controller.appearances, appearanceIds);
     expect(controller.equippedAppearances, appearanceIds.toSet());
-    final exported =
-        jsonDecode(controller.exportState()) as Map<String, dynamic>;
+    final exported = controller.captureSaveState();
     expect(exported['equippedAppearances'], appearanceIds);
     expect(exported.containsKey('equipped'), isFalse);
     controller.dispose();
@@ -67,8 +66,7 @@ void main() {
     });
 
     expect(controller.equippedAppearances, {'ITEM-C-01'});
-    final exported =
-        jsonDecode(controller.exportState()) as Map<String, dynamic>;
+    final exported = controller.captureSaveState();
     expect(exported['equippedAppearances'], ['ITEM-C-01']);
     expect(exported.containsKey('equipped'), isFalse);
     controller.dispose();
@@ -92,7 +90,7 @@ void main() {
     controller.dispose();
   });
 
-  test('invalid plural equipment backup is rejected atomically', () async {
+  test('invalid plural cloud state is rejected atomically', () async {
     final controller = await controllerWith({
       'available': '7',
       'journey': '7',
@@ -100,10 +98,9 @@ void main() {
       'appearances': ['ITEM-A-01'],
       'equippedAppearances': ['ITEM-A-01'],
     });
-    final before = jsonDecode(controller.exportState()) as Map<String, dynamic>
-      ..remove('exportedAt');
+    final before = controller.captureSaveState()..remove('totalPlayTimeMillis');
 
-    final restored = await controller.restoreState(jsonEncode({
+    final restored = await controller.replaceAuthoritativeState({
       'saveVersion': 1,
       'arithVersion': 'arith-v1',
       'available': '0',
@@ -114,9 +111,8 @@ void main() {
       'ascensions': 0,
       'appearances': ['ITEM-A-01'],
       'equippedAppearances': ['ITEM-C-01'],
-    }));
-    final after = jsonDecode(controller.exportState()) as Map<String, dynamic>
-      ..remove('exportedAt');
+    });
+    final after = controller.captureSaveState()..remove('totalPlayTimeMillis');
 
     expect(restored, isFalse);
     expect(after, before);

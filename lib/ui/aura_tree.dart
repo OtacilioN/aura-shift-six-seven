@@ -1030,7 +1030,7 @@ class _AuraTreePainter extends CustomPainter {
     _drawConvergence(canvas, 1, sourceDepth: 1);
     _drawConvergence(canvas, 2, sourceDepth: 3);
     _drawConvergence(canvas, 3, sourceDepth: 5);
-    _drawTechniqueDependency(canvas);
+    _drawTechniqueDependencies(canvas);
   }
 
   void _drawAtmosphere(Canvas canvas, Size size) {
@@ -1178,18 +1178,48 @@ class _AuraTreePainter extends CustomPainter {
     );
   }
 
-  void _drawTechniqueDependency(Canvas canvas) {
-    final spectrumOne = geometry.convergence(1);
-    final counterflow = geometry.technique(2);
+  void _drawTechniqueDependencies(Canvas canvas) {
+    _drawTechniqueDependency(
+      canvas,
+      from: geometry.convergence(1),
+      to: geometry.technique(2),
+    );
+    _drawTechniqueDependency(
+      canvas,
+      from: geometry.technique(2),
+      to: geometry.technique(3),
+    );
+    _drawTechniqueDependency(
+      canvas,
+      from: geometry.convergence(2),
+      to: geometry.technique(4),
+    );
+    _drawTechniqueDependency(
+      canvas,
+      from: geometry.technique(4),
+      to: geometry.technique(5),
+    );
+    _drawTechniqueDependency(
+      canvas,
+      from: geometry.convergence(3),
+      to: geometry.technique(6),
+    );
+  }
+
+  void _drawTechniqueDependency(
+    Canvas canvas, {
+    required Offset from,
+    required Offset to,
+  }) {
     final path = Path()
-      ..moveTo(spectrumOne.dx, spectrumOne.dy + 35)
+      ..moveTo(from.dx, from.dy + 35)
       ..cubicTo(
-        spectrumOne.dx + 18,
-        spectrumOne.dy + 54,
-        counterflow.dx + 18,
-        counterflow.dy - 54,
-        counterflow.dx,
-        counterflow.dy - 35,
+        from.dx + 18,
+        from.dy + 54,
+        to.dx + 18,
+        to.dy - 54,
+        to.dx,
+        to.dy - 35,
       );
     _drawDashedPath(
       canvas,

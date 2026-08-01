@@ -35,7 +35,7 @@
 - **REQ-MVP-007:** o MVP DEVE incluir música original, efeitos sonoros e respostas táteis conforme as preferências do jogador.
 - **REQ-MVP-008:** o MVP DEVE incluir as áreas Jogar, Loja, Coleção e Ajustes.
 - **REQ-MVP-009:** o MVP DEVE incluir os oito idiomas aprovados, árabe RTL e os requisitos de acessibilidade documentados.
-- **REQ-MVP-010:** o MVP DEVE incluir save local, Backup Manual, os dois placements de Anúncio Recompensado, Analytics opt-in e Relatórios de Diagnóstico autorizados.
+- **REQ-MVP-010:** o MVP DEVE incluir save local, sincronização Saved Games, os dois placements de Anúncio Recompensado, Analytics opt-in e Relatórios de Diagnóstico autorizados.
 - **REQ-MVP-011:** a publicação iOS NÃO DEVE integrar o escopo do MVP, embora a arquitetura DEVA preservar sua possibilidade futura.
 - **REQ-MVP-012:** o MVP NÃO DEVE incluir conteúdo além das quantidades exatas aprovadas.
 - **REQ-MVP-013:** o MVP NÃO DEVE incluir conta, nuvem, multiplayer, rankings, recursos sociais ou integração Google Play Games.
@@ -123,26 +123,26 @@
 ## Salvamento
 
 - **REQ-SAVE-001:** o jogo DEVE salvar o progresso automaticamente no armazenamento local do aparelho.
-- **REQ-SAVE-002:** o jogador NÃO DEVE precisar criar ou vincular uma conta.
-- **REQ-SAVE-003:** o lançamento NÃO DEVE incluir backup em nuvem.
-- **REQ-SAVE-004:** o lançamento NÃO DEVE prometer recuperação ou sincronização entre aparelhos.
+- **REQ-SAVE-002:** o jogador NÃO DEVE precisar de login para jogar offline; a sincronização PODE usar o perfil Gamer do Play Games.
+- **REQ-SAVE-003:** o lançamento DEVE sincronizar automaticamente pelo Google Play Games Saved Games quando autenticado e configurado.
+- **REQ-SAVE-004:** indisponibilidade de autenticação, rede ou Saved Games NÃO DEVE bloquear o save local nem a partida.
 - **REQ-SAVE-005:** qualquer ação dentro do jogo que apague o salvamento local DEVE apresentar confirmação explícita e irreversível.
 - **REQ-SAVE-006:** evoluções futuras do formato de salvamento DEVEM preservar dados locais válidos de versões anteriores sempre que tecnicamente possível.
-- **REQ-SAVE-007:** o lançamento DEVE permitir exportar voluntariamente um Backup Manual para arquivo.
-- **REQ-SAVE-008:** o lançamento DEVE permitir importar um Backup Manual válido sem conta ou servidor.
-- **REQ-SAVE-009:** antes de substituir o progresso atual, a importação DEVE apresentar data, versão e um resumo do backup.
-- **REQ-SAVE-010:** importar um Backup Manual DEVE exigir confirmação explícita de substituição do progresso atual.
-- **REQ-SAVE-011:** o jogo DEVE validar integridade e compatibilidade do arquivo antes de alterar o progresso local.
-- **REQ-SAVE-012:** um arquivo inválido, corrompido ou incompatível NÃO DEVE alterar o progresso local.
-- **REQ-SAVE-013:** exportação ou importação com erro NÃO DEVE exigir conexão nem danificar o salvamento ativo.
+- **REQ-SAVE-007:** o lançamento DEVE usar somente o slot canônico `aura_shift_primary`.
+- **REQ-SAVE-008:** o save remoto DEVE usar envelope versionado, revisão monotônica, installation ID, hashes, UTC e estado completo.
+- **REQ-SAVE-009:** antes de substituir progresso em conflito ambíguo, a interface DEVE apresentar origem, data e resumo dos candidatos.
+- **REQ-SAVE-010:** um conflito ambíguo DEVE exigir escolha explícita entre estados completos.
+- **REQ-SAVE-011:** o jogo DEVE validar schema, hash, tamanho e invariantes antes de alterar o progresso local.
+- **REQ-SAVE-012:** um remoto inválido, corrompido ou incompatível NÃO DEVE alterar o progresso local.
+- **REQ-SAVE-013:** falha de sincronização DEVE manter o save ativo e as alterações pendentes.
 - **REQ-SAVE-014:** cada instalação DEVE manter exatamente um salvamento ativo.
 - **REQ-SAVE-015:** o lançamento NÃO DEVE oferecer perfis ou espaços paralelos de jornada.
-- **REQ-SAVE-016:** importar um Backup Manual válido DEVE substituir o único salvamento ativo somente após confirmação.
+- **REQ-SAVE-016:** restaurar um remoto válido DEVE substituir o único salvamento ativo de forma atômica.
 - **REQ-SAVE-017:** a redefinição voluntária do progresso DEVE ficar protegida por confirmação explícita de irreversibilidade.
-- **REQ-SAVE-018:** um Backup Manual válido DEVE poder ser importado em outra instalação compatível sem vínculo de conta ou aparelho.
-- **REQ-SAVE-019:** o jogo DEVE validar estrutura, versão e integridade antes de aceitar um Backup Manual.
+- **REQ-SAVE-018:** um remoto válido DEVE ser restaurável em outra instalação autenticada no mesmo Player ID.
+- **REQ-SAVE-019:** o jogo DEVE resolver por igualdade, ancestralidade e dominância antes de solicitar escolha manual.
 - **REQ-SAVE-020:** mecanismos locais de integridade DEVEM ser tratados como resistência a adulteração casual, não como prova de propriedade ou inviolabilidade.
-- **REQ-SAVE-021:** o lançamento NÃO DEVE prometer impedir compartilhamento ou manipulação intencional de saves.
+- **REQ-SAVE-021:** o lançamento NÃO DEVE prometer que SHA-256 impede manipulação intencional do cliente.
 - **REQ-SAVE-022:** futuras funções competitivas, rankings confiáveis ou economias com valor real NÃO DEVEM tratar o salvamento local como fonte de verdade.
 
 ## Mascote
@@ -210,7 +210,7 @@
 - **REQ-UX-013:** Jogar DEVE reunir Mascote, Área de Aura, indicadores e acesso aos detalhes econômicos.
 - **REQ-UX-014:** Loja DEVE reunir Técnicas Six-Seven e Itens de Aura em uma única Árvore de Aura.
 - **REQ-UX-015:** Coleção DEVE reunir personalização, Transformações de Aura, Conquistas e Selos 67.
-- **REQ-UX-016:** Ajustes DEVE reunir idioma, música, efeitos, vibração, acessibilidade, Backup Manual, privacidade e créditos.
+- **REQ-UX-016:** Ajustes DEVE reunir idioma, música, efeitos, vibração, acessibilidade, sincronização, privacidade e créditos.
 - **REQ-UX-017:** detalhes de Aura DEVEM abrir como painel associado a Jogar e NÃO DEVEM criar uma quinta área principal.
 - **REQ-UX-018:** Árvore de Aura, detalhes de nó, requisitos, compras e Complemento de Aura DEVEM permanecer dentro da área Loja e NÃO DEVEM criar uma raiz adicional.
 - **REQ-UX-019:** o layout DEVE permanecer operável a partir de `320×568dp`, incluindo safe areas e barras do sistema.
@@ -218,7 +218,7 @@
 - **REQ-UX-021:** ações recorrentes DEVEM ficar na metade inferior ou possuir alternativa equivalente ao alcance do polegar; conteúdo rolável DEVE reservar espaço para barras de ação fixas.
 - **REQ-UX-022:** voltar DEVE fechar primeiro diálogo, folha, detalhe e subtela, nessa ordem, antes de sair da raiz ou do aplicativo.
 - **REQ-UX-023:** trocar de área DEVE preservar fase do Ciclo, rolagem, filtro e nó selecionado enquanto o estado continuar válido.
-- **REQ-UX-024:** fluxos de tutorial, retorno offline, anúncio, Ascensão, Backup Manual, consentimento, diagnóstico e erro DEVEM possuir sucesso, bloqueio, falha, cancelamento e reabertura definidos em `ux-flow-v1`.
+- **REQ-UX-024:** fluxos de tutorial, retorno offline, anúncio, Ascensão, sincronização/conflito, consentimento, diagnóstico e erro DEVEM possuir sucesso, bloqueio, falha, cancelamento e reabertura definidos em `ux-flow-v1`.
 - **REQ-UX-025:** reabrir o aplicativo DEVE reconstruir fluxos persistentes por prioridade segura, sem duplicar crédito, compra, consentimento, relatório ou Ascensão.
 - **REQ-UX-026:** erros e consentimentos DEVEM ter prioridade sobre celebrações; apresentações adiadas DEVEM permanecer enfileiradas sem perder o registro do evento.
 - **REQ-UX-027:** fechar um modal ou concluir uma subtela DEVE devolver foco ao controle de origem ou ao próximo estado persistente válido.
@@ -268,7 +268,7 @@
 - **REQ-A11Y-019:** a UI DEVE funcionar com escala textual de `100%`, `130%`, `150%` e `200%`, largura de `320dp` e pseudo-localização Latin de `+35%`, sem perda de ação ou informação essencial.
 - **REQ-A11Y-020:** cada build candidata DEVE passar por QA de reflow e semântica em `en-US`, `pt-BR`, `es-419`, `fr-FR`, `de-DE`, `id`, `ja-JP` e `ar`.
 - **REQ-A11Y-021:** a matriz DEVE incluir compostos longos em alemão, quebras sem espaços em japonês, shaping e bidi misto em árabe e números extremos de `number-format-v1`.
-- **REQ-A11Y-022:** TalkBack DEVE alcançar e operar as quatro áreas, Área de Aura, rota linear da Árvore, detalhes econômicos, consentimentos, anúncios, Backup Manual, diagnóstico e prévia de Ascensão.
+- **REQ-A11Y-022:** TalkBack DEVE alcançar e operar as quatro áreas, Área de Aura, rota linear da Árvore, detalhes econômicos, consentimentos, anúncios, sincronização/conflitos, diagnóstico e prévia de Ascensão.
 - **REQ-A11Y-023:** cada elemento acessível DEVE expor nome localizado, papel, estado e valor; partículas, brilho, duplicatas e decoração NÃO DEVEM poluir a árvore semântica.
 - **REQ-A11Y-024:** a Área de Aura DEVE ser exposta como um único controle TalkBack cuja ativação avança exatamente uma fase e cuja resposta distingue Six de Seven.
 - **REQ-A11Y-025:** atualizações rotineiras de Produção Passiva NÃO DEVEM gerar anúncio assistivo por tick; anúncios de saldo PODEM ser agrupados no máximo uma vez a cada `2s`, preservando eventos acionados e erros.
@@ -495,7 +495,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-NUM-008:** o jogador DEVE poder consultar uma representação não abreviada do valor em uma área de detalhes.
 - **REQ-NUM-009:** Aura Disponível, Aura Total, Aura da Jornada, preços e recompensas concedidas DEVEM ser valores inteiros e não negativos.
 - **REQ-NUM-010:** Produção Ativa, Passiva, Offline e Bônus de Retorno DEVEM acumular no Resto de Produção toda fração exata que ainda não complete uma unidade de Aura.
-- **REQ-NUM-011:** o Resto de Produção compartilhado NÃO DEVE ser descartado entre atualizações válidas, fechamento, importação ou Ascensão.
+- **REQ-NUM-011:** o Resto de Produção compartilhado NÃO DEVE ser descartado entre atualizações válidas, fechamento, restauração cloud ou Ascensão.
 - **REQ-NUM-012:** a Notação Compacta de Aura DEVE truncar a representação e NÃO DEVE arredondar o valor para cima.
 - **REQ-NUM-013:** compras, desbloqueios e comparações DEVEM usar o valor econômico exato, nunca o texto abreviado.
 - **REQ-NUM-014:** cálculos com multiplicadores DEVEM usar a aritmética inteira exata de `arith-v1` antes da concessão de unidades inteiras.
@@ -545,7 +545,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ARITH-019:** custo, preço de lote e teto DEVEM usar somente aritmética inteira e a fórmula racional `23ⁿ/20ⁿ`.
 - **REQ-ARITH-020:** a quantidade do Upgrade por Anúncio DEVE usar somente o nível inteiro cotado: 1–5 concede `+1`, 6–100 concede `+5` e nível maior que 100 concede `+25`.
 - **REQ-ARITH-021:** uma cotação de Upgrade por Anúncio DEVE registrar item, nível e quantidade; sucesso só pode ocorrer se o nível ainda coincidir, e falha não pode conceder nível nem consumir a sequência.
-- **REQ-ARITH-022:** para Aura de Ascensão acumulada `L`, o bônus `B` DEVE ser o maior inteiro que satisfaz `B² × 10¹¹ ≤ L`, e o multiplicador total DEVE ser `A=100+B`.
+- **REQ-ARITH-022:** para Aura de Ascensão acumulada `L`, o multiplicador em centésimos DEVE ser o maior inteiro `A≥100` que satisfaz `ceil(10¹⁵×(A−100)×A×(2A−100)/6.000.000) ≤ L`.
 - **REQ-ARITH-023:** produção pendente DEVE ser integrada antes de calcular e confirmar uma Ascensão.
 - **REQ-ARITH-024:** Aura Total e Resto de Produção DEVEM permanecer após Ascensão; Aura Disponível e Aura da Jornada DEVEM voltar a zero.
 - **REQ-ARITH-025:** efeitos econômicos com o mesmo timestamp DEVEM possuir sequência determinística persistível.
@@ -573,7 +573,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-67-005:** cada Marco 67 DEVE ocorrer no máximo uma vez por salvamento.
 - **REQ-67-006:** compras e Ascensões NÃO DEVEM reativar um Marco 67 já alcançado.
 - **REQ-67-007:** um crédito que atravesse vários Marcos 67 DEVE registrar todos eles e enfileirar suas celebrações.
-- **REQ-67-008:** Marcos 67 alcançados DEVEM permanecer no salvamento e no Backup Manual.
+- **REQ-67-008:** Marcos 67 alcançados DEVEM permanecer no salvamento local e cloud.
 - **REQ-67-009:** cada Marco 67 DEVE apresentar uma animação especial das duas mãos e o número `67` em destaque.
 - **REQ-67-010:** cada celebração DEVE possuir stinger musical original e padrão tátil exclusivos quando seus canais estiverem ativos.
 - **REQ-67-011:** a intensidade visual especial DEVE permanecer por aproximadamente `6,7 segundos`.
@@ -590,7 +590,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ACH-005:** uma Conquista DEVE conceder somente emblema e texto comemorativo.
 - **REQ-ACH-006:** Conquistas NÃO DEVEM conceder Aura, multiplicadores, itens ou outra vantagem econômica.
 - **REQ-ACH-007:** Conquistas desbloqueadas NÃO DEVEM ser removidas por Ascensão.
-- **REQ-ACH-008:** Conquistas DEVEM permanecer no salvamento local e no Backup Manual.
+- **REQ-ACH-008:** Conquistas DEVEM permanecer no salvamento local e cloud.
 - **REQ-ACH-009:** o lançamento NÃO DEVE depender de conta ou integração com conquistas da Google Play.
 - **REQ-ACH-010:** Selos 67 DEVEM permanecer em uma coleção distinta das Conquistas.
 
@@ -663,9 +663,9 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-CURVE-028:** diferenças de progressão entre entradas DEVEM ser expressas por custo-base, contribuição-base, desbloqueio e Pré-requisitos, não pela razão geométrica.
 - **REQ-CURVE-029:** Ascensão de Aura e Marcos de Nível NÃO DEVEM alterar custos-base nem a razão geométrica.
 
-## Escada de custos dos Ramos de Aura — `balance-v0.3`
+## Escada de custos dos Ramos de Aura — `balance-v0.4`
 
-- **REQ-COST-001:** o conjunto atual de parâmetros de balanceamento DEVE ser identificado como `balance-v0.3`; ele substitui `balance-v0.2` e permanece candidato até passar por `balance-gate-v1`.
+- **REQ-COST-001:** o conjunto atual de parâmetros de balanceamento DEVE ser identificado como `balance-v0.4`; ele substitui `balance-v0.3` e permanece candidato até passar por `balance-gate-v1`.
 - **REQ-COST-002:** `ITEM-A/B/C-01` DEVEM possuir custo-base idêntico de `270 Aura`.
 - **REQ-COST-003:** `ITEM-A/B/C-02` DEVEM possuir custo-base idêntico de `2.350 Aura`.
 - **REQ-COST-004:** `ITEM-A/B/C-03` DEVEM possuir custo-base idêntico de `67.000 Aura`.
@@ -681,7 +681,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-COST-014:** o Patamar de Aura e o Pré-requisito de Item DEVEM continuar sendo verificados independentemente do preço; possuir Aura suficiente NÃO DEVE liberar uma compra antecipada.
 - **REQ-COST-015:** qualquer alteração nessa escada DEVE decorrer de uma revisão identificada da simulação, registrar o motivo e atualizar conjuntamente requisitos, parâmetros, catálogo e fixtures numéricas.
 
-## Escada de contribuições dos Ramos de Aura — `balance-v0.3`
+## Escada de contribuições dos Ramos de Aura — `balance-v0.4`
 
 - **REQ-CONTRIB-001:** a Contribuição-base de `ITEM-A/B/C-01` DEVE ser idêntica e igual a `+0,75 Aura/s` por nível.
 - **REQ-CONTRIB-002:** a Contribuição-base de `ITEM-A/B/C-02` DEVE ser idêntica e igual a `+6,7 Aura/s` por nível.
@@ -727,7 +727,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-TREE-027:** a composição visual da Árvore DEVE alinhar cada Técnica à faixa do Patamar que a desbloqueia, mantendo os conectores visíveis reservados às relações econômicas reais.
 - **REQ-TREE-028:** o tronco visual de Técnicas NÃO DEVE ser contado como Ramo de Aura, e Spectrum NÃO DEVE ser contado como Ramo de Aura.
 
-## Economia das Convergências — `balance-v0.3`
+## Economia das Convergências — `balance-v0.4`
 
 - **REQ-CONVECO-001:** `ITEM-CONV-01` DEVE possuir custo-base de `6.700 Aura` e Contribuição-base de `7,5 Aura/s` por nível.
 - **REQ-CONVECO-002:** `ITEM-CONV-02` DEVE possuir custo-base de `26.800.000 Aura` e Contribuição-base de `3.350 Aura/s` por nível.
@@ -758,7 +758,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-TIER-011:** todos os Patamares e Transformações alcançados DEVEM permanecer desbloqueados após compras e Ascensões.
 - **REQ-TIER-012:** um crédito que atravesse múltiplos Patamares DEVE registrar todos os desbloqueios elegíveis sem perda.
 - **REQ-TIER-013:** múltiplos Patamares atravessados em um único crédito DEVEM ter suas apresentações enfileiradas ou consolidadas sem bloquear o estado econômico.
-- **REQ-TIER-014:** importar um Backup Manual com Aura Total suficiente DEVE reconciliar deterministicamente todos os Patamares e Transformações correspondentes.
+- **REQ-TIER-014:** restaurar um save com Aura Total suficiente DEVE reconciliar deterministicamente todos os Patamares e Transformações correspondentes.
 - **REQ-TIER-015:** a interface DEVE mostrar o próximo Patamar de Aura Total e os principais desbloqueios associados.
 
 ## Progressão das Técnicas
@@ -775,7 +775,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-TECHPROG-010:** custos-base DEVEM continuar limitando a recompra de Técnicas tardias depois da Ascensão.
 - **REQ-TECHPROG-011:** `TECH-06` DEVE permanecer desbloqueada depois da primeira Ascensão mesmo quando não tiver sido comprada antes do reinício.
 - **REQ-TECHPROG-012:** cruzar vários limiares em um crédito DEVE registrar todos os desbloqueios de Técnica correspondentes.
-- **REQ-TECHPROG-013:** importar um Backup Manual DEVE reconciliar Técnicas desbloqueadas com a Aura Total sem conceder níveis.
+- **REQ-TECHPROG-013:** restaurar um save DEVE reconciliar Técnicas desbloqueadas com a Aura Total sem conceder níveis.
 - **REQ-TECHPROG-014:** Transformações, nós da Árvore e Técnicas liberados no mesmo Patamar NÃO DEVEM depender da aquisição uns dos outros.
 - **REQ-TECHPROG-015:** `TECH-01` DEVE manter o custo-base confirmado de `45 Aura`.
 - **REQ-TECHPROG-016:** `TECH-02` DEVE possuir custo-base de `67 Aura`.
@@ -853,8 +853,8 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ASC-013:** o jogo DEVE manter a Aura da Jornada separada da Aura Total e da Aura Disponível.
 - **REQ-ASC-014:** a Aura da Jornada DEVE contabilizar a Aura produzida desde o início da jornada atual.
 - **REQ-ASC-015:** realizar uma Ascensão DEVE reiniciar a Aura da Jornada.
-- **REQ-ASC-016:** o ganho de Multiplicador DEVE ser calculado acrescentando a Aura da Jornada ao acumulado permanente de Aura sacrificada `L`, nunca diretamente da Aura Total.
-- **REQ-ASC-017:** o cálculo DEVE aplicar retornos decrescentes à Aura vitalícia sacrificada por meio de raiz quadrada inteira.
+- **REQ-ASC-016:** o ganho de Multiplicador DEVE ser calculado acrescentando a Aura da Jornada ao acumulado permanente de Aura Ascendida `L`, nunca diretamente da Aura Total.
+- **REQ-ASC-017:** o cálculo DEVE aplicar retornos decrescentes à Aura Ascendida por meio da curva inteira de soma dos quadrados de `balance-v0.4`.
 - **REQ-ASC-018:** a prévia de confirmação DEVE informar o ganho projetado do Multiplicador de Ascensão.
 - **REQ-ASC-019:** Ascensões sucessivas sem nova produção relevante NÃO DEVEM repetir o ganho anterior.
 - **REQ-ASC-020:** o Multiplicador de Ascensão DEVE ampliar a Potência de Ciclo.
@@ -862,8 +862,8 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ASC-022:** a Produção Offline DEVE usar a taxa passiva resultante da aplicação do Multiplicador de Ascensão.
 - **REQ-ASC-023:** o Bônus de Retorno DEVE permanecer em 20% sobre a Produção Offline resultante e NÃO DEVE receber uma aplicação adicional exclusiva do Multiplicador de Ascensão.
 - **REQ-ASC-024:** cada Ascensão DEVE acrescentar toda a Aura da Jornada confirmada ao acumulado permanente `L`.
-- **REQ-ASC-025:** o Multiplicador total em centésimos DEVE ser derivado como `A(L)=100+floor(√(L÷10¹¹))`.
-- **REQ-ASC-026:** particionar a mesma quantidade total de Aura entre várias Ascensões NÃO DEVE produzir multiplicador maior do que sacrificá-la em menos Ascensões.
+- **REQ-ASC-025:** para candidato inteiro `A≥100`, o requisito DEVE ser `L_req(A)=ceil(10¹⁵×(A−100)×A×(2A−100)/6.000.000)`, e o Multiplicador total DEVE ser o maior `A` para o qual `L_req(A)≤L`.
+- **REQ-ASC-026:** particionar a mesma quantidade total de Aura entre várias Ascensões NÃO DEVE produzir multiplicador maior do que consolidá-la em menos Ascensões.
 - **REQ-ASC-027:** o Multiplicador de Ascensão total DEVE ser aplicado uma única vez a cada cálculo de Produção Ativa ou Passiva.
 - **REQ-ASC-028:** a Ascensão NÃO DEVE remover Aparências de Item ou variações já desbloqueadas.
 - **REQ-ASC-029:** o visual equipado DEVE poder permanecer após a Ascensão.
@@ -875,7 +875,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ASC-035:** o Multiplicador de Ascensão total DEVE ser reconciliável deterministicamente a partir de `L`.
 - **REQ-ASC-036:** a implementação NÃO DEVE depender de ponto flutuante para calcular, persistir ou comparar o ganho de Ascensão.
 - **REQ-ASC-037:** a primeira jornada de exatamente `1Qa` DEVE conceder `+1,00×` e elevar o multiplicador total de `1×` para `2×`.
-- **REQ-ASC-038:** acumulados vitalícios de `2Qa`, `4Qa` e `9Qa` DEVEM resultar, respectivamente, em multiplicadores totais de `2,41×`, `3,00×` e `4,00×`.
+- **REQ-ASC-038:** acumulados vitalícios de `2Qa`, `4Qa` e `9Qa` DEVEM resultar, respectivamente, em multiplicadores totais de `2,36×`, `2,82×` e `3,52×`; `285Qa` e `385Qa` DEVEM resultar em `10×` e `11×`.
 - **REQ-ASC-039:** a fórmula NÃO DEVE possuir limite superior artificial.
 - **REQ-ASC-040:** quando a Aura da Jornada for inferior a `1Qa`, a confirmação DEVE permanecer indisponível e informar quanto falta.
 - **REQ-ASC-041:** a prévia DEVE informar Aura da Jornada considerada, parcela projetada, multiplicador total resultante e todos os estados reiniciados ou preservados.
@@ -883,6 +883,8 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-ASC-043:** falha durante a persistência NÃO DEVE conceder o bônus sem reiniciar a jornada nem reiniciar a jornada sem conceder o bônus.
 - **REQ-ASC-044:** a confirmação de Ascensão DEVE permanecer indisponível enquanto uma Recompensa de Retorno pendente aguardar resgate-base ou conclusão da alternativa com bônus.
 - **REQ-ASC-045:** saves `balance-v0.1` sem `L` DEVEM ser migrados uma única vez usando contagem de Ascensões e multiplicador anterior, preservando saldos, Aura Total, Resto, coleção, conquistas e Taxa Offline Registrada.
+- **REQ-ASC-046:** passar de `n×` para `(n+1)×`, para `n` inteiro positivo, DEVE exigir exatamente `n² Qa` adicionais de Aura Ascendida; em particular, `1×→2×` custa `1Qa` e `10×→11×` custa `100Qa`.
+- **REQ-ASC-047:** saves `balance-v0.2` e `balance-v0.3` DEVEM preservar `L` e recalcular o Multiplicador pela curva `balance-v0.4`, sem fabricar Aura Ascendida para conservar o multiplicador antigo.
 
 ## Anúncios Recompensados
 
@@ -921,7 +923,7 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-PRIV-005:** ausência de consentimento ou permissão para solicitar anúncios NÃO DEVE bloquear a experiência ou recompensa-base.
 - **REQ-PRIV-006:** a Play Age Signals API DEVE ser integrada quando aplicável aos requisitos de distribuição no Brasil.
 - **REQ-PRIV-007:** dados da Play Age Signals NÃO DEVEM ser usados para publicidade, marketing, perfilamento ou analytics.
-- **REQ-PRIV-008:** respostas de faixa etária NÃO DEVEM ser incluídas no salvamento ou Backup Manual.
+- **REQ-PRIV-008:** respostas de faixa etária NÃO DEVEM ser incluídas no salvamento local ou cloud.
 - **REQ-PRIV-009:** o jogo NÃO DEVE possuir loot boxes ou recompensas aleatórias pagas.
 - **REQ-PRIV-010:** a política de privacidade DEVE permanecer pública, acessível no jogo e coerente com os SDKs efetivamente incluídos.
 - **REQ-PRIV-011:** o formulário Data safety DEVE declarar corretamente a coleta e o compartilhamento realizados pelo Google Mobile Ads e demais SDKs.
@@ -939,10 +941,10 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-AN-009:** a personalização de anúncios baseada em analytics DEVE permanecer desativada.
 - **REQ-AN-010:** dados da Play Age Signals NÃO DEVEM ser enviados ao analytics nem usados para decidir sua coleta.
 - **REQ-AN-011:** eventos e parâmetros de produto DEVEM pertencer a uma lista permitida e documentada.
-- **REQ-AN-012:** o conteúdo do save, Backup Manual, valores exatos de Aura, timestamps exatos de progressão e texto livre NÃO DEVEM ser enviados ao analytics.
+- **REQ-AN-012:** o conteúdo do save local/cloud, valores exatos de Aura, timestamps exatos de progressão e texto livre NÃO DEVEM ser enviados ao analytics.
 - **REQ-AN-013:** quando uma medida econômica ou temporal for necessária, ela DEVE usar uma faixa pré-definida em vez do valor exato.
 - **REQ-AN-014:** a política de privacidade e o formulário Data safety DEVEM reconhecer os identificadores técnicos e demais dados processados automaticamente pelo Firebase após o consentimento.
-- **REQ-AN-015:** o estado do Consentimento de Analytics DEVE ser uma preferência local do aparelho e NÃO DEVE acompanhar o Backup Manual.
+- **REQ-AN-015:** o estado do Consentimento de Analytics DEVE ser uma preferência local do aparelho e NÃO DEVE acompanhar o save cloud.
 - **REQ-AN-016:** a integração DEVE ser testada para comprovar ausência de eventos antes do consentimento e depois de sua revogação.
 - **REQ-AN-017:** resultados analíticos DEVEM ser interpretados como dados da parcela opt-in, sem presumir que representem todos os jogadores.
 - **REQ-AN-018:** o único convite automático de Consentimento de Analytics DEVE ocorrer depois da conclusão do primeiro Ciclo Six-Seven real.
@@ -976,10 +978,10 @@ Esta seção materializa o contrato de apresentação `number-format-v1`, detalh
 - **REQ-CRASH-010:** enviar, recusar ou dispensar Relatórios de Diagnóstico NÃO DEVE conceder recompensa, remover progresso ou alterar a experiência econômica.
 - **REQ-CRASH-011:** o projeto NÃO DEVE definir `User ID`, chaves personalizadas, logs personalizados ou valores de texto livre no Crashlytics no lançamento.
 - **REQ-CRASH-012:** o projeto NÃO DEVE registrar manualmente exceções não fatais no Crashlytics no lançamento.
-- **REQ-CRASH-013:** Relatórios de Diagnóstico NÃO DEVEM incluir conteúdo do save, Backup Manual, Aura exata ou Play Age Signals.
+- **REQ-CRASH-013:** Relatórios de Diagnóstico NÃO DEVEM incluir conteúdo do save local/cloud, Aura exata ou Play Age Signals.
 - **REQ-CRASH-014:** quando o Consentimento de Analytics estiver ativo, somente breadcrumbs produzidos pela taxonomia de analytics aprovada PODEM acompanhar o relatório, e essa possibilidade DEVE ser informada.
 - **REQ-CRASH-015:** autorizar diagnóstico NÃO DEVE habilitar Analytics nem alterar o Consentimento de Analytics.
-- **REQ-CRASH-016:** relatórios pendentes e Autorizações de Diagnóstico NÃO DEVEM integrar o save nem o Backup Manual.
+- **REQ-CRASH-016:** relatórios pendentes e Autorizações de Diagnóstico NÃO DEVEM integrar o save local nem cloud.
 - **REQ-CRASH-017:** política de privacidade e Data safety DEVEM declarar os dados técnicos, identificadores e retenção efetivamente usados pelo Crashlytics.
 - **REQ-CRASH-018:** a integração DEVE provar que nenhum relatório é transmitido antes da autorização e que a recusa executa a exclusão local.
 - **REQ-CRASH-019:** métricas do Crashlytics DEVEM ser interpretadas como cobertura autorizada e NÃO DEVEM ser tratadas como retrato completo de estabilidade.

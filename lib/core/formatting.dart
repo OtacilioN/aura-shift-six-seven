@@ -34,6 +34,12 @@ class AuraFormat {
     return '$coefficient${_suffixes[group - 1]}';
   }
 
+  /// Formats the complete integer with locale-aware thousands separators.
+  static String exactInteger(BigInt value, {String locale = 'en-US'}) {
+    final sign = value.isNegative ? '-' : '';
+    return '$sign${_groupDigits(value.abs().toString(), locale)}';
+  }
+
   /// Formats numerator / 2000 exactly for small values and compactly thereafter.
   static String rate(BigInt numerator, {String locale = 'en-US'}) {
     const denominator = 2000;
@@ -46,8 +52,8 @@ class AuraFormat {
     return integer(numerator ~/ BigInt.from(denominator), locale: locale);
   }
 
-  static String exactRate(BigInt numerator) =>
-      _decimal(numerator, 4, 'en-US', divisor: BigInt.from(2000));
+  static String exactRate(BigInt numerator, {String locale = 'en-US'}) =>
+      _decimal(numerator, 4, locale, divisor: BigInt.from(2000));
 
   static String multiplier(BigInt centi) {
     final whole = centi ~/ BigInt.from(100);
@@ -73,20 +79,45 @@ class AuraFormat {
     final scale = BigInt.from(10).pow(places);
     final scaled =
         places == 0 ? numerator ~/ divisor : numerator * scale ~/ divisor;
-    var raw = scaled.toString();
-    if (places == 0) return raw;
+    final sign = scaled.isNegative ? '-' : '';
+    var raw = scaled.abs().toString();
+    if (places == 0) return '$sign${_groupDigits(raw, locale)}';
     raw = raw.padLeft(places + 1, '0');
     final split = raw.length - places;
-    var result = '${raw.substring(0, split)}.${raw.substring(split)}';
-    result = result
-        .replaceFirst(RegExp(r'0+$'), '')
-        .replaceFirst(RegExp(r'\.$'), '');
-    return locale.startsWith('pt') ||
-            locale.startsWith('de') ||
-            locale.startsWith('fr') ||
-            locale == 'ar'
-        ? result.replaceAll('.', locale == 'ar' ? '٫' : ',')
-        : result;
+    final whole = _groupDigits(raw.substring(0, split), locale);
+    final fraction = raw.substring(split).replaceFirst(RegExp(r'0+$'), '');
+    if (fraction.isEmpty) return '$sign$whole';
+    return '$sign$whole${_decimalSeparator(locale)}$fraction';
+  }
+
+  static String _groupDigits(String digits, String locale) {
+    if (digits.length <= 3) return digits;
+    final separator = _groupSeparator(locale);
+    final firstGroupLength = digits.length % 3 == 0 ? 3 : digits.length % 3;
+    final buffer = StringBuffer(digits.substring(0, firstGroupLength));
+    for (var index = firstGroupLength; index < digits.length; index += 3) {
+      buffer
+        ..write(separator)
+        ..write(digits.substring(index, index + 3));
+    }
+    return buffer.toString();
+  }
+
+  static String _groupSeparator(String locale) {
+    if (locale.startsWith('pt') || locale.startsWith('de')) return '.';
+    if (locale.startsWith('fr')) return '\u202f';
+    if (locale == 'ar') return '٬';
+    return ',';
+  }
+
+  static String _decimalSeparator(String locale) {
+    if (locale == 'ar') return '٫';
+    if (locale.startsWith('pt') ||
+        locale.startsWith('de') ||
+        locale.startsWith('fr')) {
+      return ',';
+    }
+    return '.';
   }
 
   static String _scientific(BigInt value, String locale) {
